@@ -4,9 +4,10 @@ using UnityEngine;
 
 namespace Scavenger
 {
-    public class EnergyTransfer : MonoBehaviour
+    [RequireComponent(typeof(HP))]
+    public class Conduit : MonoBehaviour
     {
-        [SerializeField] private int transferRate;
+
+
     }
 }
-
