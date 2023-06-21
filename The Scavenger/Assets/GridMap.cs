@@ -6,7 +6,7 @@ namespace Scavenger
 {
     public class GridMap : MonoBehaviour
     {
-        private readonly Vector2[] adjacentDirections = { Vector2.up, Vector2.down, Vector2.left, Vector2.right };
+        public static Vector2Int[] adjacentDirections = { Vector2Int.up, Vector2Int.right, Vector2Int.down, Vector2Int.left };
 
         [SerializeField] private int cellSize;
         [SerializeField] private int mapSize;
@@ -21,39 +21,49 @@ namespace Scavenger
 
         public void PlaceObject(GridObject gridObject, Vector2 pos)
         {
-            if (!IsInRange(pos))
+            Vector2 worldPos = new Vector2(Mathf.Floor(pos.x) + cellSize / 2f, Mathf.Floor(pos.y) + cellSize / 2f);
+            Vector2Int gridPos = new Vector2Int(Mathf.FloorToInt(pos.x / cellSize), Mathf.FloorToInt(pos.y / cellSize));
+
+            if (!IsInRange(gridPos))
             {
                 Debug.Log("Out of map range.");
                 return;
             }
 
-            if (GetObjectAtPos(pos))
+            if (GetObjectAtPos(gridPos))
             {
                 Debug.Log("Position is occupied");
                 return;
             }
 
-            grid[(int)pos.x, (int)pos.y] = gridObject;
-            gridObject.transform.localPosition = pos;
+            GridObject newGridObj = Instantiate(gridObject, transform);
+            newGridObj.gridPos = gridPos;
+            grid[gridPos.x, gridPos.y] = newGridObj;
+
+            newGridObj.transform.localPosition = worldPos;
 
         }
 
-        public GridObject GetObjectAtPos(Vector2 pos)
+        public GridObject GetObjectAtPos(Vector2Int gridPos)
         { 
-            return grid[(int)pos.x, (int)pos.y];
+            if (IsInRange(gridPos))
+            {
+                return grid[gridPos.x, gridPos.y];
+            }
+            return null;
         }
 
-        public GridObject GetObjectAtRelativePos(Vector2 origin, Vector2 relativePos)
+        public GridObject GetObjectAtRelativePos(Vector2Int origin, Vector2Int relativePos)
         {
-            Vector2 pos = relativePos + origin;
-            return grid[(int)pos.x, (int)pos.y];
+            Vector2Int pos = relativePos + origin;
+            return GetObjectAtPos(pos);
         }
 
-        public List<GridObject> GetAdjacentObjects(Vector2 pos)
+        public List<GridObject> GetAdjacentObjects(Vector2Int pos)
         {
             List<GridObject> adjacents = new List<GridObject>();
 
-            foreach (Vector2 direction in adjacentDirections)
+            foreach (Vector2Int direction in adjacentDirections)
             {
                 GridObject adjacent = GetObjectAtRelativePos(pos, direction);
                 if (adjacent)
@@ -65,11 +75,12 @@ namespace Scavenger
             return adjacents;
         }
 
-        public bool IsInRange(Vector2 pos)
+        public bool IsInRange(Vector2Int pos)
         {
-            int x = (int)pos.x;
-            int y = (int)pos.y;
+            int x = pos.x;
+            int y = pos.y;
             return x >= 0 && x < mapSize && y >= 0 && y < mapSize;
         }
+
     }
 }
