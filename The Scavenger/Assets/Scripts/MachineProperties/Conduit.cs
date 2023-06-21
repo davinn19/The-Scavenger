@@ -13,7 +13,7 @@ namespace Scavenger
             InitConnectedSides();
         }
 
-        public void InitConnectedSides()
+        private void InitConnectedSides()
         {
             GridObject gridObject = GetComponent<GridObject>();
 
@@ -21,7 +21,7 @@ namespace Scavenger
             {
                 GridObject adjObject = gridObject.GetAdjacentObject(side);
 
-                Conduit adjConduit = null;
+                Conduit adjConduit;
 
                 if (!adjObject || !adjObject.TryGetComponent(out adjConduit))
                 {

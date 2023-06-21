@@ -17,12 +17,14 @@ namespace Scavenger
         {
             Vector3 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
 
-            tileHover.transform.position = new Vector3((int)mousePos.x, (int)mousePos.y, 0);
+            Vector2Int gridPos = new Vector2Int(Mathf.FloorToInt(mousePos.x), Mathf.FloorToInt(mousePos.y));
+
+            tileHover.transform.position = new Vector3(gridPos.x + 0.5f, gridPos.y + 0.5f, 0);
 
             if (Input.GetMouseButtonDown(0))
             {
                 Debug.Log(mousePos);
-                map.PlaceObject(obj, mousePos);
+                map.AddToGrid(obj, gridPos);
             }
         }
     }

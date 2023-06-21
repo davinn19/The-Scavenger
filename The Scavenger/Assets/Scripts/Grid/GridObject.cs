@@ -7,17 +7,19 @@ namespace Scavenger
 {
     public class GridObject : MonoBehaviour
     {
-        public Vector2Int gridPos;  // TODO come up with better solution
+        public Vector2Int gridPos;
+        private GridChunk chunk;
         private GridMap map;
+
         private void Awake()
         {
-            map = GetComponentInParent<GridMap>();
+            chunk = GetComponentInParent<GridChunk>();
+            map = chunk.GetComponentInParent<GridMap>();
         }
 
         public GridObject GetAdjacentObject(Vector2Int direction)   
         {
             return map.GetObjectAtRelativePos(gridPos, direction);
         }
-
     }
 }
