@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 354866611}
   - component: {fileID: 354866610}
   - component: {fileID: 354866612}
+  - component: {fileID: 354866613}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -156,7 +157,7 @@ MonoBehaviour:
   cam: {fileID: 519420031}
   map: {fileID: 1203047189}
   tileHover: {fileID: 700864868}
-  obj: {fileID: 8536021005148730433, guid: dec16739443c4ed4c989e46b41531c5c, type: 3}
+  obj: {fileID: 2435370515064411466, guid: 030ef4cf6bfc0ba42a00e29bba23529f, type: 3}
 --- !u!4 &354866611
 Transform:
   m_ObjectHideFlags: 0
@@ -185,6 +186,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   updatesPerSecond: 20
+--- !u!114 &354866613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 354866609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 792dd47e54719854e8f6784d6d379aae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
