@@ -23,5 +23,15 @@ namespace Scavenger
         {
             return map.GetObjectAtRelativePos(gridPos, direction);
         }
+
+        public virtual bool CanCombine(GridObject gridObject)
+        {
+            return true;
+        }
+
+        public virtual void Combine(GridObject otherObject)
+        {
+
+        }
     }
 }

@@ -21,15 +21,26 @@ namespace Scavenger
             {
                 GridObject adjObject = gridObject.GetAdjacentObject(side);
 
-                Conduit adjConduit;
-
-                if (!adjObject || !adjObject.TryGetComponent(out adjConduit))
+                if (!adjObject)
                 {
                     continue;
                 }
 
-                SetConnected(side, true);
-                adjConduit.SetConnected(side * -1, true);
+                Conduit adjConduit;
+
+                if (adjObject.TryGetComponent(out adjConduit))
+                {
+                    SetConnected(side, true);
+                    adjConduit.SetConnected(side * -1, true);
+                    continue;
+                }
+
+                ConduitInterface adjInterface;
+
+                if (adjObject.TryGetComponent(out adjInterface))
+                {
+                    SetConnected(side, true);
+                }
 
             }
             

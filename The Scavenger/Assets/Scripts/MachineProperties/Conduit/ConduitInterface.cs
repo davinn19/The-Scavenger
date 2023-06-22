@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace Scavenger
 {
-    [RequireComponent(typeof(EnergyBuffer))]
-    public class EnergyCell : MonoBehaviour
+    public class ConduitInterface : MonoBehaviour
     {
+
         // Start is called before the first frame update
         void Start()
         {

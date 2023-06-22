@@ -22,14 +22,23 @@ namespace Scavenger
         
         public void AddToChunk(GridObject gridObject, Vector2Int gridPos)
         {
-            Vector2Int chunkPos = GetChunkPos(gridPos);
+            GridObject existingObject = GetObject(gridPos);
+            
 
-            GridObject newGridObject = Instantiate(gridObject, transform);
+            if (!existingObject)
+            {
+                Vector2Int chunkPos = GetChunkPos(gridPos);
+                GridObject newGridObject = Instantiate(gridObject, transform);
 
-            newGridObject.gridPos = gridPos;
-            objects[chunkPos.x, chunkPos.y] = newGridObject;
+                newGridObject.gridPos = gridPos;
+                objects[chunkPos.x, chunkPos.y] = newGridObject;
 
-            newGridObject.transform.localPosition = new Vector3(chunkPos.x + 0.5f, chunkPos.y + 0.5f, 0);
+                newGridObject.transform.localPosition = new Vector3(chunkPos.x + 0.5f, chunkPos.y + 0.5f, 0);
+            }
+            else if (existingObject.CanCombine(gridObject))
+            {
+                existingObject.Combine(gridObject);
+            }
         }
 
 

@@ -6,16 +6,44 @@ namespace Scavenger
 {
     public class EnergyCable : ResourceTransfer
     {
-        // Start is called before the first frame update
-        void Start()
+
+
+        public override void InitConnectedSides()
         {
-        
+            GridObject gridObject = GetComponent<GridObject>();
+
+            foreach (Vector2Int side in GridMap.adjacentDirections)
+            {
+                GridObject adjObject = gridObject.GetAdjacentObject(side);
+
+                if (!adjObject)
+                {
+                    continue;
+                }
+
+                Conduit adjConduit;
+
+                if (adjObject.TryGetComponent(out adjConduit))
+                {
+                    SetConnected(side, true);
+                    adjConduit.SetConnected(side * -1, true);   // TODO move to updating
+                    continue;
+                }
+
+                ConduitInterface adjInterface;
+
+                if (adjObject.TryGetComponent(out adjInterface))
+                {
+                    SetConnected(side, true);
+                }
+
+            }
         }
 
-        // Update is called once per frame
-        void Update()
+        public override bool CanConnectTo(GridObject gridObject)
         {
-        
+            throw new System.NotImplementedException();
         }
+
     }
 }

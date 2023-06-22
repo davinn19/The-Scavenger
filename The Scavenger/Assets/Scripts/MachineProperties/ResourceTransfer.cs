@@ -4,21 +4,30 @@ using UnityEngine;
 
 namespace Scavenger
 {
-    public class ResourceTransfer : MonoBehaviour
+    public abstract class ResourceTransfer : MonoBehaviour
     {
-        [SerializeField] private int transferRate;
-        [SerializeField] private List<Vector2> connectedSides = new List<Vector2>();
+        [SerializeField] protected List<Vector2> connectedSides = new List<Vector2>();
 
-        // Start is called before the first frame update
-        void Start()
+        public abstract void InitConnectedSides();
+
+        public abstract bool CanConnectTo(GridObject gridObject);
+
+        public bool IsSideConnected(Vector2Int side)
         {
-        
+            return connectedSides.Contains(side);
         }
 
-        // Update is called once per frame
-        void Update()
+        public void SetConnected(Vector2Int side, bool connected)
         {
-        
+            if (connected)
+            {
+                connectedSides.Add(side);
+            }
+            else
+            {
+                connectedSides.Remove(side);
+            }
+
         }
     }
 }
