@@ -6,8 +6,6 @@ namespace Scavenger
 {
     public class ItemInterface : MonoBehaviour
     {
-        [SerializeField] private List<ItemBuffer> inputs;
-        [SerializeField] private List<ItemBuffer> outputs;
-
+        
     }
 }

@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 1977174896763692337}
   - component: {fileID: 3208930652215430749}
   - component: {fileID: 7579868736816114748}
-  - component: {fileID: -6662125756293753386}
   - component: {fileID: 1087827203980784344}
   - component: {fileID: 8952700594795125940}
+  - component: {fileID: 759794906775927189}
   m_Layer: 0
   m_Name: MakeshiftRecycler
   m_TagString: Untagged
@@ -115,18 +115,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 492e8b18a9cd32842b2acff35f12f3c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-6662125756293753386
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3384336018222738273}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2eb2f9dde78c28f429b17b9448d5cd8f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  recipes: {fileID: 11400000, guid: 1a37df0c49ee1d2449a8e6d3afe1cbaf, type: 2}
+  input: {fileID: 1087827203980784344}
+  output: {fileID: 8952700594795125940}
+  recycleProgress: 0
+  ticksPerRecycle: 10
 --- !u!114 &1087827203980784344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,6 +132,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02f98d24cdd54ff4799d20eefb735af4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slotCapacity: 99
+  numSlots: 1
 --- !u!114 &8952700594795125940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,5 +144,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 02f98d24cdd54ff4799d20eefb735af4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotCapacity: 99
+  numSlots: 4
+--- !u!114 &759794906775927189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3384336018222738273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b96ecb95815c3c42b4e3c7954afb8a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

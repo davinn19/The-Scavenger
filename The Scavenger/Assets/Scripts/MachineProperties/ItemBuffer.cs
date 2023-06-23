@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,19 +19,18 @@ namespace Scavenger
         private Dictionary<Item, int> items = new Dictionary<Item, int>();
 
 
-        public int GetInsertableAmount(Item item, int amount)
+        public Item FindFirst(Func<Item, bool> condition)
         {
-            int existingAmount = 0;
-
-            if (!items.ContainsKey(item))
+            foreach (Item item in items.Keys)
             {
-                if (items.Count >= numSlots)
+                if (condition(item))
                 {
-                    return 0;
+                    return item;
                 }
-
-                existingAmount = 0;
             }
+
+            return null;
+
         }
 
     }
