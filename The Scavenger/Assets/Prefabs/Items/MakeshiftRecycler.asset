@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 108606e407689c8488b72818cc9bdaf2, type: 3}
   m_Name: MakeshiftRecycler
   m_EditorClassIdentifier: 
-  displayName: Makeshift Recycler
-  icon: {fileID: 21300000, guid: fc4461844c7cf0d4aa1c604014dc598c, type: 3}
-  placedObject: {fileID: 3208930652215430749, guid: 777d0ea03beb74441be82191eb195f42, type: 3}
+  <DisplayName>k__BackingField: Makeshift Recycler
+  <Icon>k__BackingField: {fileID: 21300000, guid: fc4461844c7cf0d4aa1c604014dc598c, type: 3}
+  <PlacedObject>k__BackingField: {fileID: 3208930652215430749, guid: 777d0ea03beb74441be82191eb195f42, type: 3}

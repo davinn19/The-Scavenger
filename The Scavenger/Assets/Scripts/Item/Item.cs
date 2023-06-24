@@ -7,8 +7,8 @@ namespace Scavenger
     [CreateAssetMenu(fileName = "Item", menuName = "Scavenger/Item")]
     public class Item : ScriptableObject
     {
-        [SerializeField] private string displayName;
-        [SerializeField] private Sprite icon;       // TODO combine with placedObject's sprite, differentiate between placable and nonplacable
-        [SerializeField] private GridObject placedObject;
+        [field: SerializeField] public string DisplayName { get; private set;  }
+        [field: SerializeField] public Sprite Icon { get; private set; }     // TODO combine with PlacedObject's sprite, differentiate between placable and nonplacable
+        [field: SerializeField] public GridObject PlacedObject { get; private set; }
     }
 }

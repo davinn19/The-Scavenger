@@ -9,12 +9,14 @@ namespace Scavenger
         [SerializeField] private Camera cam;
         [SerializeField] private GridMap map;
         [SerializeField] private SpriteRenderer tileHover;
-        [SerializeField] private GridObject obj;
 
 
-        // Update is called once per frame
         void Update()
         {
+            Item item = GetComponent<ItemSelection>().GetSelectedItem();
+            Sprite placementPreview = item.Icon;
+            tileHover.sprite = placementPreview;
+
             Vector3 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
 
             Vector2Int gridPos = new Vector2Int(Mathf.FloorToInt(mousePos.x), Mathf.FloorToInt(mousePos.y));
@@ -24,7 +26,7 @@ namespace Scavenger
             if (Input.GetMouseButtonDown(0))
             {
                 Debug.Log(mousePos);
-                map.AddToGrid(obj, gridPos);
+                map.TryInteract(item, gridPos);
             }
         }
     }

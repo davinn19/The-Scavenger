@@ -6,7 +6,7 @@ namespace Scavenger
 {
     public class GridChunk : MonoBehaviour
     {
-        public static int chunkSize = 16;
+        public static readonly int chunkSize = 9;
 
         public Vector2Int chunkIndex;
 
@@ -20,25 +20,29 @@ namespace Scavenger
         }
 
         
-        public void AddToChunk(GridObject gridObject, Vector2Int gridPos)
+        public void SetObjectAtPos(GridObject gridObject, Vector2Int gridPos)
+        {
+            ClearPos(gridPos);
+
+            Vector2Int chunkPos = GetChunkPos(gridPos);
+            GridObject newGridObject = Instantiate(gridObject, transform);
+
+            newGridObject.gridPos = gridPos;
+            objects[chunkPos.x, chunkPos.y] = newGridObject;
+
+            newGridObject.transform.localPosition = new Vector3(chunkPos.x + 0.5f, chunkPos.y + 0.5f, 0);
+        }
+
+        // Removes the grid object at a position, if any
+        private void ClearPos(Vector2Int gridPos)
         {
             GridObject existingObject = GetObject(gridPos);
-            
-
-            if (!existingObject)
+            if (existingObject)
             {
-                Vector2Int chunkPos = GetChunkPos(gridPos);
-                GridObject newGridObject = Instantiate(gridObject, transform);
-
-                newGridObject.gridPos = gridPos;
-                objects[chunkPos.x, chunkPos.y] = newGridObject;
-
-                newGridObject.transform.localPosition = new Vector3(chunkPos.x + 0.5f, chunkPos.y + 0.5f, 0);
+                Destroy(existingObject.gameObject);
             }
-            else if (existingObject.CanCombine(gridObject))
-            {
-                existingObject.Combine(gridObject);
-            }
+            Vector2Int chunkPos = GetChunkPos(gridPos);
+            objects[chunkPos.x, chunkPos.y] = null;
         }
 
 

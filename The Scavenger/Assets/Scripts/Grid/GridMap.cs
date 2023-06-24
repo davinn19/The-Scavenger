@@ -45,11 +45,11 @@ namespace Scavenger
             return GetChunk(chunkIndex);
         }
 
-        // Adds a GridObject to the grid
-        public void AddToGrid(GridObject gridObject, Vector2Int gridPos)
+        // Sets a grid object at a position
+        public void SetObjectAtPos(GridObject gridObject, Vector2Int gridPos)
         {
             GridChunk chunk = GetChunkAtPos(gridPos);
-            chunk.AddToChunk(gridObject, gridPos);
+            chunk.SetObjectAtPos(gridObject, gridPos);
         }
 
         // Gets the object at the grid position
@@ -65,6 +65,27 @@ namespace Scavenger
             Vector2Int gridPos = relativePos + origin;
             return GetObjectAtPos(gridPos);
         }
+
+        public bool TryInteract(Item item, Vector2Int gridPos)
+        {
+            GridObject existingObject = GetObjectAtPos(gridPos);
+            if (!existingObject)
+            {
+                if (item.PlacedObject != null)
+                {
+                    SetObjectAtPos(item.PlacedObject, gridPos);
+                    return true;
+                }
+
+                return false;
+            }
+            else
+            {
+                bool interactSuccessful = existingObject.Interact(item);
+                return interactSuccessful;
+            }
+        }
+
 
     }
 }
