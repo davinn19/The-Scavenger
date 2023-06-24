@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Scavenger
 {
-    [CreateAssetMenu()]
+    [CreateAssetMenu(fileName = "Item", menuName = "Scavenger/Item")]
     public class Item : ScriptableObject
     {
         [SerializeField] private string displayName;
