@@ -25,7 +25,6 @@ namespace Scavenger
 
             if (Input.GetMouseButtonDown(0))
             {
-                Debug.Log(mousePos);
                 map.TryInteract(itemStack.item, gridPos);
             }
         }

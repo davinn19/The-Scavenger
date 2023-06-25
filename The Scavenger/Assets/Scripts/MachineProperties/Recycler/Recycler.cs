@@ -28,7 +28,5 @@ namespace Scavenger
 
             ItemStack recycledItem = input.FindFirst(recipes.IsRecyclable);
         }
-
-
     }
 }

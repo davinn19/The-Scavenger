@@ -29,5 +29,12 @@ namespace Scavenger
         {
             return false;   // TODO figure out later
         }
+
+        
+        public void TickUpdate()
+        {
+
+        }
+
     }
 }
