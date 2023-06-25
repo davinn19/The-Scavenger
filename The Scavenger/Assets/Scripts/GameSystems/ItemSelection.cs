@@ -6,7 +6,7 @@ namespace Scavenger
 {
     public class ItemSelection : MonoBehaviour
     {
-        [SerializeField] private List<Item> items = new List<Item>();
+        [SerializeField] private Item[] items;
         [SerializeField] private int selectedItem = 0;
 
         private void Update()
@@ -16,7 +16,7 @@ namespace Scavenger
             if (scrollDirection > 0)
             {
                 selectedItem++;
-                if (selectedItem >= items.Count)
+                if (selectedItem >= items.Length)
                 {
                     selectedItem = 0;
                 }
@@ -26,7 +26,7 @@ namespace Scavenger
                 selectedItem--;
                 if (selectedItem < 0)
                 {
-                    selectedItem = items.Count - 1;
+                    selectedItem = items.Length - 1;
                 }
             }
         }
