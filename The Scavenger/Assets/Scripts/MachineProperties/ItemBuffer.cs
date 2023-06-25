@@ -16,12 +16,10 @@ namespace Scavenger
         [Min(1)]
         private int numSlots;
 
-        private Dictionary<Item, int> items = new Dictionary<Item, int>();
 
-
-        public Item FindFirst(Func<Item, bool> condition)
+        public ItemStack FindFirst(Func<ItemStack, bool> condition)
         {
-            foreach (Item item in items.Keys)
+            foreach (ItemStack item in GetItems())
             {
                 if (condition(item))
                 {
@@ -31,6 +29,11 @@ namespace Scavenger
 
             return null;
 
+        }
+
+        private ItemStack[] GetItems()
+        {
+            return GetComponentsInChildren<ItemStack>();
         }
 
     }

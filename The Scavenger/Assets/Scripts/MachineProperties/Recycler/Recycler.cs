@@ -26,8 +26,9 @@ namespace Scavenger
                 recycleProgress = 0;
             }
 
-            Item recycledItem = input.FindFirst(recipes.IsRecyclable);
+            ItemStack recycledItem = input.FindFirst(recipes.IsRecyclable);
         }
+
 
     }
 }
