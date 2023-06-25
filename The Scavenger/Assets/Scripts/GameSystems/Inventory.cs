@@ -6,9 +6,6 @@ namespace Scavenger
 {
     public class Inventory : MonoBehaviour
     {
-        [SerializeField] private Dictionary<Item, int> inventory = new Dictionary<Item, int>();
-
-
         // Start is called before the first frame update
         void Start()
         {

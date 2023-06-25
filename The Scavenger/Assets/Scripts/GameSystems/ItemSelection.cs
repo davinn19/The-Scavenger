@@ -6,17 +6,17 @@ namespace Scavenger
 {
     public class ItemSelection : MonoBehaviour
     {
-        [SerializeField] private Item[] items;
         [SerializeField] private int selectedItem = 0;
 
         private void Update()
         {
+            ItemStack[] inventory = GetComponentsInChildren<ItemStack>();
             float scrollDirection = Input.GetAxisRaw("Mouse ScrollWheel");
 
             if (scrollDirection > 0)
             {
                 selectedItem++;
-                if (selectedItem >= items.Length)
+                if (selectedItem >= inventory.Length)
                 {
                     selectedItem = 0;
                 }
@@ -26,14 +26,14 @@ namespace Scavenger
                 selectedItem--;
                 if (selectedItem < 0)
                 {
-                    selectedItem = items.Length - 1;
+                    selectedItem = inventory.Length - 1;
                 }
             }
         }
 
-        public Item GetSelectedItem()
+        public ItemStack GetSelectedItemStack()
         {
-            return items[selectedItem];
+            return GetComponentsInChildren<ItemStack>()[selectedItem];
         }
 
     }

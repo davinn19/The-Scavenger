@@ -9,6 +9,5 @@ namespace Scavenger
     {
         [field: SerializeField] public string DisplayName { get; private set;  }
         [field: SerializeField] public Sprite Icon { get; private set; }     // TODO combine with PlacedObject's sprite, differentiate between placable and nonplacable
-        [field: SerializeField] public GridObject PlacedObject { get; private set; }
     }
 }

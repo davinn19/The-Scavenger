@@ -210,13 +210,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ce60afa392bc0248838784f5b761db5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items:
-  - {fileID: 11400000, guid: 6ff09c8e35631de4d8edf331ab204ec4, type: 2}
-  - {fileID: 11400000, guid: 7a7137b85373fbc49ad2dfdbe0e964a5, type: 2}
-  - {fileID: 11400000, guid: fef00908a95afa2449c9f65e6818b873, type: 2}
-  - {fileID: 11400000, guid: dfc8ea550b661af4f9e730b624e21869, type: 2}
-  - {fileID: 11400000, guid: 42a9201ce04c8a744813718a25c702a9, type: 2}
-  - {fileID: 11400000, guid: 86f98abd6a0626f48b034003fe2a35f7, type: 2}
   selectedItem: 0
 --- !u!1 &519420028
 GameObject:

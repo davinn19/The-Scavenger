@@ -71,9 +71,9 @@ namespace Scavenger
             GridObject existingObject = GetObjectAtPos(gridPos);
             if (!existingObject)
             {
-                if (item.PlacedObject != null)
+                if (item is PlaceableItem)
                 {
-                    SetObjectAtPos(item.PlacedObject, gridPos);
+                    SetObjectAtPos((item as PlaceableItem).PlacedObject, gridPos);
                     return true;
                 }
 

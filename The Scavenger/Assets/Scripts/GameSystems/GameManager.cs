@@ -13,8 +13,8 @@ namespace Scavenger
 
         void Update()
         {
-            Item item = GetComponent<ItemSelection>().GetSelectedItem();
-            Sprite placementPreview = item.Icon;
+            ItemStack itemStack = GetComponent<ItemSelection>().GetSelectedItemStack();
+            Sprite placementPreview = itemStack.item.Icon;
             tileHover.sprite = placementPreview;
 
             Vector3 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
@@ -26,7 +26,7 @@ namespace Scavenger
             if (Input.GetMouseButtonDown(0))
             {
                 Debug.Log(mousePos);
-                map.TryInteract(item, gridPos);
+                map.TryInteract(itemStack.item, gridPos);
             }
         }
     }
