@@ -10,6 +10,7 @@ namespace Scavenger
 
         [SerializeField] private ItemBuffer input;
         [SerializeField] private ItemBuffer output;
+        [SerializeField] private EnergyBuffer energy;
 
         [SerializeField] private float recycleProgress = 0;
 

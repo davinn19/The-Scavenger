@@ -6,63 +6,100 @@ namespace Scavenger
 {
     public class Conduit : MonoBehaviour
     {
-        private HashSet<Vector2Int> connectedSides = new HashSet<Vector2Int>();
+        private HashSet<Vector2Int> disabledSides = new HashSet<Vector2Int>();
 
-        private void Start()
-        {
-            InitConnectedSides();
-        }
-
-        private void InitConnectedSides()
+        private void Awake()
         {
             GridObject gridObject = GetComponent<GridObject>();
+            gridObject.OnNeighborUpdated = OnNeighborUpdated;
+            gridObject.OnNeighborPlaced = OnNeighborPlaced;
+        }
 
-            foreach (Vector2Int side in GridMap.adjacentDirections)
+        // If the adjacent object is removed or accepts conduits, reset the disabled side
+        private bool OnNeighborPlaced(Vector2Int sideUpdated)
+        {
+            Debug.Log(sideUpdated);
+            GridObject gridObject = GetComponent<GridObject>();
+            GridObject adjObject = gridObject.GetAdjacentObject(sideUpdated);
+
+            bool oldDisabled = IsSideDisabled(sideUpdated);
+            if (!adjObject || adjObject.GetComponent<ConduitInterface>() || adjObject.GetComponent<Conduit>())
             {
-                GridObject adjObject = gridObject.GetAdjacentObject(side);
-
-                if (!adjObject)
-                {
-                    continue;
-                }
-
-                Conduit adjConduit;
-
-                if (adjObject.TryGetComponent(out adjConduit))
-                {
-                    SetConnected(side, true);
-                    adjConduit.SetConnected(side * -1, true);
-                    continue;
-                }
-
-                ConduitInterface adjInterface;
-
-                if (adjObject.TryGetComponent(out adjInterface))
-                {
-                    SetConnected(side, true);
-                }
-
+                SetDisabledSide(sideUpdated, false);
             }
-            
+
+            PrintDisabledSides();
+            return oldDisabled != IsSideDisabled(sideUpdated);
+        }
+
+
+        private bool OnNeighborUpdated(Vector2Int sideUpdated)
+        {
+            GridObject gridObject = GetComponent<GridObject>();
+            GridObject adjObject = gridObject.GetAdjacentObject(sideUpdated);
+
+            bool oldDisabled = IsSideDisabled(sideUpdated);
+            bool disabled = oldDisabled;
+
+            Conduit otherConduit;
+            if (adjObject.TryGetComponent(out otherConduit))
+            {
+                Vector2Int oppositeSide = sideUpdated * -1;
+                disabled = otherConduit.IsSideDisabled(oppositeSide);
+            }
+
+            SetDisabledSide(sideUpdated, disabled);
+
+
+            PrintDisabledSides();
+            return disabled != oldDisabled;
         }
 
         public bool IsSideConnected(Vector2Int side)
         {
-            return connectedSides.Contains(side);
+            if (IsSideDisabled(side))
+            {
+                return false;
+            }
+
+            GridObject adjObject = GetComponent<GridObject>().GetAdjacentObject(side);
+
+            if (!adjObject)
+            {
+                return false;
+            }
+
+            return adjObject.GetComponent<ConduitInterface>() || adjObject.GetComponent<Conduit>();
         }
 
-        public void SetConnected(Vector2Int side, bool connected)
+        public bool IsSideDisabled(Vector2Int side)
         {
-            if (connected)
+            return disabledSides.Contains(side);
+        }
+
+        public void SetDisabledSide(Vector2Int side, bool disabled)
+        {
+            if (disabled)
             {
-                connectedSides.Add(side);
+                disabledSides.Add(side);
             }
             else
             {
-                connectedSides.Remove(side);
+                disabledSides.Remove(side);
             }
 
         }
 
+
+        private void PrintDisabledSides()
+        {
+            string output = name;
+            foreach (Vector2Int side in disabledSides)
+            {
+                output += "\n" + side.ToString();
+            }
+
+            Debug.Log(output);
+        }
     }
 }

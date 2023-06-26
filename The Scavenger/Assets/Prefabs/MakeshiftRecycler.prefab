@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 4636573269493120149}
   - component: {fileID: 1977174896763692337}
   - component: {fileID: 3208930652215430749}
-  - component: {fileID: 1087827203980784344}
-  - component: {fileID: 8952700594795125940}
-  - component: {fileID: 759794906775927189}
+  - component: {fileID: 5152907530282061247}
+  - component: {fileID: 8411136929169605812}
+  - component: {fileID: 5737372038577171505}
+  - component: {fileID: 1296748062073017628}
   m_Layer: 0
   m_Name: MakeshiftRecycler
   m_TagString: Untagged
@@ -29,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3384336018222738273}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.2589772, y: -0.19010757, z: -0.018419381}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -102,7 +103,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   droppedItem: {fileID: 0}
   gridPos: {x: 0, y: 0}
---- !u!114 &1087827203980784344
+  map: {fileID: 0}
+--- !u!114 &5152907530282061247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3384336018222738273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 492e8b18a9cd32842b2acff35f12f3c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recipes: {fileID: 11400000, guid: 1a37df0c49ee1d2449a8e6d3afe1cbaf, type: 2}
+  input: {fileID: 8411136929169605812}
+  output: {fileID: 5737372038577171505}
+  energy: {fileID: 1296748062073017628}
+  recycleProgress: 0
+  ticksPerRecycle: 0
+--- !u!114 &8411136929169605812
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -114,9 +134,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02f98d24cdd54ff4799d20eefb735af4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotCapacity: 99
-  numSlots: 1
---- !u!114 &8952700594795125940
+  slotCapacity: 1
+  numSlots: 0
+--- !u!114 &5737372038577171505
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -128,9 +148,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02f98d24cdd54ff4799d20eefb735af4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotCapacity: 99
-  numSlots: 4
---- !u!114 &759794906775927189
+  slotCapacity: 1
+  numSlots: 0
+--- !u!114 &1296748062073017628
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -139,6 +159,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3384336018222738273}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b96ecb95815c3c42b4e3c7954afb8a7, type: 3}
+  m_Script: {fileID: 11500000, guid: 3a854dc0ec229134a90018277a04c963, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxEnergy: 0
+  energy: 0
+  maxOutput: 0
+  maxInput: 0

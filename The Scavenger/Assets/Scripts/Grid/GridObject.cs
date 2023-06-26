@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +12,15 @@ namespace Scavenger
 
         public Vector2Int gridPos;
         private GridChunk chunk;
-        private GridMap map;
+        [SerializeField] private GridMap map;
+
+        // TODO move somewhere else? maybe?
+        public Action OnPlace = () => { };
+        public Action OnRemove = () => { };
+        public Func <Vector2Int, bool> OnNeighborPlaced = (_) => { return false; };
+        public Func<Vector2Int, bool> OnNeighborUpdated = (_) => { return false; };
+        public Action TickUpdate = () => { };
+
 
         private void Awake()
         {
@@ -28,12 +37,6 @@ namespace Scavenger
         public virtual bool Interact(Item otherObject)
         {
             return false;   // TODO figure out later
-        }
-
-        
-        public void TickUpdate()
-        {
-
         }
 
     }

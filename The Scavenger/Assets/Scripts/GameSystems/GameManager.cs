@@ -25,7 +25,16 @@ namespace Scavenger
 
             if (Input.GetMouseButtonDown(0))
             {
-                map.TryInteract(itemStack.item, gridPos);
+                // Place Item
+                if (map.GetObjectAtPos(gridPos) == null && itemStack.item is PlaceableItem)
+                {
+                    map.TryPlaceItem(itemStack.item as PlaceableItem, gridPos);
+                }
+                else if (map.GetObjectAtPos(gridPos) != null)
+                {
+                    map.TryInteract(itemStack.item, gridPos);
+                }
+                
             }
         }
     }

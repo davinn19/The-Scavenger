@@ -10,7 +10,6 @@ namespace Scavenger
 
         private Dictionary<Vector2Int, GridChunk> gridChunks = new Dictionary<Vector2Int, GridChunk>();
 
-
         // Gets the chunk at the chunk index, creates it if nonexistent
         public GridChunk GetChunk(Vector2Int chunkIndex)
         {
@@ -46,7 +45,7 @@ namespace Scavenger
         }
 
         // Sets a grid object at a position
-        public void SetObjectAtPos(GridObject gridObject, Vector2Int gridPos)
+        private void SetObjectAtPos(GridObject gridObject, Vector2Int gridPos)
         {
             GridChunk chunk = GetChunkAtPos(gridPos);
             chunk.SetObjectAtPos(gridObject, gridPos);
@@ -69,23 +68,100 @@ namespace Scavenger
         public bool TryInteract(Item item, Vector2Int gridPos)
         {
             GridObject existingObject = GetObjectAtPos(gridPos);
-            if (!existingObject)
-            {
-                if (item is PlaceableItem)
-                {
-                    SetObjectAtPos((item as PlaceableItem).PlacedObject, gridPos);
-                    return true;
-                }
-
-                return false;
-            }
-            else
+            if (existingObject)
             {
                 bool interactSuccessful = existingObject.Interact(item);
                 return interactSuccessful;
             }
+
+            return false;
         }
 
+        public bool TryPlaceItem(PlaceableItem item, Vector2Int gridPos)
+        {
+            GridObject existingObject = GetObjectAtPos(gridPos);
+            if (existingObject)
+            {
+                return false;
+            }
+
+            SetObjectAtPos(item.PlacedObject, gridPos);
+
+            PropagatePlacementUpdates(gridPos);
+
+            return true;
+        }
+
+        private void PropagatePlacementUpdates(Vector2Int startPos)
+        {
+            Queue<(Vector2Int, Vector2Int)> queuedUpdates = new Queue<(Vector2Int, Vector2Int)>();
+            HashSet<Vector2Int> finishedUpdates = new HashSet<Vector2Int>();
+
+            // Do placement update
+            GridObject startObject = GetObjectAtPos(startPos);
+
+            startObject.OnPlace();
+            finishedUpdates.Add(startPos);
+
+            // Do neighbor placement update
+            foreach (Vector2Int neighborSide in adjacentDirections)
+            {
+                Vector2Int neighborPos = startPos + neighborSide;
+                GridObject adjObject = startObject.GetAdjacentObject(neighborSide);
+
+                if (!adjObject)
+                {
+                    continue;
+                }
+
+                bool neighborUpdated = adjObject.OnNeighborPlaced(neighborSide * -1);
+                finishedUpdates.Add(neighborPos);
+
+                if (neighborUpdated)
+                {
+                    foreach (Vector2Int side in adjacentDirections)
+                    {
+                        queuedUpdates.Enqueue((neighborPos + side, side * -1));
+                    }
+                }
+            }
+
+            PropagateNeighborUpdates(queuedUpdates, finishedUpdates);
+        }
+
+        // queuedUpdates: (position to be updated, side invoking the update)
+        private void PropagateNeighborUpdates(Queue<(Vector2Int, Vector2Int)> queuedUpdates, HashSet<Vector2Int> finishedUpdates)
+        {
+            while (queuedUpdates.Count > 0)
+            {
+                (Vector2Int, Vector2Int) nextUpdate = queuedUpdates.Dequeue();
+                Vector2Int curPos = nextUpdate.Item1;
+                Vector2Int updatedSide = nextUpdate.Item2;
+
+                if (finishedUpdates.Contains(curPos))
+                {
+                    continue;
+                }
+
+                finishedUpdates.Add(curPos);
+                GridObject gridObject = GetObjectAtPos(curPos);
+
+                if (!gridObject)
+                {
+                    continue;
+                }
+
+                if (gridObject.OnNeighborUpdated(updatedSide))
+                {
+                    foreach (Vector2Int side in adjacentDirections)
+                    {
+                        queuedUpdates.Enqueue((curPos, side));
+                    }
+                }
+            }
+            
+
+        }
 
     }
 }
