@@ -8,8 +8,6 @@ namespace Scavenger
 {
     public class GridObject : MonoBehaviour
     {
-        [SerializeField] private Item droppedItem;
-
         public Vector2Int gridPos;
         private GridChunk chunk;
         [SerializeField] private GridMap map;
