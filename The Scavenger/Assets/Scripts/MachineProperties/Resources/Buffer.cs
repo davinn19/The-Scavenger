@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace Scavenger
 {
-    public class ItemInterface : MonoBehaviour
+    public class Buffer : MonoBehaviour
     {
-        
+
     }
 }

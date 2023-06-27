@@ -4,12 +4,18 @@ using UnityEngine;
 
 namespace Scavenger
 {
-    public class EnergyBuffer : MonoBehaviour
+    public class EnergyBuffer : Buffer
     {
-        [SerializeField] private int maxEnergy;
-        [SerializeField] private int energy = 0;
-        [SerializeField] private int maxOutput;
-        [SerializeField] private int maxInput;
-    }
+        // Start is called before the first frame update
+        void Start()
+        {
+        
+        }
 
+        // Update is called once per frame
+        void Update()
+        {
+        
+        }
+    }
 }

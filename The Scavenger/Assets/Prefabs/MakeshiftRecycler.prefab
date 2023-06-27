@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8411136929169605812}
   - component: {fileID: 5737372038577171505}
   - component: {fileID: 1296748062073017628}
+  - component: {fileID: 3905828751537759684}
   m_Layer: 0
   m_Name: MakeshiftRecycler
   m_TagString: Untagged
@@ -134,7 +135,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02f98d24cdd54ff4799d20eefb735af4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotCapacity: 1
+  label: Input
+  maxCapacity: 0
+  items: []
   numSlots: 0
 --- !u!114 &5737372038577171505
 MonoBehaviour:
@@ -148,7 +151,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02f98d24cdd54ff4799d20eefb735af4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotCapacity: 1
+  label: Output
+  maxCapacity: 0
+  items: []
   numSlots: 0
 --- !u!114 &1296748062073017628
 MonoBehaviour:
@@ -162,7 +167,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a854dc0ec229134a90018277a04c963, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxEnergy: 0
-  energy: 0
-  maxOutput: 0
-  maxInput: 0
+  label: 
+--- !u!114 &3905828751537759684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3384336018222738273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2eb2f9dde78c28f429b17b9448d5cd8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buffers: []

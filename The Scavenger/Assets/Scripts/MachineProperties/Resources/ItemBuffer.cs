@@ -5,36 +5,22 @@ using UnityEngine;
 
 namespace Scavenger
 {
-    public class ItemBuffer : MonoBehaviour
+    public class ItemBuffer : Buffer
     {
-        // TODO implement
-        [SerializeField]
-        [Min(1)]
-        private int slotCapacity;
+        [SerializeField] private int maxCapacity;
+        [SerializeField] private List<ItemStack> items;
+        [SerializeField] private int numSlots;
 
-        [SerializeField]
-        [Min(1)]
-        private int numSlots;
-
-
-        public ItemStack FindFirst(Func<ItemStack, bool> condition)
+        public ItemStack FindFirst(Predicate<ItemStack> condition)
         {
-            foreach (ItemStack item in GetItems())
+            foreach (ItemStack item in items)
             {
                 if (condition(item))
                 {
                     return item;
                 }
             }
-
             return null;
-
         }
-
-        private ItemStack[] GetItems()
-        {
-            return GetComponentsInChildren<ItemStack>();
-        }
-
     }
 }
