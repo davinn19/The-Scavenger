@@ -9,43 +9,95 @@ namespace Scavenger
     [RequireComponent(typeof(Conduit))]
     public class ConduitRenderer : MonoBehaviour
     {
-        private SpriteResolver spriteResolver;
-        private Conduit conduit;
-        private SpriteLibrary spriteLibrary;
+        [SerializeField] private Conduit conduit;
 
-        private void Start()
+        [SerializeField]
+        [Tooltip("Connections are ordered according to the order of GridMap.adjacentDirections")]
+        private SpriteResolver[] connectionSprites;
+
+        private void Awake()
         {
-            conduit = GetComponent<Conduit>();
-            spriteResolver = GetComponent<SpriteResolver>();
-            spriteLibrary = GetComponent<SpriteLibrary>();
+            GridObject gridObject = GetComponent<GridObject>();
+
+            gridObject.OnPlaced.Add(OnPlaced);
+            gridObject.OnNeighborPlaced.Add(UpdateSide);
+            gridObject.OnNeighborChanged.Add(UpdateAllSides);
+
+            
+
         }
 
-        private void Update()
+        private void OnPlaced()
         {
-            UpdateAppearance();
+            UpdateAllSides();
         }
 
-        private void UpdateAppearance()
+        private bool UpdateSide(Vector2Int side)
         {
-            string connectedSides = "";
+            SpriteResolver connectionSprite = GetConnectionSprite(side);
+            string label = GetLabelForSide(side);
+            string oldLabel = connectionSprite.GetLabel();
+
+            connectionSprite.SetCategoryAndLabel("Connections", label);
+
+            return label != oldLabel;
+        }
+
+        private bool UpdateAllSides()
+        {
+            bool changed = false;
 
             for (int sideIndex = 0; sideIndex < 4; sideIndex++)
             {
+                SpriteResolver connectionSprite = connectionSprites[sideIndex];
                 Vector2Int side = GridMap.adjacentDirections[sideIndex];
-                if (conduit.IsSideConnected(side))
-                {
-                    connectedSides += sideIndex;
-                }
+                string label = GetLabelForSide(side);
+                string oldLabel = connectionSprite.GetLabel();
 
+                connectionSprite.SetCategoryAndLabel("Connections", label);
             }
 
-            if (connectedSides == "")
+            return changed;
+        }
+
+        // Gets sprite resolver for specific side
+        private SpriteResolver GetConnectionSprite(Vector2Int side)
+        {
+            for (int i = 0; i < GridMap.adjacentDirections.Length; i++)
             {
-                connectedSides = "None";
+                if (GridMap.adjacentDirections[i] == side)
+                {
+                    return connectionSprites[i];
+                }
+            }
+            return null;
+        }
+
+        // Gets the proper sprite resolver label for a specific side
+        private string GetLabelForSide(Vector2Int side)
+        {
+            if (!conduit.IsSideConnected(side))
+            {
+                return "None";
+            }
+            ConduitInterface conduitInterface = GetComponent<GridObject>().GetAdjacentObject(side).GetComponent<ConduitInterface>();
+
+            if (conduitInterface)
+            {
+                Vector2Int opppositeSide = side * -1;
+                SideConfig sideConfig = conduitInterface.GetSideConfig(opppositeSide);
+
+                if (sideConfig.transportMode == TransportMode.INSERT)
+                {
+                    return "Insert";
+                }
+                else if (sideConfig.transportMode == TransportMode.EXTRACT)
+                {
+                    return "Extract";
+                }
             }
 
-            spriteResolver.SetCategoryAndLabel("Conduit", connectedSides);
-
+            return "Normal";
         }
     }
 }

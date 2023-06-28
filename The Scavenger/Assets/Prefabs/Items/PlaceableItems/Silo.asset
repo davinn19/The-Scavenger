@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e03af6e9d64863a46bf56de15681ab2d, type: 3}
   m_Name: Silo
   m_EditorClassIdentifier: 
-  <DisplayName>k__BackingField: 
-  <Icon>k__BackingField: {fileID: 0}
-  <PlacedObject>k__BackingField: {fileID: 0}
+  <DisplayName>k__BackingField: Silo
+  <Icon>k__BackingField: {fileID: 21300000, guid: d2947237145902240b7cd968fc71a5fe, type: 3}
+  <PlacedObject>k__BackingField: {fileID: 4332138351023361908, guid: 67090b91a473f964e99512c76bf3a5b2, type: 3}

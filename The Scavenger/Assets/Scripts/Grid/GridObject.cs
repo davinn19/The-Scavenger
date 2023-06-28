@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 namespace Scavenger
 {
@@ -13,11 +12,12 @@ namespace Scavenger
         [SerializeField] private GridMap map;
 
         // TODO move somewhere else? maybe?
-        public Action OnPlace = () => { };
-        public Action OnRemove = () => { };
-        public Func <Vector2Int, bool> OnNeighborPlaced = (_) => { return false; };
-        public Func<Vector2Int, bool> OnNeighborUpdated = (_) => { return false; };
-        public Action TickUpdate = () => { };
+
+        public List<Action> OnPlaced = new();
+        public List<Action> OnRemoved = new();
+        public List<Func<Vector2Int, bool>> OnNeighborPlaced = new();
+        public List<Func<bool>> OnNeighborChanged = new();
+        public List<Action> OnTick = new();
 
 
         private void Awake()

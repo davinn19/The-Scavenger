@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,7 @@ namespace Scavenger
     public class GridMap : MonoBehaviour
     {
         public static Vector2Int[] adjacentDirections = { Vector2Int.up, Vector2Int.right, Vector2Int.down, Vector2Int.left };
+        public UpdatePropagation updatePropagation;
 
         private Dictionary<Vector2Int, GridChunk> gridChunks = new Dictionary<Vector2Int, GridChunk>();
 
@@ -87,81 +89,9 @@ namespace Scavenger
 
             SetObjectAtPos(item.PlacedObject, gridPos);
 
-            PropagatePlacementUpdates(gridPos);
-
+            updatePropagation.HandlePlaceUpdate(gridPos);
+            
             return true;
         }
-
-        private void PropagatePlacementUpdates(Vector2Int startPos)
-        {
-            Queue<(Vector2Int, Vector2Int)> queuedUpdates = new Queue<(Vector2Int, Vector2Int)>();
-            HashSet<Vector2Int> finishedUpdates = new HashSet<Vector2Int>();
-
-            // Do placement update
-            GridObject startObject = GetObjectAtPos(startPos);
-
-            startObject.OnPlace();
-            finishedUpdates.Add(startPos);
-
-            // Do neighbor placement update
-            foreach (Vector2Int neighborSide in adjacentDirections)
-            {
-                Vector2Int neighborPos = startPos + neighborSide;
-                GridObject adjObject = startObject.GetAdjacentObject(neighborSide);
-
-                if (!adjObject)
-                {
-                    continue;
-                }
-
-                bool neighborUpdated = adjObject.OnNeighborPlaced(neighborSide * -1);
-                finishedUpdates.Add(neighborPos);
-
-                if (neighborUpdated)
-                {
-                    foreach (Vector2Int side in adjacentDirections)
-                    {
-                        queuedUpdates.Enqueue((neighborPos + side, side * -1));
-                    }
-                }
-            }
-
-            PropagateNeighborUpdates(queuedUpdates, finishedUpdates);
-        }
-
-        // queuedUpdates: (position to be updated, side invoking the update)
-        private void PropagateNeighborUpdates(Queue<(Vector2Int, Vector2Int)> queuedUpdates, HashSet<Vector2Int> finishedUpdates)
-        {
-            while (queuedUpdates.Count > 0)
-            {
-                (Vector2Int, Vector2Int) nextUpdate = queuedUpdates.Dequeue();
-                Vector2Int curPos = nextUpdate.Item1;
-                Vector2Int updatedSide = nextUpdate.Item2;
-
-                if (finishedUpdates.Contains(curPos))
-                {
-                    continue;
-                }
-
-                finishedUpdates.Add(curPos);
-                GridObject gridObject = GetObjectAtPos(curPos);
-
-                if (!gridObject)
-                {
-                    continue;
-                }
-
-                if (gridObject.OnNeighborUpdated(updatedSide))
-                {
-                    foreach (Vector2Int side in adjacentDirections)
-                    {
-                        queuedUpdates.Enqueue((curPos, side));
-                    }
-                }
-            }
-            
-
-        }
-
     }
 }

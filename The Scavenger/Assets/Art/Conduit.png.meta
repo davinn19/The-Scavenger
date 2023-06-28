@@ -107,259 +107,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 02
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 300
-        width: 100
-        height: 100
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ec167f7566b256c49af7d317b24f99e6
-      internalID: -1930185788
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 12
-      rect:
-        serializedVersion: 2
-        x: 100
-        y: 300
-        width: 100
-        height: 100
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 099f3ed1c6d183143b5c349822a51ca5
-      internalID: 2045283505
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 2
-      rect:
-        serializedVersion: 2
-        x: 200
-        y: 300
-        width: 100
-        height: 100
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6d779a732ef57bd41b320a1a9ac3edc0
-      internalID: 826448002
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 23
-      rect:
-        serializedVersion: 2
-        x: 300
-        y: 300
-        width: 100
-        height: 100
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fb614428c4178e64faa70f86e72b76ed
-      internalID: -310169583
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 13
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 200
-        width: 100
-        height: 100
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a55037dfbd0c94040b5d02efeedf8856
-      internalID: 1114804077
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 1
-      rect:
-        serializedVersion: 2
-        x: 100
-        y: 200
-        width: 100
-        height: 100
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6a19a6993ce77b84f9242168e527cdbf
-      internalID: -473321395
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 0123
-      rect:
-        serializedVersion: 2
-        x: 200
-        y: 200
-        width: 100
-        height: 100
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ca21c64616e4fd5469a768c600d51db7
-      internalID: 1451745143
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 3
-      rect:
-        serializedVersion: 2
-        x: 300
-        y: 200
-        width: 100
-        height: 100
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 58b6ea8be47fc8847856cdc5e9a676b8
-      internalID: -1248346628
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: None
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 100
-        width: 100
-        height: 100
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7a6f873c31c58c141a6dd44d0e7547ae
-      internalID: -1988837522
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 01
-      rect:
-        serializedVersion: 2
-        x: 100
-        y: 100
-        width: 100
-        height: 100
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5a93627d22ee2f04c81685f1386c3477
-      internalID: -1880141363
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 0
-      rect:
-        serializedVersion: 2
-        x: 200
-        y: 100
-        width: 100
-        height: 100
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6a9c48bf4ce4d8847b094b643e362719
-      internalID: 366584823
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 03
-      rect:
-        serializedVersion: 2
-        x: 300
-        y: 100
-        width: 100
-        height: 100
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 19bb95e63de3697459b5b4152893f0bd
-      internalID: -2031186500
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 012
+      name: Conduit_0
       rect:
         serializedVersion: 2
         x: 0
@@ -373,14 +121,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2d2a47e5c411fba4c86e3aebb8d78fad
-      internalID: -1406205584
+      spriteID: a266a9bbd946e5142b408ffbf737d594
+      internalID: 969059442
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 123
+      name: Conduit_1
       rect:
         serializedVersion: 2
         x: 100
@@ -394,14 +142,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1e96a3dd17e72cf4baf698b5a20dc8e9
-      internalID: 2135450604
+      spriteID: af61a016fc073264b959f3e5f638c1cd
+      internalID: 1663120949
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 013
+      name: Conduit_2
       rect:
         serializedVersion: 2
         x: 200
@@ -415,14 +163,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: da8af3de81df85145aa397d46e6b1d8d
-      internalID: 1520620334
+      spriteID: f781d5f73fef4d043986dc485a99e018
+      internalID: -1697172398
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 023
+      name: Conduit_3
       rect:
         serializedVersion: 2
         x: 300
@@ -436,8 +184,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b533c96fb7d2b224682436aea6545b2f
-      internalID: 1575714549
+      spriteID: c8eba00f6fd09bd4ba3f867cecd7be62
+      internalID: -1946390021
       vertices: []
       indices: 
       edges: []
@@ -453,22 +201,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      0: 366584823
-      01: -1880141363
-      012: -1406205584
-      0123: 1451745143
-      013: 1520620334
-      02: -1930185788
-      023: 1575714549
-      03: -2031186500
-      1: -473321395
-      12: 2045283505
-      123: 2135450604
-      13: 1114804077
-      2: 826448002
-      23: -310169583
-      3: -1248346628
-      None: -1988837522
+      Conduit_0: 969059442
+      Conduit_1: 1663120949
+      Conduit_2: -1697172398
+      Conduit_3: -1946390021
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

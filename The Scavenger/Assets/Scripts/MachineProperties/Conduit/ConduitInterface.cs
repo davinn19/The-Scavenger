@@ -17,16 +17,9 @@ namespace Scavenger
             }
         }
 
-        // Start is called before the first frame update
-        void Start()
+        public SideConfig GetSideConfig(Vector2Int side)
         {
-        
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
+            return sideConfigurations[side];
         }
     }
 
@@ -39,13 +32,13 @@ namespace Scavenger
     public enum TransportMode
     {
         NONE,
-        INPUT,
-        OUTPUT
+        INSERT,
+        EXTRACT
     }
 
     public class SideConfig
     {
-        TransportMode transportMode;
+        public TransportMode transportMode { get; private set; }
         Buffer buffer;
         FilterMode filterMode;
         List<ItemStack> filterItems;
