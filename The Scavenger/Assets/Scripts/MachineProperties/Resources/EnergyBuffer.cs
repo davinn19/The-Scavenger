@@ -6,16 +6,48 @@ namespace Scavenger
 {
     public class EnergyBuffer : Buffer
     {
-        // Start is called before the first frame update
-        void Start()
+        [SerializeField] private int capacity;
+        private int energy = 0;
+
+
+        public int InsertEnergy(int amount, bool simulate = false)
         {
-        
+            int remainingCapacity = GetRemainingCapacity();
+            int amountToInsert = Mathf.Min(remainingCapacity, amount);
+
+            if (!simulate)
+            {
+                energy += amountToInsert;
+            }
+
+            return amountToInsert;
         }
 
-        // Update is called once per frame
-        void Update()
+        public int ExtractEnergy(int amount, bool simulate = false)
         {
-        
+            int amountToExtract = Mathf.Min(energy, amount);
+
+            if (!simulate)
+            {
+                energy -= amountToExtract;
+            }
+
+            return amountToExtract;
+        }
+
+        public int GetEnergy()
+        {
+            return energy;
+        }
+
+        public int GetCapacity()
+        {
+            return capacity;
+        }
+
+        public int GetRemainingCapacity()
+        {
+            return capacity - energy;
         }
     }
 }

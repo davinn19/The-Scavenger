@@ -1,78 +1,84 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Scavenger
 {
+    [RequireComponent(typeof(GridObject))]
     public class Conduit : MonoBehaviour
-    {   
-        private HashSet<Vector2Int> disabledSides = new HashSet<Vector2Int>();
+    {
+        private GridObject gridObject;
+
+        private Dictionary<Vector2Int, SideConfig> sideConfigs = new Dictionary<Vector2Int, SideConfig>();
 
         private void Awake()
         {
-            GridObject gridObject = GetComponent<GridObject>();
+            gridObject = GetComponent<GridObject>();
+
             gridObject.OnNeighborPlaced.Add(OnNeighborPlaced);
             gridObject.OnNeighborChanged.Add(OnNeighborChanged);
+
+            InitSideConfigs();
         }
 
-        // If the adjacent object is removed or accepts conduits, reset the disabled side
+        private void InitSideConfigs()
+        {
+            foreach (Vector2Int side in GridMap.adjacentDirections)
+            {
+                sideConfigs.Add(side, new SideConfig());
+            }
+        }
+
+        // If the adjacent object is removed or accepts conduits, reset the side's mode
         private bool OnNeighborPlaced(Vector2Int sideUpdated)
         {
-            GridObject gridObject = GetComponent<GridObject>();
             GridObject adjObject = gridObject.GetAdjacentObject(sideUpdated);
 
-            bool oldDisabled = IsSideDisabled(sideUpdated);
+            SideConfig oldSideConfig = GetSideConfig(sideUpdated);
+
             if (!adjObject || adjObject.GetComponent<ConduitInterface>() || adjObject.GetComponent<Conduit>())
             {
-                SetDisabledSide(sideUpdated, false);
+                SetTransportMode(sideUpdated, TransportMode.NORMAL);
             }
 
-            PrintDisabledSides();
-            return oldDisabled != IsSideDisabled(sideUpdated);
+            return oldSideConfig != GetSideConfig(sideUpdated);
         }
 
-
-        // Makes sure its disabled sides align with adjacent conduits
+        // Makes sure its side modes align with adjacent conduits
         private bool OnNeighborChanged()
         {
             bool changed = false;
-            GridObject gridObject = GetComponent<GridObject>();
 
             foreach (Vector2Int side in GridMap.adjacentDirections)
             {
-                bool oldDisabled = IsSideDisabled(side);
-                bool disabled = oldDisabled;
+                TransportMode oldTransportMode = GetSideConfig(side).transportMode;
+                TransportMode newTransportMode = oldTransportMode;
 
                 GridObject adjObject = gridObject.GetAdjacentObject(side);
 
                 if (!adjObject)
                 {
-                    disabled = false;
+                    newTransportMode = TransportMode.NORMAL;
                 }
                 else
                 {
                     Conduit otherConduit = adjObject.GetComponent<Conduit>();
-                    ConduitInterface otherInterface = adjObject.GetComponent<ConduitInterface>();
 
                     if (otherConduit)
                     {
                         Vector2Int oppositeSide = side * -1;
-                        disabled = otherConduit.IsSideDisabled(oppositeSide);
-                    }
-                    else if (otherInterface)
-                    {
-
+                        newTransportMode = otherConduit.GetSideConfig(oppositeSide).transportMode;
                     }
                 }
 
-                SetDisabledSide(side, disabled);
+                SetTransportMode(side, newTransportMode);
 
-                if (disabled != oldDisabled)
+                if (oldTransportMode != newTransportMode)
                 {
                     changed = true;
                 }
             }
-
             return changed;
         }
 
@@ -84,7 +90,7 @@ namespace Scavenger
                 return false;
             }
 
-            GridObject adjObject = GetComponent<GridObject>().GetAdjacentObject(side);
+            GridObject adjObject = gridObject.GetAdjacentObject(side);
 
             if (!adjObject)
             {
@@ -94,35 +100,58 @@ namespace Scavenger
             return adjObject.GetComponent<ConduitInterface>() || adjObject.GetComponent<Conduit>();
         }
 
-        // Checks if a side is disabled from connecting
         public bool IsSideDisabled(Vector2Int side)
         {
-            return disabledSides.Contains(side);
+            return sideConfigs[side].transportMode == TransportMode.DISABLED;
         }
 
-        // Sets a side to be disabled/enabled from connecting
-        public void SetDisabledSide(Vector2Int side, bool disabled)
+        public bool IsSideExtracting(Vector2Int side)
         {
-            if (disabled)
-            {
-                disabledSides.Add(side);
-            }
-            else
-            {
-                disabledSides.Remove(side);
-            }
+            return sideConfigs[side].transportMode == TransportMode.EXTRACT;
         }
 
-        // Outputs the disabled sides
-        private void PrintDisabledSides()
+        public SideConfig GetSideConfig(Vector2Int side)
         {
-            string output = name;
-            foreach (Vector2Int side in disabledSides)
-            {
-                output += "\n" + side.ToString();
-            }
+            return sideConfigs[side];
+        }
 
-            Debug.Log(output);
+        public void SetTransportMode(Vector2Int side, TransportMode mode)
+        {
+            sideConfigs[side].transportMode = mode;
+
+        }
+
+        public void SetDistributeMode(Vector2Int side, DistributeMode mode)
+        {
+            sideConfigs[side].distributeMode = mode;
+        }
+
+        
+    }
+
+    public class SideConfig
+    {
+        public TransportMode transportMode;
+        public DistributeMode distributeMode;
+
+        public SideConfig()
+        {
+            transportMode = TransportMode.NORMAL;
+            distributeMode = DistributeMode.CLOSEST_FIRST;
         }
     }
+
+    public enum TransportMode
+    {
+        NORMAL,
+        EXTRACT,
+        DISABLED
+    }
+
+    public enum DistributeMode
+    {
+        CLOSEST_FIRST,
+        ROUND_ROBIN
+    }
+
 }

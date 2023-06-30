@@ -8,8 +8,8 @@ namespace Scavenger
     public class GridObject : MonoBehaviour
     {
         public Vector2Int gridPos;
+        private GridMap map;
         private GridChunk chunk;
-        [SerializeField] private GridMap map;
 
         // TODO move somewhere else? maybe?
 
@@ -31,6 +31,16 @@ namespace Scavenger
             return map.GetObjectAtRelativePos(gridPos, direction);
         }
 
+        public T GetAdjacentObject<T>(Vector2Int direction) where T : Component
+        {
+            GridObject adjObject = GetAdjacentObject(direction);
+            if (!adjObject)
+            {
+                return null;
+            }
+
+            return adjObject.GetComponent<T>();
+        }
 
         public virtual bool Interact(Item otherObject)
         {

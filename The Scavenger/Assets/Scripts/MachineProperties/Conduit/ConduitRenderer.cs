@@ -6,7 +6,6 @@ using UnityEngine.U2D.Animation;
 namespace Scavenger
 {
     [RequireComponent(typeof(SpriteResolver))]
-    [RequireComponent(typeof(Conduit))]
     public class ConduitRenderer : MonoBehaviour
     {
         [SerializeField] private Conduit conduit;
@@ -19,34 +18,21 @@ namespace Scavenger
         {
             GridObject gridObject = GetComponent<GridObject>();
 
-            gridObject.OnPlaced.Add(OnPlaced);
-            gridObject.OnNeighborPlaced.Add(UpdateSide);
-            gridObject.OnNeighborChanged.Add(UpdateAllSides);
-
-            
-
+            gridObject.OnPlaced.Add(UpdateAllSides);
+            gridObject.OnNeighborPlaced.Add((side) => { UpdateSide(side); return false; });
+            gridObject.OnNeighborChanged.Add(() => { UpdateAllSides(); return false;  });
         }
 
-        private void OnPlaced()
-        {
-            UpdateAllSides();
-        }
-
-        private bool UpdateSide(Vector2Int side)
+        private void UpdateSide(Vector2Int side)
         {
             SpriteResolver connectionSprite = GetConnectionSprite(side);
             string label = GetLabelForSide(side);
-            string oldLabel = connectionSprite.GetLabel();
 
             connectionSprite.SetCategoryAndLabel("Connections", label);
-
-            return label != oldLabel;
         }
 
-        private bool UpdateAllSides()
+        private void UpdateAllSides()
         {
-            bool changed = false;
-
             for (int sideIndex = 0; sideIndex < 4; sideIndex++)
             {
                 SpriteResolver connectionSprite = connectionSprites[sideIndex];
@@ -56,8 +42,6 @@ namespace Scavenger
 
                 connectionSprite.SetCategoryAndLabel("Connections", label);
             }
-
-            return changed;
         }
 
         // Gets sprite resolver for specific side
@@ -76,25 +60,19 @@ namespace Scavenger
         // Gets the proper sprite resolver label for a specific side
         private string GetLabelForSide(Vector2Int side)
         {
+            if (conduit.IsSideDisabled(side))
+            {
+                return "Disabled";
+            }
+
+            if (conduit.IsSideExtracting(side))
+            {
+                return "Extract";
+            }
+
             if (!conduit.IsSideConnected(side))
             {
                 return "None";
-            }
-            ConduitInterface conduitInterface = GetComponent<GridObject>().GetAdjacentObject(side).GetComponent<ConduitInterface>();
-
-            if (conduitInterface)
-            {
-                Vector2Int opppositeSide = side * -1;
-                SideConfig sideConfig = conduitInterface.GetSideConfig(opppositeSide);
-
-                if (sideConfig.transportMode == TransportMode.INSERT)
-                {
-                    return "Insert";
-                }
-                else if (sideConfig.transportMode == TransportMode.EXTRACT)
-                {
-                    return "Extract";
-                }
             }
 
             return "Normal";
