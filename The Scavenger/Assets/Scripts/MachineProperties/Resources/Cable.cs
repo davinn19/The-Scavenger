@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,10 +6,11 @@ using UnityEngine;
 namespace Scavenger
 {
     [RequireComponent(typeof(Conduit))]
-    public abstract class Cable : MonoBehaviour
+    public abstract class Cable<T> : MonoBehaviour where T : Buffer
     {
         protected Conduit conduit;
         protected GridObject gridObject;
+        [SerializeField] protected int transferRate;
 
         private void Awake()
         {
@@ -16,18 +18,18 @@ namespace Scavenger
             gridObject = GetComponent<GridObject>();
         }
 
-        protected List<BufferType> GetConnectedOutputs<CableType, BufferType>() where CableType : Cable where BufferType : Buffer
+        protected List<T> GetConnectedOutputs()
         {
-            List<BufferType> outputs = new List<BufferType>();
+            List<T> outputs = new List<T>();
 
-            Queue<CableType> pendingSearches = new Queue<CableType>();
-            HashSet<CableType> visited = new HashSet<CableType>();
+            Queue<Cable<T>> pendingSearches = new Queue<Cable<T>>();
+            HashSet<Cable<T>> visited = new HashSet<Cable<T>>();
 
-            pendingSearches.Enqueue(GetComponent<CableType>());
+            pendingSearches.Enqueue(GetComponent<Cable<T>>());
 
             while (pendingSearches.Count > 0)
             {
-                CableType curCable = pendingSearches.Dequeue();
+                Cable<T> curCable = pendingSearches.Dequeue();
 
                 if (visited.Contains(curCable))
                 {
@@ -38,27 +40,44 @@ namespace Scavenger
 
                 foreach (Vector2Int side in GridMap.adjacentDirections)
                 {
-                    if (!curCable.conduit.IsSideConnected(side))
+                    if (!curCable.conduit.IsSideConnected(side) || curCable.conduit.IsSideExtracting(side))
                     {
                         continue;
                     }
 
-                    CableType adjCable = gridObject.GetAdjacentObject<CableType>(side);
+                    // TODO get grid objects adjacent to current cable, not the cable calling the function
+                    Cable<T> adjCable = gridObject.GetAdjacentObject<Cable<T>>(side);
                     if (adjCable && adjCable.Equals(curCable))
                     {
                         pendingSearches.Enqueue(adjCable);
                         continue;
                     }
 
-                    BufferType adjBuffer = gridObject.GetAdjacentObject<BufferType>(side); 
-                    if (adjBuffer && !conduit.IsSideExtracting(side))
+                    ConduitInterface<T> adjInterface = gridObject.GetAdjacentObject<ConduitInterface<T>>(side);
+
+                    if (adjInterface)
                     {
-                        outputs.Add(adjBuffer);
+                        outputs.AddRange(adjInterface.GetOutputs()); ;
                     }
                 }
             }
 
             return outputs;
+        }
+
+        public override bool Equals(object other)
+        {
+            if (!(other as Cable<T>))
+            {
+                return false;
+            }
+            
+            return (other as Cable<T>).transferRate == transferRate;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(transferRate, typeof(T));
         }
     }
 }

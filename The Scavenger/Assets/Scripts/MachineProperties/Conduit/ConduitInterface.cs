@@ -5,10 +5,16 @@ using UnityEngine;
 
 namespace Scavenger
 {
-    public class ConduitInterface : MonoBehaviour
+    public abstract class ConduitInterface : MonoBehaviour
+    { 
+    
+    }
+
+    public abstract class ConduitInterface<T> : ConduitInterface where T : Buffer
     {
-        [SerializeField] private List<ItemBuffer> inputs;
-        [SerializeField] private List<ItemBuffer> outputs;
+        public abstract List<T> GetInputs();
+
+        public abstract List<T> GetOutputs();
     }
 
 }

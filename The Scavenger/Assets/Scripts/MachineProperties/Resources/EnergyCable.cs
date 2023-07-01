@@ -6,10 +6,8 @@ using UnityEngine;
 namespace Scavenger
 {
     [RequireComponent(typeof(Conduit))]
-    public class EnergyCable : Cable
+    public class EnergyCable : Cable<EnergyBuffer>
     {
-        [SerializeField] private int transferRate;
-
         public void Load(Item cableSpecs)
         {
             // TODO implement
@@ -17,7 +15,7 @@ namespace Scavenger
 
         private void TickUpdate()
         {
-            List<EnergyBuffer> destinations = GetConnectedOutputs<EnergyCable, EnergyBuffer>();
+            List<EnergyBuffer> destinations = GetConnectedOutputs();
 
             foreach (Vector2Int side in GridMap.adjacentDirections)
             {
@@ -50,11 +48,5 @@ namespace Scavenger
 
             source.ExtractEnergy(energyTaken);
         }
-
-        public bool Equals(EnergyCable other)
-        {
-            return other.transferRate == transferRate;
-        }
-        
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Scavenger
 {
-    public class ItemCable : Cable
+    public class ItemCable : Cable<ItemBuffer>
     {
         [SerializeField] private int transferRate;
 
@@ -15,7 +15,7 @@ namespace Scavenger
 
         private void TickUpdate()
         {
-            List<ItemBuffer> destinations = GetConnectedOutputs<ItemCable, ItemBuffer>();
+            List<ItemBuffer> destinations = GetConnectedOutputs();
 
             foreach (Vector2Int side in GridMap.adjacentDirections)
             {

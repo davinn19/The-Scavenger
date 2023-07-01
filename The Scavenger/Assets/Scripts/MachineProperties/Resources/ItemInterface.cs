@@ -4,21 +4,19 @@ using UnityEngine;
 
 namespace Scavenger
 {
-    public class ItemInterface : MonoBehaviour
+    public class ItemInterface : ConduitInterface<ItemBuffer>
     {
         [SerializeField] private List<ItemBuffer> inputs;
         [SerializeField] private List<ItemBuffer> outputs;
 
-        // Start is called before the first frame update
-        void Start()
+        public override List<ItemBuffer> GetInputs()
         {
-        
+            return new List<ItemBuffer>(inputs);
         }
 
-        // Update is called once per frame
-        void Update()
+        public override List<ItemBuffer> GetOutputs()
         {
-        
+            return new List<ItemBuffer>(outputs);
         }
     }
 }
