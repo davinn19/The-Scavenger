@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace Scavenger
 {
+    /// <summary>
+    /// Cable for transporting energy.
+    /// </summary>
     [RequireComponent(typeof(Conduit))]
     public class EnergyCable : Cable<EnergyBuffer>
     {
@@ -30,7 +33,13 @@ namespace Scavenger
             }
         }
 
-        // Distributes energy from an input energy buffer to all output energy buffers, closer destinations getting filled first
+
+        /// <summary>
+        /// Distributes energy from source buffer to destination buffers, capped at the cables transfer rate.
+        /// Always closest-first, ignores conduit's distribution mode.
+        /// </summary>
+        /// <param name="source">Buffer to extract energy from.</param>
+        /// <param name="destinations">Buffers to insert energy into.</param>
         private void Distribute(EnergyBuffer source, List<EnergyBuffer> destinations)
         {
             int availableEnergy = Mathf.Min(source.GetEnergy(), transferRate);

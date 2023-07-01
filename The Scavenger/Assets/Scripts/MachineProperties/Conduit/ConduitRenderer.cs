@@ -5,6 +5,7 @@ using UnityEngine.U2D.Animation;
 
 namespace Scavenger
 {
+    // TODO check if this still works properly, add documentation
     [RequireComponent(typeof(SpriteResolver))]
     public class ConduitRenderer : MonoBehaviour
     {

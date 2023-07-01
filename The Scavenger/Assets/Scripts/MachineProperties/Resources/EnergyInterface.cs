@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Scavenger
 {
+    // TODO continue documentation
     public class EnergyInterface : ConduitInterface<EnergyBuffer>
     {
         [SerializeField] private EnergyBuffer energyBuffer;

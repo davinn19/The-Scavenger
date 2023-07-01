@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Scavenger
 {
+    /// <summary>
+    /// Controls movement of SpaceDebris.
+    /// </summary>
     public class DebrisMotion : MonoBehaviour
     {
         [SerializeField] private float speed;

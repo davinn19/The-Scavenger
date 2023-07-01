@@ -1,16 +1,17 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Scavenger
 {
+    /// <summary>
+    /// GridObject that houses Cables and defines their connectivity/transport modes.
+    /// </summary>
     [RequireComponent(typeof(GridObject))]
     public class Conduit : MonoBehaviour
     {
         private GridObject gridObject;
-
         private Dictionary<Vector2Int, SideConfig> sideConfigs = new Dictionary<Vector2Int, SideConfig>();
+
 
         private void Awake()
         {
@@ -22,6 +23,10 @@ namespace Scavenger
             InitSideConfigs();
         }
 
+
+        /// <summary>
+        /// Initializes the conduit's side configs to default values.
+        /// </summary>
         private void InitSideConfigs()
         {
             foreach (Vector2Int side in GridMap.adjacentDirections)
@@ -30,9 +35,11 @@ namespace Scavenger
             }
         }
 
-        // If the adjacent object is removed or accepts conduits, reset the side's mode
+        
         private bool OnNeighborPlaced(Vector2Int sideUpdated)
         {
+            // If the adjacent object is removed or accepts conduits, reset the side's mode
+
             GridObject adjObject = gridObject.GetAdjacentObject(sideUpdated);
 
             SideConfig oldSideConfig = GetSideConfig(sideUpdated);
@@ -45,9 +52,11 @@ namespace Scavenger
             return oldSideConfig != GetSideConfig(sideUpdated);
         }
 
-        // Makes sure its side modes align with adjacent conduits
+        
         private bool OnNeighborChanged()
         {
+            // Makes sure its side modes align with adjacent conduits
+
             bool changed = false;
 
             foreach (Vector2Int side in GridMap.adjacentDirections)
@@ -82,7 +91,12 @@ namespace Scavenger
             return changed;
         }
 
-        // Checks if a side is connected to something
+
+        /// <summary>
+        /// Checks if a side is next to something connectible (ConduitInterface, Conduit).
+        /// </summary>
+        /// <param name="side">Which side of the Conduit to check.</param>
+        /// <returns>True if the side is next to something connectible.</returns>
         public bool IsSideConnected(Vector2Int side)
         {
             if (IsSideDisabled(side))
@@ -100,20 +114,34 @@ namespace Scavenger
             return adjObject.GetComponent<ConduitInterface>() || adjObject.GetComponent<Conduit>();
         }
 
+
+        /// <summary>
+        /// Checks if a side is disabled.
+        /// </summary>
+        /// <param name="side">Which side of the Conduit to check.</param>
+        /// <returns>True if the side is disabled.</returns>
         public bool IsSideDisabled(Vector2Int side)
         {
             return sideConfigs[side].transportMode == TransportMode.DISABLED;
         }
 
+
+        /// <summary>
+        /// Checks if a side is in extract mode.
+        /// </summary>
+        /// <param name="side">Which side of the Conduit to check.</param>
+        /// <returns>True if the side is in extract mode.</returns>
         public bool IsSideExtracting(Vector2Int side)
         {
             return sideConfigs[side].transportMode == TransportMode.EXTRACT;
         }
 
+
         public SideConfig GetSideConfig(Vector2Int side)
         {
             return sideConfigs[side];
         }
+
 
         public void SetTransportMode(Vector2Int side, TransportMode mode)
         {
@@ -121,14 +149,16 @@ namespace Scavenger
 
         }
 
+
         public void SetDistributeMode(Vector2Int side, DistributeMode mode)
         {
             sideConfigs[side].distributeMode = mode;
         }
-
-        
     }
 
+    /// <summary>
+    /// Stores transport settings for one side of a Conduit.
+    /// </summary>
     public class SideConfig
     {
         public TransportMode transportMode;
@@ -141,6 +171,9 @@ namespace Scavenger
         }
     }
 
+    /// <summary>
+    /// Defines how Cables in this Conduit should interact with an adjacent GridObject
+    /// </summary>
     public enum TransportMode
     {
         NORMAL,
@@ -148,6 +181,9 @@ namespace Scavenger
         DISABLED
     }
 
+    /// <summary>
+    /// Defines how Cables in this Conduit distribute resources to multiple outputs.
+    /// </summary>
     public enum DistributeMode
     {
         CLOSEST_FIRST,

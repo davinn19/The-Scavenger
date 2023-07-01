@@ -4,7 +4,10 @@ using UnityEngine;
 
 namespace Scavenger
 {
-    public class Buffer : MonoBehaviour
+    /// <summary>
+    /// Base class for resource storage.
+    /// </summary>
+    public abstract class Buffer : MonoBehaviour
     {
 
     }
