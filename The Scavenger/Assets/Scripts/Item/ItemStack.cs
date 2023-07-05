@@ -35,5 +35,11 @@ namespace Scavenger
             }
         }
 
+        public void Remove(int requestedAmount)
+        {
+            int amountToTake = Mathf.Min(new int[] { requestedAmount, amount });
+            amount -= amountToTake;
+        }
+
     }
 }

@@ -23,19 +23,46 @@ namespace Scavenger
 
             tileHover.transform.position = new Vector3(gridPos.x + 0.5f, gridPos.y + 0.5f, 0);
 
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0))    // Left click to place/interact
             {
+                GridObject gridObject = map.GetObjectAtPos(gridPos);
+
                 // Place Item
-                if (map.GetObjectAtPos(gridPos) == null && itemStack.item is PlaceableItem)
+                if (!gridObject && itemStack.item is PlaceableItem)         // Clicked on empty space with placable object, place the object
                 {
                     map.TryPlaceItem(itemStack.item as PlaceableItem, gridPos);
                 }
-                else if (map.GetObjectAtPos(gridPos) != null)
+                else if (gridObject)    // Interact item
                 {
-                    map.TryInteract(itemStack.item, gridPos);
+                    Vector2Int sidePressed = GetSidePressed(mousePos, tileHover.transform.position);
+                    map.TryInteract(itemStack, gridPos, sidePressed);
                 }
                 
             }
+            else if (Input.GetMouseButtonDown(1))   // Right click to open menu/view info
+            {
+                // TODO implement
+            }
+        }
+
+        private Vector2Int GetSidePressed(Vector3 mousePos, Vector3 tilePos)
+        {
+            Vector3 relativePressedPos = mousePos - tilePos;
+            Vector2Int greaterAxisPressed;
+            int directionPressed;
+
+            if (Mathf.Abs(relativePressedPos.x) > Mathf.Abs(relativePressedPos.y))
+            {
+                greaterAxisPressed = Vector2Int.right;
+                directionPressed = Mathf.CeilToInt(Mathf.Sign(relativePressedPos.x));
+            }
+            else
+            {
+                greaterAxisPressed = Vector2Int.up;
+                directionPressed = Mathf.CeilToInt(Mathf.Sign(relativePressedPos.y));
+            }
+
+            return greaterAxisPressed * directionPressed;
         }
     }
 }

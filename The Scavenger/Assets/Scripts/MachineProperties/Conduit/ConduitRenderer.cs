@@ -6,7 +6,6 @@ using UnityEngine.U2D.Animation;
 namespace Scavenger
 {
     // TODO check if this still works properly, add documentation
-    [RequireComponent(typeof(SpriteResolver))]
     public class ConduitRenderer : MonoBehaviour
     {
         [SerializeField] private Conduit conduit;
@@ -26,6 +25,7 @@ namespace Scavenger
 
         private void UpdateSide(Vector2Int side)
         {
+            Debug.Log("1");
             SpriteResolver connectionSprite = GetConnectionSprite(side);
             string label = GetLabelForSide(side);
 
@@ -39,7 +39,6 @@ namespace Scavenger
                 SpriteResolver connectionSprite = connectionSprites[sideIndex];
                 Vector2Int side = GridMap.adjacentDirections[sideIndex];
                 string label = GetLabelForSide(side);
-                string oldLabel = connectionSprite.GetLabel();
 
                 connectionSprite.SetCategoryAndLabel("Connections", label);
             }
@@ -61,22 +60,19 @@ namespace Scavenger
         // Gets the proper sprite resolver label for a specific side
         private string GetLabelForSide(Vector2Int side)
         {
-            if (conduit.IsSideDisabled(side))
-            {
-                return "Disabled";
-            }
-
             if (conduit.IsSideExtracting(side))
             {
                 return "Extract";
             }
 
-            if (!conduit.IsSideConnected(side))
+            if (conduit.IsSideConnected(side))
             {
-                return "None";
+                return "Connected";
             }
-
-            return "Normal";
+            else
+            {
+                return "Unconnected";
+            }
         }
     }
 }

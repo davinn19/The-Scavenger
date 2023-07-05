@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 4332138351023361908}
   - component: {fileID: 303847279040132141}
   - component: {fileID: 992735339745390986}
-  - component: {fileID: 454863086682347892}
+  - component: {fileID: 8922438121216451306}
   m_Layer: 0
   m_Name: Silo
   m_TagString: Untagged
@@ -119,7 +119,7 @@ Transform:
   m_Children:
   - {fileID: 8578136886348930678}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7263438421898377612
 SpriteRenderer:
@@ -186,7 +186,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridPos: {x: 0, y: 0}
-  map: {fileID: 0}
 --- !u!114 &303847279040132141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,7 +215,7 @@ MonoBehaviour:
   maxCapacity: 99
   items: []
   numSlots: 1
---- !u!114 &454863086682347892
+--- !u!114 &8922438121216451306
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -225,6 +224,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4415299891023348541}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2eb2f9dde78c28f429b17b9448d5cd8f, type: 3}
+  m_Script: {fileID: 11500000, guid: 40dc2dd69b5129e4e974f736f72f46c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputs:
+  - {fileID: 992735339745390986}
+  outputs:
+  - {fileID: 992735339745390986}

@@ -13,8 +13,8 @@ namespace Scavenger
         public List<Func<bool>> OnNeighborUpdated = new();
         public List<Action> TickUpdate = new();
 
-
         private GridMap map;
+
         private void Awake()
         {
             map = GetComponent<GridMap>();
@@ -81,10 +81,22 @@ namespace Scavenger
             HandleNeighborChangedUpdates(queuedUpdates);
         }
 
-        // Updates neighbors when an object changes state
-        public void HandleNeighborChangedUpdates(Queue<Vector2Int> queuedUpdates)
+
+        public void HandleNeighborChangedUpdates(Vector2Int posChanged)
         {
-            // TODO should I add a visited list?
+            Queue<Vector2Int> neighborPos = new Queue<Vector2Int>();
+
+            foreach (Vector2Int side in GridMap.adjacentDirections)
+            {
+                neighborPos.Enqueue(posChanged + side);
+            }
+
+            HandleNeighborChangedUpdates(neighborPos);
+        }
+
+        // Updates neighbors when an object changes state
+        private void HandleNeighborChangedUpdates(Queue<Vector2Int> queuedUpdates)
+        {
             while (queuedUpdates.Count > 0)
             {
                 Vector2Int pos = queuedUpdates.Dequeue();

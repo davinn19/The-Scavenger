@@ -18,6 +18,7 @@ namespace Scavenger
         public List<Func<Vector2Int, bool>> OnNeighborPlaced = new();
         public List<Func<bool>> OnNeighborChanged = new();
         public List<Action> OnTick = new();
+        public Func<ItemStack, Vector2Int, bool> Interact;
 
 
         private void Awake()
@@ -41,11 +42,5 @@ namespace Scavenger
 
             return adjObject.GetComponent<T>();
         }
-
-        public virtual bool Interact(Item otherObject)
-        {
-            return false;   // TODO figure out later
-        }
-
     }
 }

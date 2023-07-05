@@ -67,16 +67,17 @@ namespace Scavenger
             return GetObjectAtPos(gridPos);
         }
 
-        public bool TryInteract(Item item, Vector2Int gridPos)
+        public void TryInteract(ItemStack itemStack, Vector2Int gridPos, Vector2Int sidePressed)
         {
             GridObject existingObject = GetObjectAtPos(gridPos);
             if (existingObject)
             {
-                bool interactSuccessful = existingObject.Interact(item);
-                return interactSuccessful;
+                bool updateCaused = existingObject.Interact(itemStack, sidePressed);
+                if (updateCaused)
+                {
+                    updatePropagation.HandleNeighborChangedUpdates(gridPos);
+                }
             }
-
-            return false;
         }
 
         public bool TryPlaceItem(PlaceableItem item, Vector2Int gridPos)

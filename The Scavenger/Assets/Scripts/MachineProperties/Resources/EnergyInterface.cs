@@ -5,9 +5,15 @@ using UnityEngine;
 namespace Scavenger
 {
     // TODO continue documentation
+    [RequireComponent(typeof(EnergyBuffer))]
     public class EnergyInterface : ConduitInterface<EnergyBuffer>
     {
-        [SerializeField] private EnergyBuffer energyBuffer;
+        private EnergyBuffer energyBuffer;
+
+        private void Awake()
+        {
+            energyBuffer = GetComponent<EnergyBuffer>();
+        }
 
         public override List<EnergyBuffer> GetInputs()
         {

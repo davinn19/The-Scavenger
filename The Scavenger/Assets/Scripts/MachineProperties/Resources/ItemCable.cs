@@ -6,8 +6,6 @@ namespace Scavenger
 {
     public class ItemCable : Cable<ItemBuffer>
     {
-        [SerializeField] private int transferRate;
-
         public void Load(Item cableSpecs)
         {
             // TODO implement

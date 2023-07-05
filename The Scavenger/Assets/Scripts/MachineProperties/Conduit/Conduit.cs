@@ -17,8 +17,12 @@ namespace Scavenger
         {
             gridObject = GetComponent<GridObject>();
 
+            gridObject.OnPlaced.Add(OnPlaced);
+            gridObject.OnRemoved.Add(OnRemoved);
+
             gridObject.OnNeighborPlaced.Add(OnNeighborPlaced);
             gridObject.OnNeighborChanged.Add(OnNeighborChanged);
+            gridObject.Interact = Interact;
 
             InitSideConfigs();
         }
@@ -35,28 +39,74 @@ namespace Scavenger
             }
         }
 
-        
+        // If next to conduit, auto connect. If next to interface, auto extract. Otherwise, disconnect.
+        private void OnPlaced()
+        {
+            foreach (Vector2Int side in GridMap.adjacentDirections)
+            {
+                Vector2Int oppositeSide = side * -1;
+                Conduit adjConduit = gridObject.GetAdjacentObject<Conduit>(side);
+                ConduitInterface adjInterface = gridObject.GetAdjacentObject<ConduitInterface>(side);
+
+                if (adjConduit)
+                {
+                    SetTransportMode(side, TransportMode.CONNECT);
+                }
+                else if (adjInterface)
+                {
+                    SetTransportMode(side, TransportMode.EXTRACT);
+                }
+                else
+                {
+                    SetTransportMode(side, TransportMode.DISCONNECT);
+                }
+            }
+        }
+
+        // Disconnect all adjacent conduits before removing.
+        private void OnRemoved()
+        {
+            foreach (Vector2Int side in GridMap.adjacentDirections)
+            {
+                SetTransportMode(side, TransportMode.DISCONNECT);
+
+                Vector2Int oppositeSide = side * -1;
+                Conduit adjConduit = gridObject.GetAdjacentObject<Conduit>(side);
+                
+                if (adjConduit)
+                {
+                    adjConduit.SetTransportMode(oppositeSide, TransportMode.DISCONNECT);
+                }
+            }
+        }
+
+        // If the adjacent object is removed or does not accept conduits, set to disconnect
         private bool OnNeighborPlaced(Vector2Int sideUpdated)
         {
-            // If the adjacent object is removed or accepts conduits, reset the side's mode
-
-            GridObject adjObject = gridObject.GetAdjacentObject(sideUpdated);
+            Conduit adjConduit = gridObject.GetAdjacentObject<Conduit>(sideUpdated);
+            ConduitInterface adjInterface = gridObject.GetAdjacentObject<ConduitInterface>(sideUpdated);
 
             SideConfig oldSideConfig = GetSideConfig(sideUpdated);
 
-            if (!adjObject || adjObject.GetComponent<ConduitInterface>() || adjObject.GetComponent<Conduit>())
+            if (adjConduit)
             {
-                SetTransportMode(sideUpdated, TransportMode.NORMAL);
+                SetTransportMode(sideUpdated, TransportMode.CONNECT);
+            }
+            else if (adjInterface)
+            {
+                SetTransportMode(sideUpdated, TransportMode.EXTRACT);
+            }
+            else
+            {
+                SetTransportMode(sideUpdated, TransportMode.DISCONNECT);
             }
 
             return oldSideConfig != GetSideConfig(sideUpdated);
         }
 
-        
+        // Makes sure its side modes align with adjacent conduits
         private bool OnNeighborChanged()
         {
-            // Makes sure its side modes align with adjacent conduits
-
             bool changed = false;
 
             foreach (Vector2Int side in GridMap.adjacentDirections)
@@ -64,23 +114,14 @@ namespace Scavenger
                 TransportMode oldTransportMode = GetSideConfig(side).transportMode;
                 TransportMode newTransportMode = oldTransportMode;
 
-                GridObject adjObject = gridObject.GetAdjacentObject(side);
+                Conduit adjConduit = gridObject.GetAdjacentObject<Conduit>(side);
 
-                if (!adjObject)
+                if (!adjConduit)
                 {
-                    newTransportMode = TransportMode.NORMAL;
-                }
-                else
-                {
-                    Conduit otherConduit = adjObject.GetComponent<Conduit>();
-
-                    if (otherConduit)
-                    {
-                        Vector2Int oppositeSide = side * -1;
-                        newTransportMode = otherConduit.GetSideConfig(oppositeSide).transportMode;
-                    }
+                    continue;
                 }
 
+                newTransportMode = adjConduit.GetSideConfig(side * -1).transportMode;
                 SetTransportMode(side, newTransportMode);
 
                 if (oldTransportMode != newTransportMode)
@@ -93,36 +134,24 @@ namespace Scavenger
 
 
         /// <summary>
-        /// Checks if a side is next to something connectible (ConduitInterface, Conduit).
+        /// Checks if a side is connected.
         /// </summary>
         /// <param name="side">Which side of the Conduit to check.</param>
-        /// <returns>True if the side is next to something connectible.</returns>
+        /// <returns>True if the side is connected.</returns>
         public bool IsSideConnected(Vector2Int side)
         {
-            if (IsSideDisabled(side))
-            {
-                return false;
-            }
-
-            GridObject adjObject = gridObject.GetAdjacentObject(side);
-
-            if (!adjObject)
-            {
-                return false;
-            }
-
-            return adjObject.GetComponent<ConduitInterface>() || adjObject.GetComponent<Conduit>();
+            return sideConfigs[side].transportMode == TransportMode.CONNECT;
         }
 
 
         /// <summary>
-        /// Checks if a side is disabled.
+        /// Checks if a side is disconnected.
         /// </summary>
         /// <param name="side">Which side of the Conduit to check.</param>
-        /// <returns>True if the side is disabled.</returns>
-        public bool IsSideDisabled(Vector2Int side)
+        /// <returns>True if the side is disconnected.</returns>
+        public bool IsSideDisconnected(Vector2Int side)
         {
-            return sideConfigs[side].transportMode == TransportMode.DISABLED;
+            return sideConfigs[side].transportMode == TransportMode.DISCONNECT;
         }
 
 
@@ -146,7 +175,7 @@ namespace Scavenger
         public void SetTransportMode(Vector2Int side, TransportMode mode)
         {
             sideConfigs[side].transportMode = mode;
-
+            Debug.Log(mode);
         }
 
 
@@ -154,6 +183,53 @@ namespace Scavenger
         {
             sideConfigs[side].distributeMode = mode;
         }
+
+
+        private bool Interact(ItemStack itemStack, Vector2Int sidePressed)
+        {
+            return RotateTransportMode(sidePressed);
+            // TODO implement adding cables
+        }
+
+
+        // Cycles the transport mode for a specific side
+        private bool RotateTransportMode(Vector2Int side)
+        {
+            TransportMode oldTransportMode = GetSideConfig(side).transportMode;
+
+            List<TransportMode> rotation = GetTransportModeRotation(side);
+
+            int index = rotation.IndexOf(oldTransportMode) + 1;
+
+            if (index >= rotation.Count)
+            {
+                index = 0;
+            }
+
+            TransportMode newTransportMode = rotation[index];
+
+            SetTransportMode(side, newTransportMode);
+
+            return oldTransportMode != newTransportMode;
+        }
+
+        // Gets possible modes for a specific side.
+        private List<TransportMode> GetTransportModeRotation(Vector2Int side)
+        {
+            if (gridObject.GetAdjacentObject<ConduitInterface>(side))
+            {
+                return new() { TransportMode.CONNECT, TransportMode.DISCONNECT, TransportMode.EXTRACT };
+            }
+            else if (gridObject.GetAdjacentObject<Conduit>(side))
+            {
+                return new() { TransportMode.CONNECT, TransportMode.DISCONNECT };
+            }
+            else
+            {
+                return new() { TransportMode.DISCONNECT };
+            }
+        }
+        
     }
 
     /// <summary>
@@ -166,7 +242,7 @@ namespace Scavenger
 
         public SideConfig()
         {
-            transportMode = TransportMode.NORMAL;
+            transportMode = TransportMode.DISCONNECT;
             distributeMode = DistributeMode.CLOSEST_FIRST;
         }
     }
@@ -176,9 +252,9 @@ namespace Scavenger
     /// </summary>
     public enum TransportMode
     {
-        NORMAL,
-        EXTRACT,
-        DISABLED
+        CONNECT,
+        DISCONNECT,
+        EXTRACT
     }
 
     /// <summary>
