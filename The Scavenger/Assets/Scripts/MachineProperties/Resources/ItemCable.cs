@@ -24,7 +24,7 @@ namespace Scavenger
                     continue;
                 }
 
-                switch (conduit.GetSideConfig(side).distributeMode)
+                switch (conduit.GetDistributeMode(side))
                 {
                     case DistributeMode.CLOSEST_FIRST:
                         ClosestFirst(source, destinations);

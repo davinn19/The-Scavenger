@@ -72,11 +72,7 @@ namespace Scavenger
             GridObject existingObject = GetObjectAtPos(gridPos);
             if (existingObject)
             {
-                bool updateCaused = existingObject.Interact(itemStack, sidePressed);
-                if (updateCaused)
-                {
-                    updatePropagation.HandleNeighborChangedUpdates(gridPos);
-                }
+                existingObject.Interact(itemStack, sidePressed);
             }
         }
 

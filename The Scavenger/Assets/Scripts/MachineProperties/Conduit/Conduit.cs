@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+
 
 namespace Scavenger
 {
@@ -10,7 +12,7 @@ namespace Scavenger
     public class Conduit : MonoBehaviour
     {
         private GridObject gridObject;
-        private Dictionary<Vector2Int, SideConfig> sideConfigs = new Dictionary<Vector2Int, SideConfig>();
+        private Dictionary<Vector2Int, (TransportMode, DistributeMode)> sideConfigs = new Dictionary<Vector2Int, (TransportMode, DistributeMode)>();
 
 
         private void Awake()
@@ -35,16 +37,15 @@ namespace Scavenger
         {
             foreach (Vector2Int side in GridMap.adjacentDirections)
             {
-                sideConfigs.Add(side, new SideConfig());
+                sideConfigs.Add(side, (TransportMode.DISCONNECT, DistributeMode.CLOSEST_FIRST));
             }
         }
 
-        // If next to conduit, auto connect. If next to interface, auto extract. Otherwise, disconnect.
+        // If next to conduit, connect. If next to interface, extract. Otherwise, disconnect.
         private void OnPlaced()
         {
             foreach (Vector2Int side in GridMap.adjacentDirections)
             {
-                Vector2Int oppositeSide = side * -1;
                 Conduit adjConduit = gridObject.GetAdjacentObject<Conduit>(side);
                 ConduitInterface adjInterface = gridObject.GetAdjacentObject<ConduitInterface>(side);
 
@@ -61,6 +62,8 @@ namespace Scavenger
                     SetTransportMode(side, TransportMode.DISCONNECT);
                 }
             }
+
+            gridObject.OnSelfChanged();
         }
 
         // Disconnect all adjacent conduits before removing.
@@ -81,37 +84,42 @@ namespace Scavenger
         }
 
         // If the adjacent object is removed or does not accept conduits, set to disconnect
-        private bool OnNeighborPlaced(Vector2Int sideUpdated)
+        private void OnNeighborPlaced(Vector2Int sideUpdated)
         {
             Conduit adjConduit = gridObject.GetAdjacentObject<Conduit>(sideUpdated);
             ConduitInterface adjInterface = gridObject.GetAdjacentObject<ConduitInterface>(sideUpdated);
 
-            SideConfig oldSideConfig = GetSideConfig(sideUpdated);
+            TransportMode oldTransportMode = GetTransportMode(sideUpdated);
+            TransportMode transportMode;
 
             if (adjConduit)
             {
-                SetTransportMode(sideUpdated, TransportMode.CONNECT);
+                transportMode = TransportMode.CONNECT;
             }
             else if (adjInterface)
             {
-                SetTransportMode(sideUpdated, TransportMode.EXTRACT);
+                transportMode = TransportMode.EXTRACT;
             }
             else
             {
-                SetTransportMode(sideUpdated, TransportMode.DISCONNECT);
+                transportMode = TransportMode.DISCONNECT;
             }
 
-            return oldSideConfig != GetSideConfig(sideUpdated);
+            if (oldTransportMode != transportMode)
+            {
+                SetTransportMode(sideUpdated, transportMode);
+                gridObject.OnSelfChanged();
+            }
         }
 
         // Makes sure its side modes align with adjacent conduits
-        private bool OnNeighborChanged()
+        private void OnNeighborChanged()
         {
             bool changed = false;
 
             foreach (Vector2Int side in GridMap.adjacentDirections)
             {
-                TransportMode oldTransportMode = GetSideConfig(side).transportMode;
+                TransportMode oldTransportMode = GetTransportMode(side);
                 TransportMode newTransportMode = oldTransportMode;
 
                 Conduit adjConduit = gridObject.GetAdjacentObject<Conduit>(side);
@@ -121,15 +129,19 @@ namespace Scavenger
                     continue;
                 }
 
-                newTransportMode = adjConduit.GetSideConfig(side * -1).transportMode;
-                SetTransportMode(side, newTransportMode);
+                newTransportMode = adjConduit.GetTransportMode(side * -1);
 
                 if (oldTransportMode != newTransportMode)
                 {
+                    SetTransportMode(side, newTransportMode);
                     changed = true;
                 }
             }
-            return changed;
+
+            if (changed)
+            {
+                gridObject.OnSelfChanged();
+            }
         }
 
 
@@ -140,7 +152,7 @@ namespace Scavenger
         /// <returns>True if the side is connected.</returns>
         public bool IsSideConnected(Vector2Int side)
         {
-            return sideConfigs[side].transportMode == TransportMode.CONNECT;
+            return sideConfigs[side].Item1 == TransportMode.CONNECT;
         }
 
 
@@ -151,7 +163,7 @@ namespace Scavenger
         /// <returns>True if the side is disconnected.</returns>
         public bool IsSideDisconnected(Vector2Int side)
         {
-            return sideConfigs[side].transportMode == TransportMode.DISCONNECT;
+            return GetTransportMode(side) == TransportMode.DISCONNECT;
         }
 
 
@@ -162,40 +174,45 @@ namespace Scavenger
         /// <returns>True if the side is in extract mode.</returns>
         public bool IsSideExtracting(Vector2Int side)
         {
-            return sideConfigs[side].transportMode == TransportMode.EXTRACT;
+            return GetTransportMode(side) == TransportMode.EXTRACT;
         }
 
 
-        public SideConfig GetSideConfig(Vector2Int side)
+        public TransportMode GetTransportMode(Vector2Int side)
         {
-            return sideConfigs[side];
+            return sideConfigs[side].Item1;
         }
 
+        public DistributeMode GetDistributeMode(Vector2Int side)
+        {
+            return sideConfigs[side].Item2;
+        }
 
         public void SetTransportMode(Vector2Int side, TransportMode mode)
         {
-            sideConfigs[side].transportMode = mode;
+            sideConfigs[side] = (mode, GetDistributeMode(side));
             Debug.Log(mode);
         }
 
 
         public void SetDistributeMode(Vector2Int side, DistributeMode mode)
         {
-            sideConfigs[side].distributeMode = mode;
+            sideConfigs[side] = (GetTransportMode(side), mode);
         }
 
 
-        private bool Interact(ItemStack itemStack, Vector2Int sidePressed)
+        private void Interact(ItemStack itemStack, Vector2Int sidePressed)
         {
-            return RotateTransportMode(sidePressed);
+            RotateTransportMode(sidePressed);
+
             // TODO implement adding cables
         }
 
 
         // Cycles the transport mode for a specific side
-        private bool RotateTransportMode(Vector2Int side)
+        private void RotateTransportMode(Vector2Int side)
         {
-            TransportMode oldTransportMode = GetSideConfig(side).transportMode;
+            TransportMode oldTransportMode = GetTransportMode(side);
 
             List<TransportMode> rotation = GetTransportModeRotation(side);
 
@@ -210,7 +227,10 @@ namespace Scavenger
 
             SetTransportMode(side, newTransportMode);
 
-            return oldTransportMode != newTransportMode;
+            if (oldTransportMode != newTransportMode)
+            {
+                gridObject.OnSelfChanged();
+            }
         }
 
         // Gets possible modes for a specific side.

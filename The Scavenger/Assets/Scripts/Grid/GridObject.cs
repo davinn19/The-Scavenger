@@ -15,10 +15,21 @@ namespace Scavenger
 
         public List<Action> OnPlaced = new();
         public List<Action> OnRemoved = new();
-        public List<Func<Vector2Int, bool>> OnNeighborPlaced = new();
-        public List<Func<bool>> OnNeighborChanged = new();
+        public List<Action<Vector2Int>> OnNeighborPlaced = new();
+        public List<Action> OnNeighborChanged = new();
+
         public List<Action> OnTick = new();
-        public Func<ItemStack, Vector2Int, bool> Interact;
+
+        private List<Action> selfChangedCallbacks = new();
+
+
+        public Action<ItemStack, Vector2Int> Interact;
+
+
+        public void SubscribeSelfChanged(Action callback)
+        {
+            selfChangedCallbacks.Add(callback);
+        }
 
 
         private void Awake()
@@ -41,6 +52,16 @@ namespace Scavenger
             }
 
             return adjObject.GetComponent<T>();
+        }
+
+        public void OnSelfChanged()
+        {
+            foreach (Action action in selfChangedCallbacks)
+            {
+                action();
+            }
+
+            map.updatePropagation.QueueNeighborUpdates(gridPos);
         }
     }
 }

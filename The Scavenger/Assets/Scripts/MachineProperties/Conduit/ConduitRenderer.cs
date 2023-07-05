@@ -18,18 +18,11 @@ namespace Scavenger
         {
             GridObject gridObject = GetComponent<GridObject>();
 
-            gridObject.OnPlaced.Add(UpdateAllSides);
-            gridObject.OnNeighborPlaced.Add((side) => { UpdateSide(side); return false; });
-            gridObject.OnNeighborChanged.Add(() => { UpdateAllSides(); return false;  });
-        }
+            gridObject.SubscribeSelfChanged(UpdateAllSides);
 
-        private void UpdateSide(Vector2Int side)
-        {
-            Debug.Log("1");
-            SpriteResolver connectionSprite = GetConnectionSprite(side);
-            string label = GetLabelForSide(side);
-
-            connectionSprite.SetCategoryAndLabel("Connections", label);
+            //gridObject.OnPlaced.Add(UpdateAllSides);
+            //gridObject.OnNeighborPlaced.Add((side) => { UpdateSide(side); return false; });
+            //gridObject.OnNeighborChanged.Add(() => { UpdateAllSides(); return false;  });
         }
 
         private void UpdateAllSides()
@@ -42,19 +35,6 @@ namespace Scavenger
 
                 connectionSprite.SetCategoryAndLabel("Connections", label);
             }
-        }
-
-        // Gets sprite resolver for specific side
-        private SpriteResolver GetConnectionSprite(Vector2Int side)
-        {
-            for (int i = 0; i < GridMap.adjacentDirections.Length; i++)
-            {
-                if (GridMap.adjacentDirections[i] == side)
-                {
-                    return connectionSprites[i];
-                }
-            }
-            return null;
         }
 
         // Gets the proper sprite resolver label for a specific side

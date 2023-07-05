@@ -7,17 +7,29 @@ namespace Scavenger
 {
     public class UpdatePropagation : MonoBehaviour
     {
-        public List<Action> OnPlace = new();
-        public List<Action> OnRemove = new();
-        public List<Func<Vector2Int, bool>> OnNeighborPlaced = new();
-        public List<Func<bool>> OnNeighborUpdated = new();
         public List<Action> TickUpdate = new();
+
+        private Queue<Vector2Int> queuedUpdates = new();
+        
 
         private GridMap map;
 
         private void Awake()
         {
             map = GetComponent<GridMap>();
+        }
+
+        private void Update()
+        {
+            HandleNeighborChangedUpdates();    
+        }
+
+        public void QueueNeighborUpdates(Vector2Int startPos)
+        {
+            foreach (Vector2Int side in GridMap.adjacentDirections)
+            {
+                queuedUpdates.Enqueue(side + startPos);
+            }
         }
 
         // Handles updates when an object is placed
@@ -45,8 +57,6 @@ namespace Scavenger
         // Calls neighbor placed methods in adjacent objects when an object is placed/removed
         private void HandleNeighborPlacedUpdates(Vector2Int placedPos)
         {
-            Queue<Vector2Int> queuedUpdates = new Queue<Vector2Int>();
-
             foreach (Vector2Int side in GridMap.adjacentDirections)
             {
                 Vector2Int neighborPos = placedPos + side;
@@ -59,43 +69,15 @@ namespace Scavenger
 
                 Vector2Int oppositeSide = side * -1;
 
-                bool updated = false;
-
-                foreach (Func<Vector2Int, bool> func in adjObject.OnNeighborPlaced)
+                foreach (Action<Vector2Int> action in adjObject.OnNeighborPlaced)
                 {
-                    if (func(oppositeSide))
-                    {
-                        updated = true;
-                    }
-                }
-
-                if (updated)
-                {
-                    foreach (Vector2Int neighborSide in GridMap.adjacentDirections)
-                    {
-                        queuedUpdates.Enqueue(neighborPos + neighborSide);
-                    }
+                    action(oppositeSide);
                 }
             }
-
-            HandleNeighborChangedUpdates(queuedUpdates);
-        }
-
-
-        public void HandleNeighborChangedUpdates(Vector2Int posChanged)
-        {
-            Queue<Vector2Int> neighborPos = new Queue<Vector2Int>();
-
-            foreach (Vector2Int side in GridMap.adjacentDirections)
-            {
-                neighborPos.Enqueue(posChanged + side);
-            }
-
-            HandleNeighborChangedUpdates(neighborPos);
         }
 
         // Updates neighbors when an object changes state
-        private void HandleNeighborChangedUpdates(Queue<Vector2Int> queuedUpdates)
+        private void HandleNeighborChangedUpdates()
         {
             while (queuedUpdates.Count > 0)
             {
@@ -107,21 +89,9 @@ namespace Scavenger
                     continue;
                 }
 
-                bool updated = false;
-                foreach (Func<bool> func in gridObject.OnNeighborChanged)
+                foreach (Action action in gridObject.OnNeighborChanged)
                 {
-                    if (func())
-                    {
-                        updated = true;
-                    }
-                }
-
-                if (updated)
-                {
-                    foreach (Vector2Int side in GridMap.adjacentDirections)
-                    {
-                        queuedUpdates.Enqueue(pos + side);
-                    }
+                    action();
                 }
             }
         }
