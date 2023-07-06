@@ -191,7 +191,6 @@ namespace Scavenger
         public void SetTransportMode(Vector2Int side, TransportMode mode)
         {
             sideConfigs[side] = (mode, GetDistributeMode(side));
-            Debug.Log(mode);
         }
 
 

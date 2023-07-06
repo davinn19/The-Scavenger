@@ -9,7 +9,7 @@ namespace Scavenger
     /// Base class for all resource transport, attach to a Conduit.
     /// </summary>
     /// <typeparam name="T">The Buffer type (energy, items) that Cable interacts with.</typeparam>
-    [RequireComponent(typeof(Conduit))]
+
     public abstract class Cable<T> : MonoBehaviour where T : Buffer
     {
         protected Conduit conduit;

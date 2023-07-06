@@ -19,14 +19,14 @@ MonoBehaviour:
     m_OverrideEntries:
     - m_Name: Connected
       m_Hash: 407280150
-      m_Sprite: {fileID: 478620512, guid: 2084b2ccd3486624a85cf06dabdcac7f, type: 3}
+      m_Sprite: {fileID: -548529346, guid: 8817f126f487cd547a51d07babb40a01, type: 3}
       m_FromMain: 0
-      m_SpriteOverride: {fileID: 478620512, guid: 2084b2ccd3486624a85cf06dabdcac7f, type: 3}
+      m_SpriteOverride: {fileID: -548529346, guid: 8817f126f487cd547a51d07babb40a01, type: 3}
     - m_Name: Extract
       m_Hash: 837224514
-      m_Sprite: {fileID: 1322707211, guid: 2084b2ccd3486624a85cf06dabdcac7f, type: 3}
+      m_Sprite: {fileID: -1298277439, guid: 8817f126f487cd547a51d07babb40a01, type: 3}
       m_FromMain: 0
-      m_SpriteOverride: {fileID: 1322707211, guid: 2084b2ccd3486624a85cf06dabdcac7f, type: 3}
+      m_SpriteOverride: {fileID: -1298277439, guid: 8817f126f487cd547a51d07babb40a01, type: 3}
     - m_Name: Unconnected
       m_Hash: 301922386
       m_Sprite: {fileID: 0}
@@ -34,6 +34,32 @@ MonoBehaviour:
       m_SpriteOverride: {fileID: 0}
     m_FromMain: 0
     m_EntryOverrideCount: 3
+  - m_Name: Cable Symbols
+    m_Hash: 494361949
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Energy
+      m_Hash: 280853671
+      m_Sprite: {fileID: -559451504, guid: eb859fcaf81faa14789c26d50276b347, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -559451504, guid: eb859fcaf81faa14789c26d50276b347, type: 3}
+    - m_Name: Fluid
+      m_Hash: 213634395
+      m_Sprite: {fileID: -226063891, guid: eb859fcaf81faa14789c26d50276b347, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -226063891, guid: eb859fcaf81faa14789c26d50276b347, type: 3}
+    - m_Name: Item
+      m_Hash: 1059686944
+      m_Sprite: {fileID: 748098057, guid: eb859fcaf81faa14789c26d50276b347, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 748098057, guid: eb859fcaf81faa14789c26d50276b347, type: 3}
+    - m_Name: Data
+      m_Hash: 230775901
+      m_Sprite: {fileID: 1561316546, guid: eb859fcaf81faa14789c26d50276b347, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1561316546, guid: eb859fcaf81faa14789c26d50276b347, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 4
   m_PrimaryLibraryGUID: 
-  m_ModificationHash: 638241051388402634
+  m_ModificationHash: 638241761253290940
   m_Version: 1

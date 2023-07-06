@@ -14,15 +14,20 @@ namespace Scavenger
         [Tooltip("Connections are ordered according to the order of GridMap.adjacentDirections")]
         private SpriteResolver[] connectionSprites;
 
+        [SerializeField]
+        private GameObject[] cableTypeSprites;
+
         private void Awake()
         {
             GridObject gridObject = GetComponent<GridObject>();
+            gridObject.SubscribeSelfChanged(UpdateAppearance);
+        }
 
-            gridObject.SubscribeSelfChanged(UpdateAllSides);
 
-            //gridObject.OnPlaced.Add(UpdateAllSides);
-            //gridObject.OnNeighborPlaced.Add((side) => { UpdateSide(side); return false; });
-            //gridObject.OnNeighborChanged.Add(() => { UpdateAllSides(); return false;  });
+        private void UpdateAppearance()
+        {
+            UpdateAllSides();
+            UpdateCenter();
         }
 
         private void UpdateAllSides()
@@ -34,6 +39,41 @@ namespace Scavenger
                 string label = GetLabelForSide(side);
 
                 connectionSprite.SetCategoryAndLabel("Connections", label);
+            }
+        }
+
+        private void UpdateCenter()
+        {
+            // TODO implement
+            List<string> cables = new();
+            if (GetComponent<EnergyCable>())
+            {
+                cables.Add("Energy");
+            }
+
+            if (GetComponent<ItemCable>())
+            {
+                cables.Add("Item");
+            }
+
+            int numCables = cables.Count;
+            for (int i = 0; i < 4; i++)
+            {
+                GameObject sprites = cableTypeSprites[i];
+                if (i != numCables - 1)
+                {
+                    sprites.SetActive(false);
+                }
+                else
+                {
+                    sprites.SetActive(true);
+                    SpriteResolver[] resolvers = sprites.GetComponentsInChildren<SpriteResolver>();
+
+                    for (int j = 0; j < resolvers.Length; j++)
+                    {
+                        resolvers[j].SetCategoryAndLabel("Cable Symbols", cables[i]);
+                    }
+                }
             }
         }
 

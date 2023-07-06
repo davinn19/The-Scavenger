@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 473888751568160162}
   - component: {fileID: 2435370515064411466}
   - component: {fileID: 6310263074720075457}
+  - component: {fileID: 6667584979610272898}
   m_Layer: 0
   m_Name: MakeshiftEnergyCell
   m_TagString: Untagged
@@ -98,9 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6546ea9d9b357204d97e64fcd54f3de6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  droppedItem: {fileID: 0}
   gridPos: {x: 0, y: 0}
-  map: {fileID: 0}
 --- !u!114 &6310263074720075457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,7 +112,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a854dc0ec229134a90018277a04c963, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxEnergy: 0
-  energy: 0
-  maxOutput: 0
-  maxInput: 0
+  capacity: 0
+--- !u!114 &6667584979610272898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6742962036973104751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d6dc2c3292119546810214c320179d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

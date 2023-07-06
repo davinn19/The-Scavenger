@@ -23,9 +23,13 @@ namespace Scavenger
 
             tileHover.transform.position = new Vector3(gridPos.x + 0.5f, gridPos.y + 0.5f, 0);
 
+            GridObject gridObject = map.GetObjectAtPos(gridPos);
+
+            tileHover.enabled = gridObject == null;
+
             if (Input.GetMouseButtonDown(0))    // Left click to place/interact
             {
-                GridObject gridObject = map.GetObjectAtPos(gridPos);
+                
 
                 // Place Item
                 if (!gridObject && itemStack.item is PlaceableItem)         // Clicked on empty space with placable object, place the object

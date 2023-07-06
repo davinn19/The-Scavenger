@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8817f126f487cd547a51d07babb40a01
+guid: eb859fcaf81faa14789c26d50276b347
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -107,13 +107,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Conduit_0
+      name: ConduitSymbols_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 100
-        height: 100
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -121,20 +121,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6f5243a0a39e5024794b32dca389c123
-      internalID: -781125571
+      spriteID: a136396d919920149a61355ee3a4565b
+      internalID: -559451504
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Conduit_1
+      name: ConduitSymbols_1
       rect:
         serializedVersion: 2
-        x: 100
+        x: 48
         y: 0
-        width: 100
-        height: 100
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -142,20 +142,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5f633990ad5bd7a489c5bff1574728e2
-      internalID: -548529346
+      spriteID: 4afd6212bf5614944b5a27c76826a5e0
+      internalID: -226063891
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Conduit_2
+      name: ConduitSymbols_2
       rect:
         serializedVersion: 2
-        x: 200
+        x: 96
         y: 0
-        width: 100
-        height: 100
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -163,20 +163,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8ec5d1cdcc57e4c48b6bf957dd8a5ab2
-      internalID: -1298277439
+      spriteID: 923bdb0fced93d042a43bdb22d22665e
+      internalID: 748098057
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Conduit_3
+      name: ConduitSymbols_3
       rect:
         serializedVersion: 2
-        x: 300
+        x: 144
         y: 0
-        width: 100
-        height: 100
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -184,8 +184,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 98a8cb5fd6c2d0d4fba84ba7ec2a3230
-      internalID: 1817749653
+      spriteID: a20cb2a07072d694f9f05eea42d5eb4c
+      internalID: 1561316546
       vertices: []
       indices: 
       edges: []
@@ -201,10 +201,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Conduit_0: -781125571
-      Conduit_1: -548529346
-      Conduit_2: -1298277439
-      Conduit_3: 1817749653
+      ConduitSymbols_0: -559451504
+      ConduitSymbols_1: -226063891
+      ConduitSymbols_2: 748098057
+      ConduitSymbols_3: 1561316546
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
