@@ -23,7 +23,7 @@ namespace Scavenger
         private List<Action> selfChangedCallbacks = new();
 
 
-        public Action<ItemStack, Vector2Int> Interact;
+        public Action<ItemStack, Vector2Int> Interact = (_,_) => { };
 
 
         public void SubscribeSelfChanged(Action callback)

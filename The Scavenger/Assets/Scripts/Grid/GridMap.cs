@@ -76,15 +76,15 @@ namespace Scavenger
             }
         }
 
-        public bool TryPlaceItem(PlaceableItem item, Vector2Int gridPos)
+        public bool TryPlaceItem(Item item, Vector2Int gridPos)
         {
             GridObject existingObject = GetObjectAtPos(gridPos);
             if (existingObject)
             {
                 return false;
             }
-
-            SetObjectAtPos(item.PlacedObject, gridPos);
+            // TODO uncomment
+            // SetObjectAtPos(item, gridPos);
 
             updatePropagation.HandlePlaceUpdate(gridPos);
             

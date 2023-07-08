@@ -14,7 +14,7 @@ namespace Scavenger
         void Update()
         {
             ItemStack itemStack = GetComponent<ItemSelection>().GetSelectedItemStack();
-            Sprite placementPreview = itemStack.item.Icon;
+            Sprite placementPreview = itemStack.item.GetIcon();
             tileHover.sprite = placementPreview;
 
             Vector3 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
@@ -29,18 +29,18 @@ namespace Scavenger
 
             if (Input.GetMouseButtonDown(0))    // Left click to place/interact
             {
-                
+                // TODO uncomment
 
-                // Place Item
-                if (!gridObject && itemStack.item is PlaceableItem)         // Clicked on empty space with placable object, place the object
-                {
-                    map.TryPlaceItem(itemStack.item as PlaceableItem, gridPos);
-                }
-                else if (gridObject)    // Interact item
-                {
-                    Vector2Int sidePressed = GetSidePressed(mousePos, tileHover.transform.position);
-                    map.TryInteract(itemStack, gridPos, sidePressed);
-                }
+                //// Place Item
+                //if (!gridObject && itemStack.item is PlaceableItem)         // Clicked on empty space with placable object, place the object
+                //{
+                //    map.TryPlaceItem(itemStack.item as PlaceableItem, gridPos);
+                //}
+                //else if (gridObject)    // Interact item
+                //{
+                //    Vector2Int sidePressed = GetSidePressed(mousePos, tileHover.transform.position);
+                //    map.TryInteract(itemStack, gridPos, sidePressed);
+                //}
                 
             }
             else if (Input.GetMouseButtonDown(1))   // Right click to open menu/view info
