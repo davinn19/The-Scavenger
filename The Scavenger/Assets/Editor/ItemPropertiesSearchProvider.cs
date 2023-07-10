@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
@@ -7,13 +8,45 @@ namespace Scavenger
 {
     public class ItemPropertiesSearchProvider : ScriptableObject, ISearchWindowProvider
     {
-        List<SearchTreeEntry> ISearchWindowProvider.CreateSearchTree(SearchWindowContext context)
+        private Item targetItem;
+
+        public void Init(Item targetItem)
         {
-            return new List<SearchTreeEntry>() { new SearchTreeGroupEntry(new GUIContent("Item Properties"), 0) };
+            this.targetItem = targetItem;
         }
 
-        bool ISearchWindowProvider.OnSelectEntry(SearchTreeEntry SearchTreeEntry, SearchWindowContext context)
+        List<SearchTreeEntry> ISearchWindowProvider.CreateSearchTree(SearchWindowContext context)
         {
+            List<SearchTreeEntry> entries = new();
+            entries.Add(new SearchTreeGroupEntry(new GUIContent("Item Properties"), 0));
+
+            foreach (Type definition in ItemPropertyDefinition.GetDefinitions())
+            {
+                if (!targetItem.HasProperty(definition))
+                {
+                    entries.Add(CreateEntry(definition));
+                }
+            }
+
+            return entries;
+        }
+
+        private SearchTreeEntry CreateEntry(Type definition)
+        {
+            string name = definition.Name;
+
+            SearchTreeEntry newEntry = new SearchTreeEntry(new GUIContent(name));
+
+            newEntry.level = 1;
+            newEntry.userData = definition;
+
+            return newEntry;
+        }
+
+        bool ISearchWindowProvider.OnSelectEntry(SearchTreeEntry searchTreeEntry, SearchWindowContext context)
+        {
+            Type definition = searchTreeEntry.userData as Type;
+            targetItem.TryAddProperty(definition);
             return true;
         }
     }

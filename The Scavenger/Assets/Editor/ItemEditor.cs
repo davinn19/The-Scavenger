@@ -14,7 +14,9 @@ namespace Scavenger
 
         public void OnEnable()
         {
+            Item item = target as Item;
             searchProvider = CreateInstance<ItemPropertiesSearchProvider>();
+            searchProvider.Init(item);
         }
 
         public override void OnInspectorGUI()

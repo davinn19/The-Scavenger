@@ -5,9 +5,10 @@ using UnityEngine;
 
 namespace Scavenger
 {
-    [Serializable, CreateAssetMenu(menuName = "Scavenger/CableSpec")]
-    public class CableSpec : ItemProperty
+    public class CableSpec : ItemPropertyDefinition
     {
-        public int transferRate;
+        public override string Name => "Cable Spec";
+
+        public int transferRate = 0;
     }
 }

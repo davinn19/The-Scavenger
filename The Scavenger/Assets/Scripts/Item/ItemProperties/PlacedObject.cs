@@ -5,9 +5,10 @@ using UnityEngine;
 
 namespace Scavenger
 {
-    [Serializable, CreateAssetMenu(menuName = "Scavenger/PlacedObject")]
-    public class PlacedObject : ItemProperty
+    public class PlacedObject : ItemPropertyDefinition
     {
-        public GridObject placedObject;
+        public override string Name => "Placed Object";
+
+        public GridObject placedObject = null;
     }
 }

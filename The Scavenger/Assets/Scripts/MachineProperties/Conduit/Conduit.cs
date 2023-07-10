@@ -205,6 +205,15 @@ namespace Scavenger
             RotateTransportMode(sidePressed);
 
             // TODO implement adding cables
+
+            CableSpec cableSpec;
+            if (!itemStack.item.TryGetProperty(out cableSpec))
+            {
+                return;
+            }
+
+            
+
         }
 
 
