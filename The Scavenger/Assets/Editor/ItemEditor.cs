@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEditor.Experimental.GraphView;
+using System;
 
 namespace Scavenger
 {
@@ -12,20 +13,47 @@ namespace Scavenger
         private Rect buttonRect;
         private ItemPropertiesSearchProvider searchProvider;
 
+        private SerializedProperty properties;
+
         public void OnEnable()
         {
             Item item = target as Item;
             searchProvider = CreateInstance<ItemPropertiesSearchProvider>();
             searchProvider.Init(item);
+
+            properties = serializedObject.FindProperty("properties");
+
+            serializedObject.Update();
+            if (!(target as Item).HasProperty<Basic>())
+            {
+                Add(typeof(Basic));
+                serializedObject.ApplyModifiedPropertiesWithoutUndo();
+            }
         }
+
 
         public override void OnInspectorGUI()
         {
-            base.OnInspectorGUI();
-            AddPropertyAdder();
+            serializedObject.Update();
+
+            GUILayout.Label("" + properties.arraySize);
+
+            EditorGUILayout.PropertyField(properties);
+
+            foreach (SerializedProperty itemProperty in properties)
+            {
+                ItemProperty hey = itemProperty.boxedValue as ItemProperty;
+                EditorGUILayout.BeginFoldoutHeaderGroup(true, (hey.definition != null).ToString());
+                EditorGUILayout.EndFoldoutHeaderGroup();
+                
+            }
+
+            AddPropertyAdderButton();
+
+            serializedObject.ApplyModifiedProperties();
         }
 
-        public void AddPropertyAdder()
+        public void AddPropertyAdderButton()
         {
             // Variables for sizing button
             float padding = 1;
@@ -55,6 +83,22 @@ namespace Scavenger
 
                 SearchWindow.Open(new SearchWindowContext(GUIUtility.GUIToScreenPoint(new Vector2(searchX, searchY))), searchProvider);
             }
+        }
+
+        public void Add(Type definitionType)
+        {
+            
+
+            ItemProperty itemProperty = CreateInstance<ItemProperty>();
+            ItemPropertyDefinition definition = itemProperty.InitDefinition(definitionType);
+            definition.name = definitionType.Name;
+
+            
+            AssetDatabase.AddObjectToAsset(definition, target);
+            //AssetDatabase.AddObjectToAsset(itemProperty, target);
+
+            properties.arraySize++;
+            properties.GetArrayElementAtIndex(properties.arraySize - 1).objectReferenceValue = itemProperty;
         }
     }
 }

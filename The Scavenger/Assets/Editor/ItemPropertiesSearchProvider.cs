@@ -9,6 +9,7 @@ namespace Scavenger
     public class ItemPropertiesSearchProvider : ScriptableObject, ISearchWindowProvider
     {
         private Item targetItem;
+        Action<Type> callback;
 
         public void Init(Item targetItem)
         {

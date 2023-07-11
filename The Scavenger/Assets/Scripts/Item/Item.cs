@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 namespace Scavenger
@@ -8,19 +9,16 @@ namespace Scavenger
     [CreateAssetMenu(fileName = "Item", menuName = "Scavenger/Item")]
     public class Item : ScriptableObject
     {
-        [SerializeField] private string displayName;
-        [SerializeField] private Sprite icon;
-        [ItemProperties] public List<ItemProperty> properties = new();
-
+        [SerializeField] private List<ItemProperty> properties = new() { };
 
         public string GetDisplayName()
         {
-            return displayName;
+            return GetProperty<Basic>().displayName;
         }
 
         public Sprite GetIcon()
         {
-            return icon;
+            return GetProperty<Basic>().icon;
         }
 
         public ItemProperty GetProperty(Type definition)
@@ -36,7 +34,17 @@ namespace Scavenger
             return null;
         }
 
-        public T GetProperty<T>() where T : ItemPropertyDefinition => GetProperty(typeof(T)) as T;
+        public T GetProperty<T>() where T : ItemPropertyDefinition
+        {
+            ItemProperty itemProperty = GetProperty(typeof(T));
+
+            if (itemProperty == null)
+            {
+                return null;
+            }
+
+            return itemProperty.definition as T;
+        }
 
 
         public bool TryGetProperty(Type definition, out ItemProperty property)
@@ -54,39 +62,42 @@ namespace Scavenger
 
         public bool HasProperty(Type propertyType) => GetProperty(propertyType) != null;
 
-        public bool HasProperty<T>() where T : ItemPropertyDefinition => GetProperty<T>() != null;
-
-
-        public T TryAddProperty<T>() where T : ItemPropertyDefinition, new()
+        public bool HasProperty<T>() where T : ItemPropertyDefinition
         {
-            if (!HasProperty<T>())
-            {
-                return null;
-            }
-
-            ItemProperty newProperty = new ItemProperty();
-            T definition = newProperty.SetDefinition<T>();
-
-            properties.Add(newProperty);
-
-            return definition;
+            T hey = GetProperty<T>();
+            return hey != null;
         }
 
-        public ItemProperty TryAddProperty(Type definition)
+        public bool TryAddProperty(Type definition)
         {
             if (HasProperty(definition))
             {
-                return null;
+                return false;
             }
 
-            ItemProperty newProperty = new ItemProperty();
-            newProperty.SetDefinition(definition);
+            string path = "Assets/Prefabs/Item/Data/" + GetInstanceID() + "/" + definition.Name + ".asset";
 
+            ItemProperty newProperty = CreateInstance<ItemProperty>();
+            ItemPropertyDefinition definitionInstance = newProperty.InitDefinition(definition);
+
+            AssetDatabase.CreateAsset(newProperty, path);
+            AssetDatabase.AddObjectToAsset(definitionInstance, definitionInstance);
             properties.Add(newProperty);
 
-            return newProperty;
+            return true;
         }
 
+        public bool TryAddProperty<T>() where T : ItemPropertyDefinition, new() => TryAddProperty(typeof(T));
+
+
+        public void OnDestroy()
+        {
+            foreach (ItemProperty itemProperty in properties)
+            {
+                string path = "Assets/Prefabs/Item/Data/" + GetInstanceID() + "/" + itemProperty.definition.Name + ".asset";
+                AssetDatabase.DeleteAsset(path);
+            }
+        }
         // TODO decide which functions should be private
     }
 

@@ -10,5 +10,6 @@ namespace Scavenger
         public override string Name => "Cable Spec";
 
         public int transferRate = 0;
+
     }
 }

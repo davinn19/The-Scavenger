@@ -13,19 +13,19 @@ namespace Scavenger
 
         void Update()
         {
-            ItemStack itemStack = GetComponent<ItemSelection>().GetSelectedItemStack();
-            Sprite placementPreview = itemStack.item.GetIcon();
-            tileHover.sprite = placementPreview;
+            //ItemStack itemStack = GetComponent<ItemSelection>().GetSelectedItemStack();
+            //Sprite placementPreview = itemStack.item.GetIcon();
+            //tileHover.sprite = placementPreview;
 
-            Vector3 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+            //Vector3 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
 
-            Vector2Int gridPos = new Vector2Int(Mathf.FloorToInt(mousePos.x), Mathf.FloorToInt(mousePos.y));
+            //Vector2Int gridPos = new Vector2Int(Mathf.FloorToInt(mousePos.x), Mathf.FloorToInt(mousePos.y));
 
-            tileHover.transform.position = new Vector3(gridPos.x + 0.5f, gridPos.y + 0.5f, 0);
+            //tileHover.transform.position = new Vector3(gridPos.x + 0.5f, gridPos.y + 0.5f, 0);
 
-            GridObject gridObject = map.GetObjectAtPos(gridPos);
+            //GridObject gridObject = map.GetObjectAtPos(gridPos);
 
-            tileHover.enabled = gridObject == null;
+            //tileHover.enabled = gridObject == null;
 
             if (Input.GetMouseButtonDown(0))    // Left click to place/interact
             {

@@ -6,40 +6,39 @@ using UnityEngine;
 
 namespace Scavenger
 {
-    public class ItemProperty
+    [Serializable]
+    public class ItemProperty : ScriptableObject
     {
         public ItemPropertyDefinition definition;
 
-        public T SetDefinition<T>() where T : ItemPropertyDefinition, new()
+        public ItemPropertyDefinition InitDefinition(Type newDefinition)  // https://learn.microsoft.com/en-us/dotnet/api/system.type.getconstructor?view=net-7.0
         {
-            T newDefinition = new T();
-            definition = newDefinition;
-            return newDefinition;
-        }
+            if (definition != null)
+            {
+                return null;
+            }
+            definition = CreateInstance(newDefinition) as ItemPropertyDefinition;
 
-        public ItemPropertyDefinition SetDefinition(Type newDefinition)  // https://learn.microsoft.com/en-us/dotnet/api/system.type.getconstructor?view=net-7.0
-        {
-            ItemPropertyDefinition definitionInstance = newDefinition.GetConstructor(
-                BindingFlags.Instance | BindingFlags.Public,
-                null,
-                CallingConventions.ExplicitThis,
-                new Type[0],
-                new ParameterModifier[0]
-                )
-                .Invoke(new object[0]) as ItemPropertyDefinition;
-
-            definition = definitionInstance;
-            return definitionInstance;
+            Debug.Log(definition);
+            return definition;
         }
 
 
         public bool IsDefinedBy(Type definitionType)
         {
+            if (definition == null)
+            {
+                Debug.LogError("definition is null");
+                return false;
+            }
+
             return definition.GetType() == definitionType;
         }
     }
 
-    public abstract class ItemPropertyDefinition
+
+    [Serializable]
+    public abstract class ItemPropertyDefinition : ScriptableObject
     {
         public static List<Type> GetDefinitions()
         {
@@ -47,9 +46,14 @@ namespace Scavenger
 
             foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
-                foreach (Type type in assembly.GetTypes())
+                if (assembly.IsDynamic)
                 {
-                    if (type.IsSubclassOf(typeof(ItemPropertyDefinition)))
+                    continue;
+                }
+
+                foreach (Type type in assembly.GetExportedTypes())
+                {
+                    if (type.IsSubclassOf(typeof(ItemPropertyDefinition)) && !type.IsAbstract)
                     {
                         types.Add(type);
                     }

@@ -10,5 +10,6 @@ namespace Scavenger
         public override string Name => "Placed Object";
 
         public GridObject placedObject = null;
+
     }
 }
