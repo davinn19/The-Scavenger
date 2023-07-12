@@ -9,7 +9,7 @@ namespace Scavenger
     {
         public override string Name => "Cable Spec";
 
-        [field: SerializeField] public int TransferRate { get; private set; }
+        [field: SerializeField, Min(0)] public int TransferRate { get; private set; }
 
     }
 }

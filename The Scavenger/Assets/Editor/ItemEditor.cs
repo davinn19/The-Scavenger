@@ -19,7 +19,10 @@ namespace Scavenger
 
         private SerializedProperty properties;
 
-        public void OnEnable()
+        // private Texture2D thumbnail = null;
+
+
+        private void OnEnable()
         {
             Item item = target as Item;
             searchProvider = CreateInstance<ItemPropertiesSearchProvider>();
@@ -28,7 +31,19 @@ namespace Scavenger
             displayName = serializedObject.FindProperty("<DisplayName>k__BackingField");
             icon = serializedObject.FindProperty("<Icon>k__BackingField");
             properties = serializedObject.FindProperty("properties");
+
+            //UpdateThumbnail();
         }
+
+
+        //public override Texture2D RenderStaticPreview(string assetPath, UnityEngine.Object[] subAssets, int width, int height)
+        //{
+        //    if (thumbnail == null)
+        //    {
+        //        return base.RenderStaticPreview(assetPath, subAssets, width, height);
+        //    }
+        //    return thumbnail;
+        //}
 
         public override void OnInspectorGUI()
         {
@@ -52,9 +67,33 @@ namespace Scavenger
         private void DrawMainProperties()
         {
             EditorGUILayout.PropertyField(displayName);
+
+            //EditorGUI.BeginChangeCheck();
             EditorGUILayout.PropertyField(icon);
+            //if (EditorGUI.EndChangeCheck())
+            //{
+            //    UpdateThumbnail();
+            //}
         }
 
+        //private void UpdateThumbnail()
+        //{
+        //    if (icon.objectReferenceValue == null)
+        //    {
+        //        thumbnail = null;
+        //        return;
+        //    }
+
+        //    Sprite sprite = icon.objectReferenceValue as Sprite;
+        //    if (sprite == null)
+        //    {
+        //        thumbnail = null;
+        //    }
+        //    else
+        //    {
+        //        thumbnail = AssetPreview.GetAssetPreview(sprite);
+        //    }
+        //}
 
         private void DrawAddedProperties()
         {

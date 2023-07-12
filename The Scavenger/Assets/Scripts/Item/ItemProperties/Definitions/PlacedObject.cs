@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Search;
 
 namespace Scavenger
 {
@@ -9,7 +10,6 @@ namespace Scavenger
     {
         public override string Name => "Placed Object";
 
-        [field: SerializeField] public GridObject Object { get; private set; }
-
+        [field: SerializeField, SearchContext("dir:Assets/Prefabs/GridObjects t:GridObject")] public GridObject Object { get; private set; }
     }
 }
