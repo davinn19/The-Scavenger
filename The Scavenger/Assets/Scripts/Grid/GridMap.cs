@@ -83,8 +83,8 @@ namespace Scavenger
             {
                 return false;
             }
-            // TODO uncomment
-            // SetObjectAtPos(item, gridPos);
+
+            SetObjectAtPos(item.GetProperty<PlacedObject>().Object, gridPos);
 
             updatePropagation.HandlePlaceUpdate(gridPos);
             

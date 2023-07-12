@@ -5,11 +5,11 @@ using UnityEngine;
 
 namespace Scavenger
 {
-    public class PlacedObject : ItemPropertyDefinition
+    public class PlacedObject : ItemProperty
     {
         public override string Name => "Placed Object";
 
-        public GridObject placedObject = null;
+        [field: SerializeField] public GridObject Object { get; private set; }
 
     }
 }

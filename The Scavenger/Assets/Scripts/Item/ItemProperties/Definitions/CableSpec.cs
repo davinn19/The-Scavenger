@@ -5,11 +5,11 @@ using UnityEngine;
 
 namespace Scavenger
 {
-    public class CableSpec : ItemPropertyDefinition
+    public class CableSpec : ItemProperty
     {
         public override string Name => "Cable Spec";
 
-        public int transferRate = 0;
+        [field: SerializeField] public int TransferRate { get; private set; }
 
     }
 }

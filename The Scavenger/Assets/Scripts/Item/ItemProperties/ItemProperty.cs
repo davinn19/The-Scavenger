@@ -7,40 +7,11 @@ using UnityEngine;
 namespace Scavenger
 {
     [Serializable]
-    public class ItemProperty : ScriptableObject
+    public abstract class ItemProperty : ScriptableObject
     {
-        public ItemPropertyDefinition definition;
+        public abstract string Name { get; }
 
-        public ItemPropertyDefinition InitDefinition(Type newDefinition)  // https://learn.microsoft.com/en-us/dotnet/api/system.type.getconstructor?view=net-7.0
-        {
-            if (definition != null)
-            {
-                return null;
-            }
-            definition = CreateInstance(newDefinition) as ItemPropertyDefinition;
-
-            Debug.Log(definition);
-            return definition;
-        }
-
-
-        public bool IsDefinedBy(Type definitionType)
-        {
-            if (definition == null)
-            {
-                Debug.LogError("definition is null");
-                return false;
-            }
-
-            return definition.GetType() == definitionType;
-        }
-    }
-
-
-    [Serializable]
-    public abstract class ItemPropertyDefinition : ScriptableObject
-    {
-        public static List<Type> GetDefinitions()
+        public static List<Type> GetProperties()
         {
             List<Type> types = new List<Type>();
 
@@ -53,7 +24,7 @@ namespace Scavenger
 
                 foreach (Type type in assembly.GetExportedTypes())
                 {
-                    if (type.IsSubclassOf(typeof(ItemPropertyDefinition)) && !type.IsAbstract)
+                    if (type.IsSubclassOf(typeof(ItemProperty)) && !type.IsAbstract)
                     {
                         types.Add(type);
                     }
@@ -61,8 +32,5 @@ namespace Scavenger
             }
             return types;
         }
-
-        public abstract string Name { get; }
     }
-
 }

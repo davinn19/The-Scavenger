@@ -13,47 +13,77 @@ namespace Scavenger
         private Rect buttonRect;
         private ItemPropertiesSearchProvider searchProvider;
 
+
+        private SerializedProperty displayName;
+        private SerializedProperty icon;
+
         private SerializedProperty properties;
 
         public void OnEnable()
         {
             Item item = target as Item;
             searchProvider = CreateInstance<ItemPropertiesSearchProvider>();
-            searchProvider.Init(item);
+            searchProvider.Init(item, AddProperty);
 
+            displayName = serializedObject.FindProperty("<DisplayName>k__BackingField");
+            icon = serializedObject.FindProperty("<Icon>k__BackingField");
             properties = serializedObject.FindProperty("properties");
-
-            serializedObject.Update();
-            if (!(target as Item).HasProperty<Basic>())
-            {
-                Add(typeof(Basic));
-                serializedObject.ApplyModifiedPropertiesWithoutUndo();
-            }
         }
-
 
         public override void OnInspectorGUI()
         {
             serializedObject.Update();
 
-            GUILayout.Label("" + properties.arraySize);
-
-            EditorGUILayout.PropertyField(properties);
-
-            foreach (SerializedProperty itemProperty in properties)
-            {
-                ItemProperty hey = itemProperty.boxedValue as ItemProperty;
-                EditorGUILayout.BeginFoldoutHeaderGroup(true, (hey.definition != null).ToString());
-                EditorGUILayout.EndFoldoutHeaderGroup();
-                
-            }
-
-            AddPropertyAdderButton();
+            DrawScriptProperty();
+            DrawMainProperties();
+            DrawAddedProperties();
+            DrawPropertyAdderButton();
 
             serializedObject.ApplyModifiedProperties();
         }
 
-        public void AddPropertyAdderButton()
+        private void DrawScriptProperty()
+        {
+            GUI.enabled = false;
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("m_Script"));
+            GUI.enabled = true;
+        }
+
+        private void DrawMainProperties()
+        {
+            EditorGUILayout.PropertyField(displayName);
+            EditorGUILayout.PropertyField(icon);
+        }
+
+
+        private void DrawAddedProperties()
+        {
+            foreach (SerializedProperty element in properties)
+            {
+                SerializedObject itemProperty = new SerializedObject(element.objectReferenceValue);
+                itemProperty.Update();
+
+                EditorGUILayout.BeginFoldoutHeaderGroup(true, itemProperty.targetObject.name);
+
+                SerializedProperty itemPropertyVariable = itemProperty.GetIterator();
+                while (itemPropertyVariable.NextVisible(true))
+                {
+                    if (itemPropertyVariable.name == "m_Script")
+                    {
+                        continue;
+                    }
+
+                    EditorGUILayout.PropertyField(itemPropertyVariable);
+                }
+
+                EditorGUILayout.EndFoldoutHeaderGroup();
+
+                itemProperty.ApplyModifiedProperties();
+            }
+        }
+
+
+        private void DrawPropertyAdderButton()
         {
             // Variables for sizing button
             float padding = 1;
@@ -61,7 +91,7 @@ namespace Scavenger
             float buttonHeight = EditorGUIUtility.singleLineHeight * 1.5f;
 
             GUILayout.BeginHorizontal();
-            GUILayout.Label("", new GUILayoutOption[] { GUILayout.ExpandWidth(true)});  // Spacer to center button
+            GUILayout.Label("", new GUILayoutOption[] { GUILayout.ExpandWidth(true) });  // Spacer to center button
 
             // Create button
             bool buttonPressed = GUILayout.Button("Add Property", new GUILayoutOption[] { GUILayout.Width(searchWindowWidth + padding), GUILayout.Height(buttonHeight) });
@@ -85,20 +115,47 @@ namespace Scavenger
             }
         }
 
-        public void Add(Type definitionType)
+
+        private void AddProperty(Type propertyType)
         {
-            
+            serializedObject.Update();
 
-            ItemProperty itemProperty = CreateInstance<ItemProperty>();
-            ItemPropertyDefinition definition = itemProperty.InitDefinition(definitionType);
-            definition.name = definitionType.Name;
+            if (!propertyType.IsSubclassOf(typeof(ItemProperty)))
+            {
+                Debug.LogError(propertyType.Name + " is not an ItemProperty");
+                return;
+            }
 
+            if (HasProperty(propertyType))
+            {
+                Debug.LogError("The item already contains property " + propertyType.Name);
+                return;
+            }
+
+            ItemProperty newProperty = CreateInstance(propertyType) as ItemProperty;
+            newProperty.name = newProperty.Name;
+
+            AssetDatabase.AddObjectToAsset(newProperty, target);
             
-            AssetDatabase.AddObjectToAsset(definition, target);
-            //AssetDatabase.AddObjectToAsset(itemProperty, target);
 
             properties.arraySize++;
-            properties.GetArrayElementAtIndex(properties.arraySize - 1).objectReferenceValue = itemProperty;
+            properties.GetArrayElementAtIndex(properties.arraySize - 1).objectReferenceValue = newProperty;
+
+            serializedObject.ApplyModifiedProperties();
+        }
+
+
+        private bool HasProperty(Type propertyType)
+        {
+            foreach (UnityEngine.Object asset in AssetDatabase.LoadAllAssetsAtPath(AssetDatabase.GetAssetPath(target)))
+            {
+                if (asset.GetType() == propertyType)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

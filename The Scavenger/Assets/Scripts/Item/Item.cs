@@ -9,23 +9,16 @@ namespace Scavenger
     [CreateAssetMenu(fileName = "Item", menuName = "Scavenger/Item")]
     public class Item : ScriptableObject
     {
+        [field: SerializeField] public string DisplayName { get; private set; }
+        [field: SerializeField] public Sprite Icon { get; private set; }
+
         [SerializeField] private List<ItemProperty> properties = new() { };
 
-        public string GetDisplayName()
-        {
-            return GetProperty<Basic>().displayName;
-        }
-
-        public Sprite GetIcon()
-        {
-            return GetProperty<Basic>().icon;
-        }
-
-        public ItemProperty GetProperty(Type definition)
+        public ItemProperty GetProperty(Type propertyType)
         {
             foreach (ItemProperty property in properties)
             {
-                if (property.IsDefinedBy(definition))
+                if (property.GetType() == propertyType)
                 {
                     return property;
                 }
@@ -34,26 +27,27 @@ namespace Scavenger
             return null;
         }
 
-        public T GetProperty<T>() where T : ItemPropertyDefinition
+        public T GetProperty<T>() where T : ItemProperty
         {
-            ItemProperty itemProperty = GetProperty(typeof(T));
-
-            if (itemProperty == null)
+            foreach (ItemProperty property in properties)
             {
-                return null;
+                if (property is T)
+                {
+                    return property as T;
+                }
             }
 
-            return itemProperty.definition as T;
+            return null;
         }
 
 
-        public bool TryGetProperty(Type definition, out ItemProperty property)
+        public bool TryGetProperty(Type propertyType, out ItemProperty property)
         {
-            property = GetProperty(definition);
+            property = GetProperty(propertyType);
             return property != null;
         }
 
-        public bool TryGetProperty<T>(out T property) where T : ItemPropertyDefinition
+        public bool TryGetProperty<T>(out T property) where T : ItemProperty
         {
             property = GetProperty<T>();
             return property != null;
@@ -62,42 +56,12 @@ namespace Scavenger
 
         public bool HasProperty(Type propertyType) => GetProperty(propertyType) != null;
 
-        public bool HasProperty<T>() where T : ItemPropertyDefinition
+        public bool HasProperty<T>() where T : ItemProperty
         {
             T hey = GetProperty<T>();
             return hey != null;
         }
 
-        public bool TryAddProperty(Type definition)
-        {
-            if (HasProperty(definition))
-            {
-                return false;
-            }
-
-            string path = "Assets/Prefabs/Item/Data/" + GetInstanceID() + "/" + definition.Name + ".asset";
-
-            ItemProperty newProperty = CreateInstance<ItemProperty>();
-            ItemPropertyDefinition definitionInstance = newProperty.InitDefinition(definition);
-
-            AssetDatabase.CreateAsset(newProperty, path);
-            AssetDatabase.AddObjectToAsset(definitionInstance, definitionInstance);
-            properties.Add(newProperty);
-
-            return true;
-        }
-
-        public bool TryAddProperty<T>() where T : ItemPropertyDefinition, new() => TryAddProperty(typeof(T));
-
-
-        public void OnDestroy()
-        {
-            foreach (ItemProperty itemProperty in properties)
-            {
-                string path = "Assets/Prefabs/Item/Data/" + GetInstanceID() + "/" + itemProperty.definition.Name + ".asset";
-                AssetDatabase.DeleteAsset(path);
-            }
-        }
         // TODO decide which functions should be private
     }
 

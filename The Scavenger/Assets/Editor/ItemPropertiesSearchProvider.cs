@@ -11,9 +11,10 @@ namespace Scavenger
         private Item targetItem;
         Action<Type> callback;
 
-        public void Init(Item targetItem)
+        public void Init(Item targetItem, Action<Type> callback)
         {
             this.targetItem = targetItem;
+            this.callback = callback;
         }
 
         List<SearchTreeEntry> ISearchWindowProvider.CreateSearchTree(SearchWindowContext context)
@@ -21,33 +22,33 @@ namespace Scavenger
             List<SearchTreeEntry> entries = new();
             entries.Add(new SearchTreeGroupEntry(new GUIContent("Item Properties"), 0));
 
-            foreach (Type definition in ItemPropertyDefinition.GetDefinitions())
+            foreach (Type propertyType in ItemProperty.GetProperties())
             {
-                if (!targetItem.HasProperty(definition))
+                if (!targetItem.HasProperty(propertyType))
                 {
-                    entries.Add(CreateEntry(definition));
+                    entries.Add(CreateEntry(propertyType));
                 }
             }
 
             return entries;
         }
 
-        private SearchTreeEntry CreateEntry(Type definition)
+        private SearchTreeEntry CreateEntry(Type propertyType)
         {
-            string name = definition.Name;
+            string name = propertyType.Name;
 
             SearchTreeEntry newEntry = new SearchTreeEntry(new GUIContent(name));
 
             newEntry.level = 1;
-            newEntry.userData = definition;
+            newEntry.userData = propertyType;
 
             return newEntry;
         }
 
         bool ISearchWindowProvider.OnSelectEntry(SearchTreeEntry searchTreeEntry, SearchWindowContext context)
         {
-            Type definition = searchTreeEntry.userData as Type;
-            targetItem.TryAddProperty(definition);
+            Type propertyType = searchTreeEntry.userData as Type;
+            callback(propertyType);
             return true;
         }
     }
