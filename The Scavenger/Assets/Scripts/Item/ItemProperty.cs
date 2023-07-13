@@ -10,6 +10,7 @@ namespace Scavenger
     public abstract class ItemProperty : ScriptableObject
     {
         public abstract string Name { get; }
+        public Item Item { get; set; }
 
         public static List<Type> GetProperties()
         {

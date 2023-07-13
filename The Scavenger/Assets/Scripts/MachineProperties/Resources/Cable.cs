@@ -6,24 +6,43 @@ using UnityEngine;
 namespace Scavenger
 {
     /// <summary>
-    /// Base class for all resource transport, attach to a Conduit.
+    /// Nongeneric version of Cable<T>
     /// </summary>
-    /// <typeparam name="T">The Buffer type (energy, items) that Cable interacts with.</typeparam>
-
-    public abstract class Cable<T> : MonoBehaviour where T : Buffer
+    [RequireComponent(typeof(Conduit))]
+    public abstract class Cable : MonoBehaviour
     {
         protected Conduit conduit;
         protected GridObject gridObject;
-        [SerializeField] protected int transferRate;
 
+        private CableSpec _spec;
+        public CableSpec spec
+        {
+            get
+            {
+                return _spec;
+            }
+            set
+            {
+                if (_spec == null)
+                {
+                    _spec = value;
+                }
+            }
+        }
 
         private void Awake()
         {
             conduit = GetComponent<Conduit>();
             gridObject = GetComponent<GridObject>();
         }
+    }
 
-        
+
+    /// <summary>
+    /// Base class for all resource transport, attach to a Conduit.
+    /// </summary>
+    public abstract class Cable<T> : Cable where T : Buffer
+    {
         /// <summary>
         /// Searches through connected cables for all connected output buffers.
         /// </summary>
@@ -59,8 +78,8 @@ namespace Scavenger
                     }
 
                     // If side is connected to a compatible Cable, add to search
-                    Cable<T> adjCable = curCable.gridObject.GetAdjacentObject<Cable<T>>(side);
-                    if (adjCable && adjCable.Equals(curCable))
+                    Cable<T> adjCable = curCable.gridObject.GetAdjacentObject<Cable<T>>(side, Equals);
+                    if (adjCable)
                     {
                         pendingSearches.Enqueue(adjCable);
                         continue;
@@ -78,7 +97,6 @@ namespace Scavenger
             return outputs;
         }
 
-
         /// <summary>
         /// Checks if two cables can connect.
         /// </summary>
@@ -92,13 +110,12 @@ namespace Scavenger
                 return false;
             }
             
-            return (other as Cable<T>).transferRate == transferRate;
+            return (other as Cable<T>).spec == spec;
         }
-
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(transferRate, typeof(T));
+            return HashCode.Combine(spec.TransferRate);
         }
     }
 }

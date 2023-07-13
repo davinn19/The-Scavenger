@@ -25,7 +25,6 @@ namespace Scavenger
 
             GridObject gridObject = map.GetObjectAtPos(gridPos);
 
-            tileHover.enabled = gridObject == null;
 
             if (Input.GetMouseButtonDown(0))    // Left click to place/interact
             {

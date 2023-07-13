@@ -54,6 +54,19 @@ namespace Scavenger
             return adjObject.GetComponent<T>();
         }
 
+        public T GetAdjacentObject<T>(Vector2Int direction, Predicate<T> condition) where T : Component
+        {
+            T adjObject = GetAdjacentObject<T>(direction);
+
+            if (adjObject && condition(adjObject))
+            {
+                return adjObject;
+            }
+
+            return null;
+        }
+
+
         public void OnSelfChanged()
         {
             foreach (Action action in selfChangedCallbacks)

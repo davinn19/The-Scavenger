@@ -6,11 +6,6 @@ namespace Scavenger
 {
     public class ItemCable : Cable<ItemBuffer>
     {
-        public void Load(Item cableSpecs)
-        {
-            // TODO implement
-        }
-
         private void TickUpdate()
         {
             List<ItemBuffer> destinations = GetConnectedOutputs();
@@ -50,11 +45,6 @@ namespace Scavenger
         private void RoundRobin(ItemBuffer source, List<ItemBuffer> destinations)
         {
             // TODO implement
-        }
-
-        public bool Equals(ItemCable other)
-        {
-            return other.transferRate == transferRate;
         }
 
     }

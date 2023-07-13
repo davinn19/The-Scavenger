@@ -8,14 +8,8 @@ namespace Scavenger
     /// <summary>
     /// Cable for transporting energy.
     /// </summary>
-    [RequireComponent(typeof(Conduit))]
     public class EnergyCable : Cable<EnergyBuffer>
     {
-        public void Load(Item cableSpecs)
-        {
-            // TODO implement
-        }
-
         private void TickUpdate()
         {
             List<EnergyBuffer> destinations = GetConnectedOutputs();
@@ -42,7 +36,7 @@ namespace Scavenger
         /// <param name="destinations">Buffers to insert energy into.</param>
         private void Distribute(EnergyBuffer source, List<EnergyBuffer> destinations)
         {
-            int availableEnergy = Mathf.Min(source.GetEnergy(), transferRate);
+            int availableEnergy = Mathf.Min(source.GetEnergy(), spec.TransferRate);
             int energyTaken = 0;
 
             foreach (EnergyBuffer destination in destinations)

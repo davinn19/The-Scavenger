@@ -173,6 +173,7 @@ namespace Scavenger
 
             ItemProperty newProperty = CreateInstance(propertyType) as ItemProperty;
             newProperty.name = newProperty.Name;
+            newProperty.Item = target as Item;
 
             AssetDatabase.AddObjectToAsset(newProperty, target);
             

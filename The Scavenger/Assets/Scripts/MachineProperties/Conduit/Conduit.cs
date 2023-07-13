@@ -202,20 +202,44 @@ namespace Scavenger
 
         private void Interact(ItemStack itemStack, Vector2Int sidePressed)
         {
-            RotateTransportMode(sidePressed);
-
-            // TODO implement adding cables
-
-            CableSpec cableSpec;
-            if (!itemStack.item.TryGetProperty(out cableSpec))
+            if (!TryEditSide(itemStack.item, sidePressed))
             {
-                return;
+                TryAddCable(itemStack);
             }
-
-            
-
         }
 
+        private bool TryEditSide(Item item, Vector2Int sidePressed)
+        {
+            PlacedObject property;
+            if (item.TryGetProperty(out property) && property.Object.GetComponent<Conduit>())
+            {
+                RotateTransportMode(sidePressed);
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool TryAddCable(ItemStack itemStack)
+        {
+            // TODO implement
+            CableSpec cableSpec;
+
+            if (itemStack.item.TryGetProperty(out cableSpec) && CanAddCable(cableSpec))
+            {
+                cableSpec.AddCable(this);
+                itemStack.Remove();
+                gridObject.OnSelfChanged();
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool CanAddCable(CableSpec cableSpec)
+        {
+            return !GetComponent(cableSpec.GetCableType());
+        }
 
         // Cycles the transport mode for a specific side
         private void RotateTransportMode(Vector2Int side)
