@@ -25,6 +25,9 @@ namespace Scavenger
                 case ResourceType.Item:
                     newCable = conduit.gameObject.AddComponent<ItemCable>();
                     break;
+                case ResourceType.Data:
+                    newCable = conduit.gameObject.AddComponent<DataCable>();
+                    break;
                 default:
                     Debug.LogWarning("Cable type not implemented yet");
                     return null;
@@ -42,6 +45,8 @@ namespace Scavenger
                     return typeof(EnergyCable);
                 case ResourceType.Item:
                     return typeof(ItemCable);
+                case ResourceType.Data:
+                    return typeof(DataCable);
                 default:
                     Debug.LogWarning("Cable type not implemented yet");
                     return null;

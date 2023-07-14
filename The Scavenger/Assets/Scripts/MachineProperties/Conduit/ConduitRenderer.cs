@@ -44,7 +44,7 @@ namespace Scavenger
 
         private void UpdateCenter()
         {
-            // TODO implement
+            // TODO add fluid cable
             List<string> cables = new();
             if (GetComponent<EnergyCable>())
             {
@@ -54,6 +54,11 @@ namespace Scavenger
             if (GetComponent<ItemCable>())
             {
                 cables.Add("Item");
+            }
+
+            if (GetComponent<DataCable>())
+            {
+                cables.Add("Data");
             }
 
             int numCables = cables.Count;
@@ -71,7 +76,7 @@ namespace Scavenger
 
                     for (int j = 0; j < resolvers.Length; j++)
                     {
-                        resolvers[j].SetCategoryAndLabel("Cable Symbols", cables[i]);
+                        resolvers[j].SetCategoryAndLabel("Cable Symbols", cables[j]);
                     }
                 }
             }
