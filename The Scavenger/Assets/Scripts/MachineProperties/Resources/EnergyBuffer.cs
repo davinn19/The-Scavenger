@@ -10,7 +10,7 @@ namespace Scavenger
     public class EnergyBuffer : Buffer
     {
         [SerializeField] private int capacity;
-        private int energy = 0;
+        [SerializeField] private int energy = 0;
 
 
         /// <summary>

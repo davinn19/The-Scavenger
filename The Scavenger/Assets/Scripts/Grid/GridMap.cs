@@ -9,6 +9,7 @@ namespace Scavenger
     {
         public static Vector2Int[] adjacentDirections = { Vector2Int.up, Vector2Int.right, Vector2Int.down, Vector2Int.left };
         public UpdatePropagation updatePropagation;
+        public UpdateCycle updateCycle;
 
         private Dictionary<Vector2Int, GridChunk> gridChunks = new Dictionary<Vector2Int, GridChunk>();
 

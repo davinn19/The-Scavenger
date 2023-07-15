@@ -14,7 +14,7 @@ namespace Scavenger
 
         private float secondsSinceUpdate;
 
-        private List<Action> callbacks = new List<Action>();
+        private Queue<Action> callbackQueue = new();
 
 
         private void Awake()
@@ -29,23 +29,23 @@ namespace Scavenger
             if (secondsSinceUpdate >= secondsPerUpdate)
             {
                 secondsSinceUpdate = 0;
-
-                foreach (Action callback in callbacks)
-                {
-                    callback.Invoke();
-                }
+                ExecuteCallbacks();
             }
         }
 
-
-        public void Subscribe(Action callback)
+        private void ExecuteCallbacks()
         {
-            callbacks.Add(callback);
+            int queueSize = callbackQueue.Count;
+            for (int _ = 0; _ < queueSize; _++)
+            {
+                Action nextCallback = callbackQueue.Dequeue();
+                nextCallback.Invoke();
+            }
         }
 
-        private void Unsubscribe(Action callback)
+        public void QueueUpdate(Action callback)
         {
-            callbacks.Remove(callback);
+            callbackQueue.Enqueue(callback);
         }
     }
 }

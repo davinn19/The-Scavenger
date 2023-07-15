@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Scavenger
 {
+    [RequireComponent(typeof(HP)), DisallowMultipleComponent]
     public class GridObject : MonoBehaviour
     {
         public Vector2Int gridPos;
@@ -18,19 +19,19 @@ namespace Scavenger
         public List<Action<Vector2Int>> OnNeighborPlaced = new();
         public List<Action> OnNeighborChanged = new();
 
-        public List<Action> OnTick = new();
-
         private List<Action> selfChangedCallbacks = new();
 
-
         public Action<ItemStack, Vector2Int> Interact = (_,_) => { };
-
 
         public void SubscribeSelfChanged(Action callback)
         {
             selfChangedCallbacks.Add(callback);
         }
 
+        public void QueueTickUpdate(Action callback)
+        {
+            map.updateCycle.QueueUpdate(callback);
+        }
 
         private void Awake()
         {

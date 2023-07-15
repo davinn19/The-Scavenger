@@ -10,16 +10,15 @@ namespace Scavenger
     /// </summary>
     public class EnergyCable : Cable<EnergyBuffer>
     {
-        private void TickUpdate()
+        protected override void TransportResource()
         {
             List<EnergyBuffer> destinations = GetConnectedOutputs();
-
             foreach (Vector2Int side in GridMap.adjacentDirections)
             {
                 EnergyBuffer source = gridObject.GetAdjacentObject<EnergyBuffer>(side);
 
                 if (!source || !conduit.IsSideExtracting(side))
-                {
+                {   
                     continue;
                 }
 

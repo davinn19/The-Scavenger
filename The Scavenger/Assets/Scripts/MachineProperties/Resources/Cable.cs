@@ -43,12 +43,27 @@ namespace Scavenger
     /// </summary>
     public abstract class Cable<T> : Cable where T : Buffer
     {
+        private void Start()
+        {
+            gridObject.QueueTickUpdate(TickUpdate);
+        }
+
+        private void TickUpdate()
+        {
+            TransportResource();
+            gridObject.QueueTickUpdate(TickUpdate);
+        }
+
+        protected abstract void TransportResource();
+
+
         /// <summary>
         /// Searches through connected cables for all connected output buffers.
         /// </summary>
         /// <returns>A list of connected output buffers, ordered by proximity to the cable.</returns>
         protected List<T> GetConnectedOutputs()
         {
+            // TODO do more tests
             List<T> outputs = new List<T>();
 
             // Performs BFS so results are ordered by how close they are to the cable
@@ -78,7 +93,7 @@ namespace Scavenger
                     }
 
                     // If side is connected to a compatible Cable, add to search
-                    Cable<T> adjCable = curCable.gridObject.GetAdjacentObject<Cable<T>>(side, Equals);
+                    Cable<T> adjCable = curCable.gridObject.GetAdjacentObject<Cable<T>>(side, IsCompatible);
                     if (adjCable)
                     {
                         pendingSearches.Enqueue(adjCable);
@@ -98,24 +113,13 @@ namespace Scavenger
         }
 
         /// <summary>
-        /// Checks if two cables can connect.
+        /// Checks if two cables can connect by comparing their specs.
         /// </summary>
         /// <param name="other">The object being compared to.</param>
         /// <returns>True if the cables can connect.</returns>
-        public override bool Equals(object other)
+        public bool IsCompatible(Cable<T> other)
         {
-            // Cables must have equal transferRate and transfer the same resource type
-            if (!(other as Cable<T>))
-            {
-                return false;
-            }
-            
-            return (other as Cable<T>).spec == spec;
-        }
-
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(spec.TransferRate);
+            return other.spec == spec;
         }
     }
 }

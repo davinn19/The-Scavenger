@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Scavenger
 {
+    [RequireComponent(typeof(GridObject))]
     public class Recycler : MonoBehaviour
     {
         [SerializeField] private RecyclerRecipes recipes;
@@ -12,15 +13,27 @@ namespace Scavenger
         [SerializeField] private ItemBuffer output;
         [SerializeField] private EnergyBuffer energy;
 
+        private GridObject gridObject;
+
         [SerializeField] private float recycleProgress = 0;
 
         [SerializeField]
         [Min(0)]
         private float ticksPerRecycle;
 
-        
-        private void TickUpdate()
+        private void Awake()
         {
+            gridObject = GetComponent<GridObject>();
+        }
+
+        private void Start()
+        {
+            gridObject.QueueTickUpdate(ProcessRecycle);
+        }
+
+        private void ProcessRecycle()
+        {
+            // TODO finish
             recycleProgress++;
             if (recycleProgress >= ticksPerRecycle)
             {

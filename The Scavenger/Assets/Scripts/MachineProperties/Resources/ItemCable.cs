@@ -6,7 +6,7 @@ namespace Scavenger
 {
     public class ItemCable : Cable<ItemBuffer>
     {
-        private void TickUpdate()
+        protected override void TransportResource()
         {
             List<ItemBuffer> destinations = GetConnectedOutputs();
 

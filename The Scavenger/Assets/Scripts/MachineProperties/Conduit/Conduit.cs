@@ -222,7 +222,6 @@ namespace Scavenger
 
         private bool TryAddCable(ItemStack itemStack)
         {
-            // TODO implement
             CableSpec cableSpec;
 
             if (itemStack.item.TryGetProperty(out cableSpec) && CanAddCable(cableSpec))
