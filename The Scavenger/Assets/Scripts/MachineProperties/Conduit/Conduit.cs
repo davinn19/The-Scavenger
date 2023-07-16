@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Scavenger
 {
     /// <summary>
-    /// GridObject that houses Cables and defines their connectivity/transport modes.
+    /// GridObject that houses cables and defines their connectivity/transport modes.
     /// </summary>
     [RequireComponent(typeof(GridObject))]
     public class Conduit : MonoBehaviour
@@ -41,7 +41,10 @@ namespace Scavenger
             }
         }
 
-        // If next to conduit, connect. If next to interface, extract. Otherwise, disconnect.
+        
+        /// <summary>
+        /// Sets side configs to default values based on the adjacent GridObject.
+        /// </summary>
         private void OnPlaced()
         {
             foreach (Vector2Int side in GridMap.adjacentDirections)
@@ -49,15 +52,15 @@ namespace Scavenger
                 Conduit adjConduit = gridObject.GetAdjacentObject<Conduit>(side);
                 ConduitInterface adjInterface = gridObject.GetAdjacentObject<ConduitInterface>(side);
 
-                if (adjConduit)
+                if (adjConduit)             // If next to conduit, connect.
                 {
                     SetTransportMode(side, TransportMode.CONNECT);
                 }
-                else if (adjInterface)
+                else if (adjInterface)      // If next to interface, extract.
                 {
                     SetTransportMode(side, TransportMode.EXTRACT);
                 }
-                else
+                else                        //Otherwise, disconnect.
                 {
                     SetTransportMode(side, TransportMode.DISCONNECT);
                 }
@@ -66,7 +69,9 @@ namespace Scavenger
             gridObject.OnSelfChanged();
         }
 
-        // Disconnect all adjacent conduits before removing.
+        /// <summary>
+        /// Disconnects all adjacent conduits before removing.
+        /// </summary>
         private void OnRemoved()
         {
             foreach (Vector2Int side in GridMap.adjacentDirections)
@@ -83,7 +88,10 @@ namespace Scavenger
             }
         }
 
-        // If the adjacent object is removed or does not accept conduits, set to disconnect
+        /// <summary>
+        /// If the adjacent object is removed or does not accept conduits, set to disconnect.
+        /// </summary>
+        /// <param name="sideUpdated">Side which the neighbor was placed on.</param>
         private void OnNeighborPlaced(Vector2Int sideUpdated)
         {
             Conduit adjConduit = gridObject.GetAdjacentObject<Conduit>(sideUpdated);
@@ -112,7 +120,9 @@ namespace Scavenger
             }
         }
 
-        // Makes sure its side modes align with adjacent conduits
+        /// <summary>
+        /// Ensures sure its side modes align with adjacent conduits.
+        /// </summary>
         private void OnNeighborChanged()
         {
             bool changed = false;
@@ -148,7 +158,7 @@ namespace Scavenger
         /// <summary>
         /// Checks if a side is connected.
         /// </summary>
-        /// <param name="side">Which side of the Conduit to check.</param>
+        /// <param name="side">Which side of the conduit to check.</param>
         /// <returns>True if the side is connected.</returns>
         public bool IsSideConnected(Vector2Int side)
         {
@@ -159,7 +169,7 @@ namespace Scavenger
         /// <summary>
         /// Checks if a side is disconnected.
         /// </summary>
-        /// <param name="side">Which side of the Conduit to check.</param>
+        /// <param name="side">Which side of the conduit to check.</param>
         /// <returns>True if the side is disconnected.</returns>
         public bool IsSideDisconnected(Vector2Int side)
         {
@@ -170,7 +180,7 @@ namespace Scavenger
         /// <summary>
         /// Checks if a side is in extract mode.
         /// </summary>
-        /// <param name="side">Which side of the Conduit to check.</param>
+        /// <param name="side">Which side of the conduit to check.</param>
         /// <returns>True if the side is in extract mode.</returns>
         public bool IsSideExtracting(Vector2Int side)
         {
@@ -183,10 +193,12 @@ namespace Scavenger
             return sideConfigs[side].Item1;
         }
 
+
         public DistributeMode GetDistributeMode(Vector2Int side)
         {
             return sideConfigs[side].Item2;
         }
+
 
         public void SetTransportMode(Vector2Int side, TransportMode mode)
         {
@@ -199,32 +211,51 @@ namespace Scavenger
             sideConfigs[side] = (GetTransportMode(side), mode);
         }
 
-
+        /// <summary>
+        /// Tries to rotate the pressed side's transport mode, or add the held cable.
+        /// </summary>
+        /// <param name="itemStack">The itemStack used to interact with the conduit.</param>
+        /// <param name="sidePressed">The side pressed when interacting.</param>
         private void Interact(ItemStack itemStack, Vector2Int sidePressed)
         {
-            if (!TryEditSide(itemStack.item, sidePressed))
+            bool editSuccessful = TryEditSide(itemStack.Item, sidePressed);
+
+            if (editSuccessful)
             {
-                TryAddCable(itemStack);
+                return;
             }
+
+            TryAddCable(itemStack);
         }
 
-        private bool TryEditSide(Item item, Vector2Int sidePressed)
+        /// <summary>
+        /// Tries to rotate a side's transport mode, successful if held item is a conduit.
+        /// </summary>
+        /// <param name="item">The held item.</param>
+        /// <param name="side">The side to attempt changing transport mode.</param>
+        /// <returns>True if the edit is successful.</returns>
+        private bool TryEditSide(Item item, Vector2Int side)
         {
             PlacedObject property;
             if (item.TryGetProperty(out property) && property.Object.GetComponent<Conduit>())
             {
-                RotateTransportMode(sidePressed);
+                RotateTransportMode(side);
                 return true;
             }
 
             return false;
         }
 
+        /// <summary>
+        /// Tries to add the held item as a cable to the conduit.
+        /// </summary>
+        /// <param name="itemStack">The held item.</param>
+        /// <returns>True if the held item is added.</returns>
         private bool TryAddCable(ItemStack itemStack)
         {
             CableSpec cableSpec;
 
-            if (itemStack.item.TryGetProperty(out cableSpec) && CanAddCable(cableSpec))
+            if (itemStack.Item.TryGetProperty(out cableSpec) && CanAddCable(cableSpec))
             {
                 cableSpec.AddCable(this);
                 itemStack.Remove();
@@ -235,12 +266,21 @@ namespace Scavenger
             return false;
         }
 
+        /// <summary>
+        /// Determines if a cable can be added (only when the conduit does not already have a cable of the same type).
+        /// </summary>
+        /// <param name="cableSpec">The cable tested.</param>
+        /// <returns>True if the cable can be added.</returns>
         private bool CanAddCable(CableSpec cableSpec)
         {
             return !GetComponent(cableSpec.GetCableType());
         }
 
-        // Cycles the transport mode for a specific side
+
+        /// <summary>
+        /// Cycles the transport mode for a specific side.
+        /// </summary>
+        /// <param name="side">The side to edit the transport mode.</param>
         private void RotateTransportMode(Vector2Int side)
         {
             TransportMode oldTransportMode = GetTransportMode(side);
@@ -248,7 +288,6 @@ namespace Scavenger
             List<TransportMode> rotation = GetTransportModeRotation(side);
 
             int index = rotation.IndexOf(oldTransportMode) + 1;
-
             if (index >= rotation.Count)
             {
                 index = 0;
@@ -264,7 +303,11 @@ namespace Scavenger
             }
         }
 
-        // Gets possible modes for a specific side.
+        /// <summary>
+        /// Gets possible modes for a specific side based on what gridObject is adjacent.
+        /// </summary>
+        /// <param name="side">The side to check.</param>
+        /// <returns>A list of possible transport modes.</returns>
         private List<TransportMode> GetTransportModeRotation(Vector2Int side)
         {
             if (gridObject.GetAdjacentObject<ConduitInterface>(side))

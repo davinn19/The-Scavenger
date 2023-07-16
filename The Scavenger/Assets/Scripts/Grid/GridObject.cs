@@ -12,8 +12,6 @@ namespace Scavenger
         private GridMap map;
         private GridChunk chunk;
 
-        // TODO move somewhere else? maybe?
-
         public List<Action> OnPlaced = new();
         public List<Action> OnRemoved = new();
         public List<Action<Vector2Int>> OnNeighborPlaced = new();

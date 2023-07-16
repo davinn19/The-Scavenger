@@ -6,14 +6,13 @@ namespace Scavenger
 {
     public class ItemStack : MonoBehaviour
     {
-        // TODO make private/protected
-        public Item item;       
+        [field: SerializeField] public Item Item { get; private set; }  
         public int amount;
         public Dictionary<string, string> data;
 
         public bool IsStackable(ItemStack other)
         {
-            if (item != other.item)
+            if (Item != other.Item)
             {
                 return false;
             }

@@ -12,16 +12,17 @@ namespace Scavenger
     {
         protected override void TransportResource()
         {
-            List<EnergyBuffer> destinations = GetConnectedOutputs();
-            foreach (Vector2Int side in GridMap.adjacentDirections)
+            List<EnergyBuffer> sources = GetSources();
+
+            if (sources.Count == 0)
             {
-                EnergyBuffer source = gridObject.GetAdjacentObject<EnergyBuffer>(side);
+                return;
+            }
 
-                if (!source || !conduit.IsSideExtracting(side))
-                {   
-                    continue;
-                }
-
+            List<EnergyBuffer> destinations = GetDestinations();
+            
+            foreach (EnergyBuffer source in sources)
+            {
                 Distribute(source, destinations);
             }
         }
@@ -35,7 +36,7 @@ namespace Scavenger
         /// <param name="destinations">Buffers to insert energy into.</param>
         private void Distribute(EnergyBuffer source, List<EnergyBuffer> destinations)
         {
-            int availableEnergy = Mathf.Min(source.GetEnergy(), spec.TransferRate);
+            int availableEnergy = Mathf.Min(source.Energy, spec.TransferRate);
             int energyTaken = 0;
 
             foreach (EnergyBuffer destination in destinations)

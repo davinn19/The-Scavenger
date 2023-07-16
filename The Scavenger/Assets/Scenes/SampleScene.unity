@@ -701,7 +701,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a737b4a88774dd45842a44bd42b4086, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: 5540fd200c50bb24682223f08b3fcbac, type: 2}
+  item: {fileID: 11400000, guid: 8be0e1af319d4f249ad306127adde586, type: 2}
   amount: 1
 --- !u!1 &1203047188
 GameObject:
@@ -735,6 +735,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   updatePropagation: {fileID: 1203047192}
+  updateCycle: {fileID: 1203047191}
 --- !u!4 &1203047190
 Transform:
   m_ObjectHideFlags: 0

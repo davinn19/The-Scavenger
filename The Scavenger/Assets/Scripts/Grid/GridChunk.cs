@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Scavenger
 {
+    // TODO add docs
     public class GridChunk : MonoBehaviour
     {
         public static readonly int chunkSize = 9;

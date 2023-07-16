@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Scavenger
 {
+    // TODO add documentation, test
     public class DataInterface : ConduitInterface<DataBuffer>
     {
         public List<DataBuffer> inputs;

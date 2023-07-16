@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a61bb1bb4eb4354abc492618e20517f, type: 3}
   m_Name: Placed Object
   m_EditorClassIdentifier: 
-  <Object>k__BackingField: {fileID: 0}
+  <Object>k__BackingField: {fileID: 3372188304090494505, guid: 4da2fe8833591ca47b7b680a76abcc1e, type: 3}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0

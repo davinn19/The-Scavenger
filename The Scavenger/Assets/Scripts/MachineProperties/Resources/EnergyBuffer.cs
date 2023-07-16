@@ -9,8 +9,8 @@ namespace Scavenger
     /// </summary>
     public class EnergyBuffer : Buffer
     {
-        [SerializeField] private int capacity;
-        [SerializeField] private int energy = 0;
+        [SerializeField] public int Capacity { get; private set; }
+        [SerializeField] public int Energy { get; private set; }
 
 
         /// <summary>
@@ -23,7 +23,7 @@ namespace Scavenger
             int remainingCapacity = GetRemainingCapacity();
             int amountToInsert = Mathf.Min(remainingCapacity, amount);
 
-            energy += amountToInsert;
+            Energy += amountToInsert;
 
             return amountToInsert;
         }
@@ -35,26 +35,17 @@ namespace Scavenger
         /// <returns>Amount of energy extracted from the buffer.</returns>
         public int ExtractEnergy(int amount)
         {
-            int amountToExtract = Mathf.Min(energy, amount);
+            int amountToExtract = Mathf.Min(Energy, amount);
 
-            energy -= amountToExtract;
+            Energy -= amountToExtract;
 
             return amountToExtract;
         }
 
-        public int GetEnergy()
-        {
-            return energy;
-        }
-
-        public int GetCapacity()
-        {
-            return capacity;
-        }
 
         public int GetRemainingCapacity()
         {
-            return capacity - energy;
+            return Capacity - Energy;
         }
     }
 }

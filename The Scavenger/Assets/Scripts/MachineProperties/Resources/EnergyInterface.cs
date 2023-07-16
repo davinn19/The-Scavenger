@@ -4,8 +4,10 @@ using UnityEngine;
 
 namespace Scavenger
 {
-    // TODO continue documentation
-    [RequireComponent(typeof(EnergyBuffer))]
+    /// <summary>
+    /// Specialized conduit interface for energy buffers, since gridObjects cannot have multiple energy buffers.
+    /// </summary>
+    [RequireComponent(typeof(EnergyBuffer)), DisallowMultipleComponent]
     public class EnergyInterface : ConduitInterface<EnergyBuffer>
     {
         private EnergyBuffer energyBuffer;
@@ -15,26 +17,25 @@ namespace Scavenger
             energyBuffer = GetComponent<EnergyBuffer>();
         }
 
-        public override List<EnergyBuffer> GetInputs()
-        {
-            return GetEnergyBuffer();
-        }
+        /// <summary>
+        /// Gets the only energy buffer.
+        /// </summary>
+        /// <returns>List containing the only energy buffer.</returns>
+        public override List<EnergyBuffer> GetInputs() => GetEnergyBuffer();
 
-        public override List<EnergyBuffer> GetOutputs()
-        {
-            return GetEnergyBuffer();
-        }
+        /// <summary>
+        /// Gets the only energy buffer.
+        /// </summary>
+        /// <returns>List containing the only energy buffer.</returns>
+        public override List<EnergyBuffer> GetOutputs() => GetEnergyBuffer();
 
+        /// <summary>
+        /// Gets the only energy buffer.
+        /// </summary>
+        /// <returns>List containing the only energy buffer.</returns>
         private List<EnergyBuffer> GetEnergyBuffer()
         {
-            List<EnergyBuffer> result = new List<EnergyBuffer>();
-
-            if (energyBuffer)
-            {
-                result.Add(energyBuffer);
-            }
-
-            return result;
+            return new List<EnergyBuffer>() { energyBuffer };
         }
 
     }

@@ -14,7 +14,7 @@ namespace Scavenger
         void Update()
         {
             ItemStack itemStack = GetComponent<ItemSelection>().GetSelectedItemStack();
-            Sprite placementPreview = itemStack.item.Icon;
+            Sprite placementPreview = itemStack.Item.Icon;
             tileHover.sprite = placementPreview;
 
             Vector3 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
@@ -29,9 +29,9 @@ namespace Scavenger
             if (Input.GetMouseButtonDown(0))    // Left click to place/interact
             {
                 // Place Item
-                if (!gridObject && itemStack.item.HasProperty<PlacedObject>())         // Clicked on empty space with placable object, place the object
+                if (!gridObject && itemStack.Item.HasProperty<PlacedObject>())         // Clicked on empty space with placable object, place the object
                 {
-                    map.TryPlaceItem(itemStack.item, gridPos);
+                    map.TryPlaceItem(itemStack.Item, gridPos);
                 }
                 else if (gridObject)    // Interact item
                 {

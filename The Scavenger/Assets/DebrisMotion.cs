@@ -21,6 +21,12 @@ namespace Scavenger
             transform.Rotate(0, 0, rotationSpeed * Time.deltaTime);
         }
 
+        /// <summary>
+        /// Sets the debris' motion variables.
+        /// </summary>
+        /// <param name="speed">The debris' new speed.</param>
+        /// <param name="direction">The debris' new direction.</param>
+        /// <param name="rotationSpeed">The debris' new rotation speed.</param>
         public void SetMotion(float speed, Vector2 direction, float rotationSpeed)
         {
             this.speed = speed;

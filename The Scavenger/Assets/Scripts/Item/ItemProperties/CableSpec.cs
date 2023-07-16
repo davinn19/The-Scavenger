@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace Scavenger
 {
+    /// <summary>
+    /// Specifies a cables's transfer rate and which resource it can transport.
+    /// </summary>
     public class CableSpec : ItemProperty
     {
         public override string Name => "Cable Spec";
@@ -13,12 +16,17 @@ namespace Scavenger
 
         [field: SerializeField] public ResourceType ResourceType { get; private set; }
 
+        /// <summary>
+        /// Adds the specified cable to a conduit.
+        /// </summary>
+        /// <param name="conduit">The conduit to add the cable to.</param>
+        /// <returns>The added cable.</returns>
         public Cable AddCable(Conduit conduit)
         {
             Cable newCable;
             switch (ResourceType)
             {
-                // TODO add other cables
+                // TODO add fluid cable
                 case ResourceType.Energy:
                     newCable = conduit.gameObject.AddComponent<EnergyCable>();
                     break;
@@ -36,11 +44,15 @@ namespace Scavenger
             return newCable;
         }
 
+        /// <summary>
+        /// Converts the cables's ResourceType to the type it repesents.
+        /// </summary>
+        /// <returns>Type object representing the cable.</returns>
         public Type GetCableType()
         {
             switch (ResourceType)
             {
-                // TODO add other cables
+                // TODO add fluid cable
                 case ResourceType.Energy:
                     return typeof(EnergyCable);
                 case ResourceType.Item:

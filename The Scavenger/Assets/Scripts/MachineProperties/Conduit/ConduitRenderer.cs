@@ -5,7 +5,9 @@ using UnityEngine.U2D.Animation;
 
 namespace Scavenger
 {
-    // TODO check if this still works properly, add documentation
+    /// <summary>
+    /// Changes the appearance of the gridObject based on the conduit's settings.
+    /// </summary>
     public class ConduitRenderer : MonoBehaviour
     {
         [SerializeField] private Conduit conduit;
@@ -30,6 +32,9 @@ namespace Scavenger
             UpdateCenter();
         }
 
+        /// <summary>
+        /// Updates the connection sprites based on adjacent gridObjects and each side's transport mode.
+        /// </summary>
         private void UpdateAllSides()
         {
             for (int sideIndex = 0; sideIndex < 4; sideIndex++)
@@ -42,6 +47,9 @@ namespace Scavenger
             }
         }
 
+        /// <summary>
+        /// Updates the symbol sprites based on which cables are in the conduit.
+        /// </summary>
         private void UpdateCenter()
         {
             // TODO add fluid cable
@@ -82,7 +90,11 @@ namespace Scavenger
             }
         }
 
-        // Gets the proper sprite resolver label for a specific side
+        /// <summary>
+        /// Gets the proper sprite resolver label for a specific side
+        /// </summary>
+        /// <param name="side">The side to get the label for.</param>
+        /// <returns>The label for the sprite resolver.</returns>
         private string GetLabelForSide(Vector2Int side)
         {
             if (conduit.IsSideExtracting(side))

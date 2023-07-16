@@ -40,13 +40,6 @@ namespace Scavenger
             return null;
         }
 
-
-        public bool TryGetProperty(Type propertyType, out ItemProperty property)
-        {
-            property = GetProperty(propertyType);
-            return property != null;
-        }
-
         public bool TryGetProperty<T>(out T property) where T : ItemProperty
         {
             property = GetProperty<T>();

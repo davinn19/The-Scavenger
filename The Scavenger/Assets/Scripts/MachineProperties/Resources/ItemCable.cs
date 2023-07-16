@@ -8,18 +8,18 @@ namespace Scavenger
     {
         protected override void TransportResource()
         {
-            List<ItemBuffer> destinations = GetConnectedOutputs();
+            Dictionary<ItemBuffer, DistributeMode> sources = GetSourcesAndDistributeModes();
 
-            foreach (Vector2Int side in GridMap.adjacentDirections)
+            if (sources.Count == 0)
             {
-                ItemBuffer source = gridObject.GetAdjacentObject<ItemBuffer>(side);
+                return;
+            }
 
-                if (!source || !conduit.IsSideExtracting(side))
-                {
-                    continue;
-                }
+            List<ItemBuffer> destinations = GetDestinations();
 
-                switch (conduit.GetDistributeMode(side))
+            foreach (ItemBuffer source in sources.Keys)
+            {
+                switch (sources[source])
                 {
                     case DistributeMode.CLOSEST_FIRST:
                         ClosestFirst(source, destinations);
@@ -31,7 +31,7 @@ namespace Scavenger
                         Debug.LogError("Something went wrong!!!");
                         break;
                 }
-            }
+            }            
         }
 
         // Distributes items from an input item buffer to all output item buffers, closer destinations getting filled first

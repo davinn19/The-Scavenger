@@ -6,6 +6,6 @@ namespace Scavenger
 {
     public class DataBuffer : Buffer
     {
-        // TODO implement
+        // TODO implement, add docs
     }
 }

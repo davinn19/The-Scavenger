@@ -12,7 +12,7 @@ namespace Scavenger
 
         public bool IsRecyclable(ItemStack item)
         {
-            return GetRecipe(item.item) != null;
+            return GetRecipe(item.Item) != null;
         }
 
 
