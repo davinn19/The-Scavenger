@@ -13,14 +13,17 @@ namespace Scavenger
         protected override void TransportResource()
         {
             List<EnergyBuffer> sources = GetSources();
-
             if (sources.Count == 0)
             {
                 return;
             }
 
             List<EnergyBuffer> destinations = GetDestinations();
-            
+            if (destinations.Count == 0)
+            {
+                return;
+            }
+
             foreach (EnergyBuffer source in sources)
             {
                 Distribute(source, destinations);

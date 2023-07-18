@@ -6,16 +6,49 @@ namespace Scavenger
 {
     public class Inventory : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
+        public const int InventoryWidth = 7;
+        public const int InventoryHeight = 4;
+
+
+        private ItemStack[,] inventory = new ItemStack[InventoryWidth, InventoryHeight];
+
+        private void Awake()
         {
-        
+            foreach (ItemStack startingItemStack in GetComponentsInChildren<ItemStack>())
+            {
+                Vector2Int pos = GetFirstEmptyPos();
+                SetItemStack(startingItemStack, pos);
+            }
         }
 
-        // Update is called once per frame
-        void Update()
+        public ItemStack GetItemStack(int x, int y)
         {
-        
+            return inventory[x, y];
+        }
+
+        public ItemStack GetItemStack(Vector2Int pos) => GetItemStack(pos.x, pos.y);
+
+        private void SetItemStack(ItemStack itemStack, Vector2Int pos)
+        {
+            inventory[pos.x, pos.y] = itemStack;
+        }
+
+
+
+        private Vector2Int GetFirstEmptyPos()
+        {
+            for (int y = 0; y < InventoryHeight; y++)
+            {
+                for (int x = 0; x < InventoryWidth; x++)
+                {
+                    if (GetItemStack(x, y) == null)
+                    {
+                        return new Vector2Int(x, y);
+                    }
+                }
+            }
+
+            return new Vector2Int(-1, -1);
         }
     }
 }

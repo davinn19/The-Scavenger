@@ -10,33 +10,40 @@ namespace Scavenger
         [SerializeField] private GridMap map;
         [SerializeField] private SpriteRenderer tileHover;
 
+        private ItemSelection itemSelection;
+
+        private void Awake()
+        {
+            itemSelection = GetComponent<ItemSelection>();
+        }
+
 
         void Update()
         {
-            ItemStack itemStack = GetComponent<ItemSelection>().GetSelectedItemStack();
-            Sprite placementPreview = itemStack.Item.Icon;
-            tileHover.sprite = placementPreview;
+            ItemStack selectedItemStack = itemSelection.GetSelectedItemStack();
 
             Vector3 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-
             Vector2Int gridPos = new Vector2Int(Mathf.FloorToInt(mousePos.x), Mathf.FloorToInt(mousePos.y));
-
-            tileHover.transform.position = new Vector3(gridPos.x + 0.5f, gridPos.y + 0.5f, 0);
-
             GridObject gridObject = map.GetObjectAtPos(gridPos);
 
+            DrawPlacementPreview(selectedItemStack, gridPos);
+
+            if (!selectedItemStack)
+            {
+                return;
+            }
 
             if (Input.GetMouseButtonDown(0))    // Left click to place/interact
             {
                 // Place Item
-                if (!gridObject && itemStack.Item.HasProperty<PlacedObject>())         // Clicked on empty space with placable object, place the object
+                if (!gridObject && selectedItemStack.Item.HasProperty<PlacedObject>())         // Clicked on empty space with placable object, place the object
                 {
-                    map.TryPlaceItem(itemStack.Item, gridPos);
+                    map.TryPlaceItem(selectedItemStack.Item, gridPos);
                 }
                 else if (gridObject)    // Interact item
                 {
                     Vector2Int sidePressed = GetSidePressed(mousePos, tileHover.transform.position);
-                    map.TryInteract(itemStack, gridPos, sidePressed);
+                    map.TryInteract(selectedItemStack, gridPos, sidePressed);
                 }
 
             }
@@ -45,6 +52,21 @@ namespace Scavenger
                 // TODO implement
             }
         }
+
+
+        private void DrawPlacementPreview(ItemStack selectedItemStack, Vector2Int gridPos)
+        {
+            if (!selectedItemStack)
+            {
+                tileHover.enabled = false;
+                return;
+            }
+
+            tileHover.enabled = true;
+            tileHover.sprite = selectedItemStack.Item.Icon;
+            tileHover.transform.position = new Vector3(gridPos.x + 0.5f, gridPos.y + 0.5f, 0);
+        }
+
 
         private Vector2Int GetSidePressed(Vector3 mousePos, Vector3 tilePos)
         {
