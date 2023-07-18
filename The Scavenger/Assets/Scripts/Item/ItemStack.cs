@@ -4,16 +4,42 @@ using UnityEngine;
 
 namespace Scavenger
 {
-    public class ItemStack : MonoBehaviour
+    [System.Serializable]
+    public class ItemStack
     {
-        [field: SerializeField] public Item Item { get; private set; }  
-        public int amount;
+        [field: SerializeField] public Item Item { get; private set; }
+        [Min(0)] public int amount;
         public Dictionary<string, string> data;
+
+
+        public ItemStack(Item item, int amount, Dictionary<string, string> data = null)
+        {
+            SetItem(item);
+            this.amount = amount;
+
+            if (data != null)
+            {
+                this.data = data;
+            }
+            else
+            {
+                this.data = new Dictionary<string, string>();
+            }
+        }
+
+        public ItemStack() => Clear();
+
+        public void Clear()
+        {
+            Item = null;
+            amount = 0;
+            data = new Dictionary<string, string>();
+        }
 
 
         public void SetItem(Item newItem)
         {
-            if (Item == null)
+            if (Item != null)
             {
                 Debug.LogWarning("ItemStack is already assigned an item");
                 return;
@@ -32,34 +58,14 @@ namespace Scavenger
             return data.Equals(other.data);
         }
 
-        /// <summary>
-        /// Takes amount of items from another stack and adds to itself.
-        /// </summary>
-        /// <param name="other">The itemStack to take items from.</param>
-        /// <param name="requestedAmount">The amount of items to take.</param>
-        /// <param name="stackCapacity">The maximum amount of items this stack can contain.</param>
-        /// <returns>The amount of items taken.</returns>
-        public int TakeFromStack(ItemStack other, int requestedAmount = int.MaxValue, int stackCapacity = int.MaxValue)// TODO test
-        {
-            // TODO add test to ensure itemStacks are stackable
-            int amountToTake = Mathf.Min(new int[] { requestedAmount, stackCapacity - amount, other.amount});
-
-            other.amount -= amountToTake;
-            amount += amountToTake;
-            // TODO deal with empty stacks
-            return amountToTake;
-        }
-
-        public void Remove(int requestedAmount = 1)
-        {
-            int amountToTake = Mathf.Min(new int[] { requestedAmount, amount });
-            amount -= amountToTake;
-        }
-
         public bool IsEmpty()
         {
             return amount <= 0;
         }
 
+        public static implicit operator bool(ItemStack itemStack)
+        {
+            return itemStack != null && itemStack.Item != null;
+        }
     }
 }

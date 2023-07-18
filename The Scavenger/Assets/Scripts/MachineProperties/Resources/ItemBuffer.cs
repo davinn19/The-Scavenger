@@ -10,86 +10,195 @@ namespace Scavenger
         [SerializeField] private int maxCapacity;
         [SerializeField] private int numSlots;
 
-        private ItemStack[] GetItems()
+        [field: SerializeField] public ItemStack[] Slots { get; private set; }
+        private bool[] slotsLocked;
+
+        private void Awake()
         {
-            return GetComponentsInChildren<ItemStack>();
+            ProcessStartingItems();
+            slotsLocked = new bool[numSlots];
         }
 
-        public ItemStack FindFirst(Predicate<ItemStack> condition)
+        // Resizes slots array to numSlots and confirms all itemStacks set in editor match maxCapacity
+        private void ProcessStartingItems()
         {
-            foreach (ItemStack item in GetItems())
+            ItemStack[] resizedSlots = new ItemStack[numSlots];
+
+            for (int i = 0; i < Slots.Length; i++)
             {
-                if (condition(item))
-                {
-                    return item;
-                }
+                ItemStack itemStack = GetItemInSlot(i);
+                itemStack.amount = Mathf.Min(itemStack.amount, maxCapacity);
+                resizedSlots[i] = itemStack;
             }
-            return null;
+
+            for (int i = Slots.Length; i < resizedSlots.Length; i++)
+            {
+                resizedSlots[i] = new ItemStack();
+            }
+
+            Slots = resizedSlots;
         }
 
-        public List<ItemStack> FindAll(Predicate<ItemStack> condition)
+        public int FindFirst(Predicate<ItemStack> condition)
         {
-            List<ItemStack> items = new();
-            foreach (ItemStack item in GetItems())
+            for (int i = 0; i < numSlots; i++)
             {
-                if (condition(item))
+                ItemStack itemStack = GetItemInSlot(i);
+
+                if (itemStack && condition(itemStack))
                 {
-                    items.Add(item);
+                    return i;
                 }
             }
-            return items;
+
+            return -1;
+        }
+
+        public List<int> FindAll(Predicate<ItemStack> condition)
+        {
+            List<int> foundSlots = new();
+
+            for (int i = 0; i < numSlots; i++)
+            {
+                ItemStack itemStack = GetItemInSlot(i);
+
+                if (itemStack && condition(itemStack))
+                {
+                    foundSlots.Add(i);
+                }
+            }
+
+            return foundSlots;
         }
 
         
-        public int TakeFromBuffer(ItemBuffer other, int amount)
+        public ItemStack GetItemInSlot(int slot)
         {
-            int itemsToTake = amount;
+            return Slots[slot];
+        }
 
-            foreach (ItemStack itemStack in other.GetItems())
+        public List<ItemStack> GetItems()
+        {
+            List<ItemStack> itemStacks = new();
+            foreach (ItemStack itemStack in Slots)
             {
-                List<ItemStack> compatibleStacks = FindAll(itemStack.IsStackable);
-                
-                // Insert into existing stacks first
-                foreach (ItemStack compatibleStack in compatibleStacks)
+                if (itemStack)
                 {
-                    itemsToTake -= compatibleStack.TakeFromStack(itemStack, itemsToTake, maxCapacity);
-                    
-                    if (itemsToTake <= 0)
+                    itemStacks.Add(itemStack);
+                }
+            }
+            return itemStacks;
+        }
+
+        public bool IsLocked(int slot)
+        {
+            return slotsLocked[slot];
+        }
+
+
+        public int Extract(int slot, int amount)
+        {
+            ItemStack extractedStack = GetItemInSlot(slot);
+
+            if (!extractedStack)
+            {
+                return 0;
+            }
+
+            int amountExtracted = Mathf.Min(extractedStack.amount, amount);
+
+            extractedStack.amount -= amountExtracted;
+            if (extractedStack.IsEmpty() && !IsLocked(slot))
+            {
+                extractedStack.Clear();
+            }
+
+            return amountExtracted;
+        }
+
+
+        // returns remainder
+        public int Insert(int slot, ItemStack otherStack, int amount)
+        {
+            if (!otherStack)
+            {
+                return 0;
+            }
+
+            ItemStack insertedStack = GetItemInSlot(slot);
+            if (!insertedStack)
+            {
+                insertedStack.SetItem(otherStack.Item);
+                insertedStack.data = otherStack.data;
+            }
+
+            if (!insertedStack.IsStackable(otherStack))
+            {
+                return 0;
+            }
+
+            int amountInserted = Mathf.Min(amount, otherStack.amount, maxCapacity - insertedStack.amount);
+            insertedStack.amount += amountInserted;
+
+            return otherStack.amount - amountInserted;
+        }
+
+        // returns items not taken
+        public int TakeFromBuffer(ItemBuffer otherBuffer, int amount)
+        {
+            int totalAmountToTake = amount;
+
+            for (int otherSlot = 0; otherSlot < otherBuffer.numSlots; otherSlot++)
+            {
+                ItemStack otherStack = otherBuffer.GetItemInSlot(otherSlot);
+                if (!otherStack)
+                {
+                    continue;
+                }
+
+                List<int> stackableSlots = FindAll(otherStack.IsStackable);
+
+                // Insert into existing stacks first
+                foreach (int stackableSlot in stackableSlots)
+                {
+                    int amountToTake = Mathf.Min(otherStack.amount, totalAmountToTake);
+                    int amountInserted = Insert(stackableSlot, otherStack, totalAmountToTake);
+                    otherBuffer.Extract(otherSlot, amountInserted);
+
+
+                    totalAmountToTake -= amountInserted;
+                    if (totalAmountToTake <= 0)
                     {
                         return amount;
                     }
                 }
 
-                int remainingSlots = GetRemainingSlots();
-
-                // Create a new stack if there is anything left over
-                while (!itemStack.IsEmpty() && itemsToTake > 0 && remainingSlots > 0)
+                for (int curSlot = 0; curSlot < numSlots; curSlot++)
                 {
-                    ItemStack newStack = CreateItemStack(itemStack.Item);
-                    remainingSlots--;
+                    if (totalAmountToTake <= 0)
+                    {
+                        return amount;
+                    }
 
-                    itemsToTake -= newStack.TakeFromStack(itemStack, stackCapacity: maxCapacity);
+                    if (otherStack.IsEmpty())
+                    {
+                        break;
+                    }
+
+                    int remainder = Insert(curSlot, otherStack, totalAmountToTake);
+                    otherStack.amount -= remainder;
                 }
+
             }
-            // TODO handle empty stacks
-            return amount - itemsToTake;
+
+            return amount - totalAmountToTake;
         }
 
 
         private int GetRemainingSlots()
         {
-            return numSlots - GetItems().Length; // TODO decide between transform.childCount / GetItems().Length
-        }
-
-
-        private ItemStack CreateItemStack(Item item)
-        {
-            ItemStack newStack = new GameObject(item.name).AddComponent<ItemStack>();
-
-            newStack.SetItem(item);
-            newStack.transform.parent = transform;
-
-            return newStack;
+            // TODO fix
+            return 0;
         }
 
     }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Scavenger
 {
@@ -10,46 +11,48 @@ namespace Scavenger
         [SerializeField] private GridMap map;
         [SerializeField] private SpriteRenderer tileHover;
 
+        private Controls controls;
+        private InputAction place;
+
+
         private ItemSelection itemSelection;
+
+
+        private Vector3 mousePos;
+        private Vector2Int gridPos;
+        private GridObject gridObject;
 
         private void Awake()
         {
             itemSelection = GetComponent<ItemSelection>();
+            controls = new Controls();
         }
 
+        private void OnEnable()
+        {
+            place = controls.GridMap.PlaceInteractItem;
+            place.Enable();
+            place.performed += OnPlace;
+        }
 
-        void Update()
+        private void OnDisable()
+        {
+            place.Disable();
+        }
+
+        private void Update()
         {
             ItemStack selectedItemStack = itemSelection.GetSelectedItemStack();
 
-            Vector3 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-            Vector2Int gridPos = new Vector2Int(Mathf.FloorToInt(mousePos.x), Mathf.FloorToInt(mousePos.y));
-            GridObject gridObject = map.GetObjectAtPos(gridPos);
+            mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+            gridPos = new Vector2Int(Mathf.FloorToInt(mousePos.x), Mathf.FloorToInt(mousePos.y));
+            gridObject = map.GetObjectAtPos(gridPos);
 
             DrawPlacementPreview(selectedItemStack, gridPos);
 
             if (!selectedItemStack)
             {
                 return;
-            }
-
-            if (Input.GetMouseButtonDown(0))    // Left click to place/interact
-            {
-                // Place Item
-                if (!gridObject && selectedItemStack.Item.HasProperty<PlacedObject>())         // Clicked on empty space with placable object, place the object
-                {
-                    map.TryPlaceItem(selectedItemStack.Item, gridPos);
-                }
-                else if (gridObject)    // Interact item
-                {
-                    Vector2Int sidePressed = GetSidePressed(mousePos, tileHover.transform.position);
-                    map.TryInteract(selectedItemStack, gridPos, sidePressed);
-                }
-
-            }
-            else if (Input.GetMouseButtonDown(1))   // Right click to open menu/view info
-            {
-                // TODO implement
             }
         }
 
@@ -65,6 +68,27 @@ namespace Scavenger
             tileHover.enabled = true;
             tileHover.sprite = selectedItemStack.Item.Icon;
             tileHover.transform.position = new Vector3(gridPos.x + 0.5f, gridPos.y + 0.5f, 0);
+        }
+
+
+        public void OnPlace(InputAction.CallbackContext context)  // Left click to place/interact
+        {
+            ItemStack selectedItemStack = itemSelection.GetSelectedItemStack();
+            if (!selectedItemStack)
+            {
+                return;
+            }
+
+            // Place Item
+            if (!gridObject && selectedItemStack.Item.HasProperty<PlacedObject>())         // Clicked on empty space with placable object, place the object
+            {
+                map.TryPlaceItem(selectedItemStack.Item, gridPos);
+            }
+            else if (gridObject)    // Interact item
+            {
+                Vector2Int sidePressed = GetSidePressed(mousePos, tileHover.transform.position);
+                map.TryInteract(selectedItemStack, gridPos, sidePressed);
+            }
         }
 
 

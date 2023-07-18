@@ -6,31 +6,25 @@ namespace Scavenger.UI
 {
     public class InventoryUI : MonoBehaviour
     {
-        [SerializeField] private Inventory inventory;
-        private List<ItemSlot> itemSlots;
+        public const int InventoryWidth = 7;
+        public const int InventoryHeight = 4;
+
+        [SerializeField] private ItemBuffer inventory;
+        private ItemSlot[] itemSlots;
 
         private void Awake()
         {
-            itemSlots = new List<ItemSlot>(GetComponentsInChildren<ItemSlot>());
+            itemSlots = GetComponentsInChildren<ItemSlot>();
         }
 
         private void Update()
         {
-            for (int y = 0; y < Inventory.InventoryHeight; y++)
+            for (int slotIndex = 0; slotIndex < itemSlots.Length; slotIndex++)
             {
-                for (int x = 0; x < Inventory.InventoryWidth; x++)
-                {
-                    ItemSlot slot = GetItemSlot(x, y);
-                    ItemStack itemStack = inventory.GetItemStack(x, y);
-
-                    slot.itemStack = itemStack;
-                }
+                ItemSlot slotDisplay = itemSlots[slotIndex];
+                ItemStack itemStack = inventory.GetItemInSlot(slotIndex);
+                slotDisplay.itemStack = itemStack;
             }
-        }
-
-        private ItemSlot GetItemSlot(int x, int y)
-        {
-            return itemSlots[x + y * Inventory.InventoryWidth];
         }
     }
 }

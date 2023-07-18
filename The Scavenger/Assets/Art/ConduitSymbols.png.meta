@@ -121,8 +121,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a136396d919920149a61355ee3a4565b
-      internalID: -559451504
+      spriteID: cfce6ce5b38276249ad2fd46140dff74
+      internalID: -1439152261
       vertices: []
       indices: 
       edges: []
@@ -142,8 +142,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4afd6212bf5614944b5a27c76826a5e0
-      internalID: -226063891
+      spriteID: ad5ed2462528e7f41acf1f1b815312a6
+      internalID: -878461451
       vertices: []
       indices: 
       edges: []
@@ -163,8 +163,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 923bdb0fced93d042a43bdb22d22665e
-      internalID: 748098057
+      spriteID: 8cd3e19666929324faa03cdbc796e380
+      internalID: -1924092039
       vertices: []
       indices: 
       edges: []
@@ -184,8 +184,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a20cb2a07072d694f9f05eea42d5eb4c
-      internalID: 1561316546
+      spriteID: 942818261e017b44eaeb460ecf7095ca
+      internalID: 2018111134
       vertices: []
       indices: 
       edges: []
@@ -201,10 +201,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      ConduitSymbols_0: -559451504
-      ConduitSymbols_1: -226063891
-      ConduitSymbols_2: 748098057
-      ConduitSymbols_3: 1561316546
+      ConduitSymbols_0: -1439152261
+      ConduitSymbols_1: -878461451
+      ConduitSymbols_2: -1924092039
+      ConduitSymbols_3: 2018111134
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Conduit
   m_EditorClassIdentifier: 
   <DisplayName>k__BackingField: Conduit
-  <Icon>k__BackingField: {fileID: -781125571, guid: 8817f126f487cd547a51d07babb40a01, type: 3}
+  <Icon>k__BackingField: {fileID: 897301293, guid: 8817f126f487cd547a51d07babb40a01, type: 3}
   properties:
   - {fileID: 7229623108284642090}
 --- !u!114 &7229623108284642090

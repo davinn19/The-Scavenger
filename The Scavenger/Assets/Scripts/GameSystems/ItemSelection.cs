@@ -1,19 +1,20 @@
+using Scavenger.UI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Scavenger
 {
-    [RequireComponent(typeof(Inventory))]
+    [RequireComponent(typeof(ItemBuffer))]
     public class ItemSelection : MonoBehaviour
     {
         [SerializeField] private int selectedItem = 0;
 
-        private Inventory inventory;
+        private ItemBuffer inventory;
 
         private void Awake()
         {
-            inventory = GetComponent<Inventory>();
+            inventory = GetComponent<ItemBuffer>();
         }
 
         private void Update()
@@ -23,7 +24,7 @@ namespace Scavenger
             if (scrollDirection < 0)
             {
                 selectedItem++;
-                if (selectedItem >= Inventory.InventoryWidth)
+                if (selectedItem >= InventoryUI.InventoryWidth)
                 {
                     selectedItem = 0;
                 }
@@ -33,14 +34,14 @@ namespace Scavenger
                 selectedItem--;
                 if (selectedItem < 0)
                 {
-                    selectedItem = Inventory.InventoryWidth - 1;
+                    selectedItem = InventoryUI.InventoryWidth - 1;
                 }
             }
         }
 
         public ItemStack GetSelectedItemStack()
         {
-            return inventory.GetItemStack(selectedItem, 0);
+            return inventory.GetItemInSlot(selectedItem);
         }
 
     }

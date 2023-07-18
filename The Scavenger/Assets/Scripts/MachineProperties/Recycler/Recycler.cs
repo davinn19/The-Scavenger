@@ -40,7 +40,7 @@ namespace Scavenger
                 recycleProgress = 0;
             }
 
-            ItemStack recycledItem = input.FindFirst(recipes.IsRecyclable);
+            
         }
     }
 }

@@ -258,7 +258,7 @@ namespace Scavenger
             if (itemStack.Item.TryGetProperty(out cableSpec) && CanAddCable(cableSpec))
             {
                 cableSpec.AddCable(this);
-                itemStack.Remove();
+                itemStack.amount--;     // TODO make proper way to consume items
                 gridObject.OnSelfChanged();
                 return true;
             }

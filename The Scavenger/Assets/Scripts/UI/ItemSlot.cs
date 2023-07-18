@@ -8,14 +8,13 @@ namespace Scavenger.UI
     [RequireComponent(typeof(Image))]
     public class ItemSlot : MonoBehaviour
     {
-        public ItemStack itemStack;
+        public ItemStack itemStack { get; set; }
         private Image image;
 
         private void Awake()
         {
             image = GetComponent<Image>();
         }
-
 
 
         private void Update()
