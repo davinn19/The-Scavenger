@@ -14,9 +14,7 @@ namespace Scavenger
         private Controls controls;
         private InputAction place;
 
-
         private ItemSelection itemSelection;
-
 
         private Vector3 mousePos;
         private Vector2Int gridPos;
@@ -25,7 +23,7 @@ namespace Scavenger
         private void Awake()
         {
             itemSelection = GetComponent<ItemSelection>();
-            controls = new Controls();
+            controls = new();
         }
 
         private void OnEnable()
