@@ -11,12 +11,15 @@ namespace Scavenger.UI
         public const int InventoryWidth = 7;
         public const int InventoryHeight = 4;
 
+        [SerializeField] private ItemSelection itemSelection;
         [SerializeField] private ItemBuffer inventory;
         private ItemSlot[] itemSlots;
 
         [SerializeField] private Rect closedState;
         [SerializeField] private Rect openState;
         private RectTransform rectTransform;
+
+        [SerializeField] private RectTransform selectedItemIndicator;
 
         private bool inventoryOpen = false;
 
@@ -51,6 +54,8 @@ namespace Scavenger.UI
                 ItemStack itemStack = inventory.GetItemInSlot(slotIndex);
                 slotDisplay.itemStack = itemStack;
             }
+
+            selectedItemIndicator.anchoredPosition = new Vector2(itemSelection.selectedItem * 55, 0);
         }
 
         private void OnInventoryToggle(InputAction.CallbackContext context)

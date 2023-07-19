@@ -9,18 +9,29 @@ namespace Scavenger
     [RequireComponent(typeof(ItemBuffer))]
     public class ItemSelection : MonoBehaviour
     {
-        [SerializeField] private int selectedItem = 0;
+        [field: SerializeField] public int selectedItem { get; private set; }
 
         private ItemBuffer inventory;
+
+        private Controls controls;
+        private InputAction selectItem;
 
         private void Awake()
         {
             inventory = GetComponent<ItemBuffer>();
+            controls = new Controls();
         }
 
-        private void Update()
+        private void OnEnable()
         {
-            float scrollDirection = Input.GetAxisRaw("Mouse ScrollWheel");
+            selectItem = controls.GridMap.SelectItem;
+            selectItem.Enable();
+            selectItem.performed += UpdateSelectedItem;
+        }
+
+        private void UpdateSelectedItem(InputAction.CallbackContext context)
+        {
+            float scrollDirection = context.ReadValue<float>();
 
             if (scrollDirection < 0)
             {
@@ -28,7 +39,7 @@ namespace Scavenger
                 if (selectedItem >= InventoryUI.InventoryWidth)
                 {
                     selectedItem = 0;
-                }
+                } 
             }
             else if (scrollDirection > 0)
             {

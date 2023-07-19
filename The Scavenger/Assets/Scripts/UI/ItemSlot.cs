@@ -11,12 +11,11 @@ namespace Scavenger.UI
     public class ItemSlot : MonoBehaviour
     {
         public ItemStack itemStack { get; set; }
-        private Image image;
+        [SerializeField] private Image itemImage;
 
         private TextMeshProUGUI stackAmountDisplay;
         private void Awake()
         {
-            image = GetComponent<Image>();
             stackAmountDisplay = GetComponentInChildren<TextMeshProUGUI>();
         }
 
@@ -30,12 +29,13 @@ namespace Scavenger.UI
 
             if (itemStack)
             {
-                image.sprite = itemStack.Item.Icon;
+                itemImage.sprite = itemStack.Item.Icon;
+                itemImage.color = Color.white;
                 stackAmountDisplay.text = GetAmountString(itemStack.amount);
             }
             else
             {
-                image.sprite = null;
+                itemImage.color = Color.clear;
                 stackAmountDisplay.text = "";
             }
             

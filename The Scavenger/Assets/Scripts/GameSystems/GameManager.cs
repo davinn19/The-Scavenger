@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 namespace Scavenger
@@ -19,6 +20,7 @@ namespace Scavenger
         private Vector3 mousePos;
         private Vector2Int gridPos;
         private GridObject gridObject;
+
 
         private void Awake()
         {
@@ -71,6 +73,13 @@ namespace Scavenger
 
         public void OnPlace(InputAction.CallbackContext context)  // Left click to place/interact
         {
+            // Only handle input if mouse is not over UI
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                return;
+            }
+
+            // Ignore if not item is held
             ItemStack selectedItemStack = itemSelection.GetSelectedItemStack();
             if (!selectedItemStack)
             {

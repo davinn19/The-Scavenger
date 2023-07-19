@@ -12,6 +12,7 @@ namespace Scavenger
         private GridMap map;
         private GridChunk chunk;
 
+        // TODO use events for these functions instead of lists
         public List<Action> OnPlaced = new();
         public List<Action> OnRemoved = new();
         public List<Action<Vector2Int>> OnNeighborPlaced = new();
