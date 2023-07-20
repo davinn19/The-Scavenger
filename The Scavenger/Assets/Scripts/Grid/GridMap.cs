@@ -109,18 +109,25 @@ namespace Scavenger
         /// <summary>
         /// Attempts to place the item at a position.
         /// </summary>
-        /// <param name="item">Item to place.</param>
+        /// <param name="itemStack">ItemStack to place.</param>
         /// <param name="gridPos">Position to place the item at.</param>
         /// <returns>True if placement was successful.</returns>
-        public bool TryPlaceItem(Item item, Vector2Int gridPos)
+        public bool TryPlaceItem(ItemStack itemStack, Vector2Int gridPos)
         {
+            // Space must be empty to place new object
             GridObject existingObject = GetObjectAtPos(gridPos);
             if (existingObject)
             {
                 return false;
             }
 
-            SetObjectAtPos(item.GetProperty<PlacedObject>().Object, gridPos);
+            // Item must have PlacedObject property
+            if (!itemStack.Item.TryGetProperty(out PlacedObject placedObject))
+            {
+                return false;
+            }
+
+            SetObjectAtPos(placedObject.Object, gridPos);
             updatePropagation.HandlePlaceUpdate(gridPos);
             return true;
         }

@@ -45,7 +45,7 @@ namespace Scavenger
                 return;
             }
 
-            // Ignore if not item is held
+            // Ignore if no item is held
             ItemStack selectedItemStack = itemSelection.GetSelectedItemStack();
             if (!selectedItemStack)
             {
@@ -55,11 +55,11 @@ namespace Scavenger
             GridObject gridObject = map.GetObjectAtPos(gridHover.HoveredPos);
 
             // Place Item
-            if (!gridObject && selectedItemStack.Item.HasProperty<PlacedObject>())         // Clicked on empty space with placable object, place the object
+            if (!gridObject)         // Clicked on empty space with placable object, place the object
             {
-                map.TryPlaceItem(selectedItemStack.Item, gridHover.HoveredPos);
+                map.TryPlaceItem(selectedItemStack, gridHover.HoveredPos);
             }
-            else if (gridObject)    // Interact item
+            else                     // Interact item
             {
                 Vector2Int sidePressed = gridHover.GetHoveredSide();
                 map.TryInteract(selectedItemStack, gridHover.HoveredPos, sidePressed);
