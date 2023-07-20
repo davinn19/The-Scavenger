@@ -10,9 +10,10 @@ namespace Scavenger
     {
         [SerializeField] private SpriteRenderer hoverIndicator;
 
-        [SerializeField] private Vector2 mousePos;
+        
         public Vector2Int HoveredPos { get; private set; }
         public bool OverGUI { get; private set; }
+        private Vector2 mousePos;
 
         private Controls controls;
         private InputAction pointerHover;

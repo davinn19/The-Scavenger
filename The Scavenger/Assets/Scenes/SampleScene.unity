@@ -715,8 +715,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02f98d24cdd54ff4799d20eefb735af4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxCapacity: 99
-  numSlots: 28
+  <MaxCapacity>k__BackingField: 99
+  <NumSlots>k__BackingField: 28
   <Slots>k__BackingField:
   - <Item>k__BackingField: {fileID: 11400000, guid: 96a34f6fc5088c5419518cecc54db470, type: 2}
     amount: 111
@@ -749,7 +749,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoverIndicator: {fileID: 700864868}
-  mousePos: {x: 0, y: 0}
 --- !u!1001 &360973691
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1120,7 +1119,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: -165}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 390, y: 225}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &429180449
@@ -2387,7 +2386,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -5, y: -5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &899348646
 CanvasRenderer:
@@ -2410,15 +2409,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 5
-    m_Right: 5
-    m_Top: 5
-    m_Bottom: 5
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
   m_ChildAlignment: 1
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 50, y: 50}
-  m_Spacing: {x: 5, y: 5}
+  m_CellSize: {x: 55, y: 55}
+  m_Spacing: {x: 0, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
 --- !u!1001 &922595223
@@ -3413,6 +3412,7 @@ GameObject:
   - component: {fileID: 1402450376}
   - component: {fileID: 1402450375}
   - component: {fileID: 1402450379}
+  - component: {fileID: 1402450380}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -3516,8 +3516,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b9b2452c1404f24480a0c5cf9a1b19a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pressedSlot: {fileID: 0}
-  dragging: 0
+  itemSelection: {fileID: 354866614}
+  selectedItemIndicator: {fileID: 0}
+--- !u!114 &1402450380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1402450374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 471acc2f4d9180a49a4eee8404ee05ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1445364389 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6358668387111979676, guid: 30d00897af8a946458206d0452d4aaa4, type: 3}

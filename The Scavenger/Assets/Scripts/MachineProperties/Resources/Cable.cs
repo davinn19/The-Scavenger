@@ -14,18 +14,18 @@ namespace Scavenger
         protected Conduit conduit;
         protected GridObject gridObject;
 
-        private CableSpec _spec;
-        public CableSpec spec
+        private CableSpec m_Spec;
+        public CableSpec Spec
         {
             get
             {
-                return _spec;
+                return m_Spec;
             }
             set
             {
-                if (_spec == null)
+                if (m_Spec == null)
                 {
-                    _spec = value;
+                    m_Spec = value;
                 }
             }
         }
@@ -166,7 +166,7 @@ namespace Scavenger
         /// <returns>True if the cables can connect.</returns>
         public bool IsCompatible(Cable<T> other)
         {
-            return other.spec == spec;
+            return other.Spec == Spec;
         }
     }
 }

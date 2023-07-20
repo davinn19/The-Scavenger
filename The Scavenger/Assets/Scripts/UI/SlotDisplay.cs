@@ -7,11 +7,10 @@ using UnityEngine.UI;
 
 namespace Scavenger.UI
 {
-    [RequireComponent(typeof(Image))]
     public class SlotDisplay : MonoBehaviour
     {
-        public ItemBuffer buffer { get; set; }
-        public int slot { get; set; }
+        public ItemBuffer Buffer { get; set; }
+        public int Slot { get; set; }
 
 
         private SlotDisplayHandler handler;
@@ -28,7 +27,7 @@ namespace Scavenger.UI
         private void Update()
         {
             // TODO link to event
-            ItemStack itemStack = buffer.GetItemInSlot(slot);
+            ItemStack itemStack = Buffer.GetItemInSlot(Slot);
 
             if (itemStack == null)
             {

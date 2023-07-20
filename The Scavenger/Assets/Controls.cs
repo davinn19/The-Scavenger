@@ -30,7 +30,7 @@ namespace Scavenger
             ""id"": ""35f5c2a4-0ae3-43a2-b982-f947fab7de4d"",
             ""actions"": [
                 {
-                    ""name"": ""Select Item"",
+                    ""name"": ""Zoom"",
                     ""type"": ""Value"",
                     ""id"": ""020e4bf6-c4c9-46f3-9aa9-fe2e8aa36fc3"",
                     ""expectedControlType"": ""Axis"",
@@ -48,7 +48,7 @@ namespace Scavenger
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Toggle Inventory"",
+                    ""name"": ""Toggle UI"",
                     ""type"": ""Button"",
                     ""id"": ""a33bd291-c784-47c3-a136-4884ded228ef"",
                     ""expectedControlType"": ""Button"",
@@ -74,7 +74,7 @@ namespace Scavenger
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""New control scheme"",
-                    ""action"": ""Select Item"",
+                    ""action"": ""Zoom"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -96,7 +96,7 @@ namespace Scavenger
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""New control scheme"",
-                    ""action"": ""Toggle Inventory"",
+                    ""action"": ""Toggle UI"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -135,9 +135,9 @@ namespace Scavenger
 }");
             // GridMap
             m_GridMap = asset.FindActionMap("GridMap", throwIfNotFound: true);
-            m_GridMap_SelectItem = m_GridMap.FindAction("Select Item", throwIfNotFound: true);
+            m_GridMap_Zoom = m_GridMap.FindAction("Zoom", throwIfNotFound: true);
             m_GridMap_PlaceInteractItem = m_GridMap.FindAction("Place/Interact Item", throwIfNotFound: true);
-            m_GridMap_ToggleInventory = m_GridMap.FindAction("Toggle Inventory", throwIfNotFound: true);
+            m_GridMap_ToggleUI = m_GridMap.FindAction("Toggle UI", throwIfNotFound: true);
             m_GridMap_PointerHover = m_GridMap.FindAction("Pointer Hover", throwIfNotFound: true);
         }
 
@@ -200,17 +200,17 @@ namespace Scavenger
         // GridMap
         private readonly InputActionMap m_GridMap;
         private List<IGridMapActions> m_GridMapActionsCallbackInterfaces = new List<IGridMapActions>();
-        private readonly InputAction m_GridMap_SelectItem;
+        private readonly InputAction m_GridMap_Zoom;
         private readonly InputAction m_GridMap_PlaceInteractItem;
-        private readonly InputAction m_GridMap_ToggleInventory;
+        private readonly InputAction m_GridMap_ToggleUI;
         private readonly InputAction m_GridMap_PointerHover;
         public struct GridMapActions
         {
             private @Controls m_Wrapper;
             public GridMapActions(@Controls wrapper) { m_Wrapper = wrapper; }
-            public InputAction @SelectItem => m_Wrapper.m_GridMap_SelectItem;
+            public InputAction @Zoom => m_Wrapper.m_GridMap_Zoom;
             public InputAction @PlaceInteractItem => m_Wrapper.m_GridMap_PlaceInteractItem;
-            public InputAction @ToggleInventory => m_Wrapper.m_GridMap_ToggleInventory;
+            public InputAction @ToggleUI => m_Wrapper.m_GridMap_ToggleUI;
             public InputAction @PointerHover => m_Wrapper.m_GridMap_PointerHover;
             public InputActionMap Get() { return m_Wrapper.m_GridMap; }
             public void Enable() { Get().Enable(); }
@@ -221,15 +221,15 @@ namespace Scavenger
             {
                 if (instance == null || m_Wrapper.m_GridMapActionsCallbackInterfaces.Contains(instance)) return;
                 m_Wrapper.m_GridMapActionsCallbackInterfaces.Add(instance);
-                @SelectItem.started += instance.OnSelectItem;
-                @SelectItem.performed += instance.OnSelectItem;
-                @SelectItem.canceled += instance.OnSelectItem;
+                @Zoom.started += instance.OnZoom;
+                @Zoom.performed += instance.OnZoom;
+                @Zoom.canceled += instance.OnZoom;
                 @PlaceInteractItem.started += instance.OnPlaceInteractItem;
                 @PlaceInteractItem.performed += instance.OnPlaceInteractItem;
                 @PlaceInteractItem.canceled += instance.OnPlaceInteractItem;
-                @ToggleInventory.started += instance.OnToggleInventory;
-                @ToggleInventory.performed += instance.OnToggleInventory;
-                @ToggleInventory.canceled += instance.OnToggleInventory;
+                @ToggleUI.started += instance.OnToggleUI;
+                @ToggleUI.performed += instance.OnToggleUI;
+                @ToggleUI.canceled += instance.OnToggleUI;
                 @PointerHover.started += instance.OnPointerHover;
                 @PointerHover.performed += instance.OnPointerHover;
                 @PointerHover.canceled += instance.OnPointerHover;
@@ -237,15 +237,15 @@ namespace Scavenger
 
             private void UnregisterCallbacks(IGridMapActions instance)
             {
-                @SelectItem.started -= instance.OnSelectItem;
-                @SelectItem.performed -= instance.OnSelectItem;
-                @SelectItem.canceled -= instance.OnSelectItem;
+                @Zoom.started -= instance.OnZoom;
+                @Zoom.performed -= instance.OnZoom;
+                @Zoom.canceled -= instance.OnZoom;
                 @PlaceInteractItem.started -= instance.OnPlaceInteractItem;
                 @PlaceInteractItem.performed -= instance.OnPlaceInteractItem;
                 @PlaceInteractItem.canceled -= instance.OnPlaceInteractItem;
-                @ToggleInventory.started -= instance.OnToggleInventory;
-                @ToggleInventory.performed -= instance.OnToggleInventory;
-                @ToggleInventory.canceled -= instance.OnToggleInventory;
+                @ToggleUI.started -= instance.OnToggleUI;
+                @ToggleUI.performed -= instance.OnToggleUI;
+                @ToggleUI.canceled -= instance.OnToggleUI;
                 @PointerHover.started -= instance.OnPointerHover;
                 @PointerHover.performed -= instance.OnPointerHover;
                 @PointerHover.canceled -= instance.OnPointerHover;
@@ -277,9 +277,9 @@ namespace Scavenger
         }
         public interface IGridMapActions
         {
-            void OnSelectItem(InputAction.CallbackContext context);
+            void OnZoom(InputAction.CallbackContext context);
             void OnPlaceInteractItem(InputAction.CallbackContext context);
-            void OnToggleInventory(InputAction.CallbackContext context);
+            void OnToggleUI(InputAction.CallbackContext context);
             void OnPointerHover(InputAction.CallbackContext context);
         }
     }

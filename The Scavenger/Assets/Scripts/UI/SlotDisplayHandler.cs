@@ -12,9 +12,11 @@ namespace Scavenger.UI
         private Controls controls;
         private InputAction pointerHover;
 
-        [SerializeField] private SlotDisplay pressedSlot = null;
-        [SerializeField] private bool dragging = false;
+        private SlotDisplay pressedSlot;
+        private bool dragging = false;
 
+        [SerializeField] private ItemSelection itemSelection;
+        [SerializeField] private SpriteRenderer selectedItemIndicator;
 
         private void Awake()
         {
@@ -38,6 +40,7 @@ namespace Scavenger.UI
             if (!pressedSlot)
             {
                 pressedSlot = slotDisplay;
+                itemSelection.SelectedSlot = slotDisplay.transform.GetSiblingIndex();
             }
         }
 
@@ -57,6 +60,7 @@ namespace Scavenger.UI
                 return;
             }
 
+            pressedSlot = null;
             dragging = false;
 
             SlotDisplay destinationDisplay = GetDisplayUnderPointer();
@@ -65,14 +69,14 @@ namespace Scavenger.UI
                 return;
             }
 
-            ItemBuffer buffer1 = pressedSlot.buffer;
-            int slot1 = pressedSlot.slot;
+            ItemBuffer buffer1 = slotDisplay.Buffer;
+            int slot1 = slotDisplay.Slot;
 
-            ItemBuffer buffer2 = destinationDisplay.buffer;
-            int slot2 = destinationDisplay.slot;
+            ItemBuffer buffer2 = destinationDisplay.Buffer;
+            int slot2 = destinationDisplay.Slot;
 
             ItemBuffer.Swap(buffer1, slot1, buffer2, slot2);
-            pressedSlot = null;
+           
         }
 
         public SlotDisplay GetDisplayUnderPointer()

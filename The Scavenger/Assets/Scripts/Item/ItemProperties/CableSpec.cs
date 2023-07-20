@@ -40,7 +40,7 @@ namespace Scavenger
                     Debug.LogWarning("Cable type not implemented yet");
                     return null;
             }
-            newCable.spec = this;
+            newCable.Spec = this;
             return newCable;
         }
 

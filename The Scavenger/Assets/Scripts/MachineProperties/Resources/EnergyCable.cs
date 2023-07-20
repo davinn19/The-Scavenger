@@ -39,7 +39,7 @@ namespace Scavenger
         /// <param name="destinations">Buffers to insert energy into.</param>
         private void Distribute(EnergyBuffer source, List<EnergyBuffer> destinations)
         {
-            int availableEnergy = Mathf.Min(source.Energy, spec.TransferRate);
+            int availableEnergy = Mathf.Min(source.Energy, Spec.TransferRate);
             int energyTaken = 0;
 
             foreach (EnergyBuffer destination in destinations)

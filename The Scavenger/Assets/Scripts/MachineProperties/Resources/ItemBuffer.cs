@@ -7,8 +7,8 @@ namespace Scavenger
 {
     public class ItemBuffer : Buffer
     {
-        [SerializeField] private int maxCapacity;
-        [SerializeField] private int numSlots;
+        [field: SerializeField] public int MaxCapacity { get; private set; }
+        [field: SerializeField] public int NumSlots { get; private set; }
 
         public Func<ItemStack, int, bool> AcceptsItemStack;
 
@@ -18,7 +18,7 @@ namespace Scavenger
         private void Awake()
         {
             ProcessStartingItems();
-            slotsLocked = new bool[numSlots];
+            slotsLocked = new bool[NumSlots];
 
             if (AcceptsItemStack == null)
             {
@@ -29,12 +29,12 @@ namespace Scavenger
         // Resizes slots array to numSlots and confirms all itemStacks set in editor match maxCapacity
         private void ProcessStartingItems()
         {
-            ItemStack[] resizedSlots = new ItemStack[numSlots];
+            ItemStack[] resizedSlots = new ItemStack[NumSlots];
 
             for (int i = 0; i < Slots.Length; i++)
             {
                 ItemStack itemStack = GetItemInSlot(i);
-                itemStack.amount = Mathf.Min(itemStack.amount, maxCapacity);
+                itemStack.amount = Mathf.Min(itemStack.amount, MaxCapacity);
                 resizedSlots[i] = itemStack;
             }
 
@@ -48,7 +48,7 @@ namespace Scavenger
 
         public int FindFirst(Predicate<ItemStack> condition)
         {
-            for (int i = 0; i < numSlots; i++)
+            for (int i = 0; i < NumSlots; i++)
             {
                 ItemStack itemStack = GetItemInSlot(i);
 
@@ -65,7 +65,7 @@ namespace Scavenger
         {
             List<int> foundSlots = new();
 
-            for (int i = 0; i < numSlots; i++)
+            for (int i = 0; i < NumSlots; i++)
             {
                 ItemStack itemStack = GetItemInSlot(i);
 
@@ -96,7 +96,7 @@ namespace Scavenger
 
         private bool ItemStackFits(ItemStack itemStack)
         {
-            return itemStack.amount <= maxCapacity;
+            return itemStack.amount <= MaxCapacity;
         }
 
 
@@ -141,7 +141,7 @@ namespace Scavenger
                 return 0;
             }
 
-            int amountInserted = Mathf.Min(amount, otherStack.amount, maxCapacity - insertedStack.amount);
+            int amountInserted = Mathf.Min(amount, otherStack.amount, MaxCapacity - insertedStack.amount);
             insertedStack.amount += amountInserted;
 
             return otherStack.amount - amountInserted;
@@ -152,7 +152,7 @@ namespace Scavenger
         {
             int totalAmountToTake = amount;
 
-            for (int otherSlot = 0; otherSlot < otherBuffer.numSlots; otherSlot++)
+            for (int otherSlot = 0; otherSlot < otherBuffer.NumSlots; otherSlot++)
             {
                 ItemStack otherStack = otherBuffer.GetItemInSlot(otherSlot);
                 if (!otherStack)
@@ -177,7 +177,7 @@ namespace Scavenger
                     }
                 }
 
-                for (int curSlot = 0; curSlot < numSlots; curSlot++)
+                for (int curSlot = 0; curSlot < NumSlots; curSlot++)
                 {
                     if (totalAmountToTake <= 0)
                     {

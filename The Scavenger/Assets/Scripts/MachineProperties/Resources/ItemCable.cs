@@ -44,7 +44,7 @@ namespace Scavenger
         private void ClosestFirst(ItemBuffer source, List<ItemBuffer> destinations)
         {
             // TODO test
-            int itemsToTake = spec.TransferRate;
+            int itemsToTake = Spec.TransferRate;
 
             foreach (ItemBuffer destination in destinations)
             {
@@ -62,7 +62,7 @@ namespace Scavenger
         {
             // TODO test
             destinations = new List<ItemBuffer>(destinations);
-            int itemsToTake = spec.TransferRate;
+            int itemsToTake = Spec.TransferRate;
 
             while (itemsToTake > 0 && destinations.Count > 0)
             {
