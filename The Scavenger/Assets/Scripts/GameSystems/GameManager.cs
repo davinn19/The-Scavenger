@@ -8,17 +8,13 @@ namespace Scavenger
 {
     public class GameManager : MonoBehaviour
     {
-        [SerializeField] private GridMap map;
+        [field: SerializeField] public GridMap Map { get; private set; }
 
         private Controls controls;
         private InputAction place;
-        private InputAction view;
 
         private ItemSelection itemSelection;
         private GridHover gridHover;
-
-        public GridObject ViewedGridObject { get; private set; }
-        [SerializeField] private SpriteRenderer viewIndicator;
 
 
         private void Awake()
@@ -34,17 +30,12 @@ namespace Scavenger
             place.Enable();
             place.performed += OnPlace;
 
-            view = controls.GridMap.ViewGridObject;
-            view.Enable();
-            view.performed += OnView;
         }
 
         private void OnDisable()
         {
             place.Disable();
-            view.Disable();
         }        
-
 
         private void OnPlace(InputAction.CallbackContext context)  // Left click to place/interact
         {
@@ -61,38 +52,20 @@ namespace Scavenger
                 return;
             }
 
-            GridObject gridObject = map.GetObjectAtPos(gridHover.HoveredPos);
+            GridObject gridObject = Map.GetObjectAtPos(gridHover.HoveredPos);
 
             // Place Item
             if (!gridObject)         // Clicked on empty space with placable object, place the object
             {
-                map.TryPlaceItem(selectedItemStack, gridHover.HoveredPos);
+                Map.TryPlaceItem(selectedItemStack, gridHover.HoveredPos);
             }
             else                     // Interact item
             {
                 Vector2Int sidePressed = gridHover.GetHoveredSide();
-                map.TryInteract(selectedItemStack, gridHover.HoveredPos, sidePressed);
+                Map.TryInteract(selectedItemStack, gridHover.HoveredPos, sidePressed);
             }
         }
 
-        private void OnView(InputAction.CallbackContext context) // Right click to view gridObject
-        {
-            if (gridHover.OverGUI)
-            {
-                ViewedGridObject = null;
-            }
-
-            ViewedGridObject = map.GetObjectAtPos(gridHover.HoveredPos);
-
-            if (!ViewedGridObject)
-            {
-                viewIndicator.enabled = false;
-            }
-            else
-            {
-                viewIndicator.enabled = true;
-                viewIndicator.transform.position = GridMap.GetCenterOfTile(gridHover.HoveredPos);
-            }
-        }
+        
     }
 }

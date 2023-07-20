@@ -8,7 +8,7 @@ namespace Scavenger.UI
 {
     public class GridObjectView : MonoBehaviour
     {
-        [SerializeField] private GameManager gameManager;
+        [SerializeField] private GridObjectViewer gridObjectViewer;
         [SerializeField] private TextMeshProUGUI gridObjectName;
         [SerializeField] private Image gridObjectIcon;
 
@@ -22,7 +22,7 @@ namespace Scavenger.UI
         void Update()
         {
             // TODO link to event instead
-            GridObject gridObject = gameManager.ViewedGridObject;
+            GridObject gridObject = gridObjectViewer.GetViewedObject();
 
             if (!gridObject)
             {
