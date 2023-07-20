@@ -13,7 +13,7 @@ namespace Scavenger.UI
 
         [SerializeField] private ItemSelection itemSelection;
         [SerializeField] private ItemBuffer inventory;
-        private ItemSlot[] itemSlots;
+        private SlotDisplay[] slotDisplays;
 
         [SerializeField] private Rect closedState;
         [SerializeField] private Rect openState;
@@ -28,10 +28,26 @@ namespace Scavenger.UI
 
         private void Awake()
         {
-            itemSlots = GetComponentsInChildren<ItemSlot>();
+            InitSlotDisplays();
+
             rectTransform = gameObject.GetComponent<RectTransform>();
             controls = new();
+
+            
         }
+
+        private void InitSlotDisplays()
+        {
+            slotDisplays = GetComponentsInChildren<SlotDisplay>();
+
+            for (int slot = 0; slot < slotDisplays.Length; slot++)
+            {
+                SlotDisplay slotDisplay = slotDisplays[slot];
+                slotDisplay.buffer = inventory;
+                slotDisplay.slot = slot;
+            }
+        }
+
 
         private void OnEnable()
         {
@@ -48,13 +64,7 @@ namespace Scavenger.UI
 
         private void Update()
         {
-            for (int slotIndex = 0; slotIndex < itemSlots.Length; slotIndex++)
-            {
-                ItemSlot slotDisplay = itemSlots[slotIndex];
-                ItemStack itemStack = inventory.GetItemInSlot(slotIndex);
-                slotDisplay.itemStack = itemStack;
-            }
-
+            // TODO link to event
             selectedItemIndicator.anchoredPosition = new Vector2(itemSelection.selectedItem * 55, 0);
         }
 
@@ -70,7 +80,5 @@ namespace Scavenger.UI
                 rectTransform.anchoredPosition = closedState.position;
             }
         }
-
-        
     }
 }

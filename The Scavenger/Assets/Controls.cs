@@ -55,6 +55,15 @@ namespace Scavenger
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pointer Hover"",
+                    ""type"": ""Value"",
+                    ""id"": ""b29b73c1-4ce5-4762-98be-cbe758dc21fd"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -90,6 +99,17 @@ namespace Scavenger
                     ""action"": ""Toggle Inventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4ac5e61e-089a-4a5c-8950-7f7292dd1f99"",
+                    ""path"": ""<Pointer>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""New control scheme"",
+                    ""action"": ""Pointer Hover"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -118,6 +138,7 @@ namespace Scavenger
             m_GridMap_SelectItem = m_GridMap.FindAction("Select Item", throwIfNotFound: true);
             m_GridMap_PlaceInteractItem = m_GridMap.FindAction("Place/Interact Item", throwIfNotFound: true);
             m_GridMap_ToggleInventory = m_GridMap.FindAction("Toggle Inventory", throwIfNotFound: true);
+            m_GridMap_PointerHover = m_GridMap.FindAction("Pointer Hover", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -182,6 +203,7 @@ namespace Scavenger
         private readonly InputAction m_GridMap_SelectItem;
         private readonly InputAction m_GridMap_PlaceInteractItem;
         private readonly InputAction m_GridMap_ToggleInventory;
+        private readonly InputAction m_GridMap_PointerHover;
         public struct GridMapActions
         {
             private @Controls m_Wrapper;
@@ -189,6 +211,7 @@ namespace Scavenger
             public InputAction @SelectItem => m_Wrapper.m_GridMap_SelectItem;
             public InputAction @PlaceInteractItem => m_Wrapper.m_GridMap_PlaceInteractItem;
             public InputAction @ToggleInventory => m_Wrapper.m_GridMap_ToggleInventory;
+            public InputAction @PointerHover => m_Wrapper.m_GridMap_PointerHover;
             public InputActionMap Get() { return m_Wrapper.m_GridMap; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -207,6 +230,9 @@ namespace Scavenger
                 @ToggleInventory.started += instance.OnToggleInventory;
                 @ToggleInventory.performed += instance.OnToggleInventory;
                 @ToggleInventory.canceled += instance.OnToggleInventory;
+                @PointerHover.started += instance.OnPointerHover;
+                @PointerHover.performed += instance.OnPointerHover;
+                @PointerHover.canceled += instance.OnPointerHover;
             }
 
             private void UnregisterCallbacks(IGridMapActions instance)
@@ -220,6 +246,9 @@ namespace Scavenger
                 @ToggleInventory.started -= instance.OnToggleInventory;
                 @ToggleInventory.performed -= instance.OnToggleInventory;
                 @ToggleInventory.canceled -= instance.OnToggleInventory;
+                @PointerHover.started -= instance.OnPointerHover;
+                @PointerHover.performed -= instance.OnPointerHover;
+                @PointerHover.canceled -= instance.OnPointerHover;
             }
 
             public void RemoveCallbacks(IGridMapActions instance)
@@ -251,6 +280,7 @@ namespace Scavenger
             void OnSelectItem(InputAction.CallbackContext context);
             void OnPlaceInteractItem(InputAction.CallbackContext context);
             void OnToggleInventory(InputAction.CallbackContext context);
+            void OnPointerHover(InputAction.CallbackContext context);
         }
     }
 }

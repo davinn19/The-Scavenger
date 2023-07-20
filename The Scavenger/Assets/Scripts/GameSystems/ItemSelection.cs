@@ -9,7 +9,7 @@ namespace Scavenger
     [RequireComponent(typeof(ItemBuffer))]
     public class ItemSelection : MonoBehaviour
     {
-        [field: SerializeField] public int selectedItem { get; private set; }
+        public int selectedItem { get; private set; }
 
         private ItemBuffer inventory;
 

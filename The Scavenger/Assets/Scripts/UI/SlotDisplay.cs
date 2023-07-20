@@ -8,20 +8,28 @@ using UnityEngine.UI;
 namespace Scavenger.UI
 {
     [RequireComponent(typeof(Image))]
-    public class ItemSlot : MonoBehaviour
+    public class SlotDisplay : MonoBehaviour
     {
-        public ItemStack itemStack { get; set; }
+        public ItemBuffer buffer { get; set; }
+        public int slot { get; set; }
+
+
+        private SlotDisplayHandler handler;
         [SerializeField] private Image itemImage;
 
         private TextMeshProUGUI stackAmountDisplay;
         private void Awake()
         {
             stackAmountDisplay = GetComponentInChildren<TextMeshProUGUI>();
+            handler = GetComponentInParent<SlotDisplayHandler>();
         }
 
 
         private void Update()
         {
+            // TODO link to event
+            ItemStack itemStack = buffer.GetItemInSlot(slot);
+
             if (itemStack == null)
             {
                 return;
@@ -41,6 +49,26 @@ namespace Scavenger.UI
             
         }
 
+        public void OnPointerDown()
+        {
+            handler.OnSlotDisplayDown(this);
+        }
+
+        public void OnPointerUp()
+        {
+            handler.OnSlotDisplayUp(this);
+        }
+
+        public void OnPointerExit()
+        {
+            handler.OnSlotDisplayExit(this);
+        }
+
+        /// <summary>
+        /// Gets string representation of amount.
+        /// </summary>
+        /// <param name="amount">Amount to convert.</param>
+        /// <returns>String representation of amount.</returns>
         private string GetAmountString(int amount)
         {
             if (amount < 1000)
@@ -70,5 +98,7 @@ namespace Scavenger.UI
             string coefficient = amount.ToString()[..2];
             return coefficient[0] + "." + coefficient[1] + unit;
         }
+
+
     }
 }

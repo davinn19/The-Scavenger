@@ -10,6 +10,8 @@ namespace Scavenger
         [SerializeField] private int maxCapacity;
         [SerializeField] private int numSlots;
 
+        public Func<ItemStack, int, bool> AcceptsItemStack;
+
         [field: SerializeField] public ItemStack[] Slots { get; private set; }
         private bool[] slotsLocked;
 
@@ -17,6 +19,11 @@ namespace Scavenger
         {
             ProcessStartingItems();
             slotsLocked = new bool[numSlots];
+
+            if (AcceptsItemStack == null)
+            {
+                AcceptsItemStack = (itemStack, _) => { return ItemStackFits(itemStack); };
+            }
         }
 
         // Resizes slots array to numSlots and confirms all itemStacks set in editor match maxCapacity
@@ -77,22 +84,19 @@ namespace Scavenger
             return Slots[slot];
         }
 
-        public List<ItemStack> GetItems()
+        private void SetItemInSlot(ItemStack itemStack, int slot)
         {
-            List<ItemStack> itemStacks = new();
-            foreach (ItemStack itemStack in Slots)
-            {
-                if (itemStack)
-                {
-                    itemStacks.Add(itemStack);
-                }
-            }
-            return itemStacks;
+            Slots[slot] = itemStack;
         }
 
         public bool IsLocked(int slot)
         {
             return slotsLocked[slot];
+        }
+
+        private bool ItemStackFits(ItemStack itemStack)
+        {
+            return itemStack.amount <= maxCapacity;
         }
 
 
@@ -194,11 +198,23 @@ namespace Scavenger
             return amount - totalAmountToTake;
         }
 
+        public static void Swap(ItemBuffer buffer1, int slot1, ItemBuffer buffer2, int slot2)
+        { 
+            if (buffer1.IsLocked(slot1) || buffer2.IsLocked(slot2))
+            {
+                return;
+            }
 
-        private int GetRemainingSlots()
-        {
-            // TODO fix
-            return 0;
+            ItemStack itemStack1 = buffer1.GetItemInSlot(slot1);
+            ItemStack itemStack2 = buffer2.GetItemInSlot(slot2);
+
+            if (itemStack1 == itemStack2 || !buffer1.AcceptsItemStack(itemStack2, slot1) || !buffer2.AcceptsItemStack(itemStack1, slot2))
+            {
+                return;
+            }
+
+            buffer1.SetItemInSlot(itemStack2, slot1);
+            buffer2.SetItemInSlot(itemStack1, slot2);
         }
 
     }
