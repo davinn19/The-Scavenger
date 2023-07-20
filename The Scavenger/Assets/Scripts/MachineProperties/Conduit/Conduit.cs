@@ -12,8 +12,7 @@ namespace Scavenger
     public class Conduit : MonoBehaviour
     {
         private GridObject gridObject;
-        private Dictionary<Vector2Int, (TransportMode, DistributeMode)> sideConfigs = new Dictionary<Vector2Int, (TransportMode, DistributeMode)>();
-
+        private readonly Dictionary<Vector2Int, (TransportMode, DistributeMode)> sideConfigs = new();
 
         private void Awake()
         {
@@ -29,7 +28,6 @@ namespace Scavenger
             InitSideConfigs();
         }
 
-
         /// <summary>
         /// Initializes the conduit's side configs to default values.
         /// </summary>
@@ -41,7 +39,6 @@ namespace Scavenger
             }
         }
 
-        
         /// <summary>
         /// Sets side configs to default values based on the adjacent GridObject.
         /// </summary>
@@ -154,7 +151,6 @@ namespace Scavenger
             }
         }
 
-
         /// <summary>
         /// Checks if a side is connected.
         /// </summary>
@@ -164,7 +160,6 @@ namespace Scavenger
         {
             return sideConfigs[side].Item1 == TransportMode.CONNECT;
         }
-
 
         /// <summary>
         /// Checks if a side is disconnected.
@@ -176,7 +171,6 @@ namespace Scavenger
             return GetTransportMode(side) == TransportMode.DISCONNECT;
         }
 
-
         /// <summary>
         /// Checks if a side is in extract mode.
         /// </summary>
@@ -187,24 +181,20 @@ namespace Scavenger
             return GetTransportMode(side) == TransportMode.EXTRACT;
         }
 
-
         public TransportMode GetTransportMode(Vector2Int side)
         {
             return sideConfigs[side].Item1;
         }
-
 
         public DistributeMode GetDistributeMode(Vector2Int side)
         {
             return sideConfigs[side].Item2;
         }
 
-
         public void SetTransportMode(Vector2Int side, TransportMode mode)
         {
             sideConfigs[side] = (mode, GetDistributeMode(side));
         }
-
 
         public void SetDistributeMode(Vector2Int side, DistributeMode mode)
         {
@@ -236,8 +226,7 @@ namespace Scavenger
         /// <returns>True if the edit is successful.</returns>
         private bool TryEditSide(Item item, Vector2Int side)
         {
-            PlacedObject property;
-            if (item.TryGetProperty(out property) && property.Object.GetComponent<Conduit>())
+            if (item.TryGetProperty(out PlacedObject property) && property.Object.GetComponent<Conduit>())
             {
                 RotateTransportMode(side);
                 return true;
@@ -253,9 +242,7 @@ namespace Scavenger
         /// <returns>True if the held item is added.</returns>
         private bool TryAddCable(ItemStack itemStack)
         {
-            CableSpec cableSpec;
-
-            if (itemStack.Item.TryGetProperty(out cableSpec) && CanAddCable(cableSpec))
+            if (itemStack.Item.TryGetProperty(out CableSpec cableSpec) && CanAddCable(cableSpec))
             {
                 cableSpec.AddCable(this);
                 itemStack.amount--;     // TODO make proper way to consume items

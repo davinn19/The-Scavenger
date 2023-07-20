@@ -61,13 +61,13 @@ namespace Scavenger
 
             hoverIndicator.enabled = true;
             hoverIndicator.sprite = selectedItemStack.Item.Icon;
-            hoverIndicator.transform.position = GetCenterOfTile();
+            hoverIndicator.transform.position = GridMap.GetCenterOfTile(HoveredPos);
         }
 
 
         public Vector2Int GetHoveredSide()
         {
-            Vector2 relativePressedPos = mousePos - GetCenterOfTile();
+            Vector2 relativePressedPos = mousePos - GridMap.GetCenterOfTile(HoveredPos);
             Vector2Int greaterAxisPressed;
             int directionPressed;
 
@@ -83,12 +83,6 @@ namespace Scavenger
             }
 
             return greaterAxisPressed * directionPressed;
-        }
-
-
-        private Vector2 GetCenterOfTile()
-        {
-            return HoveredPos + Vector2.one * 0.5f;
         }
     }
 }

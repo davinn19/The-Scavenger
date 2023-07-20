@@ -46,7 +46,6 @@ namespace Scavenger
             return property != null;
         }
 
-
         public bool HasProperty(Type propertyType) => GetProperty(propertyType) != null;
 
         public bool HasProperty<T>() where T : ItemProperty

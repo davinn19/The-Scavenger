@@ -20,11 +20,6 @@ namespace Scavenger
 
         public Action<ItemStack, Vector2Int> Interact = (_, _) => { };
 
-        public void QueueTickUpdate(Action callback)
-        {
-            map.updateCycle.QueueUpdate(callback);
-        }
-
         private void Awake()
         {
             chunk = GetComponentInParent<GridChunk>();
@@ -34,7 +29,7 @@ namespace Scavenger
 
         public GridObject GetAdjacentObject(Vector2Int direction)   
         {
-            return map.GetObjectAtRelativePos(gridPos, direction);
+            return map.GetObjectAtPos(gridPos, direction);
         }
 
 
@@ -60,6 +55,11 @@ namespace Scavenger
             }
 
             return null;
+        }
+
+        public void QueueTickUpdate(Action callback)
+        {
+            map.updateCycle.QueueUpdate(callback);
         }
 
         public void OnPlace()

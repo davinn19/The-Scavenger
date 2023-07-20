@@ -81,7 +81,7 @@ namespace Scavenger.UI
 
         public SlotDisplay GetDisplayUnderPointer()
         {
-            PointerEventData pointerData = new PointerEventData(EventSystem.current) { position = pointerHover.ReadValue<Vector2>() };
+            PointerEventData pointerData = new(EventSystem.current) { position = pointerHover.ReadValue<Vector2>() };
 
 
             List<RaycastResult> results = new();
@@ -89,9 +89,7 @@ namespace Scavenger.UI
 
             foreach (RaycastResult result in results)
             {
-                SlotDisplay slotDisplay;
-
-                if (result.gameObject.TryGetComponent(out slotDisplay))
+                if (result.gameObject.TryGetComponent(out SlotDisplay slotDisplay))
                 {
                     return slotDisplay;
                 }
