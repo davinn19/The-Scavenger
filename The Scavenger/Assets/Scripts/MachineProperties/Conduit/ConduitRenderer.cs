@@ -22,7 +22,7 @@ namespace Scavenger
         private void Awake()
         {
             GridObject gridObject = GetComponent<GridObject>();
-            gridObject.SubscribeSelfChanged(UpdateAppearance);
+            gridObject.SelfChanged += UpdateAppearance;
         }
 
 

@@ -19,11 +19,11 @@ namespace Scavenger
         {
             gridObject = GetComponent<GridObject>();
 
-            gridObject.OnPlaced.Add(OnPlaced);
-            gridObject.OnRemoved.Add(OnRemoved);
+            gridObject.Placed += OnPlaced;
+            gridObject.Removed += OnRemoved;
 
-            gridObject.OnNeighborPlaced.Add(OnNeighborPlaced);
-            gridObject.OnNeighborChanged.Add(OnNeighborChanged);
+            gridObject.NeighborPlaced += OnNeighborPlaced;
+            gridObject.NeighborChanged += OnNeighborChanged;
             gridObject.Interact = Interact;
 
             InitSideConfigs();

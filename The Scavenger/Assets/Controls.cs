@@ -92,7 +92,7 @@ namespace Scavenger
                 {
                     ""name"": """",
                     ""id"": ""3145f550-9818-4b95-855d-086a11d67d7d"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Keyboard>/m"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""New control scheme"",

@@ -12,20 +12,13 @@ namespace Scavenger
         private GridMap map;
         private GridChunk chunk;
 
-        // TODO use events for these functions instead of lists
-        public List<Action> OnPlaced = new();
-        public List<Action> OnRemoved = new();
-        public List<Action<Vector2Int>> OnNeighborPlaced = new();
-        public List<Action> OnNeighborChanged = new();
+        public event Action Placed;
+        public event Action Removed;
+        public event Action<Vector2Int> NeighborPlaced;
+        public event Action NeighborChanged;
+        public event Action SelfChanged;
 
-        private List<Action> selfChangedCallbacks = new();
-
-        public Action<ItemStack, Vector2Int> Interact = (_,_) => { };
-
-        public void SubscribeSelfChanged(Action callback)
-        {
-            selfChangedCallbacks.Add(callback);
-        }
+        public Action<ItemStack, Vector2Int> Interact = (_, _) => { };
 
         public void QueueTickUpdate(Action callback)
         {
@@ -38,10 +31,12 @@ namespace Scavenger
             map = chunk.GetComponentInParent<GridMap>();
         }
 
+
         public GridObject GetAdjacentObject(Vector2Int direction)   
         {
             return map.GetObjectAtRelativePos(gridPos, direction);
         }
+
 
         public T GetAdjacentObject<T>(Vector2Int direction) where T : Component
         {
@@ -53,6 +48,7 @@ namespace Scavenger
 
             return adjObject.GetComponent<T>();
         }
+
 
         public T GetAdjacentObject<T>(Vector2Int direction, Predicate<T> condition) where T : Component
         {
@@ -66,14 +62,29 @@ namespace Scavenger
             return null;
         }
 
+        public void OnPlace()
+        {
+            Placed?.Invoke();
+        }
+
+        public void OnRemove()
+        {
+            Removed?.Invoke();
+        }
+
+        public void OnNeighborPlaced(Vector2Int side)
+        {
+            NeighborPlaced?.Invoke(side);
+        }
+
+        public void OnNeighborChanged()
+        {
+            NeighborChanged?.Invoke();
+        }
 
         public void OnSelfChanged()
         {
-            foreach (Action action in selfChangedCallbacks)
-            {
-                action();
-            }
-
+            SelfChanged?.Invoke();
             map.updatePropagation.QueueNeighborUpdates(gridPos);
         }
     }

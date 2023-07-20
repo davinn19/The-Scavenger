@@ -35,22 +35,14 @@ namespace Scavenger
         // Handles updates when an object is placed
         public void HandlePlaceUpdate(Vector2Int placedPos)
         {
-            foreach (Action action in map.GetObjectAtPos(placedPos).OnPlaced)
-            {
-                action();
-            }
-
+            map.GetObjectAtPos(placedPos).OnPlace();
             HandleNeighborPlacedUpdates(placedPos);
         }
 
         // Handles updates when an object is removed
         public void HandleRemoveUpdate(Vector2Int removedPos)
         {
-            foreach (Action action in map.GetObjectAtPos(removedPos).OnRemoved)
-            {
-                action();
-            }
-
+            map.GetObjectAtPos(removedPos).OnRemove();
             HandleNeighborPlacedUpdates(removedPos);
         }
 
@@ -62,16 +54,10 @@ namespace Scavenger
                 Vector2Int neighborPos = placedPos + side;
                 GridObject adjObject = map.GetObjectAtPos(neighborPos);
 
-                if (!adjObject)
+                if (adjObject)
                 {
-                    continue;
-                }
-
-                Vector2Int oppositeSide = side * -1;
-
-                foreach (Action<Vector2Int> action in adjObject.OnNeighborPlaced)
-                {
-                    action(oppositeSide);
+                    Vector2Int oppositeSide = side * -1;
+                    adjObject.OnNeighborPlaced(oppositeSide);
                 }
             }
         }
@@ -84,14 +70,9 @@ namespace Scavenger
                 Vector2Int pos = queuedUpdates.Dequeue();
                 GridObject gridObject = map.GetObjectAtPos(pos);
 
-                if (!gridObject)
+                if (gridObject)
                 {
-                    continue;
-                }
-
-                foreach (Action action in gridObject.OnNeighborChanged)
-                {
-                    action();
+                    gridObject.OnNeighborChanged();
                 }
             }
         }
