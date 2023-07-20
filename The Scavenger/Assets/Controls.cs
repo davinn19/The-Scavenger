@@ -64,6 +64,15 @@ namespace Scavenger
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""View GridObject"",
+                    ""type"": ""Button"",
+                    ""id"": ""5657375b-eed6-474b-91ad-c07ffdf310b9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -110,6 +119,17 @@ namespace Scavenger
                     ""action"": ""Pointer Hover"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d02b24c6-0eb7-4973-8def-6fedf1092e1b"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""New control scheme"",
+                    ""action"": ""View GridObject"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -139,6 +159,7 @@ namespace Scavenger
             m_GridMap_PlaceInteractItem = m_GridMap.FindAction("Place/Interact Item", throwIfNotFound: true);
             m_GridMap_ToggleUI = m_GridMap.FindAction("Toggle UI", throwIfNotFound: true);
             m_GridMap_PointerHover = m_GridMap.FindAction("Pointer Hover", throwIfNotFound: true);
+            m_GridMap_ViewGridObject = m_GridMap.FindAction("View GridObject", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -204,6 +225,7 @@ namespace Scavenger
         private readonly InputAction m_GridMap_PlaceInteractItem;
         private readonly InputAction m_GridMap_ToggleUI;
         private readonly InputAction m_GridMap_PointerHover;
+        private readonly InputAction m_GridMap_ViewGridObject;
         public struct GridMapActions
         {
             private @Controls m_Wrapper;
@@ -212,6 +234,7 @@ namespace Scavenger
             public InputAction @PlaceInteractItem => m_Wrapper.m_GridMap_PlaceInteractItem;
             public InputAction @ToggleUI => m_Wrapper.m_GridMap_ToggleUI;
             public InputAction @PointerHover => m_Wrapper.m_GridMap_PointerHover;
+            public InputAction @ViewGridObject => m_Wrapper.m_GridMap_ViewGridObject;
             public InputActionMap Get() { return m_Wrapper.m_GridMap; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -233,6 +256,9 @@ namespace Scavenger
                 @PointerHover.started += instance.OnPointerHover;
                 @PointerHover.performed += instance.OnPointerHover;
                 @PointerHover.canceled += instance.OnPointerHover;
+                @ViewGridObject.started += instance.OnViewGridObject;
+                @ViewGridObject.performed += instance.OnViewGridObject;
+                @ViewGridObject.canceled += instance.OnViewGridObject;
             }
 
             private void UnregisterCallbacks(IGridMapActions instance)
@@ -249,6 +275,9 @@ namespace Scavenger
                 @PointerHover.started -= instance.OnPointerHover;
                 @PointerHover.performed -= instance.OnPointerHover;
                 @PointerHover.canceled -= instance.OnPointerHover;
+                @ViewGridObject.started -= instance.OnViewGridObject;
+                @ViewGridObject.performed -= instance.OnViewGridObject;
+                @ViewGridObject.canceled -= instance.OnViewGridObject;
             }
 
             public void RemoveCallbacks(IGridMapActions instance)
@@ -281,6 +310,7 @@ namespace Scavenger
             void OnPlaceInteractItem(InputAction.CallbackContext context);
             void OnToggleUI(InputAction.CallbackContext context);
             void OnPointerHover(InputAction.CallbackContext context);
+            void OnViewGridObject(InputAction.CallbackContext context);
         }
     }
 }

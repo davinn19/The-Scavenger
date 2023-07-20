@@ -9,7 +9,6 @@ namespace Scavenger
     public class GridHover : MonoBehaviour
     {
         [SerializeField] private SpriteRenderer hoverIndicator;
-
         
         public Vector2Int HoveredPos { get; private set; }
         public bool OverGUI { get; private set; }

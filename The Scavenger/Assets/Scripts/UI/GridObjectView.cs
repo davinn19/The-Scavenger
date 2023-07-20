@@ -1,0 +1,52 @@
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace Scavenger.UI
+{
+    public class GridObjectView : MonoBehaviour
+    {
+        [SerializeField] private GameManager gameManager;
+        [SerializeField] private TextMeshProUGUI gridObjectName;
+        [SerializeField] private Image gridObjectIcon;
+
+        private Image background;
+
+        private void Awake()
+        {
+            background = GetComponent<Image>();
+        }
+
+        void Update()
+        {
+            // TODO link to event instead
+            GridObject gridObject = gameManager.ViewedGridObject;
+
+            if (!gridObject)
+            {
+                ShowUI(false);
+            }
+            else
+            {
+                ShowUI(true);
+                
+                gridObjectIcon.sprite = gridObject.GetComponent<SpriteRenderer>().sprite;
+                gridObjectName.text = gridObject.name;
+            }
+        }
+
+        private void ShowUI(bool active)
+        {
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                GameObject child = transform.GetChild(i).gameObject;
+                child.SetActive(active);
+            }
+
+            background.enabled = active;
+        }
+        
+    }
+}

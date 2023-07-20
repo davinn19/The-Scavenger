@@ -24,6 +24,7 @@ namespace Scavenger
 
             Vector2Int chunkPos = GetChunkPos(gridPos);
             GridObject newGridObject = Instantiate(gridObject, transform);
+            newGridObject.name = gridObject.name;
 
             newGridObject.gridPos = gridPos;
             objects[chunkPos.x, chunkPos.y] = newGridObject;

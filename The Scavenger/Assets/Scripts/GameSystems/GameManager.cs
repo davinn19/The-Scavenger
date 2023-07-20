@@ -1,7 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 namespace Scavenger
@@ -12,9 +12,13 @@ namespace Scavenger
 
         private Controls controls;
         private InputAction place;
+        private InputAction view;
 
         private ItemSelection itemSelection;
         private GridHover gridHover;
+
+        public GridObject ViewedGridObject { get; private set; }
+        [SerializeField] private SpriteRenderer viewIndicator;
 
 
         private void Awake()
@@ -29,15 +33,20 @@ namespace Scavenger
             place = controls.GridMap.PlaceInteractItem;
             place.Enable();
             place.performed += OnPlace;
+
+            view = controls.GridMap.ViewGridObject;
+            view.Enable();
+            view.performed += OnView;
         }
 
         private void OnDisable()
         {
             place.Disable();
+            view.Disable();
         }        
 
 
-        public void OnPlace(InputAction.CallbackContext context)  // Left click to place/interact
+        private void OnPlace(InputAction.CallbackContext context)  // Left click to place/interact
         {
             // Only handle input if mouse is not over UI
             if (gridHover.OverGUI)
@@ -66,7 +75,24 @@ namespace Scavenger
             }
         }
 
+        private void OnView(InputAction.CallbackContext context) // Right click to view gridObject
+        {
+            if (gridHover.OverGUI)
+            {
+                ViewedGridObject = null;
+            }
 
-        
+            ViewedGridObject = map.GetObjectAtPos(gridHover.HoveredPos);
+
+            if (!ViewedGridObject)
+            {
+                viewIndicator.enabled = false;
+            }
+            else
+            {
+                viewIndicator.enabled = true;
+                viewIndicator.transform.position = GridMap.GetCenterOfTile(gridHover.HoveredPos);
+            }
+        }
     }
 }

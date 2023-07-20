@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6310263074720075457}
   - component: {fileID: 6667584979610272898}
   m_Layer: 0
-  m_Name: MakeshiftEnergyCell
+  m_Name: Makeshift Energy Cell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

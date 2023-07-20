@@ -12,11 +12,10 @@ namespace Scavenger.UI
         private Controls controls;
         private InputAction pointerHover;
 
-        private SlotDisplay pressedSlot;
+        [SerializeField] private SlotDisplay pressedSlot;
         private bool dragging = false;
 
         [SerializeField] private ItemSelection itemSelection;
-        [SerializeField] private SpriteRenderer selectedItemIndicator;
 
         private void Awake()
         {
@@ -83,10 +82,8 @@ namespace Scavenger.UI
         {
             PointerEventData pointerData = new(EventSystem.current) { position = pointerHover.ReadValue<Vector2>() };
 
-
             List<RaycastResult> results = new();
             EventSystem.current.RaycastAll(pointerData, results);
-
             foreach (RaycastResult result in results)
             {
                 if (result.gameObject.TryGetComponent(out SlotDisplay slotDisplay))
