@@ -144,7 +144,7 @@ namespace Scavenger
         {
             if (!otherStack)
             {
-                return 0;
+                return otherStack.amount;
             }
 
             ItemStack insertedStack = GetItemInSlot(slot);
@@ -156,7 +156,7 @@ namespace Scavenger
 
             if (!insertedStack.IsStackable(otherStack))
             {
-                return 0;
+                return otherStack.amount;
             }
 
             int amountInserted = Mathf.Min(amount, otherStack.amount, MaxCapacity - insertedStack.amount);
@@ -165,7 +165,23 @@ namespace Scavenger
             return otherStack.amount - amountInserted;
         }
 
-        // returns items not taken
+        // does not modify parameter, returns remainder
+        public int Insert(ItemStack itemStack)
+        {
+            int amount = itemStack.amount;
+            for (int slot = 0; slot < NumSlots; slot++)
+            {
+                amount = Insert(slot, itemStack, amount);
+                if (amount == 0)
+                {
+                    return 0;
+                }
+            }
+
+            return amount;
+        }
+
+        // returns items not taken, TODO use new insert function
         public int TakeFromBuffer(ItemBuffer otherBuffer, int amount)
         {
             int totalAmountToTake = amount;
@@ -216,6 +232,7 @@ namespace Scavenger
             return amount - totalAmountToTake;
         }
 
+        // TODO implement merging stackable stacks in a different function
         public static void Swap(ItemBuffer buffer1, int slot1, ItemBuffer buffer2, int slot2)
         { 
             if (buffer1.IsLocked(slot1) || buffer2.IsLocked(slot2))

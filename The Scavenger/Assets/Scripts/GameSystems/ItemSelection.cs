@@ -25,7 +25,6 @@ namespace Scavenger
 
         private ItemBuffer inventory;
 
-
         private void Awake()
         {
             inventory = GetComponent<ItemBuffer>();

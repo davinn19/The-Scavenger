@@ -83,5 +83,22 @@ namespace Scavenger
 
             return greaterAxisPressed * directionPressed;
         }
+
+        public Clickable GetClickableUnderMouse()
+        {
+            RaycastHit2D[] hits = Physics2D.RaycastAll(mousePos, Vector2.zero, 0);
+            foreach (RaycastHit2D hit in hits)
+            {
+                Clickable clickable;
+                if (hit.collider.TryGetComponent(out clickable))
+                {
+                    return clickable;
+                }
+            }
+
+            return null;
+
+
+        }
     }
 }

@@ -15,12 +15,14 @@ namespace Scavenger
 
         private ItemSelection itemSelection;
         private GridHover gridHover;
+        public ItemBuffer Inventory { get; private set; }
 
 
         private void Awake()
         {
             itemSelection = GetComponent<ItemSelection>();
             gridHover = GetComponent<GridHover>();
+            Inventory = GetComponent<ItemBuffer>();
             controls = new();
         }
 
@@ -45,6 +47,14 @@ namespace Scavenger
                 return;
             }
 
+            // Check for clickables first
+            Clickable clickable = gridHover.GetClickableUnderMouse();
+            if (clickable)
+            {
+                clickable.OnClick(this);
+                return;
+            }
+
             // Ignore if no item is held
             ItemStack selectedItemStack = itemSelection.GetSelectedItemStack();
             if (!selectedItemStack)
@@ -65,7 +75,6 @@ namespace Scavenger
                 Map.TryInteract(selectedItemStack, gridHover.HoveredPos, sidePressed);
             }
         }
-
         
     }
 }

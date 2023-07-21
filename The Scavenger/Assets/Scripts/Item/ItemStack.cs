@@ -55,7 +55,20 @@ namespace Scavenger
                 return false;
             }
 
-            return data.Equals(other.data);
+            if (data.Count != other.data.Count)
+            {
+                return false;
+            }
+
+            foreach (string key in data.Keys)
+            {
+                if (!other.data.ContainsKey(key) || other.data[key] != data[key])
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         public bool IsEmpty()

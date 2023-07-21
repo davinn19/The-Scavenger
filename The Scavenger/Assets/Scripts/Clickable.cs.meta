@@ -1,10 +1,9 @@
 fileFormatVersion: 2
-guid: c5c06115da8391d49a820ab3318ad193
+guid: 86f05a9daa5f796489b77937aa5b3bd8
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - spaceDebrisItem: {instanceID: 0}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

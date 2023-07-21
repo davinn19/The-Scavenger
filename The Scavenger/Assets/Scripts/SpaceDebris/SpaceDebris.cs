@@ -4,17 +4,25 @@ using UnityEngine;
 
 namespace Scavenger
 {
+    [RequireComponent(typeof(Clickable))]
     public class SpaceDebris : MonoBehaviour
     {
-        private void Update()
+        [SerializeField] private Item spaceDebrisItem;
+
+        private void Awake()
         {
-            
+            GetComponent<Clickable>().Clicked += OnClick;
         }
 
-        private void OnMouseDown()
+        private void OnClick(GameManager gameManager)
         {
-            Debug.Log("Debris collected");
-            Destroy(gameObject);
+            ItemStack itemDrop = new ItemStack(spaceDebrisItem, 1);
+            int remainder = gameManager.Inventory.Insert(itemDrop);
+            if (remainder == 0)
+            {
+                Destroy(gameObject);
+            }
+            
         }
     }
 }

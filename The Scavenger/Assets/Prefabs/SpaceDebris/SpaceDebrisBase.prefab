@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1499352027030378525}
   - component: {fileID: 6811772501846155964}
   - component: {fileID: 599929427807945531}
+  - component: {fileID: 7799000660650775292}
   m_Layer: 0
   m_Name: SpaceDebrisBase
   m_TagString: Untagged
@@ -99,6 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5c06115da8391d49a820ab3318ad193, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spaceDebrisItem: {fileID: 11400000, guid: e9983f9720fb1484a975da3831142444, type: 2}
 --- !u!114 &6811772501846155964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,3 +166,15 @@ PolygonCollider2D:
       - {x: 0.58778536, y: -0.80901694}
       - {x: 0.9510565, y: 0.30901712}
   m_UseDelaunayMesh: 0
+--- !u!114 &7799000660650775292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5521551151306571318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86f05a9daa5f796489b77937aa5b3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
