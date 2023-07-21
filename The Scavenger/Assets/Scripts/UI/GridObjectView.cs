@@ -24,6 +24,8 @@ namespace Scavenger.UI
             healthBar.Prefix = "HP: ";
 
             gridObjectViewer.ViewedObjectChanged += OnViewedObjectChanged;
+
+            ShowUI(false);
         }
 
         private void OnViewedObjectChanged()

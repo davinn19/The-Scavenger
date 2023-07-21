@@ -94,6 +94,24 @@ namespace Scavenger
             return slotsLocked[slot];
         }
 
+        private void SetLocked(int slot, bool locked)
+        {
+            slotsLocked[slot] = locked;
+            if (!locked)
+            {
+                ItemStack itemStack = GetItemInSlot(slot);
+                if (itemStack.IsEmpty())
+                {
+                    itemStack.Clear();
+                }
+            }
+        }
+
+        public void ToggleLocked(int slot)
+        {
+            SetLocked(slot, !IsLocked(slot));
+        }
+
         private bool ItemStackFits(ItemStack itemStack)
         {
             return itemStack.amount <= MaxCapacity;

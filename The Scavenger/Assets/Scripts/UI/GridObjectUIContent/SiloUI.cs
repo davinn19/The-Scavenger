@@ -22,10 +22,13 @@ namespace Scavenger.UI
 
             slotDisplay.Buffer = silo.ItemBuffer;
             slotDisplay.Slot = 0;
+
+            UpdateLockButtonStatus();
         }
 
-        private void Update()
+        public void OnLockButtonPressed()
         {
+            silo.ItemBuffer.ToggleLocked(0);
             UpdateLockButtonStatus();
         }
 

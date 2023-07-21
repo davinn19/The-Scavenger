@@ -131,18 +131,18 @@ PrefabInstance:
     - target: {fileID: 1125410866116814357, guid: 19e767c8d5174494598bc8eee76658af, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -1402976458, guid: d60f25ca0ac004645b3077d348272274, type: 3}
+      objectReference: {fileID: 25503675, guid: d60f25ca0ac004645b3077d348272274, type: 3}
     - target: {fileID: 1125410866116814357, guid: 19e767c8d5174494598bc8eee76658af, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5521551151306571318, guid: 19e767c8d5174494598bc8eee76658af, type: 3}
       propertyPath: m_Name
-      value: SpaceDebris3 Variant
+      value: SpaceDebris3
       objectReference: {fileID: 0}
     - target: {fileID: 7147758077317736045, guid: 19e767c8d5174494598bc8eee76658af, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7147758077317736045, guid: 19e767c8d5174494598bc8eee76658af, type: 3}
       propertyPath: m_LocalPosition.x

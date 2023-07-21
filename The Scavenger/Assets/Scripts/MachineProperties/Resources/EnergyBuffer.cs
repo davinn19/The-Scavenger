@@ -9,8 +9,8 @@ namespace Scavenger
     /// </summary>
     public class EnergyBuffer : Buffer
     {
-        [SerializeField] public int Capacity { get; private set; }
-        [SerializeField] public int Energy { get; private set; }
+        [field: SerializeField] public int Capacity { get; private set; }
+        [field: SerializeField] public int Energy { get; private set; }
 
 
         /// <summary>
