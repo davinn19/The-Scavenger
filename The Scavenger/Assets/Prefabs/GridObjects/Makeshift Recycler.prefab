@@ -134,9 +134,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02f98d24cdd54ff4799d20eefb735af4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxCapacity: 0
-  items: []
-  numSlots: 0
+  <MaxCapacity>k__BackingField: 0
+  <NumSlots>k__BackingField: 0
+  <Slots>k__BackingField: []
 --- !u!114 &5737372038577171505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,9 +149,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02f98d24cdd54ff4799d20eefb735af4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxCapacity: 0
-  items: []
-  numSlots: 0
+  <MaxCapacity>k__BackingField: 0
+  <NumSlots>k__BackingField: 0
+  <Slots>k__BackingField: []
 --- !u!114 &8617763748970202139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,7 +180,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a854dc0ec229134a90018277a04c963, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  capacity: 0
 --- !u!114 &2817779763902313903
 MonoBehaviour:
   m_ObjectHideFlags: 0

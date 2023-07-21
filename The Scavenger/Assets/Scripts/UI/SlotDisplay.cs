@@ -12,7 +12,6 @@ namespace Scavenger.UI
         public ItemBuffer Buffer { get; set; }
         public int Slot { get; set; }
 
-
         private SlotDisplayHandler handler;
         [SerializeField] private Image itemImage;
 

@@ -26,7 +26,7 @@ namespace Scavenger
             GridObject newGridObject = Instantiate(gridObject, transform);
             newGridObject.name = gridObject.name;
 
-            newGridObject.gridPos = gridPos;
+            newGridObject.GridPos = gridPos;
             objects[chunkPos.x, chunkPos.y] = newGridObject;
 
             newGridObject.transform.position = GridMap.GetCenterOfTile(gridPos);

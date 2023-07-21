@@ -5,10 +5,12 @@ using UnityEngine;
 
 namespace Scavenger
 {
-    [RequireComponent(typeof(HP)), DisallowMultipleComponent]
+    [DisallowMultipleComponent]
     public class GridObject : MonoBehaviour
     {
-        public Vector2Int gridPos;
+        public const int DefaultHP = 100;
+
+        public Vector2Int GridPos { get; set; }
         private GridMap map;
         private GridChunk chunk;
 
@@ -26,13 +28,19 @@ namespace Scavenger
         {
             chunk = GetComponentInParent<GridChunk>();
             map = chunk.GetComponentInParent<GridMap>();
+
             HP = GetComponent<HP>();
+            if (!HP)
+            {
+                HP = gameObject.AddComponent<HP>();
+                HP.SetMaxHealth(DefaultHP);
+            }
         }
 
 
         public GridObject GetAdjacentObject(Vector2Int direction)   
         {
-            return map.GetObjectAtPos(gridPos, direction);
+            return map.GetObjectAtPos(GridPos, direction);
         }
 
 
@@ -88,7 +96,7 @@ namespace Scavenger
         public void OnSelfChanged()
         {
             SelfChanged?.Invoke();
-            map.updatePropagation.QueueNeighborUpdates(gridPos);
+            map.updatePropagation.QueueNeighborUpdates(GridPos);
         }
     }
 }

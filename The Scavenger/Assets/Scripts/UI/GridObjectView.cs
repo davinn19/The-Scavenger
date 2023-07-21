@@ -13,17 +13,18 @@ namespace Scavenger.UI
         [SerializeField] private Image gridObjectIcon;
 
         private Image background;
-        private HealthBar healthBar;
+        private ProgressBar healthBar;
 
         private void Awake()
         {
             background = GetComponent<Image>();
-            healthBar = GetComponentInChildren<HealthBar>();
+            healthBar = GetComponentInChildren<ProgressBar>();
+            healthBar.Prefix = "HP: ";
         }
 
         void Update()
         {
-            // TODO link to event instead
+            // TODO link to event instead??
             GridObject gridObject = gridObjectViewer.GetViewedObject();
 
             if (!gridObject)
@@ -37,7 +38,7 @@ namespace Scavenger.UI
                 gridObjectIcon.sprite = gridObject.GetComponent<SpriteRenderer>().sprite;
                 gridObjectName.text = gridObject.name;
 
-                healthBar.UpdateAppearance(gridObject.HP);
+                healthBar.UpdateAppearance(gridObject.HP.Health, gridObject.HP.MaxHealth);
             }
         }
 

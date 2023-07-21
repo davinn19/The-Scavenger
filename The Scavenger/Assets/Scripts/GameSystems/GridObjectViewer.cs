@@ -16,7 +16,7 @@ namespace Scavenger
         private GridHover gridHover;
         private GameManager gameManager;
 
-        private bool viewEnabled = true;
+        private bool viewEnabled = false;
         
 
         private void Awake()

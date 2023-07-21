@@ -185,7 +185,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6546ea9d9b357204d97e64fcd54f3de6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridPos: {x: 0, y: 0}
 --- !u!114 &303847279040132141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,8 +197,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91aa8687777e1374e8c5c2335a28bda8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: 6159633708668795203}
-  item: {fileID: 992735339745390986}
 --- !u!114 &992735339745390986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,9 +209,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02f98d24cdd54ff4799d20eefb735af4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxCapacity: 99
-  items: []
-  numSlots: 1
+  <MaxCapacity>k__BackingField: 100
+  <NumSlots>k__BackingField: 1
+  <Slots>k__BackingField: []
 --- !u!114 &8922438121216451306
 MonoBehaviour:
   m_ObjectHideFlags: 0

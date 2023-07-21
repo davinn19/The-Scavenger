@@ -11,10 +11,9 @@ GameObject:
   - component: {fileID: 57933402183418659}
   - component: {fileID: 7447148526547841207}
   - component: {fileID: 7052346108508962674}
-  - component: {fileID: 16191819480640377}
   - component: {fileID: 3372188304090494505}
   - component: {fileID: 7944459871896213953}
-  - component: {fileID: 8288759316632016068}
+  - component: {fileID: 1861733364313229858}
   m_Layer: 0
   m_Name: Solar Panel
   m_TagString: Untagged
@@ -49,8 +48,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a854dc0ec229134a90018277a04c963, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  capacity: 1000
-  energy: 0
 --- !u!114 &7052346108508962674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,20 +60,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d6dc2c3292119546810214c320179d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &16191819480640377
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 469526264196311149}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5166a3145b911e54eabae126fbe68066, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHP: 0
-  hp: 0
 --- !u!114 &3372188304090494505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,7 +125,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8288759316632016068
+--- !u!114 &1861733364313229858
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

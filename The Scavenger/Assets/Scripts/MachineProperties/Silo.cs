@@ -4,21 +4,20 @@ using UnityEngine;
 
 namespace Scavenger
 {
+    [RequireComponent(typeof(ItemBuffer))]
     public class Silo : MonoBehaviour
     {
-        [SerializeField] private SpriteRenderer icon;
-        [SerializeField] private ItemBuffer item;
+        private SpriteRenderer icon;
+        public ItemBuffer ItemBuffer { get; private set; }
 
-        // Start is called before the first frame update
-        void Start()
+
+        private void Awake()
         {
+            ItemBuffer = GetComponent<ItemBuffer>();
+            icon = GetComponent<SpriteRenderer>();
+        }
+
         
-        }
 
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
     }
 }
