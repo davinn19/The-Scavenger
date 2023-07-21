@@ -54,6 +54,11 @@ namespace Scavenger
             return hey != null;
         }
 
+        public ItemProperty[] GetProperties()
+        {
+            return properties.ToArray();
+        }
+
         // TODO decide which functions should be private
     }
 

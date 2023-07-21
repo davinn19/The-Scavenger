@@ -13,10 +13,12 @@ namespace Scavenger.UI
         [SerializeField] private Image gridObjectIcon;
 
         private Image background;
+        private HealthBar healthBar;
 
         private void Awake()
         {
             background = GetComponent<Image>();
+            healthBar = GetComponentInChildren<HealthBar>();
         }
 
         void Update()
@@ -34,6 +36,8 @@ namespace Scavenger.UI
                 
                 gridObjectIcon.sprite = gridObject.GetComponent<SpriteRenderer>().sprite;
                 gridObjectName.text = gridObject.name;
+
+                healthBar.UpdateAppearance(gridObject.HP);
             }
         }
 

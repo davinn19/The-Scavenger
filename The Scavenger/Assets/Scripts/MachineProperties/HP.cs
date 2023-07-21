@@ -6,8 +6,8 @@ namespace Scavenger
 {
     public class HP : MonoBehaviour
     {
-        [SerializeField] private int maxHP;
-        [SerializeField] private int hp;
+        [field: SerializeField] public int MaxHealth { get; private set; }
+        [field: SerializeField] public int Health { get; private set; }
     }
 
 }

@@ -32,6 +32,16 @@ namespace Scavenger.UI
                 itemImage.sprite = itemStack.Item.Icon;
                 itemImage.color = Color.white;
                 itemName.text = itemStack.Item.DisplayName;
+
+                for (int i = transform.childCount - 1; i >= 1; i--)
+                {
+                    Destroy(transform.GetChild(i).gameObject);
+                }
+
+                foreach (ItemProperty itemProperty in itemStack.Item.GetProperties())
+                {
+
+                }
             }
         }
     }

@@ -12,6 +12,8 @@ namespace Scavenger
         private GridMap map;
         private GridChunk chunk;
 
+        public HP HP { get; private set; }
+
         public event Action Placed;
         public event Action Removed;
         public event Action<Vector2Int> NeighborPlaced;
@@ -24,6 +26,7 @@ namespace Scavenger
         {
             chunk = GetComponentInParent<GridChunk>();
             map = chunk.GetComponentInParent<GridMap>();
+            HP = GetComponent<HP>();
         }
 
 

@@ -26,6 +26,11 @@ namespace Scavenger.UI
 
         private void Update()
         {
+            if (Buffer == null)
+            {
+                return;
+            }
+
             // TODO link to event
             ItemStack itemStack = Buffer.GetItemInSlot(Slot);
 
