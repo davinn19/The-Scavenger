@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Scavenger.UI;
 
 namespace Scavenger
 {
@@ -21,8 +22,10 @@ namespace Scavenger
         public event Action<Vector2Int> NeighborPlaced;
         public event Action NeighborChanged;
         public event Action SelfChanged;
-
         public Action<ItemStack, Vector2Int> Interact = (_, _) => { };
+
+        [field: SerializeField] public GridObjectUIContent UIContent { get; private set; }
+  
 
         private void Awake()
         {
@@ -98,5 +101,6 @@ namespace Scavenger
             SelfChanged?.Invoke();
             map.updatePropagation.QueueNeighborUpdates(GridPos);
         }
+
     }
 }

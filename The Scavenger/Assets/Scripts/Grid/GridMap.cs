@@ -14,6 +14,8 @@ namespace Scavenger
         public UpdatePropagation updatePropagation; // TODO combine the two updates???
         public UpdateCycle updateCycle;
 
+        public event Action<Vector2Int> GridObjectSet;
+
         private readonly Dictionary<Vector2Int, GridChunk> gridChunks = new();
 
         /// <summary>
@@ -70,6 +72,7 @@ namespace Scavenger
         {
             GridChunk chunk = GetChunkAtPos(gridPos);
             chunk.SetObjectAtPos(gridObject, gridPos);
+            GridObjectSet.Invoke(gridPos);
         }
 
         /// <summary>

@@ -8,28 +8,30 @@ namespace Scavenger.UI
 {
     public class SiloUI : GridObjectUIContent
     {
-        public Silo Silo { get; set; }
+        private Silo silo;
 
-        private SlotDisplay slotDisplay;
-        private Button lockButton;
-        private TextMeshProUGUI lockButtonText;
+        [SerializeField] private SlotDisplay slotDisplay;
+        [SerializeField] private Button lockButton;
+        [SerializeField] private TextMeshProUGUI lockButtonText;
 
-
-        private void Awake()
+        public override void Init(GridObject gridObject)
         {
-            slotDisplay = GetComponentInChildren<SlotDisplay>();
-            slotDisplay.Buffer = Silo.ItemBuffer;
+            base.Init(gridObject);
+
+            silo = gridObject.GetComponent<Silo>();
+
+            slotDisplay.Buffer = silo.ItemBuffer;
             slotDisplay.Slot = 0;
+        }
 
-            lockButton = GetComponentInChildren<Button>();
-            lockButtonText = lockButton.GetComponent<TextMeshProUGUI>();
-
+        private void Update()
+        {
             UpdateLockButtonStatus();
         }
 
         private void UpdateLockButtonStatus()
         {
-            bool locked = Silo.ItemBuffer.IsLocked(0);
+            bool locked = silo.ItemBuffer.IsLocked(0);
             if (locked)
             {
                 lockButtonText.text = "Locked";
@@ -39,6 +41,8 @@ namespace Scavenger.UI
                 lockButtonText.text = "Unlocked";
             }
         }
+
+        
 
     }
 }

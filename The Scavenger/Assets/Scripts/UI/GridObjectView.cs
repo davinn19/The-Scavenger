@@ -15,16 +15,19 @@ namespace Scavenger.UI
         private Image background;
         private ProgressBar healthBar;
 
+        private GridObjectUIContent content = null;
+
         private void Awake()
         {
             background = GetComponent<Image>();
             healthBar = GetComponentInChildren<ProgressBar>();
             healthBar.Prefix = "HP: ";
+
+            gridObjectViewer.ViewedObjectChanged += OnViewedObjectChanged;
         }
 
-        void Update()
+        private void OnViewedObjectChanged()
         {
-            // TODO link to event instead??
             GridObject gridObject = gridObjectViewer.GetViewedObject();
 
             if (!gridObject)
@@ -34,11 +37,12 @@ namespace Scavenger.UI
             else
             {
                 ShowUI(true);
-                
+
                 gridObjectIcon.sprite = gridObject.GetComponent<SpriteRenderer>().sprite;
                 gridObjectName.text = gridObject.name;
-
                 healthBar.UpdateAppearance(gridObject.HP.Health, gridObject.HP.MaxHealth);
+
+                SetContent(gridObject);
             }
         }
 
@@ -52,6 +56,25 @@ namespace Scavenger.UI
 
             background.enabled = active;
         }
-        
+
+        private void SetContent(GridObject viewedObject)
+        {
+            // Remove old content
+            if (content)
+            {
+                Destroy(content.gameObject);
+            }
+
+
+            if (viewedObject.UIContent == null)
+            {
+                content = null;
+            }
+            else
+            {
+                content = Instantiate(viewedObject.UIContent, transform);
+                content.Init(viewedObject);
+            }
+        }
     }
 }

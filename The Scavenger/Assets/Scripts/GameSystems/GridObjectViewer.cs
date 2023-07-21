@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,7 +18,8 @@ namespace Scavenger
         private GameManager gameManager;
 
         private bool viewEnabled = false;
-        
+
+        public event Action ViewedObjectChanged;
 
         private void Awake()
         {
@@ -25,6 +27,7 @@ namespace Scavenger
 
             gridHover = GetComponent<GridHover>();
             gameManager = GetComponent<GameManager>();
+            gameManager.Map.GridObjectSet += OnViewedObjectSet;
         }
 
         private void OnEnable()
@@ -66,6 +69,16 @@ namespace Scavenger
 
                 viewIndicator.enabled = true;
                 viewIndicator.transform.position = GridMap.GetCenterOfTile(viewingPos);
+            }
+
+            ViewedObjectChanged.Invoke();
+        }
+
+        private void OnViewedObjectSet(Vector2Int changedPos)
+        {
+            if (changedPos == viewingPos)
+            {
+                ViewedObjectChanged.Invoke();
             }
         }
     }
