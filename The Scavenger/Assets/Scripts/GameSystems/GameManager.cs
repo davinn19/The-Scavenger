@@ -16,7 +16,7 @@ namespace Scavenger
         private ItemSelection itemSelection;
         private GridHover gridHover;
         public ItemBuffer Inventory { get; private set; }
-
+        public InputMode InputMode { get; set; }
 
         private void Awake()
         {

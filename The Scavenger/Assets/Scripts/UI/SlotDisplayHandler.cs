@@ -9,30 +9,19 @@ namespace Scavenger.UI
     // TODO fix dragging bugs
     public class SlotDisplayHandler : MonoBehaviour
     {
-        private Controls controls;
-        private InputAction pointerHover;
-
         [SerializeField] private SlotDisplay pressedSlot;
         private bool dragging = false;
 
         [SerializeField] private ItemSelection itemSelection;
+        [SerializeField] private GameObject trash;
+
+        private GameUI gameUI;
+
 
         private void Awake()
         {
-            controls = new Controls();
+            gameUI = GetComponentInParent<GameUI>();
         }
-
-        private void OnEnable()
-        {
-            pointerHover = controls.GridMap.PointerHover;
-            pointerHover.Enable();
-        }
-
-        private void OnDisable()
-        {
-            pointerHover.Disable();
-        }
-
 
         public void OnSlotDisplayDown(SlotDisplay slotDisplay)
         {
@@ -51,7 +40,6 @@ namespace Scavenger.UI
             }
            
         }
-
         public void OnSlotDisplayUp(SlotDisplay slotDisplay)
         {
             if (!pressedSlot || pressedSlot != slotDisplay)
@@ -62,8 +50,14 @@ namespace Scavenger.UI
             pressedSlot = null;
             dragging = false;
 
-            SlotDisplay destinationDisplay = GetDisplayUnderPointer();
-            if (!destinationDisplay || destinationDisplay == slotDisplay)
+            if (IsOverTrash())
+            {
+                slotDisplay.GetItemInSlot().Clear();    // TODO move through buffer instead of accessing itemstack directly
+                return;
+            }
+
+            SlotDisplay hoveredSlot = GetHoveredSlot();
+            if (!hoveredSlot || hoveredSlot == slotDisplay)
             {
                 return;
             }
@@ -71,28 +65,26 @@ namespace Scavenger.UI
             ItemBuffer buffer1 = slotDisplay.Buffer;
             int slot1 = slotDisplay.Slot;
 
-            ItemBuffer buffer2 = destinationDisplay.Buffer;
-            int slot2 = destinationDisplay.Slot;
+            ItemBuffer buffer2 = hoveredSlot.Buffer;
+            int slot2 = hoveredSlot.Slot;
 
             ItemBuffer.Swap(buffer1, slot1, buffer2, slot2);
            
         }
 
-        public SlotDisplay GetDisplayUnderPointer()
+        private bool IsOverTrash()
         {
-            PointerEventData pointerData = new(EventSystem.current) { position = pointerHover.ReadValue<Vector2>() };
+            return gameUI.HoveredElement == trash;
+        }
 
-            List<RaycastResult> results = new();
-            EventSystem.current.RaycastAll(pointerData, results);
-            foreach (RaycastResult result in results)
+
+        private SlotDisplay GetHoveredSlot()
+        {
+            if (!gameUI.HoveredElement)
             {
-                if (result.gameObject.TryGetComponent(out SlotDisplay slotDisplay))
-                {
-                    return slotDisplay;
-                }
+                return null;
             }
-
-            return null;
+            return gameUI.HoveredElement.GetComponent<SlotDisplay>();
         }
     }
 }

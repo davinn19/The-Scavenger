@@ -15,9 +15,6 @@ namespace Scavenger.UI
         [SerializeField] private ItemBuffer inventory;
         private SlotDisplay[] slotDisplays;
 
-        [SerializeField] private Rect closedState;
-        [SerializeField] private Rect openState;
-
         [SerializeField] private RectTransform selectedItemIndicator;
 
         private void Awake()

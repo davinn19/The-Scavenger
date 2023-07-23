@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Scavenger.UI
 {
-    public class GridObjectUIContent : UIContent<GridObject>
+    public class ItemUIContent : UIContent<Item>
     {
         
     }

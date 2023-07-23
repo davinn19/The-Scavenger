@@ -15,6 +15,8 @@ namespace Scavenger
         [field: SerializeField] public ItemStack[] Slots { get; private set; }
         private bool[] slotsLocked;
 
+        public event Action<int> SlotChanged;
+
         private void Awake()
         {
             ProcessStartingItems();
@@ -87,6 +89,7 @@ namespace Scavenger
         private void SetItemInSlot(ItemStack itemStack, int slot)
         {
             Slots[slot] = itemStack;
+            SlotChanged?.Invoke(slot);
         }
 
         public bool IsLocked(int slot)
@@ -105,6 +108,7 @@ namespace Scavenger
                     itemStack.Clear();
                 }
             }
+            SlotChanged?.Invoke(slot);
         }
 
         public void ToggleLocked(int slot)
@@ -135,6 +139,7 @@ namespace Scavenger
                 extractedStack.Clear();
             }
 
+            SlotChanged?.Invoke(slot);
             return amountExtracted;
         }
 
@@ -162,6 +167,7 @@ namespace Scavenger
             int amountInserted = Mathf.Min(amount, otherStack.amount, MaxCapacity - insertedStack.amount);
             insertedStack.amount += amountInserted;
 
+            SlotChanged?.Invoke(slot);
             return otherStack.amount - amountInserted;
         }
 

@@ -8,40 +8,124 @@ namespace Scavenger.UI
 {
     public class ItemView : MonoBehaviour
     {
-        [SerializeField] private ItemSelection itemSelection;
-        [SerializeField] private Image itemImage;
-
         private TextMeshProUGUI itemName;
+        private ItemUIContent content;
+        private RectTransform rectTransform;
+
+        private SlotDisplay m_hoveredDisplay;
+        private SlotDisplay HoveredDisplay
+        {
+            get { return m_hoveredDisplay; }
+            set
+            {
+                if (value == HoveredDisplay)
+                {
+                    return;
+                }
+
+                if (m_hoveredDisplay != null)
+                {
+                    m_hoveredDisplay.Buffer.SlotChanged -= OnSlotChanged;
+                    m_hoveredDisplay = null;
+                }
+
+                if (value != null)
+                {
+                    m_hoveredDisplay = value;
+                    HoveredDisplay.Buffer.SlotChanged += OnSlotChanged;
+                }
+
+                UpdateAppearance();
+            }
+        }
+
+        private GameUI gameUI;
+
 
         private void Awake()
         {
+            rectTransform = GetComponent<RectTransform>();
             itemName = GetComponentInChildren<TextMeshProUGUI>();
+            gameUI = GetComponentInParent<GameUI>();
+            gameUI.HoveredElementChanged += OnHoveredElementChanged;
         }
 
-        private void Update()
+
+        private void OnHoveredElementChanged(GameObject hoveredElement)
         {
-            // TODO link to event
-            ItemStack itemStack = itemSelection.GetSelectedItemStack();
+            if (hoveredElement == null)
+            {
+                HoveredDisplay = null;
+                return;
+            }
+
+            HoveredDisplay = hoveredElement.GetComponent<SlotDisplay>();
+        }
+
+
+        private void OnSlotChanged(int slot)
+        {
+            if (HoveredDisplay == null)
+            {
+                return;
+            }
+
+            if (HoveredDisplay.Slot == slot)
+            {
+                UpdateAppearance();
+            }
+        }
+
+        private void UpdateAppearance()
+        {
+            Debug.Log(1);
+            ClearContent();
+            itemName.text = "";
+
+            if (!HoveredDisplay)
+            {
+                gameObject.SetActive(false);
+                return;
+            }
+
+            ItemStack itemStack = HoveredDisplay.GetItemInSlot();
             if (!itemStack)
             {
-                itemImage.color = Color.clear;
-                itemName.text = "";
+                gameObject.SetActive(false);
+                return;
             }
-            else
+
+            gameObject.SetActive(true);
+
+            itemName.text = itemStack.Item.DisplayName;
+            SetContent(itemStack);
+
+            MoveToHoveredDisplay();
+
+        }
+
+
+        private void MoveToHoveredDisplay()
+        {
+            rectTransform.anchoredPosition = HoveredDisplay.GetComponent<RectTransform>().anchoredPosition + new Vector2(0, 230 + 55f / 2);
+        }
+
+
+        private void SetContent(ItemStack itemStack)
+        {
+            if (itemStack.Item.TryGetProperty(out CustomUI ui))
             {
-                itemImage.sprite = itemStack.Item.Icon;
-                itemImage.color = Color.white;
-                itemName.text = itemStack.Item.DisplayName;
+                content = Instantiate(ui.UI, transform);
+                content.Init(itemStack.Item);
+            }
+        }
 
-                for (int i = transform.childCount - 1; i >= 1; i--)
-                {
-                    Destroy(transform.GetChild(i).gameObject);
-                }
-
-                foreach (ItemProperty itemProperty in itemStack.Item.GetProperties())
-                {
-
-                }
+        private void ClearContent()
+        {
+            if (content)
+            {
+                Destroy(content.gameObject);
+                content = null;
             }
         }
     }

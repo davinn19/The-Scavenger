@@ -52,6 +52,11 @@ namespace Scavenger.UI
             
         }
 
+        public ItemStack GetItemInSlot()
+        {
+            return Buffer.GetItemInSlot(Slot);
+        }
+
         public void OnPointerDown()
         {
             handler.OnSlotDisplayDown(this);

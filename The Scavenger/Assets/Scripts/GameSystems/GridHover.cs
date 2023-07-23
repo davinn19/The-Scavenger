@@ -52,7 +52,7 @@ namespace Scavenger
         {
             ItemStack selectedItemStack = itemSelection.GetSelectedItemStack();
 
-            if (OverGUI || !selectedItemStack)
+            if (OverGUI || !selectedItemStack || !selectedItemStack.Item.HasProperty<PlacedObject>())
             {
                 hoverIndicator.enabled = false;
                 return;
