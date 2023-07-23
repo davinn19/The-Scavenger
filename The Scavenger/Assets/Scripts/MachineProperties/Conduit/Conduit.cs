@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -77,7 +76,7 @@ namespace Scavenger
 
                 Vector2Int oppositeSide = side * -1;
                 Conduit adjConduit = gridObject.GetAdjacentObject<Conduit>(side);
-                
+
                 if (adjConduit)
                 {
                     adjConduit.SetTransportMode(oppositeSide, TransportMode.DISCONNECT);
@@ -310,7 +309,7 @@ namespace Scavenger
                 return new() { TransportMode.DISCONNECT };
             }
         }
-        
+
     }
 
     /// <summary>

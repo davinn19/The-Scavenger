@@ -1,10 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 namespace Scavenger.UI
 {
@@ -82,7 +80,7 @@ namespace Scavenger.UI
 
             List<RaycastResult> results = new();
             EventSystem.current.RaycastAll(pointerData, results);
-            
+
             foreach (RaycastResult result in results)
             {
                 InteractibleUI hoveredElement = result.gameObject.GetComponentInParent<InteractibleUI>();

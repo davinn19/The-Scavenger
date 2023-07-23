@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -34,7 +32,7 @@ namespace Scavenger.UI
             text.text = GetText(value, maxValue);
         }
 
-        private string GetText(int value, int maxValue) 
+        private string GetText(int value, int maxValue)
         {
             return Prefix + value + "/" + maxValue + Suffix;
         }

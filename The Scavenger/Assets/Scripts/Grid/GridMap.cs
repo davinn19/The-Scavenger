@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,6 +16,27 @@ namespace Scavenger
         public event Action<Vector2Int> GridObjectSet;
 
         private readonly Dictionary<Vector2Int, GridChunk> gridChunks = new();
+
+        private readonly HashSet<Vector2Int> supportedPos = new();
+
+
+        private void Awake()
+        {
+            InitSupportedPos();
+        }
+
+        /// <summary>
+        /// Sets position of each gridObject placed in the editor as a supported pos, then removes it.
+        /// </summary>
+        private void InitSupportedPos()
+        {
+            foreach (SupportedPos pos in GetComponentsInChildren<SupportedPos>())
+            {
+                supportedPos.Add(pos.GetPos());
+                Destroy(pos.gameObject);
+            }
+        }
+
 
         /// <summary>
         /// Gets the chunk at the chunk index, creates it if nonexistent.

@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -37,7 +34,7 @@ namespace Scavenger
         private void OnDisable()
         {
             place.Disable();
-        }        
+        }
 
         private void OnPlace(InputAction.CallbackContext context)  // Left click to place/interact
         {
@@ -75,6 +72,6 @@ namespace Scavenger
                 Map.TryInteract(selectedItemStack, gridHover.HoveredPos, sidePressed);
             }
         }
-        
+
     }
 }

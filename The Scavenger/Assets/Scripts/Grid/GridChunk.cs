@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Scavenger
@@ -12,7 +10,7 @@ namespace Scavenger
         public const int ChunkSize = 9;
         public Vector2Int ChunkIndex { get; set; }
         private readonly GridObject[,] objects = new GridObject[ChunkSize, ChunkSize];
-        
+
         /// <summary>
         /// Sets a new gridObject at the specified position.
         /// </summary>

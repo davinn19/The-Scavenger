@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Scavenger.UI
 {
-    public abstract class UIContent<T> : MonoBehaviour where T: class
+    public abstract class UIContent<T> : MonoBehaviour where T : class
     {
         protected T target { get; set; }
 

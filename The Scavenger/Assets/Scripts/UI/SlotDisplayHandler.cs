@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 
 namespace Scavenger.UI
 {
@@ -38,7 +34,7 @@ namespace Scavenger.UI
             {
                 dragging = true;
             }
-           
+
         }
         public void OnSlotDisplayUp(SlotDisplay slotDisplay)
         {
@@ -69,7 +65,7 @@ namespace Scavenger.UI
             int slot2 = hoveredSlot.Slot;
 
             ItemBuffer.Swap(buffer1, slot1, buffer2, slot2);
-           
+
         }
 
         private bool IsOverTrash()

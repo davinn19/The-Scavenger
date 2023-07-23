@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +7,7 @@ namespace Scavenger
     public class RecyclerRecipes : ScriptableObject
     {
         [SerializeField] private List<RecyclerRecipe> recipes;
-        
+
 
         public bool IsRecyclable(ItemStack item)
         {

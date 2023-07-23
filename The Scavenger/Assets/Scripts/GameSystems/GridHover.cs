@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -9,7 +7,7 @@ namespace Scavenger
     public class GridHover : MonoBehaviour
     {
         [SerializeField] private SpriteRenderer hoverIndicator;
-        
+
         public Vector2Int HoveredPos { get; private set; }
         public bool OverGUI { get; private set; }
         private Vector2 mousePos;
@@ -45,7 +43,7 @@ namespace Scavenger
             HoveredPos = new Vector2Int(Mathf.FloorToInt(mousePos.x), Mathf.FloorToInt(mousePos.y));
 
             DrawHoverIndicator();
-        
+
         }
 
         private void DrawHoverIndicator()

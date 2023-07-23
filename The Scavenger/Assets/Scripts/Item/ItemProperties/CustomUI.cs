@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Scavenger.UI;
+using UnityEngine;
 using UnityEngine.Search;
 
 namespace Scavenger

@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -80,7 +79,7 @@ namespace Scavenger
             return foundSlots;
         }
 
-        
+
         public ItemStack GetItemInSlot(int slot)
         {
             return Slots[slot];
@@ -240,7 +239,7 @@ namespace Scavenger
 
         // TODO implement merging stackable stacks in a different function
         public static void Swap(ItemBuffer buffer1, int slot1, ItemBuffer buffer2, int slot2)
-        { 
+        {
             if (buffer1.IsLocked(slot1) || buffer2.IsLocked(slot2))
             {
                 return;

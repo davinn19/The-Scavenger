@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,7 +9,7 @@ namespace Scavenger
         public List<Action> TickUpdate = new();
 
         private Queue<Vector2Int> queuedUpdates = new();
-        
+
 
         private GridMap map;
 
@@ -21,7 +20,7 @@ namespace Scavenger
 
         private void Update()
         {
-            HandleNeighborChangedUpdates();    
+            HandleNeighborChangedUpdates();
         }
 
         public void QueueNeighborUpdates(Vector2Int startPos)

@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Scavenger.UI
 {
@@ -44,7 +41,7 @@ namespace Scavenger.UI
         private Vector2 GetSlotDisplayPos(int slotIndex)
         {
             int x = slotIndex % InventoryWidth;
-            int y = - slotIndex / InventoryWidth;
+            int y = -slotIndex / InventoryWidth;
             return new Vector2(x, y) * 55;
         }
     }

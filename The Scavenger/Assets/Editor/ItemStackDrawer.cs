@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.UIElements;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Scavenger
@@ -18,7 +15,7 @@ namespace Scavenger
             container.Add(itemField);
 
             PropertyField amountField = new PropertyField(property.FindPropertyRelative("amount"));
-            container.Add(amountField);    
+            container.Add(amountField);
 
             return container;
         }

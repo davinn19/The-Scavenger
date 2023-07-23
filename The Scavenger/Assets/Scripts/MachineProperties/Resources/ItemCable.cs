@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -36,7 +35,7 @@ namespace Scavenger
                         Debug.LogError("Something went wrong!!!");
                         break;
                 }
-            }            
+            }
         }
 
 

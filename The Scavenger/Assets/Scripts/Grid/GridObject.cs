@@ -1,8 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Scavenger.UI;
+using System;
+using UnityEngine;
 
 namespace Scavenger
 {
@@ -25,7 +23,7 @@ namespace Scavenger
         public Action<ItemStack, Vector2Int> Interact = (_, _) => { };
 
         [field: SerializeField] public GridObjectUIContent UIContent { get; private set; }
-  
+
 
         private void Awake()
         {
@@ -41,7 +39,7 @@ namespace Scavenger
         }
 
 
-        public GridObject GetAdjacentObject(Vector2Int direction)   
+        public GridObject GetAdjacentObject(Vector2Int direction)
         {
             return map.GetObjectAtPos(GridPos, direction);
         }

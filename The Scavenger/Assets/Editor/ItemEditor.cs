@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
-using UnityEditor.Experimental.GraphView;
 using System;
+using UnityEditor;
+using UnityEditor.Experimental.GraphView;
+using UnityEngine;
 
 namespace Scavenger
 {
@@ -176,7 +174,7 @@ namespace Scavenger
             newProperty.Item = target as Item;
 
             AssetDatabase.AddObjectToAsset(newProperty, target);
-            
+
 
             properties.arraySize++;
             properties.GetArrayElementAtIndex(properties.arraySize - 1).objectReferenceValue = newProperty;

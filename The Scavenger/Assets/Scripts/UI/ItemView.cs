@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -46,8 +44,14 @@ namespace Scavenger.UI
         {
             rectTransform = GetComponent<RectTransform>();
             itemName = GetComponentInChildren<TextMeshProUGUI>();
+
             gameUI = GetComponentInParent<GameUI>();
             gameUI.HoveredElementChanged += OnHoveredElementChanged;
+        }
+
+        private void Start()
+        {
+            gameObject.SetActive(false);
         }
 
         private void Update()

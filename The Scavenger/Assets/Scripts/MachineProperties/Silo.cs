@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Scavenger
@@ -17,7 +15,7 @@ namespace Scavenger
             icon = GetComponent<SpriteRenderer>();
         }
 
-        
+
 
     }
 }
