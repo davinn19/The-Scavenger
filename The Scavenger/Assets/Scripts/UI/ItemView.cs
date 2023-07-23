@@ -50,6 +50,11 @@ namespace Scavenger.UI
             gameUI.HoveredElementChanged += OnHoveredElementChanged;
         }
 
+        private void Update()
+        {
+            rectTransform.position = gameUI.MousePos + Vector2.one * 10;
+        }
+
 
         private void OnHoveredElementChanged(GameObject hoveredElement)
         {
@@ -78,7 +83,6 @@ namespace Scavenger.UI
 
         private void UpdateAppearance()
         {
-            Debug.Log(1);
             ClearContent();
             itemName.text = "";
 
@@ -99,15 +103,6 @@ namespace Scavenger.UI
 
             itemName.text = itemStack.Item.DisplayName;
             SetContent(itemStack);
-
-            MoveToHoveredDisplay();
-
-        }
-
-
-        private void MoveToHoveredDisplay()
-        {
-            rectTransform.anchoredPosition = HoveredDisplay.GetComponent<RectTransform>().anchoredPosition + new Vector2(0, 230 + 55f / 2);
         }
 
 

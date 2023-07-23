@@ -10,9 +10,10 @@ namespace Scavenger.UI
 {
     public class GameUI : MonoBehaviour
     {
-        [field: SerializeField] public GameObject HoveredElement { get; private set; }
+        public GameObject HoveredElement { get; private set; }
+        [field: SerializeField] public Vector2 MousePos { get; private set; }
 
-        [SerializeField] private bool overUI = false;
+        private bool overUI = false;
 
         private Controls controls;
         private InputAction toggleUI;
@@ -69,6 +70,7 @@ namespace Scavenger.UI
                 UpdateHoveredElement();
             }
 
+            MousePos = pointerHover.ReadValue<Vector2>();
         }
 
         private void UpdateHoveredElement()
@@ -80,7 +82,6 @@ namespace Scavenger.UI
 
             List<RaycastResult> results = new();
             EventSystem.current.RaycastAll(pointerData, results);
-
             
             foreach (RaycastResult result in results)
             {
