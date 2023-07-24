@@ -58,13 +58,29 @@ namespace Scavenger.UI
                 return;
             }
 
-            ItemBuffer buffer1 = slotDisplay.Buffer;
-            int slot1 = slotDisplay.Slot;
+            ItemBuffer sendingBuffer = slotDisplay.Buffer;
+            int sendingSlot = slotDisplay.Slot;
+            ItemStack sendingStack = sendingBuffer.GetItemInSlot(sendingSlot);
 
-            ItemBuffer buffer2 = hoveredSlot.Buffer;
-            int slot2 = hoveredSlot.Slot;
+            if (sendingStack.IsEmpty())
+            {
+                return;
+            }
 
-            ItemBuffer.Swap(buffer1, slot1, buffer2, slot2);
+            ItemBuffer receivingBuffer = hoveredSlot.Buffer;
+            int receivingSlot = hoveredSlot.Slot;
+            ItemStack receivingStack = receivingBuffer.GetItemInSlot(receivingSlot);
+
+
+            if (receivingStack.IsStackable(sendingStack))
+            {
+                ItemBuffer.MoveItems(sendingBuffer, sendingSlot, receivingBuffer, receivingSlot);
+            }
+            else
+            {
+                ItemBuffer.Swap(sendingBuffer, sendingSlot, receivingBuffer, receivingSlot);
+            }
+            
 
         }
 
