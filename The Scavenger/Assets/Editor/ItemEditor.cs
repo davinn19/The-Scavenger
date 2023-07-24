@@ -14,6 +14,7 @@ namespace Scavenger
 
         private SerializedProperty displayName;
         private SerializedProperty icon;
+        private SerializedProperty description;
 
         private SerializedProperty properties;
 
@@ -28,6 +29,8 @@ namespace Scavenger
 
             displayName = serializedObject.FindProperty("<DisplayName>k__BackingField");
             icon = serializedObject.FindProperty("<Icon>k__BackingField");
+            description = serializedObject.FindProperty("<Description>k__BackingField");
+
             properties = serializedObject.FindProperty("properties");
 
             //UpdateThumbnail();
@@ -72,6 +75,7 @@ namespace Scavenger
             //{
             //    UpdateThumbnail();
             //}
+            EditorGUILayout.PropertyField(description);
         }
 
         //private void UpdateThumbnail()

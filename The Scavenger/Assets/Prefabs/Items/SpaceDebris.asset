@@ -1,18 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-3659184856491719583
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4827f0156a60d4a41acefcf71a60f3b4, type: 3}
-  m_Name: Custom UI
-  m_EditorClassIdentifier: 
-  <UI>k__BackingField: {fileID: 6362985850313145356, guid: 9478aa887bf989b4ebe16051ea14241f, type: 3}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <DisplayName>k__BackingField: Space Debris
   <Icon>k__BackingField: {fileID: 21300000, guid: 4147806a157d56742954d931fe3f001b, type: 3}
+  <Description>k__BackingField: Use on an empty space on the asteroid to salvage.
   properties:
-  - {fileID: -3659184856491719583}
-  - {fileID: 6704957101943883776}
---- !u!114 &6704957101943883776
+  - {fileID: 7267624586482457709}
+--- !u!114 &7267624586482457709
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,6 +30,5 @@ MonoBehaviour:
   m_Name: Simple Salvage
   m_EditorClassIdentifier: 
   salvageDrops:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 18d46571aa3e4154c8ac6b9da101109c, type: 2}
+  - {fileID: 11400000, guid: 764ee4002e80a554fa1e2a1cb14df28a, type: 2}

@@ -6,7 +6,8 @@ namespace Scavenger.UI
 {
     public class ItemView : MonoBehaviour
     {
-        private TextMeshProUGUI itemName;
+        [SerializeField] private TextMeshProUGUI itemName;
+        [SerializeField] private TextMeshProUGUI itemDescription;
         private ItemUIContent content;
         private RectTransform rectTransform;
 
@@ -39,11 +40,9 @@ namespace Scavenger.UI
 
         private GameUI gameUI;
 
-
         private void Awake()
         {
             rectTransform = GetComponent<RectTransform>();
-            itemName = GetComponentInChildren<TextMeshProUGUI>();
 
             gameUI = GetComponentInParent<GameUI>();
             gameUI.HoveredElementChanged += OnHoveredElementChanged;
@@ -87,8 +86,7 @@ namespace Scavenger.UI
 
         private void UpdateAppearance()
         {
-            ClearContent();
-            itemName.text = "";
+            ClearCustomContent();
 
             if (!HoveredDisplay)
             {
@@ -106,11 +104,18 @@ namespace Scavenger.UI
             gameObject.SetActive(true);
 
             itemName.text = itemStack.Item.DisplayName;
-            SetContent(itemStack);
+
+            SetDescription(itemStack);
+            SetCustomContent(itemStack);
         }
 
+        private void SetDescription(ItemStack itemStack)
+        {
+            itemDescription.text = itemStack.Item.Description;
+            itemDescription.gameObject.SetActive(itemDescription.text != "");
+        }
 
-        private void SetContent(ItemStack itemStack)
+        private void SetCustomContent(ItemStack itemStack)
         {
             if (itemStack.Item.TryGetProperty(out CustomUI ui))
             {
@@ -119,7 +124,7 @@ namespace Scavenger.UI
             }
         }
 
-        private void ClearContent()
+        private void ClearCustomContent()
         {
             if (content)
             {

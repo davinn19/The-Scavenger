@@ -24,7 +24,6 @@ namespace Scavenger
 
                 foreach (Type type in assembly.GetExportedTypes())
                 {
-                    Debug.Log(type);
                     if (type.IsSubclassOf(typeof(ItemProperty)) && !type.IsAbstract)
                     {
                         types.Add(type);
