@@ -20,6 +20,9 @@ namespace Scavenger
 
         public void Init(ItemStack itemStack)
         {
+            Debug.Assert(itemStack);
+            Debug.Assert(!itemStack.IsEmpty());
+
             ItemStack = itemStack;
             spriteRenderer.sprite = itemStack.Item.Icon;
         }

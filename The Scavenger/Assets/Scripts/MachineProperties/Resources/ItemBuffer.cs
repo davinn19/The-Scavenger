@@ -9,7 +9,7 @@ namespace Scavenger
         [field: SerializeField] public int MaxCapacity { get; private set; }
         [field: SerializeField] public int NumSlots { get; private set; }
 
-        public Func<ItemStack, int, bool> AcceptsItemStack;
+        public Func<ItemStack, int, bool> AcceptsItemStack = (_,_) => { return true; };
 
         [field: SerializeField] public ItemStack[] Slots { get; private set; }
         private bool[] slotsLocked;
@@ -20,11 +20,6 @@ namespace Scavenger
         {
             ProcessStartingItems();
             slotsLocked = new bool[NumSlots];
-
-            if (AcceptsItemStack == null)
-            {
-                AcceptsItemStack = (itemStack, _) => { return ItemStackFits(itemStack); };
-            }
         }
 
         // Resizes slots array to numSlots and confirms all itemStacks set in editor match maxCapacity
@@ -35,7 +30,7 @@ namespace Scavenger
             for (int i = 0; i < Slots.Length; i++)
             {
                 ItemStack itemStack = GetItemInSlot(i);
-                itemStack.amount = Mathf.Min(itemStack.amount, MaxCapacity);
+                itemStack.Amount = Mathf.Min(itemStack.Amount, MaxCapacity);
                 resizedSlots[i] = itemStack;
             }
 
@@ -45,21 +40,6 @@ namespace Scavenger
             }
 
             Slots = resizedSlots;
-        }
-
-        public int FindFirst(Predicate<ItemStack> condition)
-        {
-            for (int i = 0; i < NumSlots; i++)
-            {
-                ItemStack itemStack = GetItemInSlot(i);
-
-                if (itemStack && condition(itemStack))
-                {
-                    return i;
-                }
-            }
-
-            return -1;
         }
 
         public List<int> FindAll(Predicate<ItemStack> condition)
@@ -115,13 +95,13 @@ namespace Scavenger
             SetLocked(slot, !IsLocked(slot));
         }
 
-        private bool ItemStackFits(ItemStack itemStack)
-        {
-            return itemStack.amount <= MaxCapacity;
-        }
-
-        // returns amount extracted
-        public int Extract(int slot, int amount, bool simulate)
+        /// <summary>
+        /// Extracts from the itemStack in a specific slot.
+        /// </summary>
+        /// <param name="slot">The slot to extract from.</param>
+        /// <param name="amount">The amount to attempt extracting.</param>
+        /// <returns>The amount extracted.</returns>
+        public int Extract(int slot, int amount)
         {
             ItemStack extractedStack = GetItemInSlot(slot);
 
@@ -131,30 +111,39 @@ namespace Scavenger
                 return 0;
             }
 
-            int amountExtracted = Mathf.Min(extractedStack.amount, amount);
+            int amountExtracted = Mathf.Min(extractedStack.Amount, amount);
 
-            // Don't edit itemStack if in simulate mode
-            if (!simulate)
+            extractedStack.Amount -= amountExtracted;
+            if (extractedStack.IsEmpty() && !IsLocked(slot))
             {
-                extractedStack.amount -= amountExtracted;
-                if (extractedStack.IsEmpty() && !IsLocked(slot))
-                {
-                    extractedStack.Clear();
-                }
-
-                SlotChanged?.Invoke(slot);
+                extractedStack.Clear();
             }
+
+            SlotChanged?.Invoke(slot);
             
             return amountExtracted;
         }
 
-        // returns remainder
+        /// <summary>
+        /// Inserts another stack into a specific slot.
+        /// </summary>
+        /// <param name="slot">The slot to insert into.</param>
+        /// <param name="otherStack">The stack to insert into the buffer. Will not be modified.</param>
+        /// <param name="amount">The amount to attempt inserting.</param>
+        /// <param name="simulate">If true, will only calculate the result and not modify the buffer.</param>
+        /// <returns>OtherStack's remaining amount after the insertion.</returns>
         public int Insert(int slot, ItemStack otherStack, int amount, bool simulate)
         {
             // Ignore if other stack is empty
             if (!otherStack)
             {
-                return otherStack.amount;
+                return otherStack.Amount;
+            }
+
+            // Ignore if otherStack cannot be accepted into the specific slot
+            if (!AcceptsItemStack(otherStack, slot))
+            {
+                return otherStack.Amount;
             }
 
             // Get stack you will insert into
@@ -163,10 +152,10 @@ namespace Scavenger
             // Ignore if stacks are unstackable
             if (!insertedStack.IsStackable(otherStack))
             {
-                return otherStack.amount;
+                return otherStack.Amount;
             }
 
-            int amountInserted = Mathf.Min(amount, otherStack.amount, MaxCapacity - insertedStack.amount);
+            int amountInserted = Mathf.Min(amount, otherStack.Amount, MaxCapacity - insertedStack.Amount);
 
             // Do not change values if in simulate mode
             if (!simulate)
@@ -178,14 +167,19 @@ namespace Scavenger
                     insertedStack.data = new Dictionary<string, string>(otherStack.data);
                 }
 
-                insertedStack.amount += amountInserted;
+                insertedStack.Amount += amountInserted;
                 SlotChanged?.Invoke(slot);
             }
             
-            return otherStack.amount - amountInserted;
+            return otherStack.Amount - amountInserted;
         }
 
-        // does not modify parameter, returns remainder, TODO include AcceptItemStack
+        /// <summary>
+        /// Inserts another itemStack into the first available slots in the buffer.
+        /// </summary>
+        /// <param name="itemStack">The itemStack to insert into the buffer. Will not be modified.</param>
+        /// <param name="simulate">If true, will only calculate the results, not modifying the buffer.</param>
+        /// <returns>The amount remaining in itemStack after insertion.</returns>
         public int Insert(ItemStack itemStack, bool simulate)
         {
             // Create copy stack to prevent modifying parameter
@@ -193,17 +187,16 @@ namespace Scavenger
 
             for (int slot = 0; slot < NumSlots; slot++)
             {
-                int remainder = Insert(slot, itemStack, itemStack.amount, simulate);
-
+                int remainder = Insert(slot, itemStack, itemStack.Amount, simulate);
                 if (remainder == 0)
                 {
                     return 0;
                 }
 
-                itemStack.amount = remainder; 
+                itemStack.Amount = remainder; 
             }
 
-            return itemStack.amount;
+            return itemStack.Amount;
         }
 
         // returns items not taken, TODO use new insert function, remake
@@ -224,9 +217,9 @@ namespace Scavenger
                 // Insert into existing stacks first
                 foreach (int stackableSlot in stackableSlots)
                 {
-                    int amountToTake = Mathf.Min(otherStack.amount, totalAmountToTake);
+                    int amountToTake = Mathf.Min(otherStack.Amount, totalAmountToTake);
                     int amountInserted = Insert(stackableSlot, otherStack, totalAmountToTake, false);
-                    otherBuffer.Extract(otherSlot, amountInserted, false);
+                    otherBuffer.Extract(otherSlot, amountInserted);
 
 
                     totalAmountToTake -= amountInserted;
@@ -249,7 +242,7 @@ namespace Scavenger
                     }
 
                     int remainder = Insert(curSlot, otherStack, totalAmountToTake, false);
-                    otherStack.amount -= remainder;
+                    otherStack.Amount -= remainder;
                 }
 
             }

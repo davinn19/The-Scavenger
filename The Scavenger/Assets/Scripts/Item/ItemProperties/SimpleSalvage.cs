@@ -16,7 +16,7 @@ namespace Scavenger
 
             if (map.IsSupported(pressedPos) && !map.GetObjectAtPos(pressedPos)) // Needs to be pressed on an EMPTY spot on the asteroid
             {
-                gameManager.Inventory.Extract(inventorySlot, 1, false);
+                gameManager.Inventory.Extract(inventorySlot, 1);
 
                 foreach (ItemStack drop in GenerateDrops())
                 {

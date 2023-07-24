@@ -39,7 +39,7 @@ namespace Scavenger.UI
             {
                 itemImage.sprite = itemStack.Item.Icon;
                 itemImage.color = Color.white;
-                stackAmountDisplay.text = GetAmountString(itemStack.amount);
+                stackAmountDisplay.text = GetAmountString(itemStack.Amount);
             }
             else
             {

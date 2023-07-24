@@ -203,19 +203,33 @@ namespace Scavenger
         /// <summary>
         /// Tries to rotate the pressed side's transport mode, or add the held cable.
         /// </summary>
-        /// <param name="itemStack">The itemStack used to interact with the conduit.</param>
+        /// <param name="inventory">The player's inventory.</param>
+        /// <param name="slot">The player's equipped slot.</param>
         /// <param name="sidePressed">The side pressed when interacting.</param>
         /// <returns>True if the interaction was successful.</returns>
-        private bool Interact(ItemStack itemStack, Vector2Int sidePressed)
+        private bool Interact(ItemBuffer inventory, int slot, Vector2Int sidePressed)
         {
-            bool editSuccessful = TryEditSide(itemStack.Item, sidePressed);
+            ItemStack itemStack = inventory.GetItemInSlot(slot);
+            // Ignore if no item is held
+            if (!itemStack)
+            {
+                return false;
+            }
 
-            if (editSuccessful)
+            bool editSuccess = TryEditSide(itemStack.Item, sidePressed);
+            if (editSuccess)
             {
                 return true;
             }
 
-            return TryAddCable(itemStack);
+            bool addCableSuccess = TryAddCable(itemStack);
+            if (addCableSuccess)
+            {
+                inventory.Extract(slot, 1);
+                return true;
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -224,7 +238,7 @@ namespace Scavenger
         /// <param name="item">The held item.</param>
         /// <param name="side">The side to attempt changing transport mode.</param>
         /// <returns>True if the edit is successful.</returns>
-        private bool TryEditSide(Item item, Vector2Int side)
+        private bool TryEditSide(Item item, Vector2Int side)   // TODO change to work in edit mode instead of holding another conduit, redo docs
         {
             if (item.TryGetProperty(out PlacedObject property) && property.Object.GetComponent<Conduit>())
             {
@@ -238,18 +252,16 @@ namespace Scavenger
         /// <summary>
         /// Tries to add the held item as a cable to the conduit.
         /// </summary>
-        /// <param name="itemStack">The held item.</param>
+        /// <param name="itemStack">The held item. Assumed to be holding something.</param>
         /// <returns>True if the held item is added.</returns>
         private bool TryAddCable(ItemStack itemStack)
         {
-            if (itemStack.Item.TryGetProperty(out CableSpec cableSpec) && CanAddCable(cableSpec))
+            if (itemStack.Item.TryGetProperty(out CableSpec cableSpec) && CanAddCable(cableSpec) && !itemStack.IsEmpty())
             {
                 cableSpec.AddCable(this);
-                itemStack.amount--;     // TODO make proper way to consume items
                 gridObject.OnSelfChanged();
                 return true;
             }
-
             return false;
         }
 

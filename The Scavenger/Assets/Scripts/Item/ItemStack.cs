@@ -7,14 +7,16 @@ namespace Scavenger
     public class ItemStack
     {
         [field: SerializeField] public Item Item { get; private set; }
-        [Min(0)] public int amount;
+
+        /// <remarks>DO NOT edit the amount directly unless you are in ItemBuffer. Use Extract/Insert functions in ItemBuffer instead.</remarks>
+        [Min(0)] public int Amount;
         public Dictionary<string, string> data;
 
 
         public ItemStack(Item item, int amount, Dictionary<string, string> data = null)
         {
             SetItem(item);
-            this.amount = amount;
+            Amount = amount;
 
             if (data != null)
             {
@@ -26,17 +28,14 @@ namespace Scavenger
             }
         }
 
-        public ItemStack(ItemStack otherStack) : this(otherStack.Item, otherStack.amount, new Dictionary<string, string>(otherStack.data))
-        {
-
-        }
+        public ItemStack(ItemStack otherStack) : this(otherStack.Item, otherStack.Amount, new Dictionary<string, string>(otherStack.data)) { }
 
         public ItemStack() => Clear();
 
         public void Clear()
         {
             Item = null;
-            amount = 0;
+            Amount = 0;
             data = new Dictionary<string, string>();
         }
 
@@ -50,6 +49,11 @@ namespace Scavenger
             }
 
             Item = newItem;
+
+            if (Item == null)
+            {
+                Clear();
+            }
         }
 
         public bool IsStackable(ItemStack other)
@@ -85,7 +89,7 @@ namespace Scavenger
 
         public bool IsEmpty()
         {
-            return amount <= 0;
+            return Amount <= 0;
         }
 
         public static implicit operator bool(ItemStack itemStack)

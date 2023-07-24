@@ -11,6 +11,12 @@ namespace Scavenger
     {
         [SerializeField] private FloatingItem floatingItemPrefab;
 
+        /// <summary>
+        /// Creates a new floating item.
+        /// </summary>
+        /// <param name="itemStack">The itemStack stored in the floating item. USE A COPY.</param>
+        /// <param name="worldPos">The position to initialize the floating item at.</param>
+        /// <returns>The new floating item.</returns>
         public FloatingItem CreateFloatingItem(ItemStack itemStack, Vector2 worldPos)
         {
             FloatingItem floatingItem = Instantiate(floatingItemPrefab);
@@ -23,8 +29,10 @@ namespace Scavenger
             return floatingItem;
         }
 
-        public FloatingItem CreateFloatingItem(ItemStack itemStack) => CreateFloatingItem(itemStack, Vector2.zero);
-
+        /// <summary>
+        /// Generates random values to define a floating item's motion.
+        /// </summary>
+        /// <returns>3-tuple with the generated speed, direction, and rotation speed, in that order.</returns>
         private (float, Vector2, float) GenerateFloatingMotionStats()
         {
             float angle = Random.Range(0f, Mathf.PI * 2);

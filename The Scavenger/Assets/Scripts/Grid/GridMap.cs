@@ -126,16 +126,17 @@ namespace Scavenger
         /// <summary>
         /// Attempts to interact with the gridObject at a position using an item.
         /// </summary>
-        /// <param name="itemStack">ItemStack to use in interaction.</param>
+        /// <param name="inventory">The player's inventory.</param>
+        /// <param name="slot">The player's equipped slot.</param>
         /// <param name="gridPos">Position of gridObject to interact with.</param>
         /// <param name="sidePressed">Side of gridObject that was pressed.</param>
         /// <returns>True if an interaction happened.</returns>
-        public bool TryObjectInteract(ItemStack itemStack, Vector2Int gridPos, Vector2Int sidePressed)
+        public bool TryObjectInteract(ItemBuffer inventory, int slot, Vector2Int gridPos, Vector2Int sidePressed)
         {
             GridObject existingObject = GetObjectAtPos(gridPos);
             if (existingObject && existingObject.TryInteract != null)
             {
-                return existingObject.TryInteract(itemStack, sidePressed);
+                return existingObject.TryInteract(inventory, slot, sidePressed);
             }
 
             return false;
@@ -144,14 +145,22 @@ namespace Scavenger
         /// <summary>
         /// Attempts to place the item at a position.
         /// </summary>
-        /// <param name="itemStack">ItemStack to place.</param>
+        /// <param name="inventory">The player's inventory.</param>
+        /// <param name="slot">The player's equipped slot.</param>
         /// <param name="gridPos">Position to place the item at.</param>
         /// <returns>True if placement was successful.</returns>
-        public bool TryPlaceItem(ItemStack itemStack, Vector2Int gridPos)// TODO add supported constraint
+        public bool TryPlaceItem(ItemBuffer inventory, int slot, Vector2Int gridPos)// TODO add supported constraint
         {
             // Space must be empty to place new object
             GridObject existingObject = GetObjectAtPos(gridPos);
             if (existingObject)
+            {
+                return false;
+            }
+
+            // Must be holding an item
+            ItemStack itemStack = inventory.GetItemInSlot(slot);
+            if (!itemStack || itemStack.IsEmpty())
             {
                 return false;
             }
@@ -164,6 +173,7 @@ namespace Scavenger
 
             SetObjectAtPos(placedObject.Object, gridPos);
             updatePropagation.HandlePlaceUpdate(gridPos);
+            inventory.Extract(slot, 1);
             return true;
         }
 

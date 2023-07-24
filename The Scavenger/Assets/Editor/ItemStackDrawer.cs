@@ -14,7 +14,7 @@ namespace Scavenger
             PropertyField itemField = new PropertyField(property.FindPropertyRelative("<Item>k__BackingField"));
             container.Add(itemField);
 
-            PropertyField amountField = new PropertyField(property.FindPropertyRelative("amount"));
+            PropertyField amountField = new PropertyField(property.FindPropertyRelative("Amount"));
             container.Add(amountField);
 
             return container;

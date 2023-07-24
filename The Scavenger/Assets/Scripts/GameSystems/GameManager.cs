@@ -54,15 +54,8 @@ namespace Scavenger
                 return;
             }
 
-            // Ignore if no item is held
-            ItemStack selectedItemStack = itemSelection.GetSelectedItemStack();
-            if (!selectedItemStack)
-            {
-                return;
-            }
-
             // Try placing object next
-            bool placeSuccess = Map.TryPlaceItem(selectedItemStack, gridHover.HoveredPos);
+            bool placeSuccess = Map.TryPlaceItem(Inventory, itemSelection.SelectedSlot, gridHover.HoveredPos);
             if (placeSuccess)
             {
                 return;
@@ -70,14 +63,18 @@ namespace Scavenger
 
             // Try having grid object handle interaction next
             Vector2Int sidePressed = gridHover.GetHoveredSide();
-            bool itemInteractSuccess = Map.TryObjectInteract(selectedItemStack, gridHover.HoveredPos, sidePressed);
+            bool itemInteractSuccess = Map.TryObjectInteract(Inventory, itemSelection.SelectedSlot, gridHover.HoveredPos, sidePressed);
             if (itemInteractSuccess)
             {
                 return;
             }
 
             // Try having item handle interaction
-            selectedItemStack.Item.Interact(this, itemSelection.SelectedSlot, gridHover.HoveredPos);
+            ItemStack selectedItemStack = itemSelection.GetSelectedItemStack();
+            if (selectedItemStack)
+            {
+                selectedItemStack.Item.Interact(this, itemSelection.SelectedSlot, gridHover.HoveredPos);
+            }
         }
 
     }
