@@ -12,6 +12,18 @@ namespace Scavenger
 
         [SerializeField] private List<ItemProperty> properties = new() { };
 
+
+        public bool Interact(GameManager gameManager, int inventorySlot, Vector2Int pressedPos)
+        {
+            if (TryGetProperty(out Interactibe interactProperty))
+            {
+                interactProperty.Interact(gameManager, inventorySlot, pressedPos);
+                return true;
+            }
+            return false;
+        }
+
+
         public ItemProperty GetProperty(Type propertyType)
         {
             foreach (ItemProperty property in properties)

@@ -37,6 +37,15 @@ namespace Scavenger
             }
         }
 
+        /// <summary>
+        /// Checks if a position is permanently supported.
+        /// </summary>
+        /// <param name="gridPos">Position to check.</param>
+        /// <returns></returns>
+        public bool IsSupported(Vector2Int gridPos)
+        {
+            return supportedPos.Contains(gridPos);
+        }
 
         /// <summary>
         /// Gets the chunk at the chunk index, creates it if nonexistent.
@@ -120,13 +129,16 @@ namespace Scavenger
         /// <param name="itemStack">ItemStack to use in interaction.</param>
         /// <param name="gridPos">Position of gridObject to interact with.</param>
         /// <param name="sidePressed">Side of gridObject that was pressed.</param>
-        public void TryInteract(ItemStack itemStack, Vector2Int gridPos, Vector2Int sidePressed)
+        /// <returns>True if an interaction happened.</returns>
+        public bool TryObjectInteract(ItemStack itemStack, Vector2Int gridPos, Vector2Int sidePressed)
         {
             GridObject existingObject = GetObjectAtPos(gridPos);
-            if (existingObject)
+            if (existingObject && existingObject.TryInteract != null)
             {
-                existingObject.Interact(itemStack, sidePressed);
+                return existingObject.TryInteract(itemStack, sidePressed);
             }
+
+            return false;
         }
 
         /// <summary>
@@ -135,7 +147,7 @@ namespace Scavenger
         /// <param name="itemStack">ItemStack to place.</param>
         /// <param name="gridPos">Position to place the item at.</param>
         /// <returns>True if placement was successful.</returns>
-        public bool TryPlaceItem(ItemStack itemStack, Vector2Int gridPos)
+        public bool TryPlaceItem(ItemStack itemStack, Vector2Int gridPos)// TODO add supported constraint
         {
             // Space must be empty to place new object
             GridObject existingObject = GetObjectAtPos(gridPos);

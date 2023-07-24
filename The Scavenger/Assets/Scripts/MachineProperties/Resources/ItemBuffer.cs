@@ -120,11 +120,12 @@ namespace Scavenger
             return itemStack.amount <= MaxCapacity;
         }
 
-
-        public int Extract(int slot, int amount)
+        // returns amount extracted
+        public int Extract(int slot, int amount, bool simulate)
         {
             ItemStack extractedStack = GetItemInSlot(slot);
 
+            // Ignore if extracted stack is empty
             if (!extractedStack)
             {
                 return 0;
@@ -132,61 +133,80 @@ namespace Scavenger
 
             int amountExtracted = Mathf.Min(extractedStack.amount, amount);
 
-            extractedStack.amount -= amountExtracted;
-            if (extractedStack.IsEmpty() && !IsLocked(slot))
+            // Don't edit itemStack if in simulate mode
+            if (!simulate)
             {
-                extractedStack.Clear();
-            }
+                extractedStack.amount -= amountExtracted;
+                if (extractedStack.IsEmpty() && !IsLocked(slot))
+                {
+                    extractedStack.Clear();
+                }
 
-            SlotChanged?.Invoke(slot);
+                SlotChanged?.Invoke(slot);
+            }
+            
             return amountExtracted;
         }
 
-
         // returns remainder
-        public int Insert(int slot, ItemStack otherStack, int amount)
+        public int Insert(int slot, ItemStack otherStack, int amount, bool simulate)
         {
+            // Ignore if other stack is empty
             if (!otherStack)
             {
                 return otherStack.amount;
             }
 
+            // Get stack you will insert into
             ItemStack insertedStack = GetItemInSlot(slot);
-            if (!insertedStack)
-            {
-                insertedStack.SetItem(otherStack.Item);
-                insertedStack.data = otherStack.data;
-            }
 
+            // Ignore if stacks are unstackable
             if (!insertedStack.IsStackable(otherStack))
             {
                 return otherStack.amount;
             }
 
             int amountInserted = Mathf.Min(amount, otherStack.amount, MaxCapacity - insertedStack.amount);
-            insertedStack.amount += amountInserted;
 
-            SlotChanged?.Invoke(slot);
+            // Do not change values if in simulate mode
+            if (!simulate)
+            {
+                // In case insertedStack is empty (values are uninitialized), set its item and data equal to otherStack
+                if (!insertedStack)
+                {
+                    insertedStack.SetItem(otherStack.Item);
+                    insertedStack.data = new Dictionary<string, string>(otherStack.data);
+                }
+
+                insertedStack.amount += amountInserted;
+                SlotChanged?.Invoke(slot);
+            }
+            
             return otherStack.amount - amountInserted;
         }
 
-        // does not modify parameter, returns remainder
-        public int Insert(ItemStack itemStack)
+        // does not modify parameter, returns remainder, TODO include AcceptItemStack
+        public int Insert(ItemStack itemStack, bool simulate)
         {
-            int amount = itemStack.amount;
+            // Create copy stack to prevent modifying parameter
+            itemStack = new ItemStack(itemStack);
+
             for (int slot = 0; slot < NumSlots; slot++)
             {
-                amount = Insert(slot, itemStack, amount);
-                if (amount == 0)
+                int remainder = Insert(slot, itemStack, itemStack.amount, simulate);
+
+                if (remainder == 0)
                 {
                     return 0;
                 }
+
+                itemStack.amount = remainder; 
             }
 
-            return amount;
+            return itemStack.amount;
         }
 
-        // returns items not taken, TODO use new insert function
+        // returns items not taken, TODO use new insert function, remake
         public int TakeFromBuffer(ItemBuffer otherBuffer, int amount)
         {
             int totalAmountToTake = amount;
@@ -205,8 +225,8 @@ namespace Scavenger
                 foreach (int stackableSlot in stackableSlots)
                 {
                     int amountToTake = Mathf.Min(otherStack.amount, totalAmountToTake);
-                    int amountInserted = Insert(stackableSlot, otherStack, totalAmountToTake);
-                    otherBuffer.Extract(otherSlot, amountInserted);
+                    int amountInserted = Insert(stackableSlot, otherStack, totalAmountToTake, false);
+                    otherBuffer.Extract(otherSlot, amountInserted, false);
 
 
                     totalAmountToTake -= amountInserted;
@@ -228,7 +248,7 @@ namespace Scavenger
                         break;
                     }
 
-                    int remainder = Insert(curSlot, otherStack, totalAmountToTake);
+                    int remainder = Insert(curSlot, otherStack, totalAmountToTake, false);
                     otherStack.amount -= remainder;
                 }
 

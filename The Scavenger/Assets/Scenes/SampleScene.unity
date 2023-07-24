@@ -1873,6 +1873,7 @@ GameObject:
   - component: {fileID: 354866614}
   - component: {fileID: 354866615}
   - component: {fileID: 354866617}
+  - component: {fileID: 354866618}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1981,6 +1982,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewIndicator: {fileID: 583391170}
+--- !u!114 &354866618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 354866609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4365a94cbc40164a84cc7125a5f58c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floatingItemPrefab: {fileID: 5678896932206538554, guid: 015a51acf7d52b2409b69ad49f6b803b, type: 3}
 --- !u!1001 &360973691
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3764,7 +3778,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 1748e795fc2216743b74f9f19e87888e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0167a2d235421ca4f8095daaa1defd4f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -4390,11 +4404,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spaceDebrisPrefabs:
-  - {fileID: 8104143490688679006, guid: d9d84254fc014b945a9ba038875546ae, type: 3}
-  - {fileID: 6635570891673152576, guid: 52d71e016e2461c449a079e7bda5da2f, type: 3}
-  - {fileID: 3396000702918808892, guid: a758c3430c15d11468d7b9013ff6a146, type: 3}
-  - {fileID: 5253184148481297038, guid: a2ddfcbde0c53ab448c0111e86161ab0, type: 3}
-  - {fileID: 3588463369849775184, guid: eb8d063a034bb6f419c9208485cd80eb, type: 3}
+  - {fileID: 2889352370622585461, guid: d9d84254fc014b945a9ba038875546ae, type: 3}
+  - {fileID: 322273097526217323, guid: 52d71e016e2461c449a079e7bda5da2f, type: 3}
+  - {fileID: 8597298676368241431, guid: a758c3430c15d11468d7b9013ff6a146, type: 3}
+  - {fileID: 1191683805767691429, guid: a2ddfcbde0c53ab448c0111e86161ab0, type: 3}
+  - {fileID: 7611770913516356219, guid: eb8d063a034bb6f419c9208485cd80eb, type: 3}
   debrisSpeed: 2
   direction: 0
   turbulence: 0.35

@@ -9,7 +9,7 @@ namespace Scavenger
         private const float maxRotationTurbulence = 100;
 
         [SerializeField]
-        private List<SpaceDebris> spaceDebrisPrefabs;
+        private List<GameObject> spaceDebrisPrefabs;
 
         [SerializeField]
         private float debrisSpeed;
@@ -48,7 +48,7 @@ namespace Scavenger
 
         private void Spawn()
         {
-            SpaceDebris newDebris = Instantiate(spaceDebrisPrefabs[Random.Range(0, spaceDebrisPrefabs.Count)]);
+            GameObject newDebris = Instantiate(spaceDebrisPrefabs[Random.Range(0, spaceDebrisPrefabs.Count)]);
 
             float speed = Random.Range(debrisSpeed, turbulence * debrisSpeed);
 
@@ -60,9 +60,7 @@ namespace Scavenger
 
             Vector2 directionVector = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
 
-
-            newDebris.GetComponent<DebrisMotion>().SetMotion(speed, directionVector, rotationSpeed);
-
+            newDebris.GetComponent<FloatingMotion>().SetMotion(speed, directionVector, rotationSpeed);
         }
 
 

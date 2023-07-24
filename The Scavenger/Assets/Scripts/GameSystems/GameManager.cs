@@ -13,6 +13,7 @@ namespace Scavenger
         private ItemSelection itemSelection;
         private GridHover gridHover;
         public ItemBuffer Inventory { get; private set; }
+        public ItemDropper ItemDropper { get; private set; }
         public InputMode InputMode { get; set; }
 
         private void Awake()
@@ -20,6 +21,7 @@ namespace Scavenger
             itemSelection = GetComponent<ItemSelection>();
             gridHover = GetComponent<GridHover>();
             Inventory = GetComponent<ItemBuffer>();
+            ItemDropper = GetComponent<ItemDropper>();
             controls = new();
         }
 
@@ -59,18 +61,23 @@ namespace Scavenger
                 return;
             }
 
-            GridObject gridObject = Map.GetObjectAtPos(gridHover.HoveredPos);
+            // Try placing object next
+            bool placeSuccess = Map.TryPlaceItem(selectedItemStack, gridHover.HoveredPos);
+            if (placeSuccess)
+            {
+                return;
+            }
 
-            // Place Item
-            if (!gridObject)         // Clicked on empty space with placable object, place the object
+            // Try having grid object handle interaction next
+            Vector2Int sidePressed = gridHover.GetHoveredSide();
+            bool itemInteractSuccess = Map.TryObjectInteract(selectedItemStack, gridHover.HoveredPos, sidePressed);
+            if (itemInteractSuccess)
             {
-                Map.TryPlaceItem(selectedItemStack, gridHover.HoveredPos);
+                return;
             }
-            else                     // Interact item
-            {
-                Vector2Int sidePressed = gridHover.GetHoveredSide();
-                Map.TryInteract(selectedItemStack, gridHover.HoveredPos, sidePressed);
-            }
+
+            // Try having item handle interaction
+            selectedItemStack.Item.Interact(this, itemSelection.SelectedSlot, gridHover.HoveredPos);
         }
 
     }

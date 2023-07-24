@@ -26,6 +26,11 @@ namespace Scavenger
             }
         }
 
+        public ItemStack(ItemStack otherStack) : this(otherStack.Item, otherStack.amount, new Dictionary<string, string>(otherStack.data))
+        {
+
+        }
+
         public ItemStack() => Clear();
 
         public void Clear()
@@ -49,11 +54,19 @@ namespace Scavenger
 
         public bool IsStackable(ItemStack other)
         {
+            // If current stack is empty, it is stackable
+            if (Item == null)
+            {
+                return true;
+            }
+
+            // If stacks do not have the same item, it is unstackable
             if (Item != other.Item)
             {
                 return false;
             }
 
+            // If the stacks' data are different, it is unstackable
             if (data.Count != other.data.Count)
             {
                 return false;

@@ -97,23 +97,29 @@ namespace Scavenger
         {
             foreach (SerializedProperty element in properties)
             {
-                SerializedObject itemProperty = new SerializedObject(element.objectReferenceValue);
+                SerializedObject itemProperty = new(element.objectReferenceValue);
                 itemProperty.Update();
 
+                // TODO make foldout work properly
                 EditorGUILayout.BeginFoldoutHeaderGroup(true, itemProperty.targetObject.name);
+                EditorGUILayout.EndFoldoutHeaderGroup();
+                EditorGUI.indentLevel++;
 
                 SerializedProperty itemPropertyVariable = itemProperty.GetIterator();
-                while (itemPropertyVariable.NextVisible(true))
-                {
-                    if (itemPropertyVariable.name == "m_Script")
-                    {
-                        continue;
-                    }
+                itemPropertyVariable.NextVisible(true);
 
+                // Draw script property field
+                GUI.enabled = false;
+                EditorGUILayout.PropertyField(itemPropertyVariable);
+                GUI.enabled = true;
+
+                // Draw other property fields
+                while (itemPropertyVariable.NextVisible(false))
+                {
                     EditorGUILayout.PropertyField(itemPropertyVariable);
                 }
 
-                EditorGUILayout.EndFoldoutHeaderGroup();
+                EditorGUI.indentLevel--;
 
                 itemProperty.ApplyModifiedProperties();
             }

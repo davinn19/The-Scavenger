@@ -18,8 +18,7 @@ namespace Scavenger
 
         List<SearchTreeEntry> ISearchWindowProvider.CreateSearchTree(SearchWindowContext context)
         {
-            List<SearchTreeEntry> entries = new();
-            entries.Add(new SearchTreeGroupEntry(new GUIContent("Item Properties"), 0));
+            List<SearchTreeEntry> entries = new() { new SearchTreeGroupEntry(new GUIContent("Item Properties"), 0) };
 
             foreach (Type propertyType in ItemProperty.GetProperties())
             {
@@ -36,10 +35,11 @@ namespace Scavenger
         {
             string name = propertyType.Name;
 
-            SearchTreeEntry newEntry = new SearchTreeEntry(new GUIContent(name));
-
-            newEntry.level = 1;
-            newEntry.userData = propertyType;
+            SearchTreeEntry newEntry = new(new GUIContent(name))
+            {
+                level = 1,
+                userData = propertyType
+            };
 
             return newEntry;
         }

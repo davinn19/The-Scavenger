@@ -22,7 +22,7 @@ namespace Scavenger
 
             gridObject.NeighborPlaced += OnNeighborPlaced;
             gridObject.NeighborChanged += OnNeighborChanged;
-            gridObject.Interact = Interact;
+            gridObject.TryInteract = Interact;
 
             InitSideConfigs();
         }
@@ -205,16 +205,17 @@ namespace Scavenger
         /// </summary>
         /// <param name="itemStack">The itemStack used to interact with the conduit.</param>
         /// <param name="sidePressed">The side pressed when interacting.</param>
-        private void Interact(ItemStack itemStack, Vector2Int sidePressed)
+        /// <returns>True if the interaction was successful.</returns>
+        private bool Interact(ItemStack itemStack, Vector2Int sidePressed)
         {
             bool editSuccessful = TryEditSide(itemStack.Item, sidePressed);
 
             if (editSuccessful)
             {
-                return;
+                return true;
             }
 
-            TryAddCable(itemStack);
+            return TryAddCable(itemStack);
         }
 
         /// <summary>

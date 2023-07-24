@@ -3,20 +3,18 @@ using UnityEngine;
 namespace Scavenger
 {
     /// <summary>
-    /// Controls movement of SpaceDebris.
+    /// Gives objects floating motion.
     /// </summary>
-    public class DebrisMotion : MonoBehaviour
+    public class FloatingMotion : MonoBehaviour
     {
-        [SerializeField] private float speed;
-
-        [SerializeField] private Vector2 direction;
-
-        [SerializeField] private float rotationSpeed;
+        public float Speed { get; set; }
+        public Vector2 Direction { get; set; }
+        public float RotationSpeed { get; set; }
 
         void Update()
         {
-            transform.Translate(direction * speed * Time.deltaTime, Space.World);
-            transform.Rotate(0, 0, rotationSpeed * Time.deltaTime);
+            transform.Translate(Speed * Time.deltaTime * Direction, Space.World);
+            transform.Rotate(0, 0, RotationSpeed * Time.deltaTime);
         }
 
         /// <summary>
@@ -27,9 +25,11 @@ namespace Scavenger
         /// <param name="rotationSpeed">The debris' new rotation speed.</param>
         public void SetMotion(float speed, Vector2 direction, float rotationSpeed)
         {
-            this.speed = speed;
-            this.direction = direction;
-            this.rotationSpeed = rotationSpeed;
+            Speed = speed;
+            Direction = direction;
+            RotationSpeed = rotationSpeed;
         }
+
+
     }
 }

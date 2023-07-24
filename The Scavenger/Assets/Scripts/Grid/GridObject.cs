@@ -20,7 +20,7 @@ namespace Scavenger
         public event Action<Vector2Int> NeighborPlaced;
         public event Action NeighborChanged;
         public event Action SelfChanged;
-        public Action<ItemStack, Vector2Int> Interact = (_, _) => { };
+        public Func<ItemStack, Vector2Int, bool> TryInteract;
 
         [field: SerializeField] public GridObjectUIContent UIContent { get; private set; }
 

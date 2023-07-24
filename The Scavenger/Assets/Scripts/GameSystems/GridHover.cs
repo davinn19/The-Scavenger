@@ -10,7 +10,7 @@ namespace Scavenger
 
         public Vector2Int HoveredPos { get; private set; }
         public bool OverGUI { get; private set; }
-        private Vector2 mousePos;
+        public Vector2 WorldPos { get; private set; }
 
         private Controls controls;
         private InputAction pointerHover;
@@ -39,8 +39,8 @@ namespace Scavenger
         {
             OverGUI = EventSystem.current.IsPointerOverGameObject();
 
-            mousePos = Camera.main.ScreenToWorldPoint(pointerHover.ReadValue<Vector2>());
-            HoveredPos = new Vector2Int(Mathf.FloorToInt(mousePos.x), Mathf.FloorToInt(mousePos.y));
+            WorldPos = Camera.main.ScreenToWorldPoint(pointerHover.ReadValue<Vector2>());
+            HoveredPos = new Vector2Int(Mathf.FloorToInt(WorldPos.x), Mathf.FloorToInt(WorldPos.y));
 
             DrawHoverIndicator();
 
@@ -64,7 +64,7 @@ namespace Scavenger
 
         public Vector2Int GetHoveredSide()
         {
-            Vector2 relativePressedPos = mousePos - GridMap.GetCenterOfTile(HoveredPos);
+            Vector2 relativePressedPos = WorldPos - GridMap.GetCenterOfTile(HoveredPos);
             Vector2Int greaterAxisPressed;
             int directionPressed;
 
@@ -84,19 +84,23 @@ namespace Scavenger
 
         public Clickable GetClickableUnderMouse()
         {
-            RaycastHit2D[] hits = Physics2D.RaycastAll(mousePos, Vector2.zero, 0);
+            RaycastHit2D[] hits = Physics2D.RaycastAll(WorldPos, Vector2.zero, 0);
+            float closestDistance = float.MaxValue;
+            Clickable closestClickable = null;
+
             foreach (RaycastHit2D hit in hits)
             {
                 Clickable clickable;
                 if (hit.collider.TryGetComponent(out clickable))
                 {
-                    return clickable;
+                    if (Vector2.Distance(WorldPos, clickable.transform.position) < closestDistance)
+                    {
+                        closestClickable = clickable;
+                    }
                 }
             }
 
-            return null;
-
-
+            return closestClickable;
         }
     }
 }
