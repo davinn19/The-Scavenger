@@ -78,7 +78,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.16, y: 0.16}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -98,6 +98,8 @@ GameObject:
   - component: {fileID: 303847279040132141}
   - component: {fileID: 992735339745390986}
   - component: {fileID: 8922438121216451306}
+  - component: {fileID: 5270372602343424550}
+  - component: {fileID: 5307018310794071579}
   m_Layer: 0
   m_Name: Silo
   m_TagString: Untagged
@@ -229,3 +231,28 @@ MonoBehaviour:
   - {fileID: 992735339745390986}
   outputs:
   - {fileID: 992735339745390986}
+--- !u!114 &5270372602343424550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4415299891023348541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57d664107198934469660bc2b6041933, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  icon: {fileID: 6159633708668795203}
+--- !u!210 &5307018310794071579
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4415299891023348541}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortAtRoot: 0

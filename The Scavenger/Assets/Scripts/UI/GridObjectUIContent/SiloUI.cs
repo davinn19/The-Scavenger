@@ -18,7 +18,7 @@ namespace Scavenger.UI
 
             silo = gridObject.GetComponent<Silo>();
 
-            slotDisplay.Buffer = silo.ItemBuffer;
+            slotDisplay.Buffer = silo.Buffer;
             slotDisplay.Slot = 0;
 
             UpdateLockButtonStatus();
@@ -26,13 +26,13 @@ namespace Scavenger.UI
 
         public void OnLockButtonPressed()
         {
-            silo.ItemBuffer.ToggleLocked(0);
+            silo.Buffer.ToggleLocked(0);
             UpdateLockButtonStatus();
         }
 
         private void UpdateLockButtonStatus()
         {
-            bool locked = silo.ItemBuffer.IsLocked(0);
+            bool locked = silo.Buffer.IsLocked(0);
             if (locked)
             {
                 lockButtonText.text = "Locked";

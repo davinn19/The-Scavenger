@@ -129,10 +129,10 @@ namespace Scavenger
         /// </summary>
         /// <param name="slot">The slot to insert into.</param>
         /// <param name="otherStack">The stack to insert into the buffer. Will not be modified.</param>
-        /// <param name="amount">The amount to attempt inserting.</param>
+        /// <param name="amount">The amount to attempt inserting. If not specified, will attempt inserting as much as possible.</param>
         /// <param name="simulate">If true, will only calculate the result and not modify the buffer.</param>
         /// <returns>OtherStack's remaining amount after the insertion.</returns>
-        public int Insert(int slot, ItemStack otherStack, int amount, bool simulate)
+        public int Insert(int slot, ItemStack otherStack, int amount = int.MaxValue, bool simulate = false)
         {
             // Ignore if other stack is empty
             if (!otherStack)
@@ -218,7 +218,7 @@ namespace Scavenger
                 foreach (int stackableSlot in stackableSlots)
                 {
                     int amountToTake = Mathf.Min(otherStack.Amount, totalAmountToTake);
-                    int amountInserted = Insert(stackableSlot, otherStack, totalAmountToTake, false);
+                    int amountInserted = Insert(stackableSlot, otherStack, totalAmountToTake);
                     otherBuffer.Extract(otherSlot, amountInserted);
 
 
@@ -241,10 +241,9 @@ namespace Scavenger
                         break;
                     }
 
-                    int remainder = Insert(curSlot, otherStack, totalAmountToTake, false);
+                    int remainder = Insert(curSlot, otherStack, totalAmountToTake);
                     otherStack.Amount -= remainder;
                 }
-
             }
 
             return amount - totalAmountToTake;
@@ -268,6 +267,13 @@ namespace Scavenger
 
             buffer1.SetItemInSlot(itemStack2, slot1);
             buffer2.SetItemInSlot(itemStack1, slot2);
+        }
+
+        public static void MoveItems(ItemBuffer sendingBuffer, int sendingSlot, ItemBuffer receivingBuffer, int receivingSlot, int amount = int.MaxValue)
+        {
+            ItemStack movedStack = sendingBuffer.GetItemInSlot(sendingSlot);
+            int remainder = receivingBuffer.Insert(receivingSlot, movedStack, amount);
+            sendingBuffer.Extract(sendingSlot, movedStack.Amount - remainder);
         }
 
     }
