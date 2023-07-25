@@ -135,7 +135,7 @@ namespace Scavenger
         public int Insert(int slot, ItemStack otherStack, int amount = int.MaxValue, bool simulate = false)
         {
             // Ignore if other stack is empty
-            if (!otherStack)
+            if (!otherStack || otherStack.IsEmpty())
             {
                 return otherStack.Amount;
             }
@@ -178,78 +178,62 @@ namespace Scavenger
         /// Inserts another itemStack into the first available slots in the buffer.
         /// </summary>
         /// <param name="itemStack">The itemStack to insert into the buffer. Will not be modified.</param>
+        /// <param name="amount">Limit to the amount of items to insert</param>
         /// <param name="simulate">If true, will only calculate the results, not modifying the buffer.</param>
         /// <returns>The amount remaining in itemStack after insertion.</returns>
-        public int Insert(ItemStack itemStack, bool simulate)
+        public int Insert(ItemStack itemStack, int amount = int.MaxValue, bool simulate = false)
         {
             // Create copy stack to prevent modifying parameter
             itemStack = new ItemStack(itemStack);
 
+            int insertsRemaining = amount;
+
+            // Fill up existing stacks first
             for (int slot = 0; slot < NumSlots; slot++)
             {
-                int remainder = Insert(slot, itemStack, itemStack.Amount, simulate);
-                if (remainder == 0)
-                {
-                    return 0;
-                }
-
-                itemStack.Amount = remainder; 
-            }
-
-            return itemStack.Amount;
-        }
-
-        // returns items not taken, TODO use new insert function, remake
-        public int TakeFromBuffer(ItemBuffer otherBuffer, int amount)
-        {
-            int totalAmountToTake = amount;
-
-            for (int otherSlot = 0; otherSlot < otherBuffer.NumSlots; otherSlot++)
-            {
-                ItemStack otherStack = otherBuffer.GetItemInSlot(otherSlot);
-                if (!otherStack)
+                // Ignore empty slots
+                if (!GetItemInSlot(slot))
                 {
                     continue;
                 }
 
-                List<int> stackableSlots = FindAll(otherStack.IsStackable);
-
-                // Insert into existing stacks first
-                foreach (int stackableSlot in stackableSlots)
+                if (DoInsert(slot))
                 {
-                    int amountToTake = Mathf.Min(otherStack.Amount, totalAmountToTake);
-                    int amountInserted = Insert(stackableSlot, otherStack, totalAmountToTake);
-                    otherBuffer.Extract(otherSlot, amountInserted);
-
-
-                    totalAmountToTake -= amountInserted;
-                    if (totalAmountToTake <= 0)
-                    {
-                        return amount;
-                    }
-                }
-
-                for (int curSlot = 0; curSlot < NumSlots; curSlot++)
-                {
-                    if (totalAmountToTake <= 0)
-                    {
-                        return amount;
-                    }
-
-                    if (otherStack.IsEmpty())
-                    {
-                        break;
-                    }
-
-                    int remainder = Insert(curSlot, otherStack, totalAmountToTake);
-                    otherStack.Amount -= remainder;
+                    return itemStack.Amount;
                 }
             }
 
-            return amount - totalAmountToTake;
+            // Fill up other slots next
+            for (int slot = 0; slot < NumSlots; slot++)
+            {
+                if (DoInsert(slot))
+                {
+                    return itemStack.Amount;
+                }
+            }
+
+            return itemStack.Amount;
+
+
+            // Performs an insert to a slot and updates tracking variables
+            bool DoInsert(int slot)
+            {
+                int remainder = Insert(slot, itemStack, insertsRemaining, simulate);
+
+                insertsRemaining -= itemStack.Amount - remainder;
+                itemStack.Amount = remainder;
+
+                return (insertsRemaining == 0 || itemStack.Amount == 0);    // Returns true if loop should be stopped
+            }
         }
 
-        // TODO implement merging stackable stacks in a different function
+        /// <summary>
+        /// Swaps itemStacks in the slots of the buffers.
+        /// </summary>
+        /// <param name="buffer1">Buffer containing one of the itemStacks.</param>
+        /// <param name="slot1">Slot to get the first itemStack from.</param>
+        /// <param name="buffer2">Buffer containing the other itemStack.</param>
+        /// <param name="slot2">Slot to get the second itemStack from.</param>
         public static void Swap(ItemBuffer buffer1, int slot1, ItemBuffer buffer2, int slot2)
         {
             if (buffer1.IsLocked(slot1) || buffer2.IsLocked(slot2))
@@ -269,6 +253,14 @@ namespace Scavenger
             buffer2.SetItemInSlot(itemStack1, slot2);
         }
 
+        /// <summary>
+        /// Moves items in one slot of a buffer to another slot of another buffer.
+        /// </summary>
+        /// <param name="sendingBuffer">Buffer giving the items.</param>
+        /// <param name="sendingSlot">Slot to extract from.</param>
+        /// <param name="receivingBuffer">Buffer receiving the items.</param>
+        /// <param name="receivingSlot">Slot to insert items to.</param>
+        /// <param name="amount">Limit for amount of items to move.</param>
         public static void MoveItems(ItemBuffer sendingBuffer, int sendingSlot, ItemBuffer receivingBuffer, int receivingSlot, int amount = int.MaxValue)
         {
             ItemStack movedStack = sendingBuffer.GetItemInSlot(sendingSlot);

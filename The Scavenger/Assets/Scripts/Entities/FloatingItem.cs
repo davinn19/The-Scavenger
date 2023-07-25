@@ -29,10 +29,10 @@ namespace Scavenger
 
         private void OnClick(GameManager gameManager)
         {
-            int remainder = gameManager.Inventory.Insert(ItemStack, true);
+            int remainder = gameManager.Inventory.Insert(ItemStack, ItemStack.Amount, true);
             if (remainder == 0)
             {
-                gameManager.Inventory.Insert(ItemStack, false);
+                gameManager.Inventory.Insert(ItemStack);
                 Destroy(gameObject);
             }
         }
