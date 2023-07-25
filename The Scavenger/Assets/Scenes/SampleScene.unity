@@ -1937,25 +1937,25 @@ MonoBehaviour:
   <NumSlots>k__BackingField: 28
   <Slots>k__BackingField:
   - <Item>k__BackingField: {fileID: 11400000, guid: 96a34f6fc5088c5419518cecc54db470, type: 2}
-    amount: 111
+    Amount: 99
   - <Item>k__BackingField: {fileID: 11400000, guid: cb6611beb8217b442a972dc2e3ca005e, type: 2}
-    amount: 11111
+    Amount: 99
   - <Item>k__BackingField: {fileID: 11400000, guid: 436c4ea4ba6c7fd4a9749b7c32c1baa9, type: 2}
-    amount: 1500
+    Amount: 44
   - <Item>k__BackingField: {fileID: 11400000, guid: 0880e46e43f0c7844a42e0ae2912a6cb, type: 2}
-    amount: 2000000000
+    Amount: 44
   - <Item>k__BackingField: {fileID: 11400000, guid: ca00fa6b515b3f3478d5800ee2483d41, type: 2}
-    amount: 2147483647
+    Amount: 33
   - <Item>k__BackingField: {fileID: 11400000, guid: bb9d0c6617e6fe64f9094b818026390b, type: 2}
-    amount: 234
+    Amount: 22
   - <Item>k__BackingField: {fileID: 11400000, guid: dca9a5f9d69630742a722801d2ccaff0, type: 2}
-    amount: 22
+    Amount: 1
   - <Item>k__BackingField: {fileID: 11400000, guid: 5540fd200c50bb24682223f08b3fcbac, type: 2}
-    amount: 1
+    Amount: 999999
   - <Item>k__BackingField: {fileID: 11400000, guid: 8be0e1af319d4f249ad306127adde586, type: 2}
-    amount: 22222
+    Amount: 234523452
   - <Item>k__BackingField: {fileID: 11400000, guid: 4749a09cc431f8643a80898f7b07c16f, type: 2}
-    amount: 22222
+    Amount: 2
 --- !u!114 &354866616
 MonoBehaviour:
   m_ObjectHideFlags: 0

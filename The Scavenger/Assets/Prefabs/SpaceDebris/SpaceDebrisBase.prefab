@@ -102,7 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <ItemStack>k__BackingField:
     <Item>k__BackingField: {fileID: 11400000, guid: e9983f9720fb1484a975da3831142444, type: 2}
-    amount: 1
+    Amount: 1
 --- !u!114 &6811772501846155964
 MonoBehaviour:
   m_ObjectHideFlags: 0
