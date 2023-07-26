@@ -6,7 +6,7 @@ namespace Scavenger
 {
     public class GridHover : MonoBehaviour
     {
-        [SerializeField] private SpriteRenderer hoverIndicator;
+        [SerializeField] private SpriteRenderer placementIndicator;
 
         public Vector2Int HoveredPos { get; private set; }
         public bool OverGUI { get; private set; }
@@ -42,23 +42,23 @@ namespace Scavenger
             WorldPos = Camera.main.ScreenToWorldPoint(pointerHover.ReadValue<Vector2>());
             HoveredPos = new Vector2Int(Mathf.FloorToInt(WorldPos.x), Mathf.FloorToInt(WorldPos.y));
 
-            DrawHoverIndicator();
+            DrawPlacementIndicator();
 
         }
 
-        private void DrawHoverIndicator()
+        private void DrawPlacementIndicator()
         {
-            ItemStack selectedItemStack = itemSelection.GetSelectedItemStack();
+            ItemStack heldItem = itemSelection.GetHeldItem();
 
-            if (OverGUI || !selectedItemStack || !selectedItemStack.Item.HasProperty<PlacedObject>())
+            if (OverGUI || !heldItem || !heldItem.Item.HasProperty<PlacedObject>())
             {
-                hoverIndicator.enabled = false;
+                placementIndicator.enabled = false;
                 return;
             }
 
-            hoverIndicator.enabled = true;
-            hoverIndicator.sprite = selectedItemStack.Item.Icon;
-            hoverIndicator.transform.position = GridMap.GetCenterOfTile(HoveredPos);
+            placementIndicator.enabled = true;
+            placementIndicator.sprite = heldItem.Item.Icon;
+            placementIndicator.transform.position = GridMap.GetCenterOfTile(HoveredPos);
         }
 
 

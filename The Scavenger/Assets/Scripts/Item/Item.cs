@@ -14,11 +14,11 @@ namespace Scavenger
         [SerializeField] private List<ItemProperty> properties = new() { };
 
 
-        public bool Interact(GameManager gameManager, int inventorySlot, Vector2Int pressedPos)
+        public bool Interact(GameManager gameManager, ItemSelection itemSelection, Vector2Int pressedPos)
         {
             if (TryGetProperty(out Interactibe interactProperty))
             {
-                interactProperty.Interact(gameManager, inventorySlot, pressedPos);
+                interactProperty.Interact(gameManager, itemSelection, pressedPos);
                 return true;
             }
             return false;

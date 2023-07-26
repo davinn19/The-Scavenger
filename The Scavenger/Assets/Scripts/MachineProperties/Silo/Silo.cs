@@ -18,16 +18,17 @@ namespace Scavenger
             gridObject.TryInteract = Interact;
         }
 
-        private bool Interact(ItemBuffer inventory, int slot, Vector2Int _) // TODO implement
+        private bool Interact(ItemBuffer inventory, ItemSelection itemSelection, Vector2Int _) // TODO implement
         {
             // If not holding anything, take from silo
-            if (inventory.GetItemInSlot(slot).IsEmpty())
+            if (itemSelection.IsEmpty())
             {
-                ItemBuffer.MoveItems(Buffer, 0, inventory, slot);
+                itemSelection.TakeItemsFrom(Buffer, 0);
+                // TODO implement filling inventory once itemSelection is full
             }
             else // Otherwise, try inserting held item into silo
             {
-                ItemBuffer.MoveItems(inventory, slot, Buffer, 0);
+                itemSelection.MoveItemsTo(Buffer, 0);
             }
             gridObject.OnSelfChanged();
             return true;

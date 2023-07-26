@@ -40,6 +40,11 @@ namespace Scavenger
             }
 
             Slots = resizedSlots;
+
+            for (int i = 0; i < Slots.Length; i++)
+            {
+                SlotChanged?.Invoke(i);
+            }
         }
 
         public List<int> FindAll(Predicate<ItemStack> condition)
@@ -261,11 +266,16 @@ namespace Scavenger
         /// <param name="receivingBuffer">Buffer receiving the items.</param>
         /// <param name="receivingSlot">Slot to insert items to.</param>
         /// <param name="amount">Limit for amount of items to move.</param>
-        public static void MoveItems(ItemBuffer sendingBuffer, int sendingSlot, ItemBuffer receivingBuffer, int receivingSlot, int amount = int.MaxValue)
+        /// <returns>Number of items moved.</returns>
+        public static int MoveItems(ItemBuffer sendingBuffer, int sendingSlot, ItemBuffer receivingBuffer, int receivingSlot, int amount = int.MaxValue)
         {
             ItemStack movedStack = sendingBuffer.GetItemInSlot(sendingSlot);
             int remainder = receivingBuffer.Insert(receivingSlot, movedStack, amount);
-            sendingBuffer.Extract(sendingSlot, movedStack.Amount - remainder);
+
+            int itemsMoved = movedStack.Amount - remainder;
+            sendingBuffer.Extract(sendingSlot, itemsMoved);
+
+            return itemsMoved;
         }
 
     }

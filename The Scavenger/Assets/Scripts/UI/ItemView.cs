@@ -42,7 +42,7 @@ namespace Scavenger.UI
 
         private void Awake()
         {
-            rectTransform = GetComponent<RectTransform>();
+            rectTransform = transform as RectTransform;
 
             gameUI = GetComponentInParent<GameUI>();
             gameUI.HoveredElementChanged += OnHoveredElementChanged;
@@ -55,7 +55,7 @@ namespace Scavenger.UI
 
         private void Update()
         {
-            rectTransform.position = gameUI.MousePos + Vector2.one * 10;
+            rectTransform.position = gameUI.PointerPos + Vector2.one * 10;
         }
 
 

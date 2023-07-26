@@ -9,6 +9,6 @@ namespace Scavenger.UI
     /// </summary>
     public class InteractibleUI : MonoBehaviour
     {
-
+        // TODO remove safely
     }
 }

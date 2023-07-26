@@ -18,8 +18,7 @@ namespace Scavenger.UI
 
             silo = gridObject.GetComponent<Silo>();
 
-            slotDisplay.Buffer = silo.Buffer;
-            slotDisplay.Slot = 0;
+            slotDisplay.SetWatchedBuffer(silo.Buffer, 0);
 
             UpdateLockButtonStatus();
         }

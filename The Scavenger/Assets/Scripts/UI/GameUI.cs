@@ -9,7 +9,7 @@ namespace Scavenger.UI
     public class GameUI : MonoBehaviour
     {
         public GameObject HoveredElement { get; private set; }
-        [field: SerializeField] public Vector2 MousePos { get; private set; }
+        [field: SerializeField] public Vector2 PointerPos { get; private set; }
 
         private bool overUI = false;
 
@@ -68,7 +68,7 @@ namespace Scavenger.UI
                 UpdateHoveredElement();
             }
 
-            MousePos = pointerHover.ReadValue<Vector2>();
+            PointerPos = pointerHover.ReadValue<Vector2>();
         }
 
         private void UpdateHoveredElement()

@@ -204,28 +204,29 @@ namespace Scavenger
         /// Tries to rotate the pressed side's transport mode, or add the held cable.
         /// </summary>
         /// <param name="inventory">The player's inventory.</param>
-        /// <param name="slot">The player's equipped slot.</param>
+        /// <param name="itemSelection">The item selection manager.</param>
         /// <param name="sidePressed">The side pressed when interacting.</param>
         /// <returns>True if the interaction was successful.</returns>
-        private bool Interact(ItemBuffer inventory, int slot, Vector2Int sidePressed)
+        private bool Interact(ItemBuffer inventory, ItemSelection itemSelection, Vector2Int sidePressed)
         {
-            ItemStack itemStack = inventory.GetItemInSlot(slot);
             // Ignore if no item is held
-            if (!itemStack)
+            if (!itemSelection.IsEmpty())
             {
                 return false;
             }
 
-            bool editSuccess = TryEditSide(itemStack.Item, sidePressed);
+            ItemStack heldItem = itemSelection.GetHeldItem();
+
+            bool editSuccess = TryEditSide(heldItem.Item, sidePressed);
             if (editSuccess)
             {
                 return true;
             }
 
-            bool addCableSuccess = TryAddCable(itemStack);
+            bool addCableSuccess = TryAddCable(heldItem);
             if (addCableSuccess)
             {
-                inventory.Extract(slot, 1);
+                itemSelection.Use();
                 return true;
             }
 

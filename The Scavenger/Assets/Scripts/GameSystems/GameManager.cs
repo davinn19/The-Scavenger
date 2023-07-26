@@ -10,17 +10,17 @@ namespace Scavenger
         private Controls controls;
         private InputAction place;
 
-        private ItemSelection itemSelection;
         private GridHover gridHover;
-        public ItemBuffer Inventory { get; private set; }
+        private ItemSelection itemSelection;
+        [field: SerializeField] public ItemBuffer Inventory { get; private set; }
         public ItemDropper ItemDropper { get; private set; }
         public InputMode InputMode { get; set; }
 
         private void Awake()
         {
-            itemSelection = GetComponent<ItemSelection>();
+            
             gridHover = GetComponent<GridHover>();
-            Inventory = GetComponent<ItemBuffer>();
+            itemSelection = GetComponent<ItemSelection>();
             ItemDropper = GetComponent<ItemDropper>();
             controls = new();
         }
@@ -55,7 +55,7 @@ namespace Scavenger
             }
 
             // Try placing object next
-            bool placeSuccess = Map.TryPlaceItem(Inventory, itemSelection.SelectedSlot, gridHover.HoveredPos);
+            bool placeSuccess = Map.TryPlaceItem(itemSelection, gridHover.HoveredPos);
             if (placeSuccess)
             {
                 return;
@@ -63,17 +63,17 @@ namespace Scavenger
 
             // Try having grid object handle interaction next
             Vector2Int sidePressed = gridHover.GetHoveredSide();
-            bool itemInteractSuccess = Map.TryObjectInteract(Inventory, itemSelection.SelectedSlot, gridHover.HoveredPos, sidePressed);
+            bool itemInteractSuccess = Map.TryObjectInteract(Inventory, itemSelection, gridHover.HoveredPos, sidePressed);
             if (itemInteractSuccess)
             {
                 return;
             }
 
             // Try having item handle interaction
-            ItemStack selectedItemStack = itemSelection.GetSelectedItemStack();
+            ItemStack selectedItemStack = itemSelection.GetHeldItem();
             if (selectedItemStack)
             {
-                selectedItemStack.Item.Interact(this, itemSelection.SelectedSlot, gridHover.HoveredPos);
+                selectedItemStack.Item.Interact(this, itemSelection, gridHover.HoveredPos);
             }
         }
 

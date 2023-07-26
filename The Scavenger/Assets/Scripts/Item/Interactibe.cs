@@ -6,6 +6,6 @@ namespace Scavenger
 {
     public abstract class Interactibe : ItemProperty
     {
-        public abstract void Interact(GameManager gameManager, int inventorySlot, Vector2Int pressedPos);
+        public abstract void Interact(GameManager gameManager, ItemSelection itemSelection, Vector2Int pressedPos);
     }
 }

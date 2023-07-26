@@ -6,19 +6,23 @@ namespace Scavenger.UI
 {
     public class SlotDisplay : MonoBehaviour
     {
-        public ItemBuffer Buffer { get; set; }
-        public int Slot { get; set; }
+        public ItemBuffer Buffer { get; private set; }
 
-        private SlotDisplayHandler handler;
+        public int Slot { get; private set; }
+
         [SerializeField] private Image itemImage;
 
         private TextMeshProUGUI stackAmountDisplay;
         private void Awake()
         {
             stackAmountDisplay = GetComponentInChildren<TextMeshProUGUI>();
-            handler = GetComponentInParent<SlotDisplayHandler>();
         }
 
+        public void SetWatchedBuffer(ItemBuffer buffer, int slot)
+        {
+            Buffer = buffer;
+            Slot = slot;
+        }
 
         private void Update()
         {
@@ -27,7 +31,6 @@ namespace Scavenger.UI
                 return;
             }
 
-            // TODO link to event
             ItemStack itemStack = Buffer.GetItemInSlot(Slot);
 
             if (itemStack == null)
@@ -54,20 +57,6 @@ namespace Scavenger.UI
             return Buffer.GetItemInSlot(Slot);
         }
 
-        public void OnPointerDown()
-        {
-            handler.OnSlotDisplayDown(this);
-        }
-
-        public void OnPointerUp()
-        {
-            handler.OnSlotDisplayUp(this);
-        }
-
-        public void OnPointerExit()
-        {
-            handler.OnSlotDisplayExit(this);
-        }
 
         /// <summary>
         /// Gets string representation of amount.

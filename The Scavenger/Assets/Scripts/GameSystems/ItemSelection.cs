@@ -5,31 +5,57 @@ namespace Scavenger
     [RequireComponent(typeof(ItemBuffer))]
     public class ItemSelection : MonoBehaviour
     {
-        private int m_SelectedSlot = 0;
-        public int SelectedSlot
+        /// <remarks>DO NOT EDIT DIRECTLY. Use other methods to change the held item.</remarks>
+        [field: SerializeField] public ItemBuffer HeldItemBuffer { get; private set; }
+
+        public ItemStack GetHeldItem()
         {
-            get
-            {
-                return m_SelectedSlot;
-            }
-            set
-            {
-                Debug.Assert(value < inventory.NumSlots);
-                m_SelectedSlot = value;
-            }
+            return HeldItemBuffer.GetItemInSlot(0);
         }
 
-        private ItemBuffer inventory;
-
-        private void Awake()
+        public bool IsEmpty()
         {
-            inventory = GetComponent<ItemBuffer>();
+            ItemStack heldItem = GetHeldItem();
+            return !heldItem || heldItem.IsEmpty();
         }
 
-        public ItemStack GetSelectedItemStack()
+        /// <summary>
+        /// Extracts from the held item buffer.
+        /// </summary>
+        /// <param name="amount">Amount of items to use.</param>
+        /// <returns>Amount of items actually used.</returns>
+        public int Use(int amount = 1)
         {
-            return inventory.GetItemInSlot(SelectedSlot);
+            return HeldItemBuffer.Extract(0, amount);
         }
+
+        /// <summary>
+        /// Moves items from held item buffer to another buffer.
+        /// </summary>
+        /// <param name="otherBuffer">Buffer to insert items into.</param>
+        /// <param name="slot">Slot to insert into.</param>
+        /// <returns>Amount of items moved.</returns>
+        public int MoveItemsTo(ItemBuffer otherBuffer, int slot)
+        {
+            return ItemBuffer.MoveItems(HeldItemBuffer, 0, otherBuffer, slot);
+        }
+
+        /// <summary>
+        /// Moves items from another buffer to held item buffer.
+        /// </summary>
+        /// <param name="otherBuffer">Buffer to extract items from.</param>
+        /// <param name="slot">Slot to extract from.</param>
+        /// <returns>Amount of items moved.</returns>
+        public int TakeItemsFrom(ItemBuffer otherBuffer, int slot)
+        {
+            return ItemBuffer.MoveItems(otherBuffer, slot, HeldItemBuffer, 0);
+        }
+
+        public void Swap(ItemBuffer otherBuffer, int slot)
+        {
+            ItemBuffer.Swap(HeldItemBuffer, 0, otherBuffer, slot);
+        }
+
 
     }
 }

@@ -10,19 +10,19 @@ namespace Scavenger
 
         [SerializeField] private Item[] salvageDrops;
 
-        public override void Interact(GameManager gameManager, int inventorySlot, Vector2Int pressedPos)
+        public override void Interact(GameManager gameManager, ItemSelection itemSelection, Vector2Int pressedPos)
         {
             GridMap map = gameManager.Map;
 
             if (map.IsSupported(pressedPos) && !map.GetObjectAtPos(pressedPos)) // Needs to be pressed on an EMPTY spot on the asteroid
             {
-                gameManager.Inventory.Extract(inventorySlot, 1);
-
                 foreach (ItemStack drop in GenerateDrops())
                 {
                     Vector2 worldPos = gameManager.GetComponent<GridHover>().WorldPos;
                     gameManager.ItemDropper.CreateFloatingItem(drop, worldPos);
                 }
+
+                itemSelection.Use();
             }
         }
 

@@ -12,8 +12,6 @@ namespace Scavenger.UI
         [SerializeField] private ItemBuffer inventory;
         private SlotDisplay[] slotDisplays;
 
-        [SerializeField] private RectTransform selectedItemIndicator;
-
         private void Awake()
         {
             InitSlotDisplays();
@@ -26,23 +24,8 @@ namespace Scavenger.UI
             for (int slot = 0; slot < slotDisplays.Length; slot++)
             {
                 SlotDisplay slotDisplay = slotDisplays[slot];
-                slotDisplay.Buffer = inventory;
-                slotDisplay.Slot = slot;
+                slotDisplay.SetWatchedBuffer(inventory, slot);
             }
-        }
-
-
-        private void Update()
-        {
-            // TODO link to event
-            selectedItemIndicator.anchoredPosition = GetSlotDisplayPos(itemSelection.SelectedSlot);
-        }
-
-        private Vector2 GetSlotDisplayPos(int slotIndex)
-        {
-            int x = slotIndex % InventoryWidth;
-            int y = -slotIndex / InventoryWidth;
-            return new Vector2(x, y) * 55;
         }
     }
 }
