@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace Scavenger.UI
 {
     public class GameUI : MonoBehaviour
     {
         public GameObject HoveredElement { get; private set; }
-        [field: SerializeField] public Vector2 PointerPos { get; private set; }
+        public Vector2 PointerPos { get; private set; }
 
         private bool overUI = false;
 
@@ -83,7 +84,7 @@ namespace Scavenger.UI
 
             foreach (RaycastResult result in results)
             {
-                InteractibleUI hoveredElement = result.gameObject.GetComponentInParent<InteractibleUI>();
+                Button hoveredElement = result.gameObject.GetComponent<Button>();
                 if (hoveredElement)
                 {
                     HoveredElement = hoveredElement.gameObject;

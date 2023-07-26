@@ -210,7 +210,7 @@ namespace Scavenger
         private bool Interact(ItemBuffer inventory, ItemSelection itemSelection, Vector2Int sidePressed)
         {
             // Ignore if no item is held
-            if (!itemSelection.IsEmpty())
+            if (itemSelection.IsEmpty())
             {
                 return false;
             }

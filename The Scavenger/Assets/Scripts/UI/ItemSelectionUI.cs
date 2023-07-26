@@ -24,7 +24,7 @@ namespace Scavenger.UI
 
         private void Update()
         {
-            rectTransform.position = gameUI.PointerPos;
+            rectTransform.position = gameUI.PointerPos + new Vector2(10, -10);
         }
     }
 }

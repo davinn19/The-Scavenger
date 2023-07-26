@@ -6,18 +6,18 @@ namespace Scavenger.UI
 {
     public class ClickableSlotDisplay : MonoBehaviour
     {
-        private SlotDisplay slotDisplay;
+        public SlotDisplay SlotDisplay { get; private set; }
         private SlotDisplayHandler handler;
 
         private void Awake()
         {
-            slotDisplay = GetComponentInChildren<SlotDisplay>();
+            SlotDisplay = GetComponentInChildren<SlotDisplay>();
             handler = GetComponentInParent<SlotDisplayHandler>();
         }
 
         public void OnPointerClick()
         {
-            handler.OnSlotDisplayPressed(slotDisplay);
+            handler.OnSlotDisplayPressed(SlotDisplay);
         }
     }
 }

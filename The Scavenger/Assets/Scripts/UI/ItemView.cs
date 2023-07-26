@@ -17,7 +17,7 @@ namespace Scavenger.UI
             get { return m_hoveredDisplay; }
             set
             {
-                if (value == HoveredDisplay)
+                if (value == m_hoveredDisplay)
                 {
                     return;
                 }
@@ -55,19 +55,20 @@ namespace Scavenger.UI
 
         private void Update()
         {
-            rectTransform.position = gameUI.PointerPos + Vector2.one * 10;
+            rectTransform.position = gameUI.PointerPos + new Vector2(0, 10);
         }
 
 
         private void OnHoveredElementChanged(GameObject hoveredElement)
         {
-            if (hoveredElement == null)
+            if (hoveredElement == null || !hoveredElement.TryGetComponent(out ClickableSlotDisplay clickedDisplay))
             {
                 HoveredDisplay = null;
                 return;
             }
 
-            HoveredDisplay = hoveredElement.GetComponent<SlotDisplay>();
+
+            HoveredDisplay = clickedDisplay.SlotDisplay;
         }
 
 
