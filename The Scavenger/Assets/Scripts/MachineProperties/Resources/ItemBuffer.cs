@@ -249,6 +249,7 @@ namespace Scavenger
             ItemStack itemStack1 = buffer1.GetItemInSlot(slot1);
             ItemStack itemStack2 = buffer2.GetItemInSlot(slot2);
 
+            // TODO check for max capacity
             if (itemStack1 == itemStack2 || !buffer1.AcceptsItemStack(itemStack2, slot1) || !buffer2.AcceptsItemStack(itemStack1, slot2))
             {
                 return;

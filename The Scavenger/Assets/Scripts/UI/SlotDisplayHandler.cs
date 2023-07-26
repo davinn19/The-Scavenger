@@ -5,13 +5,10 @@ namespace Scavenger.UI
     public class SlotDisplayHandler : MonoBehaviour
     {
         [SerializeField] private ItemSelection itemSelection;
-        [SerializeField] private GameObject trash;
 
-        private GameUI gameUI;
-
-        private void Awake()
+        public void OnTrashPressed()
         {
-            gameUI = GetComponentInParent<GameUI>();
+            itemSelection.Use(int.MaxValue);
         }
 
         public void OnSlotDisplayPressed(SlotDisplay slotDisplay)
@@ -48,12 +45,6 @@ namespace Scavenger.UI
             // If no items were extracted, swap stacks
             itemSelection.Swap(slotDisplay.Buffer, slotDisplay.Slot);
 
-        }
-
-        // TODO write function for deleting items over trash
-        private bool IsOverTrash()
-        {
-            return gameUI.HoveredElement == trash;
         }
     }
 }

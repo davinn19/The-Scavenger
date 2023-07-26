@@ -51,11 +51,14 @@ namespace Scavenger
             return ItemBuffer.MoveItems(otherBuffer, slot, HeldItemBuffer, 0);
         }
 
+        /// <summary>
+        /// Swaps itemStacks between held item buffer and a slot in another buffer.
+        /// </summary>
+        /// <param name="otherBuffer">Buffer to swap with.</param>
+        /// <param name="slot">Slot to swap with.</param>
         public void Swap(ItemBuffer otherBuffer, int slot)
         {
             ItemBuffer.Swap(HeldItemBuffer, 0, otherBuffer, slot);
         }
-
-
     }
 }
