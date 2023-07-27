@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Scavenger
 {
+    // TODO add docs
     public class UpdateCycle : MonoBehaviour
     {
         [SerializeField]

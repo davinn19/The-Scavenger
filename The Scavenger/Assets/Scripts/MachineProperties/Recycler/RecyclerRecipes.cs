@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Scavenger
 {
+    // TODO redo, add docs
     [CreateAssetMenu(fileName = "RecyclerRecipes", menuName = "Scavenger/Recipes/Recycler")]
     public class RecyclerRecipes : ScriptableObject
     {

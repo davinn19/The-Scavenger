@@ -1,7 +1,8 @@
 using UnityEngine;
 
-namespace Scavenger.UI
+namespace Scavenger.UI.UIContent
 {
+    // TODO add docs
     public abstract class UIContent<T> : MonoBehaviour where T : class
     {
         protected T target { get; set; }

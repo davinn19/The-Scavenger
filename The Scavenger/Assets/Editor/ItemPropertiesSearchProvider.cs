@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-namespace Scavenger
+namespace Scavenger.CustomEditor
 {
-    public class ItemPropertiesSearchProvider : ScriptableObject, ISearchWindowProvider
+    /// <summary>
+    /// Provides search list of all item properties for the editor.
+    /// </summary>
+    public class ItemPropertiesSearchProvider : ScriptableObject, ISearchWindowProvider // TODO add docs
     {
         private Item targetItem;
         Action<Type> callback;

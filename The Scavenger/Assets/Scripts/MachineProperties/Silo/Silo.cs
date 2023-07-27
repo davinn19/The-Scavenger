@@ -2,33 +2,40 @@ using UnityEngine;
 
 namespace Scavenger
 {
+    /// <summary>
+    /// Stores a large amount of one type of item.
+    /// </summary>
     [RequireComponent(typeof(ItemBuffer), typeof(GridObject))]
     public class Silo : MonoBehaviour
     {
         private GridObject gridObject;
-        private SpriteRenderer icon;
         public ItemBuffer Buffer { get; private set; }
 
 
         private void Awake()
         {
             Buffer = GetComponent<ItemBuffer>();
-            icon = GetComponent<SpriteRenderer>();
             gridObject = GetComponent<GridObject>();
             gridObject.TryInteract = Interact;
         }
 
-        private bool Interact(ItemBuffer inventory, ItemSelection itemSelection, Vector2Int _) // TODO implement
+        /// <summary>
+        /// Attempts to insert the current held item into the silo, or extract the silo's contents.
+        /// </summary>
+        /// <param name="inventory">The player's inventory</param>
+        /// <param name="heldItem">The current held item.</param>
+        /// <returns>Always returns true.</returns>
+        private bool Interact(ItemBuffer inventory, HeldItemHandler heldItem, Vector2Int _) // TODO implement
         {
             // If not holding anything, take from silo
-            if (itemSelection.IsEmpty())
+            if (heldItem.IsEmpty())
             {
-                itemSelection.TakeItemsFrom(Buffer, 0);
+                heldItem.TakeItemsFrom(Buffer, 0);
                 // TODO implement filling inventory once itemSelection is full
             }
             else // Otherwise, try inserting held item into silo
             {
-                itemSelection.MoveItemsTo(Buffer, 0);
+                heldItem.MoveItemsTo(Buffer, 0);
             }
             gridObject.OnSelfChanged();
             return true;

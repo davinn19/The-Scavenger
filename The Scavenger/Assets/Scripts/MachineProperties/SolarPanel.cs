@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Scavenger
 {
     /// <summary>
-    /// Passively generates energy into a buffer
+    /// Passively generates energy into a buffer.
     /// </summary>
     [RequireComponent(typeof(EnergyBuffer), typeof(GridObject))]
     public class SolarPanel : MonoBehaviour
@@ -24,6 +24,9 @@ namespace Scavenger
             gridObject.QueueTickUpdate(GenerateEnergy);
         }
 
+        /// <summary>
+        /// Generates some amount of energy per tick.
+        /// </summary>
         private void GenerateEnergy()
         {
             int energyAdded = energyBuffer.InsertEnergy(energyPerTick);

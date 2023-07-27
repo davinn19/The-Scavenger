@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Scavenger
 {
+    /// <summary>
+    /// Buffer that stores items.
+    /// </summary>
     public class ItemBuffer : Buffer
     {
         [field: SerializeField] public int MaxCapacity { get; private set; }
@@ -22,7 +25,9 @@ namespace Scavenger
             slotsLocked = new bool[NumSlots];
         }
 
-        // Resizes slots array to numSlots and confirms all itemStacks set in editor match maxCapacity
+        /// <summary>
+        /// Resizes slots array to numSlots and confirms all itemStacks set in editor match maxCapacity.
+        /// </summary>
         private void ProcessStartingItems()
         {
             ItemStack[] resizedSlots = new ItemStack[NumSlots];
@@ -47,40 +52,42 @@ namespace Scavenger
             }
         }
 
-        public List<int> FindAll(Predicate<ItemStack> condition)
-        {
-            List<int> foundSlots = new();
-
-            for (int i = 0; i < NumSlots; i++)
-            {
-                ItemStack itemStack = GetItemInSlot(i);
-
-                if (itemStack && condition(itemStack))
-                {
-                    foundSlots.Add(i);
-                }
-            }
-
-            return foundSlots;
-        }
-
-
+        /// <summary>
+        /// Gets itemStack in the specified slot.
+        /// </summary>
+        /// <param name="slot">Slot to retrieve itemStack.</param>
+        /// <returns>The itemStack in the specified slot.</returns>
         public ItemStack GetItemInSlot(int slot)
         {
             return Slots[slot];
         }
 
+        /// <summary>
+        /// Sets the slot to contain the itemStack.
+        /// </summary>
+        /// <param name="itemStack">The itemStack to assign to the slot. WILL BE MODIFIED.</param>
+        /// <param name="slot">The slot to assign the itemStack to.</param>
         private void SetItemInSlot(ItemStack itemStack, int slot)
         {
             Slots[slot] = itemStack;
             SlotChanged?.Invoke(slot);
         }
 
+        /// <summary>
+        /// Checks if a slot is locked.
+        /// </summary>
+        /// <param name="slot">The slot to check.</param>
+        /// <returns>True if the slot is locked.</returns>
         public bool IsLocked(int slot)
         {
             return slotsLocked[slot];
         }
 
+        /// <summary>
+        /// Sets a slot as locked or unlocked.
+        /// </summary>
+        /// <param name="slot">The slot to set.</param>
+        /// <param name="locked">If true, sets to locked.</param>
         private void SetLocked(int slot, bool locked)
         {
             slotsLocked[slot] = locked;
@@ -95,6 +102,10 @@ namespace Scavenger
             SlotChanged?.Invoke(slot);
         }
 
+        /// <summary>
+        /// Switches a slot's locked status.
+        /// </summary>
+        /// <param name="slot">The slot to toggle.</param>
         public void ToggleLocked(int slot)
         {
             SetLocked(slot, !IsLocked(slot));

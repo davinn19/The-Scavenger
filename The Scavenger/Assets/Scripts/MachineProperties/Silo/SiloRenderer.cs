@@ -5,23 +5,27 @@ using UnityEngine;
 
 namespace Scavenger
 {
+    /// <summary>
+    /// Changes the gridObject's appearance based on the silo's contents.
+    /// </summary>
     [RequireComponent(typeof(ItemBuffer))]
     public class SiloRenderer : MonoBehaviour
     {
         [SerializeField] private SpriteRenderer icon;
-
         private ItemBuffer buffer;
+
         private void Awake()
         {
             buffer = GetComponent<ItemBuffer>();
 
             GridObject gridObject = GetComponent<GridObject>();
             gridObject.SelfChanged += UpdateAppearance;
-            buffer.SlotChanged += UpdateAppearance;
+            buffer.SlotChanged += (_) => UpdateAppearance();
         }
 
-        private void UpdateAppearance(int _) => UpdateAppearance();
-
+        /// <summary>
+        /// Changes the gridObject's appearance based on the silo's contents.
+        /// </summary>
         private void UpdateAppearance()
         {
             ItemStack itemStack = buffer.GetItemInSlot(0);
@@ -35,9 +39,5 @@ namespace Scavenger
                 icon.sprite = itemStack.Item.Icon;
             }
         }
-
-
-
-
     }
 }

@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Scavenger
 {
+    /// <summary>
+    /// Populates an item buffer.
+    /// </summary>
     [System.Serializable]
     public class ItemStack
     {
@@ -32,6 +35,9 @@ namespace Scavenger
 
         public ItemStack() => Clear();
 
+        /// <summary>
+        /// Resets the itemStack's information.
+        /// </summary>
         public void Clear()
         {
             Item = null;
@@ -39,7 +45,10 @@ namespace Scavenger
             data = new Dictionary<string, string>();
         }
 
-
+        /// <summary>
+        /// Assigns an itemStack an item. Fails if the itemStack is already assigned an item.
+        /// </summary>
+        /// <param name="newItem">The item to assign the itemStack with.</param>
         public void SetItem(Item newItem)
         {
             if (Item != null)
@@ -56,6 +65,11 @@ namespace Scavenger
             }
         }
 
+        /// <summary>
+        /// Checks if another stack is allowed to insert items into it.
+        /// </summary>
+        /// <param name="other">The other itemStack to test with.</param>
+        /// <returns>True if they are stackable.</returns>
         public bool IsStackable(ItemStack other)
         {
             // If current stack is empty, it is stackable
@@ -87,11 +101,18 @@ namespace Scavenger
             return true;
         }
 
+        /// <summary>
+        /// Checks if the itemStack contains any items.
+        /// </summary>
+        /// <returns>True if the itemStack is empty.</returns>
         public bool IsEmpty()
         {
             return Amount <= 0;
         }
 
+        /// <summary>
+        /// An itemStack without an item is considered null. All itemStacks must be assigned an item.
+        /// </summary>
         public static implicit operator bool(ItemStack itemStack)
         {
             return itemStack != null && itemStack.Item != null;

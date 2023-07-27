@@ -4,10 +4,13 @@ using UnityEngine;
 
 namespace Scavenger.UI
 {
+    /// <summary>
+    /// Controls UI for the current held item.
+    /// </summary>
     [RequireComponent(typeof(SlotDisplay))]
-    public class ItemSelectionUI : MonoBehaviour
+    public class HeldItemUI : MonoBehaviour
     {
-        [SerializeField] private ItemSelection itemSelection;
+        [SerializeField] private HeldItemHandler heldItem;
         private GameUI gameUI;
 
         private RectTransform rectTransform;
@@ -19,7 +22,7 @@ namespace Scavenger.UI
             rectTransform = transform as RectTransform;
             heldItemDisplay = GetComponent<SlotDisplay>();
 
-            heldItemDisplay.SetWatchedBuffer(itemSelection.HeldItemBuffer, 0);
+            heldItemDisplay.SetWatchedBuffer(heldItem.HeldItemBuffer, 0);
         }
 
         private void Update()

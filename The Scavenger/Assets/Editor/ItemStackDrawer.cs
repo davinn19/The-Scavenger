@@ -2,8 +2,9 @@ using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine.UIElements;
 
-namespace Scavenger
+namespace Scavenger.CustomEditor
 {
+    // TODO add docs
     [CustomPropertyDrawer(typeof(ItemStack))]
     public class ItemStackDrawer : PropertyDrawer
     {

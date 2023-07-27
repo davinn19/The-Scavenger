@@ -4,26 +4,36 @@ using UnityEngine.UI;
 
 namespace Scavenger.UI
 {
+    /// <summary>
+    /// Displays the itemStack in one slot of an item buffer.
+    /// </summary>
     public class SlotDisplay : MonoBehaviour
     {
         public ItemBuffer Buffer { get; private set; }
-
         public int Slot { get; private set; }
 
         [SerializeField] private Image itemImage;
-
         private TextMeshProUGUI stackAmountDisplay;
+
         private void Awake()
         {
             stackAmountDisplay = GetComponentInChildren<TextMeshProUGUI>();
         }
 
+        /// <summary>
+        /// Changes which item buffer and slot to display.
+        /// </summary>
+        /// <param name="buffer">The item buffer to display.</param>
+        /// <param name="slot">The slot to display.</param>
         public void SetWatchedBuffer(ItemBuffer buffer, int slot)
         {
             Buffer = buffer;
             Slot = slot;
         }
 
+        /// <summary>
+        /// Constantly update the display.
+        /// </summary>
         private void Update()
         {
             if (Buffer == null)
@@ -52,14 +62,17 @@ namespace Scavenger.UI
 
         }
 
+        /// <summary>
+        /// Gets the itemStack in the displayed item buffer and slot.
+        /// </summary>
+        /// <returns></returns>
         public ItemStack GetItemInSlot()
         {
             return Buffer.GetItemInSlot(Slot);
         }
 
-
         /// <summary>
-        /// Gets string representation of amount.
+        /// Gets string representation of an amount.
         /// </summary>
         /// <param name="amount">Amount to convert.</param>
         /// <returns>String representation of amount.</returns>
@@ -92,7 +105,5 @@ namespace Scavenger.UI
             string coefficient = amount.ToString()[..2];
             return coefficient[0] + "." + coefficient[1] + unit;
         }
-
-
     }
 }

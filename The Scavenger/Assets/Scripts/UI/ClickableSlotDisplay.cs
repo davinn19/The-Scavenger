@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Scavenger.UI
 {
+    /// <summary>
+    /// Wraps a normal slot display to respond to clicks.
+    /// </summary>
     public class ClickableSlotDisplay : MonoBehaviour
     {
         public SlotDisplay SlotDisplay { get; private set; }

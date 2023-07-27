@@ -3,8 +3,14 @@ using UnityEngine;
 
 namespace Scavenger
 {
+    /// <summary>
+    /// Cable for transporting items.
+    /// </summary>
     public class ItemCable : Cable<ItemBuffer>
     {
+        /// <summary>
+        /// Persistent tracking of the next destination buffer to output to when in round robin mode.   // TODO adjust for multiple round robin sources
+        /// </summary>
         private int roundRobinIndex = 0;
 
         protected override void TransportResource()

@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Scavenger
 {
+    // TODO redo, add docs
     [RequireComponent(typeof(GridObject))]
     public class Recycler : MonoBehaviour
     {

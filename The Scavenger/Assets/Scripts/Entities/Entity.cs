@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Scavenger
 {
+    // TODO implement, add docs
     public class Entity : MonoBehaviour
     {
         // Start is called before the first frame update

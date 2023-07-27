@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Scavenger
 {
+    /// <summary>
+    /// Periodically spawns space debris.
+    /// </summary>
     public class SpaceDebrisSpawner : MonoBehaviour
     {
         private const float maxDirectionTurbulence = 45;
@@ -31,10 +34,10 @@ namespace Scavenger
 
         private float spawnCooldown = 0;
 
-
-
-        // Update is called once per frame
-        void Update()
+        /// <summary>
+        /// Runs the cooldown timer and spawns a space debris at the end.
+        /// </summary>
+        private void Update()
         {
             spawnCooldown -= Time.deltaTime;
 
@@ -43,9 +46,11 @@ namespace Scavenger
                 Spawn();
                 spawnCooldown = 1 / spawnRate;
             }
-
         }
 
+        /// <summary>
+        /// Spawns a new space debris based on the spawner's parameters.
+        /// </summary>
         private void Spawn()
         {
             GameObject newDebris = Instantiate(spaceDebrisPrefabs[Random.Range(0, spaceDebrisPrefabs.Count)]);

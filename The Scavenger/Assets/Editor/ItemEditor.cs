@@ -3,9 +3,10 @@ using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-namespace Scavenger
+namespace Scavenger.CustomEditor
 {
-    [CustomEditor(typeof(Item))]
+    // TODO add docs
+    [UnityEditor.CustomEditor(typeof(Item))]
     public class ItemEditor : Editor
     {
         private Rect buttonRect;

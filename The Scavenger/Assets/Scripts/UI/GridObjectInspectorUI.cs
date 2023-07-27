@@ -1,12 +1,16 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Scavenger.UI.UIContent;
 
 namespace Scavenger.UI
 {
-    public class GridObjectView : MonoBehaviour
+    /// <summary>
+    /// Displays information on the current inspected grid object.
+    /// </summary>
+    public class GridObjectInspectorUI : MonoBehaviour
     {
-        [SerializeField] private GridObjectViewer gridObjectViewer;
+        [SerializeField] private GridObjectInspector gridObjectInspector;
         [SerializeField] private TextMeshProUGUI gridObjectName;
         [SerializeField] private Image gridObjectIcon;
 
@@ -21,14 +25,17 @@ namespace Scavenger.UI
             healthBar = GetComponentInChildren<ProgressBar>();
             healthBar.Prefix = "HP: ";
 
-            gridObjectViewer.ViewedObjectChanged += OnViewedObjectChanged;
+            gridObjectInspector.InspectedObjectChanged += UpdateAppearance;
 
             ShowUI(false);
         }
 
-        private void OnViewedObjectChanged()
+        /// <summary>
+        /// Updates the UI based on the new inspected object.
+        /// </summary>
+        private void UpdateAppearance()
         {
-            GridObject gridObject = gridObjectViewer.GetViewedObject();
+            GridObject gridObject = gridObjectInspector.GetInspectedObject();
 
             if (!gridObject)
             {
@@ -46,6 +53,10 @@ namespace Scavenger.UI
             }
         }
 
+        /// <summary>
+        /// Shows or hides the UI.
+        /// </summary>
+        /// <param name="active">If true, shows the UI.</param>
         private void ShowUI(bool active)
         {
             for (int i = 0; i < transform.childCount; i++)
@@ -57,9 +68,13 @@ namespace Scavenger.UI
             background.enabled = active;
         }
 
+        /// <summary>
+        /// Sets the custom content of the UI.
+        /// </summary>
+        /// <param name="viewedObject"></param>
         private void SetContent(GridObject viewedObject)
         {
-            // Remove old content
+            // Removes old content
             if (content)
             {
                 Destroy(content.gameObject);

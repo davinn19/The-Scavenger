@@ -4,8 +4,17 @@ using UnityEngine;
 
 namespace Scavenger
 {
+    /// <summary>
+    /// Denotes an item as being able to handle interation with the map.
+    /// </summary>
     public abstract class Interactibe : ItemProperty
     {
-        public abstract void Interact(GameManager gameManager, ItemSelection itemSelection, Vector2Int pressedPos);
+        /// <summary>
+        /// Leads the interaction with the gridMap.
+        /// </summary>
+        /// <param name="gameManager">The current game manager.</param>
+        /// <param name="heldItem">The current held item handler.</param>
+        /// <param name="pressedPos">The grid position pressed.</param>
+        public abstract void Interact(GameManager gameManager, HeldItemHandler heldItem, Vector2Int pressedPos);
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Scavenger
 {
+    // TODO add docs
     public class UpdatePropagation : MonoBehaviour
     {
         public List<Action> TickUpdate = new();

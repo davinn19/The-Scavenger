@@ -207,7 +207,7 @@ namespace Scavenger
         /// <param name="itemSelection">The item selection manager.</param>
         /// <param name="sidePressed">The side pressed when interacting.</param>
         /// <returns>True if the interaction was successful.</returns>
-        private bool Interact(ItemBuffer inventory, ItemSelection itemSelection, Vector2Int sidePressed)
+        private bool Interact(ItemBuffer inventory, HeldItemHandler itemSelection, Vector2Int sidePressed)
         {
             // Ignore if no item is held
             if (itemSelection.IsEmpty())

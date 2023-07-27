@@ -1,18 +1,47 @@
+using System;
 using UnityEngine;
 
 namespace Scavenger
 {
+    /// <summary>
+    /// Tracks the player's currently held item.
+    /// </summary>
     [RequireComponent(typeof(ItemBuffer))]
-    public class ItemSelection : MonoBehaviour
+    public class HeldItemHandler : MonoBehaviour
     {
         /// <remarks>DO NOT EDIT DIRECTLY. Use other methods to change the held item.</remarks>
-        [field: SerializeField] public ItemBuffer HeldItemBuffer { get; private set; }
+        public ItemBuffer HeldItemBuffer { get; private set; }
+        public event Action HeldItemChanged;
 
+
+        private void Awake()
+        {
+            HeldItemBuffer = GetComponent<ItemBuffer>();
+            HeldItemBuffer.SlotChanged += InvokeChangedEvent;
+        }
+
+        /// <summary>
+        /// Invokes the changed event whenever the held item is changed.
+        /// </summary>
+        /// <remarks>The slot changed is ignored because there is only one slot.</remarks>
+        private void InvokeChangedEvent(int _)
+        {
+            HeldItemChanged?.Invoke();
+        }
+
+        /// <summary>
+        /// Gets the currently held itemStack.
+        /// </summary>
+        /// <returns>The currently held itemStack.</returns>
         public ItemStack GetHeldItem()
         {
             return HeldItemBuffer.GetItemInSlot(0);
         }
 
+        /// <summary>
+        /// Checks if an item is being held or not.
+        /// </summary>
+        /// <returns>True if no item is currently held.</returns>
         public bool IsEmpty()
         {
             ItemStack heldItem = GetHeldItem();
@@ -26,6 +55,7 @@ namespace Scavenger
         /// <returns>Amount of items actually used.</returns>
         public int Use(int amount = 1)
         {
+            Debug.Assert(!HeldItemBuffer.GetItemInSlot(0).IsEmpty());
             return HeldItemBuffer.Extract(0, amount);
         }
 

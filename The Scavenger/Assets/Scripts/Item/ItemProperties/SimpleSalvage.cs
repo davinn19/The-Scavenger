@@ -4,13 +4,22 @@ using UnityEngine;
 
 namespace Scavenger
 {
+    /// <summary>
+    /// Allows an item to be salvaged from the inventory for few materials.
+    /// </summary>
     public class SimpleSalvage : Interactibe
     {
         public override string Name => "Simple Salvage";
 
         [SerializeField] private Item[] salvageDrops;
 
-        public override void Interact(GameManager gameManager, ItemSelection itemSelection, Vector2Int pressedPos)
+        /// <summary>
+        /// Salvages one of the items in the stack.
+        /// </summary>
+        /// <param name="gameManager">The current game manager.</param>
+        /// <param name="heldItem">The current held item manager.</param>
+        /// <param name="pressedPos">The grid position pressed.</param>
+        public override void Interact(GameManager gameManager, HeldItemHandler heldItem, Vector2Int pressedPos)
         {
             GridMap map = gameManager.Map;
 
@@ -18,21 +27,25 @@ namespace Scavenger
             {
                 foreach (ItemStack drop in GenerateDrops())
                 {
-                    Vector2 worldPos = gameManager.GetComponent<GridHover>().WorldPos;
+                    Vector2 worldPos = gameManager.GetComponent<InputHandler>().HoveredWorldPos;
                     gameManager.ItemDropper.CreateFloatingItem(drop, worldPos);
                 }
 
-                itemSelection.Use();
+                heldItem.Use();
             }
         }
 
+        /// <summary>
+        /// Gets the drops for an interaction.
+        /// </summary>
+        /// <returns>List of item drops.</returns>
         private List<ItemStack> GenerateDrops()
         {
             List<ItemStack> drops = new();
 
             foreach (Item drop in salvageDrops)
             {
-                if (Random.value < 0.25f)
+                if (Random.value < 0.25f)   // Each item in the loot table has a 25% chance to drop once.
                 {
                     drops.Add(new ItemStack(drop, 1));
                 }

@@ -7,6 +7,9 @@ using UnityEngine.UI;
 
 namespace Scavenger.UI
 {
+    /// <summary>
+    /// Handles input for UI.
+    /// </summary>
     public class GameUI : MonoBehaviour
     {
         public GameObject HoveredElement { get; private set; }
@@ -52,7 +55,10 @@ namespace Scavenger.UI
             overUI = EventSystem.current.IsPointerOverGameObject();
         }
 
-        private void ToggleUI(InputAction.CallbackContext context)
+        /// <summary>
+        /// Switches all UI on or off.
+        /// </summary>
+        private void ToggleUI(InputAction.CallbackContext _)
         {
             // TODO make event for disabling sub-ui
             for (int i = 0; i < transform.childCount; i++)
@@ -62,7 +68,10 @@ namespace Scavenger.UI
             }
         }
 
-        private void OnPointerMove(InputAction.CallbackContext context)
+        /// <summary>
+        /// When the pointer moves, update all tracking values. 
+        /// </summary>
+        private void OnPointerMove(InputAction.CallbackContext _)
         {
             if (overUI)
             {
@@ -72,6 +81,9 @@ namespace Scavenger.UI
             PointerPos = pointerHover.ReadValue<Vector2>();
         }
 
+        /// <summary>
+        /// Finds the new hovered element.
+        /// </summary>
         private void UpdateHoveredElement()
         {
             GameObject oldHoveredElement = HoveredElement;

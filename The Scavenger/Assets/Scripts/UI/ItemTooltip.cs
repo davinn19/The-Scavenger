@@ -1,10 +1,13 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
+using Scavenger.UI.UIContent;
 
 namespace Scavenger.UI
 {
-    public class ItemView : MonoBehaviour
+    /// <summary>
+    /// Displays information on the itemStack in a hovered slot display.
+    /// </summary>
+    public class ItemTooltip : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI itemName;
         [SerializeField] private TextMeshProUGUI itemDescription;
@@ -53,12 +56,18 @@ namespace Scavenger.UI
             gameObject.SetActive(false);
         }
 
+        /// <summary>
+        /// Moves the tooltip to where the pointer is.
+        /// </summary>
         private void Update()
         {
             rectTransform.position = gameUI.PointerPos + new Vector2(0, 10);
         }
 
-
+        /// <summary>
+        /// Starts tracking the newly hovered slotDisplay, or turns invisible if a slotDisplay is not hovered over.
+        /// </summary>
+        /// <param name="hoveredElement">The hovered display.</param>
         private void OnHoveredElementChanged(GameObject hoveredElement)
         {
             if (hoveredElement == null || !hoveredElement.TryGetComponent(out ClickableSlotDisplay clickedDisplay))
@@ -67,11 +76,13 @@ namespace Scavenger.UI
                 return;
             }
 
-
             HoveredDisplay = clickedDisplay.SlotDisplay;
         }
 
-
+        /// <summary>
+        /// Invokes an update when the slot display's contents changes.
+        /// </summary>
+        /// <param name="slot"></param>
         private void OnSlotChanged(int slot)
         {
             if (HoveredDisplay == null)
@@ -85,6 +96,9 @@ namespace Scavenger.UI
             }
         }
 
+        /// <summary>
+        /// Draws the tooltip to represent the currently tracked slot display.
+        /// </summary>
         private void UpdateAppearance()
         {
             ClearCustomContent();
@@ -110,12 +124,20 @@ namespace Scavenger.UI
             SetCustomContent(itemStack);
         }
 
+        /// <summary>
+        /// Writes the description based on the itemStack's item.
+        /// </summary>
+        /// <param name="itemStack">The current itemStack.</param>
         private void SetDescription(ItemStack itemStack)
         {
             itemDescription.text = itemStack.Item.Description;
             itemDescription.gameObject.SetActive(itemDescription.text != "");
         }
 
+        /// <summary>
+        /// Draws the itemStack's custom tooltip UI, it it has one.
+        /// </summary>
+        /// <param name="itemStack">The current itemStack.</param>
         private void SetCustomContent(ItemStack itemStack)
         {
             if (itemStack.Item.TryGetProperty(out CustomUI ui))
@@ -125,6 +147,9 @@ namespace Scavenger.UI
             }
         }
 
+        /// <summary>
+        /// Erases any existing custom UI.
+        /// </summary>
         private void ClearCustomContent()
         {
             if (content)

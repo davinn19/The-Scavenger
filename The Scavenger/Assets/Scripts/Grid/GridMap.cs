@@ -131,7 +131,7 @@ namespace Scavenger
         /// <param name="gridPos">Position of gridObject to interact with.</param>
         /// <param name="sidePressed">Side of gridObject that was pressed.</param>
         /// <returns>True if an interaction happened.</returns>
-        public bool TryObjectInteract(ItemBuffer inventory, ItemSelection itemSelection, Vector2Int gridPos, Vector2Int sidePressed)
+        public bool TryObjectInteract(ItemBuffer inventory, HeldItemHandler itemSelection, Vector2Int gridPos, Vector2Int sidePressed)
         {
             GridObject existingObject = GetObjectAtPos(gridPos);
             if (existingObject && existingObject.TryInteract != null)
@@ -148,7 +148,7 @@ namespace Scavenger
         /// <param name="itemSelection">The item selection manager.</param>
         /// <param name="gridPos">Position to place the item at.</param>
         /// <returns>True if placement was successful.</returns>
-        public bool TryPlaceItem(ItemSelection itemSelection, Vector2Int gridPos)// TODO add supported constraint
+        public bool TryPlaceItem(HeldItemHandler itemSelection, Vector2Int gridPos)// TODO add supported constraint
         {
             // Space must be empty to place new object
             GridObject existingObject = GetObjectAtPos(gridPos);

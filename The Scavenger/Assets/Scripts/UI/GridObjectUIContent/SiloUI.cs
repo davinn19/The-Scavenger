@@ -2,8 +2,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Scavenger.UI
+namespace Scavenger.UI.UIContent
 {
+    /// <summary>
+    /// Controls the inspector UI for silo objects.
+    /// </summary>
     public class SiloUI : GridObjectUIContent
     {
         private Silo silo;
@@ -23,12 +26,18 @@ namespace Scavenger.UI
             UpdateLockButtonStatus();
         }
 
+        /// <summary>
+        /// Toggles the silo's locked status when the button is pressed.
+        /// </summary>
         public void OnLockButtonPressed()
         {
             silo.Buffer.ToggleLocked(0);
             UpdateLockButtonStatus();
         }
 
+        /// <summary>
+        /// Changes the locked button's appearance to match the silo's locked status.
+        /// </summary>
         private void UpdateLockButtonStatus()
         {
             bool locked = silo.Buffer.IsLocked(0);
@@ -41,8 +50,5 @@ namespace Scavenger.UI
                 lockButtonText.text = "Unlocked";
             }
         }
-
-
-
     }
 }

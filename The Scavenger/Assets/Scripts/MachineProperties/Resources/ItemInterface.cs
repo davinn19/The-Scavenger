@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Scavenger
 {
+    // TODO add docs, filter inputs and outputs using slots instead
     public class ItemInterface : ConduitInterface<ItemBuffer>
     {
         [SerializeField] private List<ItemBuffer> inputs;

@@ -2,26 +2,43 @@ using UnityEngine;
 
 namespace Scavenger.UI
 {
+    /// <summary>
+    /// Controls UI for the player's current input mode.
+    /// </summary>
     public class InputModeUI : MonoBehaviour
     {
         [SerializeField] private RectTransform selectionIndicator;
         [SerializeField] private GameManager gameManager;
+        private InputHandler inputHandler;
+
+        private void Awake()
+        {
+            inputHandler = gameManager.InputHandler;
+            inputHandler.InputModeChanged += MoveSelectionIndicator;
+        }
 
         private void Start()
         {
-            UpdateAppearance();
+            MoveSelectionIndicator(0);
         }
 
-        public void ChangeMode(bool interact)
+        /// <summary>
+        /// Changes the selected input mode.
+        /// </summary>
+        /// <param name="mode">The new input mode.</param>
+        public void ChangeMode(int mode)
         {
-            InputMode mode = interact ? InputMode.Interact : InputMode.Edit;
-            gameManager.InputMode = mode;
-            UpdateAppearance();
+            inputHandler.InputMode = (InputMode)mode;
         }
 
-        private void UpdateAppearance()
+        /// <summary>
+        /// Highlights the button representing the selected input mode.
+        /// </summary>
+        /// <param name="inputMode">The selected input mode.</param>
+        private void MoveSelectionIndicator(InputMode inputMode)
         {
-            selectionIndicator.anchoredPosition = new Vector2(0, -55 * (int)gameManager.InputMode);
+            int index = (int)inputMode;
+            selectionIndicator.anchoredPosition = 55 * new Vector2(index % 2, -index / 2);
         }
     }
 }
