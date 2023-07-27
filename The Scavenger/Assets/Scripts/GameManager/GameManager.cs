@@ -8,79 +8,84 @@ namespace Scavenger
     /// </summary>
     public class GameManager : MonoBehaviour    // TODO add docs
     {
+        [field: SerializeField] public ItemBuffer Inventory { get; private set; }
         [field: SerializeField] public GridMap Map { get; private set; }
-
-        private Controls controls;
-        private InputAction place;
-
         public HeldItemHandler HeldItemHandler { get; private set; }
         public InputHandler InputHandler { get; private set; }
         public ItemDropper ItemDropper { get; private set; }
-        [field: SerializeField] public ItemBuffer Inventory { get; private set; }
+        
 
 
         private void Awake()
         {
             ItemDropper = GetComponent<ItemDropper>();
-            InputHandler = GetComponent<InputHandler>();
             HeldItemHandler = GetComponentInChildren<HeldItemHandler>();
 
-            controls = new();
+            InputHandler = GetComponent<InputHandler>();
+            InputHandler.PointerClicked += OnPointerClick;
         }
 
 
-        private void OnEnable()
+        // TODO add docs
+        private void OnPointerClick(InputMode inputMode)
         {
-            place = controls.GridMap.PlaceInteractItem;
-            place.Enable();
-            place.performed += OnPlace;
+            Vector2Int gridPos = InputHandler.HoveredGridPos;
+            Vector2Int sidePressed = InputHandler.GetHoveredSide();
 
-        }
-
-        private void OnDisable()
-        {
-            place.Disable();
-        }
-
-        // TODO move to input handler
-        private void OnPlace(InputAction.CallbackContext context)  // Left click to place/interact
-        {
-            // Only handle input if mouse is not over UI
-            if (InputHandler.OverGUI)
+            switch (inputMode)
             {
-                return;
-            }
+                case InputMode.Interact:
+                    // Check for clickables first
+                    if (TryInteractClickable())
+                    {
+                        return;
+                    }
 
-            // Check for clickables first
+                    // Try placing object next
+                    if (Map.TryPlaceItem(HeldItemHandler, gridPos))
+                    {
+                        return;
+                    }
+
+                    // Try having grid object handle interaction next
+                    
+                    if (Map.TryObjectInteract(Inventory, HeldItemHandler, gridPos, sidePressed))
+                    {
+                        return;
+                    }
+
+                    // Try having item handle interaction
+                    ItemStack selectedItemStack = HeldItemHandler.GetHeldItem();
+                    if (selectedItemStack)
+                    {
+                        selectedItemStack.Item.Interact(this, HeldItemHandler, gridPos);
+                    }
+                    break;
+
+                case InputMode.Edit:
+                    Map.TryEdit(gridPos, sidePressed);
+                    break;
+
+                case InputMode.Remove:
+                    // TODO implement
+                    break;
+            }
+        }
+
+        // TODO add docs
+        private bool TryInteractClickable()
+        {
             Clickable clickable = InputHandler.GetClickableUnderPointer();
             if (clickable)
             {
                 clickable.OnClick(this);
-                return;
+                return true;
             }
 
-            // Try placing object next
-            bool placeSuccess = Map.TryPlaceItem(HeldItemHandler, InputHandler.HoveredGridPos);
-            if (placeSuccess)
-            {
-                return;
-            }
-
-            // Try having grid object handle interaction next
-            Vector2Int sidePressed = InputHandler.GetHoveredSide();
-            bool itemInteractSuccess = Map.TryObjectInteract(Inventory, HeldItemHandler, InputHandler.HoveredGridPos, sidePressed);
-            if (itemInteractSuccess)
-            {
-                return;
-            }
-
-            // Try having item handle interaction
-            ItemStack selectedItemStack = HeldItemHandler.GetHeldItem();
-            if (selectedItemStack)
-            {
-                selectedItemStack.Item.Interact(this, HeldItemHandler, InputHandler.HoveredGridPos);
-            }
+            return false;
         }
+
+       
 
     }
 }

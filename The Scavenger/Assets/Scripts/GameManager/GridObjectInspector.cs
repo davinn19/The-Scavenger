@@ -12,9 +12,6 @@ namespace Scavenger
         public Vector2Int InspectedPos { get; private set; }
         public bool InspectEnabled { get; private set; }
 
-        private Controls controls;
-        private InputAction inspect;
-
         private InputHandler inputHandler;
         private GridMap map;
 
@@ -25,23 +22,12 @@ namespace Scavenger
             GameManager gameManager = GetComponent<GameManager>();
 
             inputHandler = gameManager.InputHandler;
+            inputHandler.PointerClicked += OnPointerClick;
+
             map = gameManager.Map;
             map.GridObjectSet += OnViewedObjectSet;
-
-            controls = new Controls();
         }
 
-        private void OnEnable()
-        {
-            inspect = controls.GridMap.ViewGridObject;
-            inspect.Enable();
-            inspect.performed += OnInspect;
-        }
-
-        private void OnDisable()
-        {
-            inspect.Disable();
-        }
 
         /// <summary>
         /// Gets the gridObject at the current inspected gridPos.
@@ -57,23 +43,26 @@ namespace Scavenger
             return map.GetObjectAtPos(InspectedPos);
         }
 
-        /// <summary>
-        /// Invokes changed event when the inspected position is changed.
-        /// </summary>
-        private void OnInspect(InputAction.CallbackContext _)
+        // TODO add docs, rethink inputs
+        private void OnPointerClick(InputMode inputMode)
         {
-            if (inputHandler.OverGUI)
+            if (inputMode != InputMode.Inspect)
+            {
+                return;
+            }
+
+            Vector2Int pressedPos = inputHandler.HoveredGridPos;
+
+            if (pressedPos == InspectedPos)
             {
                 InspectEnabled = false;
                 InspectedPos = Vector2Int.zero;
-                return;
             }
             else
             {
                 InspectEnabled = true;
                 InspectedPos = inputHandler.HoveredGridPos;
             }
-
             InspectedObjectChanged?.Invoke();
         }
 

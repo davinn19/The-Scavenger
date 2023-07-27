@@ -30,8 +30,6 @@ namespace Scavenger
 
             gameObject.SetActive(true);
             transform.position = GridMap.GetCenterOfTile(inspector.InspectedPos);
-
-
         }
     }
 }

@@ -22,7 +22,9 @@ namespace Scavenger
 
             gridObject.NeighborPlaced += OnNeighborPlaced;
             gridObject.NeighborChanged += OnNeighborChanged;
-            gridObject.TryInteract = Interact;
+
+            gridObject.TryInteract = TryAddCable;
+            gridObject.TryEdit = (sidePressed) => { RotateTransportMode(sidePressed); return true; };
 
             InitSideConfigs();
         }
@@ -201,68 +203,32 @@ namespace Scavenger
         }
 
         /// <summary>
-        /// Tries to rotate the pressed side's transport mode, or add the held cable.
+        /// Tries to add the held item as a cable to the conduit.
         /// </summary>
         /// <param name="inventory">The player's inventory.</param>
-        /// <param name="itemSelection">The item selection manager.</param>
+        /// <param name="heldItemHandler">The held item handler.</param>
         /// <param name="sidePressed">The side pressed when interacting.</param>
-        /// <returns>True if the interaction was successful.</returns>
-        private bool Interact(ItemBuffer inventory, HeldItemHandler itemSelection, Vector2Int sidePressed)
+        /// <returns>True if the cable was successfully added.</returns>
+        private bool TryAddCable(ItemBuffer inventory, HeldItemHandler heldItemHandler, Vector2Int sidePressed)
         {
             // Ignore if no item is held
-            if (itemSelection.IsEmpty())
+            if (heldItemHandler.IsEmpty())
             {
                 return false;
             }
 
-            ItemStack heldItem = itemSelection.GetHeldItem();
+            ItemStack heldItem = heldItemHandler.GetHeldItem();
+            CableSpec cableSpec = heldItem.Item.GetProperty<CableSpec>();
 
-            bool editSuccess = TryEditSide(heldItem.Item, sidePressed);
-            if (editSuccess)
-            {
-                return true;
-            }
-
-            bool addCableSuccess = TryAddCable(heldItem);
-            if (addCableSuccess)
-            {
-                itemSelection.Use();
-                return true;
-            }
-
-            return false;
-        }
-
-        /// <summary>
-        /// Tries to rotate a side's transport mode, successful if held item is a conduit.
-        /// </summary>
-        /// <param name="item">The held item.</param>
-        /// <param name="side">The side to attempt changing transport mode.</param>
-        /// <returns>True if the edit is successful.</returns>
-        private bool TryEditSide(Item item, Vector2Int side)   // TODO change to work in edit mode instead of holding another conduit, redo docs
-        {
-            if (item.TryGetProperty(out PlacedObject property) && property.Object.GetComponent<Conduit>())
-            {
-                RotateTransportMode(side);
-                return true;
-            }
-
-            return false;
-        }
-
-        /// <summary>
-        /// Tries to add the held item as a cable to the conduit.
-        /// </summary>
-        /// <param name="itemStack">The held item. Assumed to be holding something.</param>
-        /// <returns>True if the held item is added.</returns>
-        private bool TryAddCable(ItemStack itemStack)
-        {
-            if (itemStack.Item.TryGetProperty(out CableSpec cableSpec) && CanAddCable(cableSpec) && !itemStack.IsEmpty())
+            if (cableSpec && CanAddCable(cableSpec))
             {
                 cableSpec.AddCable(this);
+
                 gridObject.OnSelfChanged();
+                heldItemHandler.Use();
                 return true;
             }
+
             return false;
         }
 

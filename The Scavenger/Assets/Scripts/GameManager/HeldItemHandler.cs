@@ -13,21 +13,17 @@ namespace Scavenger
         public ItemBuffer HeldItemBuffer { get; private set; }
         public event Action HeldItemChanged;
 
+        private ItemDropper itemDropper;
+        private InputHandler inputHandler;
 
         private void Awake()
         {
             HeldItemBuffer = GetComponent<ItemBuffer>();
-            HeldItemBuffer.SlotChanged += InvokeChangedEvent;
-        }
+            HeldItemBuffer.SlotChanged += (_) => { HeldItemChanged?.Invoke(); }; 
 
-
-        /// <summary>
-        /// Invokes the changed event whenever the held item is changed.
-        /// </summary>
-        /// <remarks>The slot changed is ignored because there is only one slot.</remarks>
-        private void InvokeChangedEvent(int _)
-        {
-            HeldItemChanged?.Invoke();
+            GameManager gameManager = GetComponentInParent<GameManager>();
+            itemDropper = gameManager.ItemDropper;
+            inputHandler = gameManager.InputHandler;
         }
 
         /// <summary>
@@ -90,6 +86,34 @@ namespace Scavenger
         public void Swap(ItemBuffer otherBuffer, int slot)
         {
             ItemBuffer.Swap(HeldItemBuffer, 0, otherBuffer, slot);
+        }
+
+        /// <summary>
+        /// Dumps held item contents to another buffer and converts the remainder to a floating item.
+        /// </summary>
+        /// <param name="otherBuffer">The buffer to insert into.</param>
+        public void Dump(ItemBuffer otherBuffer)
+        {
+            // Ignore if no item is held
+            if (IsEmpty())
+            {
+                return;
+            }    
+
+            // Dump to other buffer first
+            int remainder = otherBuffer.Insert(HeldItemBuffer.GetItemInSlot(0));
+
+            // Converts remainder to floating item
+            if (remainder > 0)
+            {
+                ItemStack floatingItemStack = new ItemStack(HeldItemBuffer.GetItemInSlot(0));
+                floatingItemStack.Amount = remainder;
+
+                itemDropper.CreateFloatingItem(floatingItemStack, inputHandler.HoveredWorldPos);
+            }
+
+            // Use up entire amount
+            Use(int.MaxValue);
         }
     }
 }

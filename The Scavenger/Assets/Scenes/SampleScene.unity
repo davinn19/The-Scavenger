@@ -2197,8 +2197,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0572b9114b053145a943a3c7881a1b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Map>k__BackingField: {fileID: 1203047189}
   <Inventory>k__BackingField: {fileID: 745894434}
+  <Map>k__BackingField: {fileID: 1203047189}
 --- !u!4 &354866611
 Transform:
   m_ObjectHideFlags: 0
@@ -3822,6 +3822,7 @@ GameObject:
   m_Component:
   - component: {fileID: 583391171}
   - component: {fileID: 583391170}
+  - component: {fileID: 583391172}
   m_Layer: 0
   m_Name: InspectorIndicator
   m_TagString: Untagged
@@ -3836,7 +3837,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 583391169}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -3896,6 +3897,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &583391172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 583391169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd84926be1161704db3990932c4fc9f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inspector: {fileID: 354866617}
 --- !u!1 &597831697
 GameObject:
   m_ObjectHideFlags: 0
@@ -4685,8 +4699,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 155111c7fdce88f4483dee2ad1f287e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputHandler: {fileID: 354866616}
-  heldItemHandler: {fileID: 1266588975}
+  gameManager: {fileID: 354866610}
 --- !u!1 &704016837
 GameObject:
   m_ObjectHideFlags: 0
@@ -4918,29 +4931,59 @@ MonoBehaviour:
   - <Item>k__BackingField: {fileID: 11400000, guid: 96a34f6fc5088c5419518cecc54db470, type: 2}
     Amount: 0
   - <Item>k__BackingField: {fileID: 11400000, guid: cb6611beb8217b442a972dc2e3ca005e, type: 2}
-    Amount: 0
+    Amount: 1000
   - <Item>k__BackingField: {fileID: 11400000, guid: 436c4ea4ba6c7fd4a9749b7c32c1baa9, type: 2}
-    Amount: 0
+    Amount: 2346245
   - <Item>k__BackingField: {fileID: 11400000, guid: 0880e46e43f0c7844a42e0ae2912a6cb, type: 2}
-    Amount: 0
+    Amount: 2456245
   - <Item>k__BackingField: {fileID: 11400000, guid: ca00fa6b515b3f3478d5800ee2483d41, type: 2}
-    Amount: 0
+    Amount: 434
   - <Item>k__BackingField: {fileID: 11400000, guid: bb9d0c6617e6fe64f9094b818026390b, type: 2}
-    Amount: 0
+    Amount: 343456
   - <Item>k__BackingField: {fileID: 11400000, guid: dca9a5f9d69630742a722801d2ccaff0, type: 2}
-    Amount: 0
+    Amount: 456
   - <Item>k__BackingField: {fileID: 11400000, guid: 5540fd200c50bb24682223f08b3fcbac, type: 2}
-    Amount: 0
+    Amount: 234562
   - <Item>k__BackingField: {fileID: 11400000, guid: 18d46571aa3e4154c8ac6b9da101109c, type: 2}
-    Amount: 0
+    Amount: 4562
   - <Item>k__BackingField: {fileID: 11400000, guid: 4749a09cc431f8643a80898f7b07c16f, type: 2}
-    Amount: 0
+    Amount: 2546
   - <Item>k__BackingField: {fileID: 11400000, guid: 8be0e1af319d4f249ad306127adde586, type: 2}
-    Amount: 0
+    Amount: 245645
   - <Item>k__BackingField: {fileID: 11400000, guid: e9983f9720fb1484a975da3831142444, type: 2}
-    Amount: 0
+    Amount: 254624
   - <Item>k__BackingField: {fileID: 11400000, guid: 764ee4002e80a554fa1e2a1cb14df28a, type: 2}
-    Amount: 0
+    Amount: 2456425
+  - <Item>k__BackingField: {fileID: 11400000, guid: 764ee4002e80a554fa1e2a1cb14df28a, type: 2}
+    Amount: 2456425
+  - <Item>k__BackingField: {fileID: 11400000, guid: 764ee4002e80a554fa1e2a1cb14df28a, type: 2}
+    Amount: 2456425
+  - <Item>k__BackingField: {fileID: 11400000, guid: 764ee4002e80a554fa1e2a1cb14df28a, type: 2}
+    Amount: 2456425
+  - <Item>k__BackingField: {fileID: 11400000, guid: 764ee4002e80a554fa1e2a1cb14df28a, type: 2}
+    Amount: 2456425
+  - <Item>k__BackingField: {fileID: 11400000, guid: 764ee4002e80a554fa1e2a1cb14df28a, type: 2}
+    Amount: 2456425
+  - <Item>k__BackingField: {fileID: 11400000, guid: 764ee4002e80a554fa1e2a1cb14df28a, type: 2}
+    Amount: 2456425
+  - <Item>k__BackingField: {fileID: 11400000, guid: 764ee4002e80a554fa1e2a1cb14df28a, type: 2}
+    Amount: 2456425
+  - <Item>k__BackingField: {fileID: 11400000, guid: 764ee4002e80a554fa1e2a1cb14df28a, type: 2}
+    Amount: 2456425
+  - <Item>k__BackingField: {fileID: 11400000, guid: 764ee4002e80a554fa1e2a1cb14df28a, type: 2}
+    Amount: 2456425
+  - <Item>k__BackingField: {fileID: 11400000, guid: 764ee4002e80a554fa1e2a1cb14df28a, type: 2}
+    Amount: 2456425
+  - <Item>k__BackingField: {fileID: 11400000, guid: 764ee4002e80a554fa1e2a1cb14df28a, type: 2}
+    Amount: 2456425
+  - <Item>k__BackingField: {fileID: 11400000, guid: 764ee4002e80a554fa1e2a1cb14df28a, type: 2}
+    Amount: 2456425
+  - <Item>k__BackingField: {fileID: 11400000, guid: 764ee4002e80a554fa1e2a1cb14df28a, type: 2}
+    Amount: 2456425
+  - <Item>k__BackingField: {fileID: 11400000, guid: 764ee4002e80a554fa1e2a1cb14df28a, type: 2}
+    Amount: 2456425
+  - <Item>k__BackingField: {fileID: 11400000, guid: 764ee4002e80a554fa1e2a1cb14df28a, type: 2}
+    Amount: 2456425
 --- !u!1001 &749021569
 PrefabInstance:
   m_ObjectHideFlags: 0

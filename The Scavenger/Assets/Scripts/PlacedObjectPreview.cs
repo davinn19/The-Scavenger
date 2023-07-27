@@ -9,13 +9,19 @@ namespace Scavenger
     /// </summary>
     public class PlacedObjectPreview : MonoBehaviour
     {
-        [SerializeField] private InputHandler inputHandler;
-        [SerializeField] private HeldItemHandler heldItemHandler;
+        [SerializeField] private GameManager gameManager;
+        private InputHandler inputHandler;
+        private HeldItemHandler heldItemHandler;
+        private GridMap map;
 
         private SpriteRenderer spriteRenderer;
 
         private void Awake()
         {
+            inputHandler = gameManager.InputHandler;
+            heldItemHandler = gameManager.HeldItemHandler;
+            map = gameManager.Map;
+
             inputHandler.PointerMoved += UpdateAppearance;
             heldItemHandler.HeldItemChanged += UpdateAppearance;
 
@@ -27,17 +33,18 @@ namespace Scavenger
         /// </summary>
         private void UpdateAppearance()
         {
+            Vector2Int hoveredPos = inputHandler.HoveredGridPos;
             ItemStack heldItem = heldItemHandler.GetHeldItem();
 
-            if (inputHandler.OverGUI || !heldItem || !heldItem.Item.HasProperty<PlacedObject>())
+            if (inputHandler.OverGUI || map.GetObjectAtPos(hoveredPos) || !heldItem || !heldItem.Item.HasProperty<PlacedObject>())
             {
-                enabled = false;
+                spriteRenderer.enabled = false;
                 return;
             }
 
-            enabled = true;
+            spriteRenderer.enabled = true;
             spriteRenderer.sprite = heldItem.Item.Icon;
-            transform.position = GridMap.GetCenterOfTile(inputHandler.HoveredGridPos);
+            transform.position = GridMap.GetCenterOfTile(hoveredPos);
         }
     }
 }

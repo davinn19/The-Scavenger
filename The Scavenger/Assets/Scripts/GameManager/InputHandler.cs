@@ -13,6 +13,7 @@ namespace Scavenger
         public bool OverGUI { get; private set; }
 
         public event Action PointerMoved;
+        public event Action<InputMode> PointerClicked; 
         public Vector2Int HoveredGridPos { get; private set; }
         public Vector2 HoveredWorldPos { get; private set; }
 
@@ -26,19 +27,19 @@ namespace Scavenger
             }
             set
             {
-                if (m_inputMode == value)
+                if (m_inputMode != value)
                 {
-                    return;
+                    m_inputMode = value;
+                    InputModeChanged.Invoke(InputMode);
                 }
-
-                m_inputMode = value;
-                InputModeChanged.Invoke(InputMode);
             }
         }
 
 
         private Controls controls;
         private InputAction pointerHover;
+        private InputAction pointerPressed;
+        private InputAction inspect;
 
         private void Awake()
         {
@@ -50,11 +51,21 @@ namespace Scavenger
             pointerHover = controls.GridMap.PointerHover;
             pointerHover.Enable();
             pointerHover.performed += UpdateHoveredPos;
+
+            pointerPressed = controls.GridMap.PlaceInteractItem;
+            pointerPressed.Enable();
+            pointerPressed.performed += OnPointerClicked;
+
+            inspect = controls.GridMap.ViewGridObject;
+            inspect.Enable();
+            inspect.performed += OnInspect;
         }
 
         private void OnDisable()
         {
             pointerHover.Disable();
+            pointerPressed.Disable();
+            inspect.Disable();
         }
 
         /// <summary>
@@ -122,6 +133,26 @@ namespace Scavenger
             }
 
             return closestClickable;
+        }
+
+        // TODO add docs
+        private void OnPointerClicked(InputAction.CallbackContext _)
+        {
+            if (!OverGUI)
+            {
+                PointerClicked?.Invoke(InputMode);
+            }
+        }
+
+        // TODO add docs
+
+        private void OnInspect(InputAction.CallbackContext _)
+        { 
+            if (!OverGUI)
+            {
+                InputMode = InputMode.Inspect;
+                OnPointerClicked(_);
+            }
         }
     }
 

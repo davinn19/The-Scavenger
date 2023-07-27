@@ -138,9 +138,23 @@ namespace Scavenger
             {
                 return existingObject.TryInteract(inventory, itemSelection, sidePressed);
             }
+            // TODO remove side pressed parameter
 
             return false;
         }
+
+        // TODO add docs
+        public bool TryEdit(Vector2Int gridPos, Vector2Int sidePressed)
+        {
+            GridObject existingObject = GetObjectAtPos(gridPos);
+            if (existingObject && existingObject.TryEdit != null)
+            {
+                return existingObject.TryEdit(sidePressed);
+            }
+
+            return false;
+        }
+
 
         /// <summary>
         /// Attempts to place the item at a position.

@@ -6,11 +6,19 @@ namespace Scavenger.UI
     public class SlotDisplayHandler : MonoBehaviour
     {
         [SerializeField] private GameManager gameManager;
+
         private HeldItemHandler heldItemHandler;
+        private ItemBuffer inventory;
+        private InputHandler inputHandler;
+
 
         private void Awake()
         {
             heldItemHandler = gameManager.HeldItemHandler;
+            inventory = gameManager.Inventory;
+
+            inputHandler = gameManager.InputHandler;
+            inputHandler.InputModeChanged += OnInputModeChanged;
         }
 
         public void OnTrashPressed()
@@ -20,21 +28,18 @@ namespace Scavenger.UI
 
         public void OnSlotDisplayPressed(SlotDisplay slotDisplay)
         {
-            // Auto take if no item is held
-            if (heldItemHandler.IsEmpty())
-            {
-                heldItemHandler.TakeItemsFrom(slotDisplay.Buffer, slotDisplay.Slot);
-                return;
-            }
-
+            bool noItemHeld = heldItemHandler.IsEmpty();
             ItemStack displayStack = slotDisplay.GetItemInSlot();
-            if (!displayStack)
+
+            // Immediately end interaction if slot is empty and no item is held
+            if (noItemHeld && !displayStack)  
             {
-                heldItemHandler.MoveItemsTo(slotDisplay.Buffer, slotDisplay.Slot);
                 return;
             }
 
-            
+            // Automatically set to interact mode
+            inputHandler.InputMode = InputMode.Interact;
+
             // Try inserting held item first
             int itemsInserted = heldItemHandler.MoveItemsTo(slotDisplay.Buffer, slotDisplay.Slot);
             if (itemsInserted > 0)
@@ -51,7 +56,11 @@ namespace Scavenger.UI
 
             // If no items were extracted, swap stacks
             heldItemHandler.Swap(slotDisplay.Buffer, slotDisplay.Slot);
+        }
 
+        private void OnInputModeChanged(InputMode _)
+        {
+            heldItemHandler.Dump(inventory);
         }
     }
 }

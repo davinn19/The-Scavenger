@@ -23,7 +23,10 @@ namespace Scavenger
         public event Action<Vector2Int> NeighborPlaced;
         public event Action NeighborChanged;
         public event Action SelfChanged;
+
         public Func<ItemBuffer, HeldItemHandler, Vector2Int, bool> TryInteract;
+        public Func<Vector2Int, bool> TryEdit;
+        public Func<ItemStack> GetRemoveDrops;
 
         [field: SerializeField] public GridObjectUIContent UIContent { get; private set; }
 

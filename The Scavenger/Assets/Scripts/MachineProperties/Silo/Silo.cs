@@ -17,6 +17,7 @@ namespace Scavenger
             Buffer = GetComponent<ItemBuffer>();
             gridObject = GetComponent<GridObject>();
             gridObject.TryInteract = Interact;
+            gridObject.TryEdit = (_) => { ToggleLock(); return true; };
         }
 
         /// <summary>
@@ -41,6 +42,13 @@ namespace Scavenger
             return true;
         }
 
-
+        /// <summary>
+        /// Toggles the silo's locked status.
+        /// </summary>
+        private void ToggleLock()
+        {
+            Buffer.ToggleLocked(0);
+            gridObject.OnSelfChanged();
+        }
     }
 }
