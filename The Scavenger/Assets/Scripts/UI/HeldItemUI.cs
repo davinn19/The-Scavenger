@@ -16,7 +16,7 @@ namespace Scavenger.UI
         private RectTransform rectTransform;
         private SlotDisplay heldItemDisplay;
 
-        private void Awake()
+        private void Start()
         {
             gameUI = GetComponentInParent<GameUI>();
             rectTransform = transform as RectTransform;

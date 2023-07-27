@@ -9,10 +9,10 @@ namespace Scavenger.UI
     /// </summary>
     public class SlotDisplay : MonoBehaviour
     {
-        public ItemBuffer Buffer { get; private set; }
-        public int Slot { get; private set; }
+        [field: SerializeField] public ItemBuffer Buffer { get; private set; }
+        [field: SerializeField] public int Slot { get; private set; }
 
-        [SerializeField] private Image itemImage;
+        [field: SerializeField] private Image itemImage;
         private TextMeshProUGUI stackAmountDisplay;
 
         private void Awake()

@@ -20,6 +20,7 @@ namespace Scavenger
             HeldItemBuffer.SlotChanged += InvokeChangedEvent;
         }
 
+
         /// <summary>
         /// Invokes the changed event whenever the held item is changed.
         /// </summary>

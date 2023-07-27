@@ -13,7 +13,7 @@ namespace Scavenger
         private SpriteRenderer spriteRenderer;
         private Clickable clickable;
 
-        private ItemStack itemStack;
+        [SerializeField] private ItemStack itemStack;
 
         private void Awake()
         {

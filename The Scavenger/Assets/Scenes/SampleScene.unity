@@ -1855,7 +1855,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b81503cce984de646a4581a5555240bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heldItem: {fileID: 0}
+  heldItem: {fileID: 1266588975}
 --- !u!1001 &320819317
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2289,7 +2289,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 5, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &361018883
@@ -7942,7 +7942,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 5, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1111437003
@@ -8881,8 +8881,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1266588974}
-  - component: {fileID: 1266588976}
   - component: {fileID: 1266588975}
+  - component: {fileID: 1266588976}
   m_Layer: 0
   m_Name: HeldItemHandler
   m_TagString: Untagged
