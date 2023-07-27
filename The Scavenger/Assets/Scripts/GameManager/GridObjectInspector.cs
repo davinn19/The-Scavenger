@@ -9,16 +9,14 @@ namespace Scavenger
     /// </summary>
     public class GridObjectInspector : MonoBehaviour
     {
-        private Vector2Int inspectedPos;
+        public Vector2Int InspectedPos { get; private set; }
+        public bool InspectEnabled { get; private set; }
 
         private Controls controls;
         private InputAction inspect;
 
         private InputHandler inputHandler;
         private GridMap map;
-        private GameManager gameManager;
-
-        private bool inspectEnabled = false;
 
         public event Action InspectedObjectChanged;
 
@@ -51,15 +49,13 @@ namespace Scavenger
         /// <returns>The gridObject at the inspected gridPos.</returns>
         public GridObject GetInspectedObject()
         {
-            if (!inspectEnabled)
+            if (!InspectEnabled)
             {
                 return null;
             }
 
-            return gameManager.Map.GetObjectAtPos(inspectedPos);
+            return map.GetObjectAtPos(InspectedPos);
         }
-
-        // TODO implement inspector indicator elsewhere
 
         /// <summary>
         /// Invokes changed event when the inspected position is changed.
@@ -68,14 +64,14 @@ namespace Scavenger
         {
             if (inputHandler.OverGUI)
             {
-                inspectEnabled = false;
-                inspectedPos = Vector2Int.zero;
+                InspectEnabled = false;
+                InspectedPos = Vector2Int.zero;
                 return;
             }
             else
             {
-                inspectEnabled = true;
-                inspectedPos = inputHandler.HoveredGridPos;
+                InspectEnabled = true;
+                InspectedPos = inputHandler.HoveredGridPos;
             }
 
             InspectedObjectChanged?.Invoke();
@@ -87,7 +83,7 @@ namespace Scavenger
         /// <param name="changedPos">The gridPos that was just changed on the map.</param>
         private void OnViewedObjectSet(Vector2Int changedPos)
         {
-            if (changedPos == inspectedPos)
+            if (changedPos == InspectedPos)
             {
                 InspectedObjectChanged?.Invoke();
             }

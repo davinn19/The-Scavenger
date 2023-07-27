@@ -35,6 +35,10 @@ namespace Scavenger
             for (int i = 0; i < Slots.Length; i++)
             {
                 ItemStack itemStack = GetItemInSlot(i);
+                if (itemStack.Amount <= 0)
+                {
+                    itemStack.Amount = 1;
+                }
                 itemStack.Amount = Mathf.Min(itemStack.Amount, MaxCapacity);
                 resizedSlots[i] = itemStack;
             }

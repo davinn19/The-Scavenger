@@ -4914,7 +4914,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <MaxCapacity>k__BackingField: 100
   <NumSlots>k__BackingField: 28
-  <Slots>k__BackingField: []
+  <Slots>k__BackingField:
+  - <Item>k__BackingField: {fileID: 11400000, guid: 96a34f6fc5088c5419518cecc54db470, type: 2}
+    Amount: 0
+  - <Item>k__BackingField: {fileID: 11400000, guid: cb6611beb8217b442a972dc2e3ca005e, type: 2}
+    Amount: 0
+  - <Item>k__BackingField: {fileID: 11400000, guid: 436c4ea4ba6c7fd4a9749b7c32c1baa9, type: 2}
+    Amount: 0
+  - <Item>k__BackingField: {fileID: 11400000, guid: 0880e46e43f0c7844a42e0ae2912a6cb, type: 2}
+    Amount: 0
+  - <Item>k__BackingField: {fileID: 11400000, guid: ca00fa6b515b3f3478d5800ee2483d41, type: 2}
+    Amount: 0
+  - <Item>k__BackingField: {fileID: 11400000, guid: bb9d0c6617e6fe64f9094b818026390b, type: 2}
+    Amount: 0
+  - <Item>k__BackingField: {fileID: 11400000, guid: dca9a5f9d69630742a722801d2ccaff0, type: 2}
+    Amount: 0
+  - <Item>k__BackingField: {fileID: 11400000, guid: 5540fd200c50bb24682223f08b3fcbac, type: 2}
+    Amount: 0
+  - <Item>k__BackingField: {fileID: 11400000, guid: 18d46571aa3e4154c8ac6b9da101109c, type: 2}
+    Amount: 0
+  - <Item>k__BackingField: {fileID: 11400000, guid: 4749a09cc431f8643a80898f7b07c16f, type: 2}
+    Amount: 0
+  - <Item>k__BackingField: {fileID: 11400000, guid: 8be0e1af319d4f249ad306127adde586, type: 2}
+    Amount: 0
+  - <Item>k__BackingField: {fileID: 11400000, guid: e9983f9720fb1484a975da3831142444, type: 2}
+    Amount: 0
+  - <Item>k__BackingField: {fileID: 11400000, guid: 764ee4002e80a554fa1e2a1cb14df28a, type: 2}
+    Amount: 0
 --- !u!1001 &749021569
 PrefabInstance:
   m_ObjectHideFlags: 0
