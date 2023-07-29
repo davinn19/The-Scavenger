@@ -83,6 +83,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24c70c74f159a0149981035ca62abe6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Buffer>k__BackingField: {fileID: 0}
+  <Slot>k__BackingField: 0
   itemImage: {fileID: 5512776650945743390}
 --- !u!1 &1842927149957101839
 GameObject:
@@ -229,7 +231,7 @@ MonoBehaviour:
   m_text: 99
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 146d1a0bc2db725438a56439ce509a92, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

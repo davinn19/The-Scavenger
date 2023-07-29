@@ -11,5 +11,30 @@ namespace Scavenger
 
         // TODO add docs
 
+        public List<CraftingRecipe> GetRecipes(string search, FilterMode filterMode)
+        {
+            List<CraftingRecipe> results = new();
+            
+            foreach (CraftingRecipe recipe in recipes.recipes)
+            {
+                if (!recipe.result.Item.DisplayName.Contains(search))
+                {
+                    continue;
+                }
+
+                // TODO implement
+            }
+
+            return results;
+        }
+
+        public enum FilterMode
+        { 
+            All,
+            HaveIngredient,
+            Craftable
+        }
+
+
     }
 }

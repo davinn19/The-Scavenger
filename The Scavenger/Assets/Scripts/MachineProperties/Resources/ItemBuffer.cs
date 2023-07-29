@@ -120,8 +120,9 @@ namespace Scavenger
         /// </summary>
         /// <param name="slot">The slot to extract from.</param>
         /// <param name="amount">The amount to attempt extracting.</param>
+        /// <param name="simulate">If true, will not change the itemStack's amount.</param>
         /// <returns>The amount extracted.</returns>
-        public int Extract(int slot, int amount)
+        public int Extract(int slot, int amount, bool simulate = false)
         {
             ItemStack extractedStack = GetItemInSlot(slot);
 
@@ -133,14 +134,18 @@ namespace Scavenger
 
             int amountExtracted = Mathf.Min(extractedStack.Amount, amount);
 
-            extractedStack.Amount -= amountExtracted;
-            if (extractedStack.IsEmpty() && !IsLocked(slot))
+            // Don't actually make changes if simulate is true
+            if (!simulate)
             {
-                extractedStack.Clear();
+                extractedStack.Amount -= amountExtracted;
+                if (extractedStack.IsEmpty() && !IsLocked(slot))
+                {
+                    extractedStack.Clear();
+                }
+
+                SlotChanged?.Invoke(slot);
             }
 
-            SlotChanged?.Invoke(slot);
-            
             return amountExtracted;
         }
 
@@ -245,6 +250,64 @@ namespace Scavenger
 
                 return (insertsRemaining == 0 || itemStack.Amount == 0);    // Returns true if loop should be stopped
             }
+        }
+
+        // TODO implement, add docs
+        // Will factor in data
+        public int Extract(ItemStack itemStack, int amount = int.MaxValue, bool simulate = false)
+        {
+            // Ignore if itemStack is empty
+            if (!itemStack || itemStack.IsEmpty())
+            {
+                return 0;
+            }
+
+            int extractsRemaining = amount;
+
+            for (int slot = 0; slot < NumSlots; slot++)
+            {
+                ItemStack slotStack = GetItemInSlot(slot);
+                if (!slotStack || !itemStack.IsStackable(slotStack))
+                {
+                    continue;
+                }
+
+                int amountExtracted = Extract(slot, extractsRemaining, simulate);
+                extractsRemaining -= amountExtracted;
+
+                if (extractsRemaining == 0)
+                {
+                    return amount;
+                }
+            }
+
+            return amount - extractsRemaining;
+        }
+
+        // TODO implement, add docs, combine with include data version of this function
+        // Will ignore data
+        public int Extract(Item item, int amount = int.MaxValue, bool simulate = false)
+        {
+            int extractsRemaining = amount;
+
+            for (int slot = 0; slot < NumSlots; slot++)
+            {
+                ItemStack slotStack = GetItemInSlot(slot);
+                if (!slotStack || slotStack.Item != item)
+                {
+                    continue;
+                }
+
+                int amountExtracted = Extract(slot, extractsRemaining, simulate);
+                extractsRemaining -= amountExtracted;
+
+                if (extractsRemaining == 0)
+                {
+                    return amount;
+                }
+            }
+
+            return amount - extractsRemaining;
         }
 
         /// <summary>
