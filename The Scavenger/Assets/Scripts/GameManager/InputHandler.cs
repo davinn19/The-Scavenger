@@ -39,7 +39,6 @@ namespace Scavenger
         private Controls controls;
         private InputAction pointerHover;
         private InputAction pointerPressed;
-        private InputAction inspect;
 
         private void Awake()
         {
@@ -55,17 +54,12 @@ namespace Scavenger
             pointerPressed = controls.GridMap.PlaceInteractItem;
             pointerPressed.Enable();
             pointerPressed.performed += OnPointerClicked;
-
-            inspect = controls.GridMap.ViewGridObject;
-            inspect.Enable();
-            inspect.performed += OnInspect;
         }
 
         private void OnDisable()
         {
             pointerHover.Disable();
             pointerPressed.Disable();
-            inspect.Disable();
         }
 
         /// <summary>
@@ -143,17 +137,6 @@ namespace Scavenger
                 PointerClicked?.Invoke(InputMode);
             }
         }
-
-        // TODO add docs
-
-        private void OnInspect(InputAction.CallbackContext _)
-        { 
-            if (!OverGUI)
-            {
-                InputMode = InputMode.Inspect;
-                OnPointerClicked(_);
-            }
-        }
     }
 
     public enum InputMode
@@ -161,6 +144,6 @@ namespace Scavenger
         Interact,
         Edit,
         Remove,
-        Inspect
+        Target
     }
 }

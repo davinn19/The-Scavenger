@@ -107,7 +107,112 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: InventoryIcons_0
+      name: Edit
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 100
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2632fce8b929ae543b89fe5d44aa925f
+      internalID: 1861193730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Interact
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 100
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 757ff9c37d1332942aca4ab4e51035cd
+      internalID: -1196348536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trash
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 100
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea0533253b97c9e47afbc6ad2ed2943b
+      internalID: -176987732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Remove
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 100
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b42d0a5bbd08b134781b920741644eaf
+      internalID: -618475341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inspect
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 100
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 129e873ea131bd24e867b04093355f79
+      internalID: -1437181768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Target
       rect:
         serializedVersion: 2
         x: 0
@@ -115,20 +220,20 @@ TextureImporter:
         width: 100
         height: 100
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 155adb9e908f69740bfbbd407f766a38
-      internalID: -967693485
+      spriteID: 2e76acbee10ec8848b8b788566adda7c
+      internalID: -1042745126
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: InventoryIcons_1
+      name: UIIcons_6
       rect:
         serializedVersion: 2
         x: 100
@@ -136,20 +241,20 @@ TextureImporter:
         width: 100
         height: 100
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c9dd88209829264409badd853d627fd6
-      internalID: -1221314514
+      spriteID: f86b18e088a3baf4fa9f039d29afb5fe
+      internalID: -240113166
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: InventoryIcons_2
+      name: UIIcons_7
       rect:
         serializedVersion: 2
         x: 200
@@ -157,20 +262,20 @@ TextureImporter:
         width: 100
         height: 100
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e958cc15a23265244ae6e4bf6f23cfe2
-      internalID: -1743660978
+      spriteID: 932789d20173a294fbb1d4a5ff43018c
+      internalID: -914207607
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: InventoryIcons_3
+      name: UIIcons_8
       rect:
         serializedVersion: 2
         x: 300
@@ -178,20 +283,20 @@ TextureImporter:
         width: 100
         height: 100
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a63dd979df116214ab29f756b70c6381
-      internalID: -117169682
+      spriteID: a2b4255ec4100b345ba4cbed6d051901
+      internalID: -1520676975
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: InventoryIcons_4
+      name: UIIcons_9
       rect:
         serializedVersion: 2
         x: 400
@@ -199,14 +304,14 @@ TextureImporter:
         width: 100
         height: 100
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 99e3fabd6185bf54da44e2bde57d0f03
-      internalID: -1606655988
+      spriteID: efc4800cc8c0d5e43ad744041bb8e5e8
+      internalID: 32691452
       vertices: []
       indices: 
       edges: []
@@ -222,11 +327,16 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      InventoryIcons_0: -967693485
-      InventoryIcons_1: -1221314514
-      InventoryIcons_2: -1743660978
-      InventoryIcons_3: -117169682
-      InventoryIcons_4: -1606655988
+      Edit: 1861193730
+      Inspect: -1437181768
+      Interact: -1196348536
+      Remove: -618475341
+      Target: -1042745126
+      Trash: -176987732
+      UIIcons_6: -240113166
+      UIIcons_7: -914207607
+      UIIcons_8: -1520676975
+      UIIcons_9: 32691452
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

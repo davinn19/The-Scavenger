@@ -37,20 +37,13 @@ namespace Scavenger
             switch (inputMode)
             {
                 case InputMode.Interact:
-                    // Check for clickables first
-                    if (TryInteractClickable())
-                    {
-                        return;
-                    }
-
-                    // Try placing object next
+                    // Try placing object first
                     if (Map.TryPlaceItem(HeldItemHandler, gridPos))
                     {
                         return;
                     }
 
                     // Try having grid object handle interaction next
-                    
                     if (Map.TryObjectInteract(Inventory, HeldItemHandler, gridPos, sidePressed))
                     {
                         return;
@@ -71,20 +64,14 @@ namespace Scavenger
                 case InputMode.Remove:
                     // TODO implement
                     break;
+                case InputMode.Target:
+                    Clickable clickable = InputHandler.GetClickableUnderPointer();
+                    if (clickable)
+                    {
+                        clickable.OnClick(this);
+                    }
+                    break;
             }
-        }
-
-        // TODO add docs
-        private bool TryInteractClickable()
-        {
-            Clickable clickable = InputHandler.GetClickableUnderPointer();
-            if (clickable)
-            {
-                clickable.OnClick(this);
-                return true;
-            }
-
-            return false;
         }
     }
 }

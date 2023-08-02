@@ -1388,7 +1388,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -117169682, guid: 585ba8498d41a1d4bb9f05485eb443dc, type: 3}
+  m_Sprite: {fileID: -618475341, guid: 585ba8498d41a1d4bb9f05485eb443dc, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1716,7 +1716,7 @@ GameObject:
   - component: {fileID: 339110512}
   - component: {fileID: 339110515}
   m_Layer: 5
-  m_Name: View
+  m_Name: Target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1850,7 +1850,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   header: Target Mode
-  description: Only interact with entities.
+  description: Pick up floating items and interact with entities.
   customContent: {fileID: 0}
 --- !u!1001 &349477391
 PrefabInstance:
@@ -3310,7 +3310,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1606655988, guid: 585ba8498d41a1d4bb9f05485eb443dc, type: 3}
+  m_Sprite: {fileID: -1042745126, guid: 585ba8498d41a1d4bb9f05485eb443dc, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -12220,7 +12220,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -967693485, guid: 585ba8498d41a1d4bb9f05485eb443dc, type: 3}
+  m_Sprite: {fileID: 1861193730, guid: 585ba8498d41a1d4bb9f05485eb443dc, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -13819,7 +13819,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1221314514, guid: 585ba8498d41a1d4bb9f05485eb443dc, type: 3}
+  m_Sprite: {fileID: -1196348536, guid: 585ba8498d41a1d4bb9f05485eb443dc, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -14240,5 +14240,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   header: Interact Mode
-  description: Use items on the map and interact with entities.
+  description: Use items on the map.
   customContent: {fileID: 0}

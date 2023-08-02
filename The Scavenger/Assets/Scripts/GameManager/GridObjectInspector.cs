@@ -12,8 +12,11 @@ namespace Scavenger
         public Vector2Int InspectedPos { get; private set; }
         public bool InspectEnabled { get; private set; }
 
-        private InputHandler inputHandler;
         private GridMap map;
+
+        private InputHandler inputHandler;
+        private Controls controls;
+        private InputAction inspect;
 
         public event Action InspectedObjectChanged;
 
@@ -22,12 +25,23 @@ namespace Scavenger
             GameManager gameManager = GetComponent<GameManager>();
 
             inputHandler = gameManager.InputHandler;
-            inputHandler.PointerClicked += OnPointerClick;
+            controls = new Controls();
 
             map = gameManager.Map;
             map.GridObjectSet += OnViewedObjectSet;
         }
 
+        private void OnEnable()
+        {
+            inspect = controls.GridMap.ViewGridObject;
+            inspect.Enable();
+            inspect.performed += OnInspect;
+        }
+
+        private void OnDisable()
+        {
+            inspect.Disable();
+        }
 
         /// <summary>
         /// Gets the gridObject at the current inspected gridPos.
@@ -43,10 +57,10 @@ namespace Scavenger
             return map.GetObjectAtPos(InspectedPos);
         }
 
-        // TODO add docs, rethink inputs
-        private void OnPointerClick(InputMode inputMode)
+        // TODO add docs, move input detection to input handler
+        private void OnInspect(InputAction.CallbackContext _)
         {
-            if (inputMode != InputMode.Inspect)
+            if (inputHandler.OverGUI)
             {
                 return;
             }
