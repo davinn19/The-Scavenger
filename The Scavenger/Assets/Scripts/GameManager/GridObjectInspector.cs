@@ -49,11 +49,6 @@ namespace Scavenger
         /// <returns>The gridObject at the inspected gridPos.</returns>
         public GridObject GetInspectedObject()
         {
-            if (!InspectEnabled)
-            {
-                return null;
-            }
-
             return map.GetObjectAtPos(InspectedPos);
         }
 
@@ -65,18 +60,16 @@ namespace Scavenger
                 return;
             }
 
+            // Prevent multiple UI redraws when clicking on the same position
             Vector2Int pressedPos = inputHandler.HoveredGridPos;
+            if (InspectEnabled && InspectedPos == pressedPos)
+            {
+                return;
+            }
 
-            if (pressedPos == InspectedPos)
-            {
-                InspectEnabled = false;
-                InspectedPos = Vector2Int.zero;
-            }
-            else
-            {
-                InspectEnabled = true;
-                InspectedPos = inputHandler.HoveredGridPos;
-            }
+            InspectedPos = pressedPos;
+            InspectEnabled = GetInspectedObject();  // Disables inspect mode if inspecting on an empty space
+
             InspectedObjectChanged?.Invoke();
         }
 
@@ -86,10 +79,22 @@ namespace Scavenger
         /// <param name="changedPos">The gridPos that was just changed on the map.</param>
         private void OnViewedObjectSet(Vector2Int changedPos)
         {
-            if (changedPos == InspectedPos)
+            // Ignore if the changed pos is not the one being inspected
+            if (changedPos != InspectedPos)
             {
-                InspectedObjectChanged?.Invoke();
+                return;
             }
+
+            // Ignore if inspector is already disabled, cannot be reactivated
+            if (!InspectEnabled)
+            {
+                return;
+            }
+
+            // Disables inspect mode if now inspecting on an empty space
+            InspectEnabled = GetInspectedObject();  
+
+            InspectedObjectChanged?.Invoke();
         }
     }
 }

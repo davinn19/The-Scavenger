@@ -38,22 +38,27 @@ namespace Scavenger.UI
         /// </summary>
         private void UpdateAppearance()
         {
-            GridObject gridObject = gridObjectInspector.GetInspectedObject();
+            if (!gridObjectInspector.InspectEnabled)
+            {
+                ShowUI(false);
+                return;
+            }
 
+            GridObject gridObject = gridObjectInspector.GetInspectedObject();
             if (!gridObject)
             {
                 ShowUI(false);
+                return;
             }
-            else
-            {
-                ShowUI(true);
 
-                gridObjectIcon.sprite = gridObject.GetComponent<SpriteRenderer>().sprite;
-                gridObjectName.text = gridObject.name;
-                healthBar.UpdateAppearance(gridObject.HP.Health, gridObject.HP.MaxHealth);
+            ShowUI(true);
 
-                SetContent(gridObject);
-            }
+            gridObjectIcon.sprite = gridObject.GetComponent<SpriteRenderer>().sprite;
+            gridObjectName.text = gridObject.name;
+            healthBar.UpdateAppearance(gridObject.HP.Health, gridObject.HP.MaxHealth);
+
+            SetContent(gridObject);
+
         }
 
         /// <summary>

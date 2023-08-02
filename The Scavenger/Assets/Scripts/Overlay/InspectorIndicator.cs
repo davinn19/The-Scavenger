@@ -22,7 +22,7 @@ namespace Scavenger
         /// </summary>
         private void UpdateAppearance()
         {
-            if (!inspector.InspectEnabled)
+            if (!inspector.InspectEnabled || !inspector.GetInspectedObject())
             {
                 gameObject.SetActive(false);
                 return;

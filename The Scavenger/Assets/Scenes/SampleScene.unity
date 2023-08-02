@@ -1850,7 +1850,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   header: Target Mode
-  description: Pick up floating items and interact with entities.
+  description: Only interact with entiites.
   customContent: {fileID: 0}
 --- !u!1001 &349477391
 PrefabInstance:
@@ -6502,7 +6502,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1743660978, guid: 585ba8498d41a1d4bb9f05485eb443dc, type: 3}
+  m_Sprite: {fileID: -176987732, guid: 585ba8498d41a1d4bb9f05485eb443dc, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -14240,5 +14240,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   header: Interact Mode
-  description: Use items on the map.
+  description: Use items on the map and interact with entities.
   customContent: {fileID: 0}
