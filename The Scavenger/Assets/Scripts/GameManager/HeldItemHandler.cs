@@ -106,8 +106,7 @@ namespace Scavenger
             // Converts remainder to floating item
             if (remainder > 0)
             {
-                ItemStack floatingItemStack = new ItemStack(HeldItemBuffer.GetItemInSlot(0));
-                floatingItemStack.Amount = remainder;
+                ItemStack floatingItemStack = new ItemStack(HeldItemBuffer.GetItemInSlot(0), remainder);
 
                 itemDropper.CreateFloatingItem(floatingItemStack, inputHandler.HoveredWorldPos);
             }

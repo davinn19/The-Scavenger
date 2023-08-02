@@ -38,6 +38,32 @@ namespace Scavenger
         }
 
         /// <summary>
+        /// Searches the map in a squarefor gridObjects that satisfy a condition.
+        /// </summary>
+        /// <param name="origin">The center of the search square.</param>
+        /// <param name="radius">How many rings to expand the search square by (if radius = 0, only search the origin).</param>
+        /// <param name="condition">The condition gridObjects must satisfy.</param>
+        /// <returns>List of satisfying gridObjects.</returns>
+        public List<GridObject> Search(Vector2Int origin, int radius, Predicate<GridObject> condition)
+        {
+            List<GridObject> results = new();
+            for (int x = origin.x - radius; x <= origin.x + radius; x++)
+            {
+                for (int y = origin.y - radius; y <= origin.y + radius; y++)
+                {
+                    Vector2Int gridPos = new(x, y);
+                    GridObject gridObject = GetObjectAtPos(gridPos);
+
+                    if (condition(gridObject))
+                    {
+                        results.Add(gridObject);
+                    }
+                }
+            }
+            return results;
+        }
+
+        /// <summary>
         /// Checks if a position is permanently supported.
         /// </summary>
         /// <param name="gridPos">Position to check.</param>
@@ -199,6 +225,16 @@ namespace Scavenger
         public static Vector2 GetCenterOfTile(Vector2Int gridPos)
         {
             return gridPos + Vector2.one * 0.5f;
+        }
+
+        /// <summary>
+        /// Converts world position to grid position.
+        /// </summary>
+        /// <param name="worldPos">World position to convert.</param>
+        /// <returns>Equivalent grid position.</returns>
+        public static Vector2Int GetGridPos(Vector2 worldPos)
+        {
+            return new Vector2Int(Mathf.FloorToInt(worldPos.x), Mathf.FloorToInt(worldPos.y));
         }
 
     }

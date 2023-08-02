@@ -15,9 +15,9 @@ namespace Scavenger.UI.UIContent
         [SerializeField] private Button lockButton;
         [SerializeField] private TextMeshProUGUI lockButtonText;
 
-        public override void Init(GridObject gridObject)
+        public override void Init(GridObject gridObject, ItemBuffer inventory)
         {
-            base.Init(gridObject);
+            base.Init(gridObject, inventory);
 
             silo = gridObject.GetComponent<Silo>();
             silo.Buffer.SlotChanged += (_) => UpdateLockButtonStatus();

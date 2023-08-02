@@ -10,22 +10,25 @@ namespace Scavenger.UI
     /// </summary>
     public class GridObjectInspectorUI : MonoBehaviour
     {
-        [SerializeField] private GridObjectInspector gridObjectInspector;
+        [SerializeField] private GameManager gameManager;
+        private GridObjectInspector gridObjectInspector;
+        private ItemBuffer inventory;
+
         [SerializeField] private TextMeshProUGUI gridObjectName;
         [SerializeField] private Image gridObjectIcon;
-
-        private Image background;
         private ProgressBar healthBar;
 
         private GridObjectUIContent content = null;
 
         private void Awake()
         {
-            background = GetComponent<Image>();
             healthBar = GetComponentInChildren<ProgressBar>();
             healthBar.Prefix = "HP: ";
 
+            gridObjectInspector = gameManager.GridObjectInspector;
             gridObjectInspector.InspectedObjectChanged += UpdateAppearance;
+
+            inventory = gameManager.Inventory;
 
             ShowUI(false);
         }
@@ -64,8 +67,6 @@ namespace Scavenger.UI
                 GameObject child = transform.GetChild(i).gameObject;
                 child.SetActive(active);
             }
-
-            background.enabled = active;
         }
 
         /// <summary>
@@ -88,7 +89,7 @@ namespace Scavenger.UI
             else
             {
                 content = Instantiate(viewedObject.UIContent, transform);
-                content.Init(viewedObject);
+                content.Init(viewedObject, inventory);
             }
         }
     }

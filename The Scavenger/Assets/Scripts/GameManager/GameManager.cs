@@ -8,18 +8,20 @@ namespace Scavenger
     /// </summary>
     public class GameManager : MonoBehaviour    // TODO add docs
     {
+        [field: SerializeField] public GameObject Player;
         [field: SerializeField] public ItemBuffer Inventory { get; private set; }
         [field: SerializeField] public GridMap Map { get; private set; }
         public HeldItemHandler HeldItemHandler { get; private set; }
         public InputHandler InputHandler { get; private set; }
         public ItemDropper ItemDropper { get; private set; }
+        public GridObjectInspector GridObjectInspector { get; private set; }
         
-
 
         private void Awake()
         {
             ItemDropper = GetComponent<ItemDropper>();
             HeldItemHandler = GetComponentInChildren<HeldItemHandler>();
+            GridObjectInspector = GetComponent<GridObjectInspector>();
 
             InputHandler = GetComponent<InputHandler>();
             InputHandler.PointerClicked += OnPointerClick;
@@ -84,8 +86,5 @@ namespace Scavenger
 
             return false;
         }
-
-       
-
     }
 }

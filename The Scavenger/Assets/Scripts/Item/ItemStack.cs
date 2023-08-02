@@ -31,7 +31,8 @@ namespace Scavenger
             }
         }
 
-        public ItemStack(ItemStack otherStack) : this(otherStack.Item, otherStack.Amount, new Dictionary<string, string>(otherStack.data)) { }
+        public ItemStack(ItemStack otherStack, int newAmount) : this(otherStack.Item, newAmount, new Dictionary<string, string>(otherStack.data)) { }
+        public ItemStack(ItemStack otherStack) : this(otherStack.Item, otherStack.Amount) { }
 
         public ItemStack() => Clear();
 

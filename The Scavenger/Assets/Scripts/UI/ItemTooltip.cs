@@ -14,8 +14,8 @@ namespace Scavenger.UI
         private ItemUIContent content;
         private RectTransform rectTransform;
 
-        private SlotDisplay m_hoveredDisplay;
-        private SlotDisplay HoveredDisplay
+        private ItemStackDisplay m_hoveredDisplay;
+        private ItemStackDisplay HoveredDisplay
         {
             get { return m_hoveredDisplay; }
             set
@@ -27,14 +27,14 @@ namespace Scavenger.UI
 
                 if (m_hoveredDisplay != null)
                 {
-                    m_hoveredDisplay.Buffer.SlotChanged -= OnSlotChanged;
+                    m_hoveredDisplay.ItemStackChanged -= OnDisplayChanged;
                     m_hoveredDisplay = null;
                 }
 
                 if (value != null)
                 {
                     m_hoveredDisplay = value;
-                    HoveredDisplay.Buffer.SlotChanged += OnSlotChanged;
+                    HoveredDisplay.ItemStackChanged += OnDisplayChanged;
                 }
 
                 UpdateAppearance();
@@ -70,30 +70,27 @@ namespace Scavenger.UI
         /// <param name="hoveredElement">The hovered display.</param>
         private void OnHoveredElementChanged(GameObject hoveredElement)
         {
-            if (hoveredElement == null || !hoveredElement.TryGetComponent(out ClickableSlotDisplay clickedDisplay))
+            if (hoveredElement == null || !hoveredElement.TryGetComponent(out ItemStackDisplay stackDisplay))
             {
                 HoveredDisplay = null;
                 return;
             }
 
-            HoveredDisplay = clickedDisplay.SlotDisplay;
+            HoveredDisplay = stackDisplay;
         }
 
         /// <summary>
         /// Invokes an update when the slot display's contents changes.
         /// </summary>
         /// <param name="slot"></param>
-        private void OnSlotChanged(int slot)
+        private void OnDisplayChanged()
         {
             if (HoveredDisplay == null)
             {
                 return;
             }
+            UpdateAppearance();
 
-            if (HoveredDisplay.Slot == slot)
-            {
-                UpdateAppearance();
-            }
         }
 
         /// <summary>
@@ -109,7 +106,7 @@ namespace Scavenger.UI
                 return;
             }
 
-            ItemStack itemStack = HoveredDisplay.GetItemInSlot();
+            ItemStack itemStack = HoveredDisplay.ItemStack;
             if (!itemStack)
             {
                 gameObject.SetActive(false);

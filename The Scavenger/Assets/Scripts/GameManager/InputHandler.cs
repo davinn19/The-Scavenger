@@ -82,7 +82,7 @@ namespace Scavenger
         private void UpdateHoveredPos(InputAction.CallbackContext _)
         {
             HoveredWorldPos = Camera.main.ScreenToWorldPoint(pointerHover.ReadValue<Vector2>());
-            HoveredGridPos = new Vector2Int(Mathf.FloorToInt(HoveredWorldPos.x), Mathf.FloorToInt(HoveredWorldPos.y));
+            HoveredGridPos = GridMap.GetGridPos(HoveredWorldPos);
             PointerMoved?.Invoke();
         }
 

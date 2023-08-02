@@ -73,7 +73,7 @@ namespace Scavenger.UI
         /// </summary>
         private void OnPointerMove(InputAction.CallbackContext _)
         {
-            if (overUI)
+            if (overUI)// TODO see if it hovered element should be set to null if not over ui
             {
                 UpdateHoveredElement();
             }
@@ -96,10 +96,9 @@ namespace Scavenger.UI
 
             foreach (RaycastResult result in results)
             {
-                Button hoveredElement = result.gameObject.GetComponent<Button>();
-                if (hoveredElement)
+                if (result.gameObject.TryGetComponent(out Button _))
                 {
-                    HoveredElement = hoveredElement.gameObject;
+                    HoveredElement = result.gameObject;
                     break;
                 }
             }
