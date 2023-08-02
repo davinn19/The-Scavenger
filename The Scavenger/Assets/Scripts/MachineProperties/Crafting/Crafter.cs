@@ -13,6 +13,11 @@ namespace Scavenger
         // TODO implement, add docs
         public int Craft(CraftingRecipe recipe, int requestedYield, ItemBuffer inventory)
         {
+            if (!recipe)
+            {
+                return 0;
+            }
+
             requestedYield = Mathf.Min(requestedYield, GetRecipeMaxYield(recipe, inventory));
 
             ItemStack resultProduced = new ItemStack(recipe.Result);

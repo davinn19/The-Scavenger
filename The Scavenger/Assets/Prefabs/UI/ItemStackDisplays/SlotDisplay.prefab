@@ -8,26 +8,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -4672520408222834194, guid: dafdec010e58f8144b8e24f23d6c9c4a, type: 3}
-      propertyPath: m_Transition
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -4672520408222834194, guid: dafdec010e58f8144b8e24f23d6c9c4a, type: 3}
-      propertyPath: m_TargetGraphic
-      value: 
-      objectReference: {fileID: 7186941246550778303}
-    - target: {fileID: -4672520408222834194, guid: dafdec010e58f8144b8e24f23d6c9c4a, type: 3}
-      propertyPath: m_Colors.m_PressedColor.b
-      value: 0.44
-      objectReference: {fileID: 0}
-    - target: {fileID: -4672520408222834194, guid: dafdec010e58f8144b8e24f23d6c9c4a, type: 3}
-      propertyPath: m_Colors.m_PressedColor.g
-      value: 0.44
-      objectReference: {fileID: 0}
-    - target: {fileID: -4672520408222834194, guid: dafdec010e58f8144b8e24f23d6c9c4a, type: 3}
-      propertyPath: m_Colors.m_PressedColor.r
-      value: 0.44
-      objectReference: {fileID: 0}
     - target: {fileID: 609573387223906925, guid: dafdec010e58f8144b8e24f23d6c9c4a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -39,7 +19,7 @@ PrefabInstance:
     - target: {fileID: 609573387223906925, guid: dafdec010e58f8144b8e24f23d6c9c4a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 9132960907075208484}
+      objectReference: {fileID: 5396771423600048226}
     - target: {fileID: 609573387223906925, guid: dafdec010e58f8144b8e24f23d6c9c4a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -140,10 +120,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2781422059761570318, guid: dafdec010e58f8144b8e24f23d6c9c4a, type: 3}
-      propertyPath: <ShowAmount>k__BackingField
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7294920432652055051, guid: dafdec010e58f8144b8e24f23d6c9c4a, type: 3}
       propertyPath: m_Name
       value: SlotDisplay
@@ -154,14 +130,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7294920432652055051, guid: dafdec010e58f8144b8e24f23d6c9c4a, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 9132960907075208484}
+      addedObject: {fileID: 5396771423600048226}
   m_SourcePrefab: {fileID: 100100000, guid: dafdec010e58f8144b8e24f23d6c9c4a, type: 3}
 --- !u!1 &5591574804371396499 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7294920432652055051, guid: dafdec010e58f8144b8e24f23d6c9c4a, type: 3}
   m_PrefabInstance: {fileID: 2928888776424039832}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &9132960907075208484
+--- !u!114 &5396771423600048226
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -175,14 +151,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Buffer>k__BackingField: {fileID: 0}
   <Slot>k__BackingField: 0
---- !u!114 &7186941246550778303 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5411255475517850663, guid: dafdec010e58f8144b8e24f23d6c9c4a, type: 3}
-  m_PrefabInstance: {fileID: 2928888776424039832}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

@@ -8,7 +8,7 @@ namespace Scavenger
     /// <summary>
     /// Gives items a custom tooltip UI.
     /// </summary>
-    public class CustomUI : ItemProperty
+    public class CustomUI : ItemProperty    // TODO separate item properties into different namespace
     {
         public override string Name => "Custom UI";
 
