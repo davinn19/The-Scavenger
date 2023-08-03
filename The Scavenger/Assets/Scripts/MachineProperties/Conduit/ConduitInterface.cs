@@ -15,17 +15,12 @@ namespace Scavenger
     /// <typeparam name="T">The type of Buffer this ConduitInterface works with.</typeparam>
     public abstract class ConduitInterface<T> : ConduitInterface where T : Buffer
     {
-        /// <summary>
-        /// Gets available input buffers.
-        /// </summary>
-        /// <returns>List of input buffers.</returns>
-        public abstract List<T> GetInputs();
+        protected T Buffer { get; private set; }
 
-        /// <summary>
-        /// Gets available output buffers.
-        /// </summary>
-        /// <returns>List of output buffers.</returns>
-        public abstract List<T> GetOutputs();
+        private void Awake()
+        {
+            Buffer = GetComponent<T>();
+        }
     }
 
 }

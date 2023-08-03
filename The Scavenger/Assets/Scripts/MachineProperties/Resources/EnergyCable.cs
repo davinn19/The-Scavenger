@@ -6,23 +6,23 @@ namespace Scavenger
     /// <summary>
     /// Cable for transporting energy.
     /// </summary>
-    public class EnergyCable : Cable<EnergyBuffer>
+    public class EnergyCable : Cable<EnergyInterface>
     {
         protected override void TransportResource()
         {
-            List<EnergyBuffer> sources = GetSources();
+            List<EnergyInterface> sources = GetSources();
             if (sources.Count == 0)
             {
                 return;
             }
 
-            List<EnergyBuffer> destinations = GetDestinations();
+            List<EnergyInterface> destinations = GetDestinations();
             if (destinations.Count == 0)
             {
                 return;
             }
 
-            foreach (EnergyBuffer source in sources)
+            foreach (EnergyInterface source in sources)
             {
                 Distribute(source, destinations);
             }
@@ -33,24 +33,29 @@ namespace Scavenger
         /// Distributes energy from source buffer to destination buffers, capped at the cables transfer rate.
         /// Always closest-first, ignores conduit's distribution mode.
         /// </summary>
-        /// <param name="source">Buffer to extract energy from.</param>
-        /// <param name="destinations">Buffers to insert energy into.</param>
-        private void Distribute(EnergyBuffer source, List<EnergyBuffer> destinations)
+        /// <param name="source">Interface to extract energy from.</param>
+        /// <param name="destinations">Interfaces to insert energy into.</param>
+        private void Distribute(EnergyInterface source, List<EnergyInterface> destinations)
         {
-            int availableEnergy = Mathf.Min(source.Energy, Spec.TransferRate);
+            int availableEnergy = source.Extract(Spec.TransferRate, true);
             int energyTaken = 0;
 
-            foreach (EnergyBuffer destination in destinations)
+            foreach (EnergyInterface destination in destinations)
             {
                 if (availableEnergy == energyTaken)
                 {
                     break;
                 }
 
-                energyTaken += destination.InsertEnergy(availableEnergy - energyTaken);
+                if (destination == source)
+                {
+                    continue;
+                }
+
+                energyTaken += destination.Insert(availableEnergy - energyTaken, false);
             }
 
-            source.ExtractEnergy(energyTaken);
+            source.Extract(energyTaken, false);
         }
     }
 }

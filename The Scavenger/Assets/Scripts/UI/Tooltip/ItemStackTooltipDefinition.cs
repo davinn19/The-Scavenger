@@ -17,6 +17,8 @@ namespace Scavenger.UI
             display.ItemStackChanged += OnTargetChanged;
         }
 
+        public override bool IsVisible() => display.ItemStack;
+
         // expected to create an activated copy
         public override GameObject GetCustomContent()
         {

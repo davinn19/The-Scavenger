@@ -31,7 +31,7 @@ MonoBehaviour:
       Amount: 1
   - Ingredients:
     - <Item>k__BackingField: {fileID: 11400000, guid: 6e9d5b9e754da7247a07c6339de525be, type: 2}
-      Amount: 4
+      Amount: 5
     Result:
-      <Item>k__BackingField: {fileID: 11400000, guid: cb6611beb8217b442a972dc2e3ca005e, type: 2}
-      Amount: 16
+      <Item>k__BackingField: {fileID: 11400000, guid: ce3fa1b47de008c4684aec2d458bc816, type: 2}
+      Amount: 10

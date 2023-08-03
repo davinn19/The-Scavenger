@@ -12,6 +12,7 @@ namespace Scavenger
         public override string Name => "Simple Salvage";
 
         [SerializeField] private Item[] salvageDrops;
+        [SerializeField, Range(0, 1)] private float dropChance;
 
         /// <summary>
         /// Salvages one of the items in the stack.
@@ -45,7 +46,7 @@ namespace Scavenger
 
             foreach (Item drop in salvageDrops)
             {
-                if (Random.value < 0.25f)   // Each item in the loot table has a 25% chance to drop once.
+                if (Random.value < dropChance)
                 {
                     drops.Add(new ItemStack(drop, 1));
                 }

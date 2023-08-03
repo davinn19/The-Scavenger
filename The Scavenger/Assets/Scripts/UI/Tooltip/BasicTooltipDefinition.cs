@@ -11,6 +11,8 @@ namespace Scavenger.UI
         [SerializeField, Multiline] private string description;
         [SerializeField] private GameObject customContent;
 
+        public override bool IsVisible() => true;
+
         public override GameObject GetCustomContent()
         {
             return customContent;

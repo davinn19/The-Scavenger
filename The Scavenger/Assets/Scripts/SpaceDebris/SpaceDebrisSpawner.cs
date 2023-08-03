@@ -54,6 +54,7 @@ namespace Scavenger
         private void Spawn()
         {
             GameObject newDebris = Instantiate(spaceDebrisPrefabs[Random.Range(0, spaceDebrisPrefabs.Count)]);
+            newDebris.transform.position = transform.position;
 
             float speed = Random.Range(debrisSpeed, turbulence * debrisSpeed);
 

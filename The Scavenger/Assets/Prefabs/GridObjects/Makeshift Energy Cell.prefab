@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6546ea9d9b357204d97e64fcd54f3de6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridPos: {x: 0, y: 0}
+  <UIContent>k__BackingField: {fileID: 0}
 --- !u!114 &6310263074720075457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,6 +112,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a854dc0ec229134a90018277a04c963, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Capacity>k__BackingField: 0
+  <Energy>k__BackingField: 0
 --- !u!114 &6667584979610272898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,3 +126,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d6dc2c3292119546810214c320179d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  insertRateLimit: 0
+  extractRateLimit: 200

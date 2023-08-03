@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 108606e407689c8488b72818cc9bdaf2, type: 3}
-  m_Name: Conduit
+  m_Name: MakeshiftConduit
   m_EditorClassIdentifier: 
-  <DisplayName>k__BackingField: Conduit
-  <Icon>k__BackingField: {fileID: 897301293, guid: 8817f126f487cd547a51d07babb40a01, type: 3}
+  <DisplayName>k__BackingField: Makeshift Conduit
+  <Icon>k__BackingField: {fileID: 1668796229, guid: d9922c6d9e3a9d14f8fb66dbbc72dc58, type: 3}
+  <Description>k__BackingField: 
   properties:
-  - {fileID: 7229623108284642090}
---- !u!114 &7229623108284642090
+  - {fileID: 1221948378851731483}
+--- !u!114 &1221948378851731483
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -28,4 +29,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a61bb1bb4eb4354abc492618e20517f, type: 3}
   m_Name: Placed Object
   m_EditorClassIdentifier: 
-  <Object>k__BackingField: {fileID: 8536021005148730433, guid: dec16739443c4ed4c989e46b41531c5c, type: 3}
+  <Object>k__BackingField: {fileID: 426958930447536617, guid: 44284bf915737654bbdb5b21bd02b8dd, type: 3}

@@ -10,6 +10,6 @@ namespace Scavenger
     {
         public override string Name => "Placed Object";
 
-        [field: SerializeField, SearchContext("dir:Assets/Prefabs/GridObjects t:GridObject")] public GridObject Object { get; private set; }
+        [field: SerializeField, SearchContext("p: t:GridObject")] public GridObject Object { get; private set; }
     }
 }

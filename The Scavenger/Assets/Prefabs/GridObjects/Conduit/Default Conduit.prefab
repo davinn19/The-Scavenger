@@ -281,7 +281,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9049749892252452327}
-  - component: {fileID: 2546147353526469875}
   - component: {fileID: 120984789106149212}
   m_Layer: 0
   m_Name: Down
@@ -305,22 +304,6 @@ Transform:
   m_Father: {fileID: 7273099136595539204}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
---- !u!114 &2546147353526469875
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3250470142960958020}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_CategoryHash: 0
-  m_labelHash: 0
-  m_SpriteKey: 0
-  m_SpriteHash: 589080687
 --- !u!212 &120984789106149212
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -619,7 +602,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5504917845754374733}
-  - component: {fileID: 4386952471970719361}
   - component: {fileID: 812956250217217697}
   m_Layer: 0
   m_Name: Right
@@ -643,22 +625,6 @@ Transform:
   m_Father: {fileID: 7273099136595539204}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
---- !u!114 &4386952471970719361
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4996203866446984716}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_CategoryHash: 0
-  m_labelHash: 0
-  m_SpriteKey: 0
-  m_SpriteHash: 589080687
 --- !u!212 &812956250217217697
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1157,7 +1123,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2515310136954024381}
-  - component: {fileID: 5833702284176767958}
   - component: {fileID: 75415160270377110}
   m_Layer: 0
   m_Name: Up
@@ -1181,22 +1146,6 @@ Transform:
   m_Father: {fileID: 7273099136595539204}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5833702284176767958
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6112150417661303245}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_CategoryHash: 0
-  m_labelHash: 0
-  m_SpriteKey: 0
-  m_SpriteHash: 0
 --- !u!212 &75415160270377110
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1359,7 +1308,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6361914755903201607}
-  - component: {fileID: 8017416676305140021}
   - component: {fileID: 4730101699557476159}
   m_Layer: 0
   m_Name: Left
@@ -1383,22 +1331,6 @@ Transform:
   m_Father: {fileID: 7273099136595539204}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
---- !u!114 &8017416676305140021
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6289433704398569383}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_CategoryHash: 0
-  m_labelHash: 0
-  m_SpriteKey: 0
-  m_SpriteHash: 589080687
 --- !u!212 &4730101699557476159
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1603,7 +1535,7 @@ GameObject:
   - component: {fileID: 6917111384690671639}
   - component: {fileID: 7015861120891574003}
   m_Layer: 0
-  m_Name: Conduit
+  m_Name: Default Conduit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1651,7 +1583,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6546ea9d9b357204d97e64fcd54f3de6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridPos: {x: 0, y: 0}
+  <UIContent>k__BackingField: {fileID: 0}
 --- !u!114 &4815664078875493188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1677,11 +1609,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   conduit: {fileID: 4815664078875493188}
+  connectedSprite: {fileID: 876600613, guid: 0367bacfa3de75b4eadc97dcb984ade5, type: 3}
+  extractingSprite: {fileID: 1820252451, guid: 0367bacfa3de75b4eadc97dcb984ade5, type: 3}
   connectionSprites:
-  - {fileID: 5833702284176767958}
-  - {fileID: 4386952471970719361}
-  - {fileID: 2546147353526469875}
-  - {fileID: 8017416676305140021}
+  - {fileID: 75415160270377110}
+  - {fileID: 812956250217217697}
+  - {fileID: 120984789106149212}
+  - {fileID: 4730101699557476159}
   cableTypeSprites:
   - {fileID: 5028965094401411633}
   - {fileID: 5127646827013944217}
@@ -1728,7 +1662,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 897301293, guid: 8817f126f487cd547a51d07babb40a01, type: 3}
+  m_Sprite: {fileID: 1160673649, guid: 0367bacfa3de75b4eadc97dcb984ade5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

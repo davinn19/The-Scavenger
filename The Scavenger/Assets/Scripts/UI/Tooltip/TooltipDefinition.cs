@@ -12,6 +12,7 @@ namespace Scavenger.UI
         public abstract string GetHeader();
         public abstract string GetDescription();
         public abstract GameObject GetCustomContent();
+        public abstract bool IsVisible();
 
         protected void OnTargetChanged()
         {

@@ -29,7 +29,7 @@ namespace Scavenger
         /// </summary>
         private void GenerateEnergy()
         {
-            int energyAdded = energyBuffer.InsertEnergy(energyPerTick);
+            int energyAdded = energyBuffer.Insert(energyPerTick, false);
             if (energyAdded > 0)
             {
                 gridObject.OnSelfChanged();

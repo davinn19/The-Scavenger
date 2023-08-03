@@ -33,3 +33,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 18d46571aa3e4154c8ac6b9da101109c, type: 2}
   - {fileID: 11400000, guid: 764ee4002e80a554fa1e2a1cb14df28a, type: 2}
   - {fileID: 11400000, guid: 6e9d5b9e754da7247a07c6339de525be, type: 2}
+  dropChance: 0.4

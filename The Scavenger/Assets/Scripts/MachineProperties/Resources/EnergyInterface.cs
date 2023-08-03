@@ -4,38 +4,49 @@ using UnityEngine;
 namespace Scavenger
 {
     /// <summary>
-    /// Specialized conduit interface for energy buffers, since gridObjects cannot have multiple energy buffers.
+    /// Conduit interface for energy buffers.
     /// </summary>
-    [RequireComponent(typeof(EnergyBuffer)), DisallowMultipleComponent]
+    [RequireComponent(typeof(EnergyBuffer)), DisallowMultipleComponent]// TODO add docs
     public class EnergyInterface : ConduitInterface<EnergyBuffer>
     {
-        private EnergyBuffer energyBuffer;
+        private GridObject gridObject;
 
-        private void Awake()
+        [SerializeField, Min(0)] private int insertRateLimit;
+        [SerializeField, Min(0)] private int extractRateLimit;
+
+        private int energyInsertedThisTick = 0;
+        private int energyExtractedThisTick = 0;
+
+
+        private void Start()
         {
-            energyBuffer = GetComponent<EnergyBuffer>();
+            gridObject = GetComponent<GridObject>();
+            gridObject.QueueTickUpdate(ResetEnergyTransferCount);
         }
 
-        /// <summary>
-        /// Gets the only energy buffer.
-        /// </summary>
-        /// <returns>List containing the only energy buffer.</returns>
-        public override List<EnergyBuffer> GetInputs() => GetEnergyBuffer();
-
-        /// <summary>
-        /// Gets the only energy buffer.
-        /// </summary>
-        /// <returns>List containing the only energy buffer.</returns>
-        public override List<EnergyBuffer> GetOutputs() => GetEnergyBuffer();
-
-        /// <summary>
-        /// Gets the only energy buffer.
-        /// </summary>
-        /// <returns>List containing the only energy buffer.</returns>
-        private List<EnergyBuffer> GetEnergyBuffer()
+        private void ResetEnergyTransferCount()
         {
-            return new List<EnergyBuffer>() { energyBuffer };
+            energyInsertedThisTick = 0;
+            energyExtractedThisTick = 0;
+            gridObject.QueueTickUpdate(ResetEnergyTransferCount);
         }
 
+        public int Insert(int requestedAmount, bool simulate)
+        {
+            int limit = Mathf.Max(0, insertRateLimit - energyInsertedThisTick);
+            int amountInserted = Buffer.Insert(Mathf.Min(requestedAmount, limit), simulate);
+
+            energyInsertedThisTick += amountInserted;
+            return amountInserted;
+        }
+
+        public int Extract(int requestedAmount, bool simulate)
+        {
+            int limit = Mathf.Max(0, extractRateLimit - energyExtractedThisTick);
+            int amountExtracted = Buffer.Extract(Mathf.Min(requestedAmount, limit), simulate);
+
+            energyInsertedThisTick += amountExtracted;
+            return amountExtracted;
+        }
     }
 }

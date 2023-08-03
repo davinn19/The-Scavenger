@@ -39,7 +39,7 @@ namespace Scavenger
     /// <summary>
     /// Base class for all resource transport, attaches to a conduit.
     /// </summary>
-    public abstract class Cable<T> : Cable where T : Buffer
+    public abstract class Cable<T> : Cable where T : ConduitInterface
     {
         private void Start()
         {
@@ -101,10 +101,10 @@ namespace Scavenger
                     }
 
                     // If side is connected to a compatible ConduitInterface, add to results
-                    ConduitInterface<T> adjInterface = curCable.gridObject.GetAdjacentObject<ConduitInterface<T>>(side);
+                    T adjInterface = curCable.gridObject.GetAdjacentObject<T>(side);
                     if (adjInterface)
                     {
-                        outputs.AddRange(adjInterface.GetOutputs());
+                        outputs.Add(adjInterface);
                     }
                 }
             }
@@ -113,9 +113,9 @@ namespace Scavenger
         }
 
         /// <summary>
-        /// Get adjacent buffers that the cable can extract from.
+        /// Get adjacent interfaces that the cable can extract from.
         /// </summary>
-        /// <returns>List of source buffers.</returns>
+        /// <returns>List of source interfaces.</returns>
         protected List<T> GetSources()
         {
             List<T> sources = new();

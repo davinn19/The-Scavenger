@@ -10,18 +10,22 @@ namespace Scavenger
         [field: SerializeField] public int Capacity { get; private set; }
         [field: SerializeField] public int Energy { get; private set; }
 
-
         /// <summary>
         /// Inserts energy into buffer, respecting the buffer's capacity.
         /// </summary>
         /// <param name="amount">Requested amount of energy to insert.</param>
+        /// <param name="simulate">If true, will not changed the buffer's energy.</param>
         /// <returns>Amount of energy inserted into the buffer.</returns>
-        public int InsertEnergy(int amount)
+        public int Insert(int amount, bool simulate)
         {
             int remainingCapacity = GetRemainingCapacity();
             int amountToInsert = Mathf.Min(remainingCapacity, amount);
 
-            Energy += amountToInsert;
+            if (!simulate)
+            {
+                Energy += amountToInsert;
+            }
+            
 
             return amountToInsert;
         }
@@ -30,12 +34,16 @@ namespace Scavenger
         /// Extracts energy from buffer, respecting the buffer's current energy amount.
         /// </summary>
         /// <param name="amount">Requested amount of energy to extract.</param>
+        /// /// <param name="simulate">If true, will not changed the buffer's energy.</param>
         /// <returns>Amount of energy extracted from the buffer.</returns>
-        public int ExtractEnergy(int amount)
+        public int Extract(int amount, bool simulate)
         {
             int amountToExtract = Mathf.Min(Energy, amount);
 
-            Energy -= amountToExtract;
+            if (!simulate)
+            {
+                Energy -= amountToExtract;
+            }
 
             return amountToExtract;
         }

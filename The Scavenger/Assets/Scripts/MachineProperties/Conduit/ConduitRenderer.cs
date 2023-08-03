@@ -11,9 +11,12 @@ namespace Scavenger
     {
         [SerializeField] private Conduit conduit;
 
+        [SerializeField] private Sprite connectedSprite;
+        [SerializeField] private Sprite extractingSprite;
+
         [SerializeField]
         [Tooltip("Connections are ordered according to the order of GridMap.adjacentDirections")]
-        private SpriteResolver[] connectionSprites;
+        private SpriteRenderer[] connectionSprites;
 
         [SerializeField]
         private GameObject[] cableTypeSprites;
@@ -32,11 +35,11 @@ namespace Scavenger
         {
             for (int sideIndex = 0; sideIndex < 4; sideIndex++)
             {
-                SpriteResolver connectionSprite = connectionSprites[sideIndex];
+                SpriteRenderer connectionSprite = connectionSprites[sideIndex];
                 Vector2Int side = GridMap.adjacentDirections[sideIndex];
-                string label = GetLabelForSide(side);
+                Sprite sprite = GetSpriteForSide(side);
 
-                connectionSprite.SetCategoryAndLabel("Connections", label);
+                connectionSprite.sprite = sprite;
             }
         }
 
@@ -84,24 +87,24 @@ namespace Scavenger
         }
 
         /// <summary>
-        /// Gets the proper sprite resolver label for a specific side
+        /// Gets the proper sprite for a specific side based on its connected status.
         /// </summary>
         /// <param name="side">The side to get the label for.</param>
-        /// <returns>The label for the sprite resolver.</returns>
-        private string GetLabelForSide(Vector2Int side)
+        /// <returns>The sprite for a specific side.</returns>
+        private Sprite GetSpriteForSide(Vector2Int side)
         {
             if (conduit.IsSideExtracting(side))
             {
-                return "Extract";
+                return extractingSprite;
             }
 
             if (conduit.IsSideConnected(side))
             {
-                return "Connected";
+                return connectedSprite;
             }
             else
             {
-                return "Unconnected";
+                return null;
             }
         }
     }

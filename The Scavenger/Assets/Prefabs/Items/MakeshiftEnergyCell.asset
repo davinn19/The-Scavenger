@@ -27,5 +27,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <DisplayName>k__BackingField: Makeshift Energy Cell
   <Icon>k__BackingField: {fileID: 21300000, guid: ec83373c2f303704ea1df345429e7fc1, type: 3}
+  <Description>k__BackingField: Starts with a small amount of energy, cannot be recharged.
   properties:
   - {fileID: -8616860030609667161}

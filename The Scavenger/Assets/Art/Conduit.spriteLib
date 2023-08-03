@@ -13,27 +13,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Library:
-  - m_Name: Connections
-    m_Hash: 963277762
-    m_CategoryList: []
-    m_OverrideEntries:
-    - m_Name: Connected
-      m_Hash: 407280150
-      m_Sprite: {fileID: -1687755579, guid: 8817f126f487cd547a51d07babb40a01, type: 3}
-      m_FromMain: 0
-      m_SpriteOverride: {fileID: -1687755579, guid: 8817f126f487cd547a51d07babb40a01, type: 3}
-    - m_Name: Extract
-      m_Hash: 837224514
-      m_Sprite: {fileID: 1607058130, guid: 8817f126f487cd547a51d07babb40a01, type: 3}
-      m_FromMain: 0
-      m_SpriteOverride: {fileID: 1607058130, guid: 8817f126f487cd547a51d07babb40a01, type: 3}
-    - m_Name: Unconnected
-      m_Hash: 301922386
-      m_Sprite: {fileID: 0}
-      m_FromMain: 0
-      m_SpriteOverride: {fileID: 0}
-    m_FromMain: 0
-    m_EntryOverrideCount: 3
   - m_Name: Cable Symbols
     m_Hash: 494361949
     m_CategoryList: []
@@ -60,6 +39,49 @@ MonoBehaviour:
       m_SpriteOverride: {fileID: 2018111134, guid: eb859fcaf81faa14789c26d50276b347, type: 3}
     m_FromMain: 0
     m_EntryOverrideCount: 4
+  - m_Name: Connected
+    m_Hash: 407280150
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Default
+      m_Hash: 753088835
+      m_Sprite: {fileID: 876600613, guid: 0367bacfa3de75b4eadc97dcb984ade5, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 876600613, guid: 0367bacfa3de75b4eadc97dcb984ade5, type: 3}
+    - m_Name: Makeshift
+      m_Hash: 657726069
+      m_Sprite: {fileID: -1799892826, guid: d9922c6d9e3a9d14f8fb66dbbc72dc58, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1799892826, guid: d9922c6d9e3a9d14f8fb66dbbc72dc58, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 2
+  - m_Name: Extract
+    m_Hash: 837224514
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Default
+      m_Hash: 753088835
+      m_Sprite: {fileID: 1820252451, guid: 0367bacfa3de75b4eadc97dcb984ade5, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1820252451, guid: 0367bacfa3de75b4eadc97dcb984ade5, type: 3}
+    - m_Name: Makeshift
+      m_Hash: 657726069
+      m_Sprite: {fileID: -1515009879, guid: d9922c6d9e3a9d14f8fb66dbbc72dc58, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1515009879, guid: d9922c6d9e3a9d14f8fb66dbbc72dc58, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 2
+  - m_Name: Disconnected
+    m_Hash: 48877789
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Disconnected
+      m_Hash: 48877789
+      m_Sprite: {fileID: 0}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 0}
+    m_FromMain: 0
+    m_EntryOverrideCount: 1
   m_PrimaryLibraryGUID: 
-  m_ModificationHash: 638252277050691802
+  m_ModificationHash: 638266590229297221
   m_Version: 1

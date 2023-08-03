@@ -6,7 +6,7 @@ namespace Scavenger
     /// <summary>
     /// Cable for transporting items.
     /// </summary>
-    public class ItemCable : Cable<ItemBuffer>
+    public class ItemCable : Cable<ItemInterface>
     {
         /// <summary>
         /// Persistent tracking of the next destination buffer to output to when in round robin mode.   // TODO adjust for multiple round robin sources
@@ -15,19 +15,19 @@ namespace Scavenger
 
         protected override void TransportResource()
         {
-            Dictionary<ItemBuffer, DistributeMode> sources = GetSourcesAndDistributeModes();
+            Dictionary<ItemInterface, DistributeMode> sources = GetSourcesAndDistributeModes();
             if (sources.Count == 0)
             {
                 return;
             }
 
-            List<ItemBuffer> destinations = GetDestinations();
+            List<ItemInterface> destinations = GetDestinations();
             if (destinations.Count == 0)
             {
                 return;
             }
 
-            foreach (ItemBuffer source in sources.Keys)
+            foreach (ItemInterface source in sources.Keys)
             {
                 switch (sources[source])
                 {
@@ -44,36 +44,24 @@ namespace Scavenger
             }
         }
 
+        // TODO redo
 
         /// <summary>
         /// Distributes items from an input item buffer to all output item buffers, closer destinations getting filled first.
         /// </summary>
-        /// <param name="source">Buffer to extract items from.</param>
-        /// <param name="destinations">List of buffers to distribute items to.</param>
-        private void ClosestFirst(ItemBuffer source, List<ItemBuffer> destinations)
+        /// <param name="source">Interface to extract items from.</param>
+        /// <param name="destinations">List of interfaces to distribute items to.</param>
+        private void ClosestFirst(ItemInterface source, List<ItemInterface> destinations)
         {
             int itemsToTake = Spec.TransferRate;
 
-            foreach (ItemBuffer destination in destinations)    // Destinations list is ordered by proximity already
+            foreach (ItemInterface destination in destinations)    // Destinations list is ordered by proximity already
             {
-                for (int sourceSlot = 0; sourceSlot < source.NumSlots; sourceSlot++)
+                itemsToTake -= source.MoveTo(itemsToTake, destination);
+
+                if (itemsToTake == 0)
                 {
-                    ItemStack sourceStack = source.GetItemInSlot(sourceSlot);
-                    if (!sourceStack)
-                    {
-                        continue;
-                    }
-
-                    int remainder = destination.Insert(sourceStack, itemsToTake);
-                    int amountTaken = sourceStack.Amount - remainder;
-
-                    source.Extract(sourceSlot, amountTaken);
-                    itemsToTake -= amountTaken;
-                    
-                    if (itemsToTake <= 0)
-                    {
-                        return;
-                    }
+                    return;
                 }
             }
         }
@@ -82,13 +70,13 @@ namespace Scavenger
         /// <summary>
         /// Distributes items from an input item buffer to all output item buffers, distributed evenly.
         /// </summary>
-        /// <param name="source">Buffer to extract items from.</param>
-        /// <param name="destinations">List of buffers to distribute items to.</param>
-        private void RoundRobin(ItemBuffer source, List<ItemBuffer> destinations)
+        /// <param name="source">Interface to extract items from.</param>
+        /// <param name="destinations">List of interfaces to distribute items to.</param>
+        private void RoundRobin(ItemInterface source, List<ItemInterface> destinations)
         {
             // TODO test
             // Create a copy list so destinations that cannot be inserted can be removed to prevent unnecessary looping
-            destinations = new List<ItemBuffer>(destinations);
+            destinations = new List<ItemInterface>(destinations);
             int itemsToTake = Spec.TransferRate;
 
             while (itemsToTake > 0 && destinations.Count > 0)       // Stop once item limit is reached or all destinations are full
@@ -99,26 +87,10 @@ namespace Scavenger
                     roundRobinIndex = 0;
                 }
 
-                ItemBuffer destination = destinations[roundRobinIndex];
+                ItemInterface destination = destinations[roundRobinIndex];
 
-                // Loop through source slot until an item is inserted
-                bool itemTaken = false;
-                for (int sourceSlot = 0; sourceSlot < source.NumSlots; sourceSlot++)
-                {
-                    ItemStack sourceStack = source.GetItemInSlot(sourceSlot);
-                    if (!sourceStack)
-                    {
-                        continue;
-                    }
-
-                    // Only inserts 1 item at a time
-                    int remainder = destination.Insert(sourceStack, 1); 
-                    if (remainder != sourceStack.Amount)
-                    {
-                        itemTaken = true;
-                        break;
-                    }
-                }
+                // Try inserting 1 item
+                bool itemTaken = source.MoveTo(1, destination) == 1;
 
                 if (itemTaken)  // Continue looping if item was taken
                 {

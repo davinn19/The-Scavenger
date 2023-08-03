@@ -97,23 +97,25 @@ namespace Scavenger.UI
             // TODO implement, add comments
             ClearCustomContent();
 
-            if (!tooltipDefinition)
+            if (!tooltipDefinition || !tooltipDefinition.IsVisible())
             {
                 gameObject.SetActive(false);
                 return;
             }
+            gameObject.SetActive(true);
 
-            header.text = tooltipDefinition.GetHeader();
-            if (header.text == "")
-            {
-                gameObject.SetActive(false);
-                return;
-            }
-
+            SetHeader();
             SetDescription();
             SetCustomContent();
+        }
 
-            gameObject.SetActive(true);
+        /// <summary>
+        /// Writes the header based on the tooltip definition.
+        /// </summary>
+        private void SetHeader()
+        {
+            header.text = tooltipDefinition.GetHeader();
+            description.gameObject.SetActive(header.text != "");
         }
 
         /// <summary>
