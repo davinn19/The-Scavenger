@@ -187,6 +187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6546ea9d9b357204d97e64fcd54f3de6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefab: {fileID: 4415299891023348541}
   <UIContent>k__BackingField: {fileID: 3234443872123712995, guid: ecaef8a2f8af953418f87c20a1d338ff, type: 3}
 --- !u!114 &303847279040132141
 MonoBehaviour:
@@ -227,10 +228,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40dc2dd69b5129e4e974f736f72f46c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputs:
-  - {fileID: 992735339745390986}
-  outputs:
-  - {fileID: 992735339745390986}
 --- !u!114 &5270372602343424550
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -25,6 +25,7 @@ namespace Scavenger
             slotsLocked = new bool[NumSlots];
         }
 
+
         /// <summary>
         /// Resizes slots array to numSlots and confirms all itemStacks set in editor match maxCapacity.
         /// </summary>
@@ -189,7 +190,7 @@ namespace Scavenger
                 if (!insertedStack)
                 {
                     insertedStack.SetItem(otherStack.Item);
-                    insertedStack.data = new Dictionary<string, string>(otherStack.data);
+                    insertedStack.Data = new Dictionary<string, string>(otherStack.Data);
                 }
 
                 insertedStack.Amount += amountInserted;

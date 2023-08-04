@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6546ea9d9b357204d97e64fcd54f3de6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefab: {fileID: 4610538499388480633}
   <UIContent>k__BackingField: {fileID: 980379012617032584, guid: 5f597a0f43683814384e0324699e34e9, type: 3}
 --- !u!212 &3956336025683893682
 SpriteRenderer:

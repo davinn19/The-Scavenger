@@ -15,17 +15,17 @@ MonoBehaviour:
   recipes:
   - Ingredients:
     - <Item>k__BackingField: {fileID: 11400000, guid: 764ee4002e80a554fa1e2a1cb14df28a, type: 2}
-      Amount: 6
+      Amount: 5
     - <Item>k__BackingField: {fileID: 11400000, guid: 18d46571aa3e4154c8ac6b9da101109c, type: 2}
-      Amount: 6
+      Amount: 5
     Result:
       <Item>k__BackingField: {fileID: 11400000, guid: dca9a5f9d69630742a722801d2ccaff0, type: 2}
       Amount: 1
   - Ingredients:
     - <Item>k__BackingField: {fileID: 11400000, guid: 764ee4002e80a554fa1e2a1cb14df28a, type: 2}
-      Amount: 2
+      Amount: 3
     - <Item>k__BackingField: {fileID: 11400000, guid: 6e9d5b9e754da7247a07c6339de525be, type: 2}
-      Amount: 10
+      Amount: 8
     Result:
       <Item>k__BackingField: {fileID: 11400000, guid: 5540fd200c50bb24682223f08b3fcbac, type: 2}
       Amount: 1

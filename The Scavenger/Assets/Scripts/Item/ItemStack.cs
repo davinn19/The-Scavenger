@@ -13,8 +13,7 @@ namespace Scavenger
 
         /// <remarks>DO NOT edit the amount directly unless you are in ItemBuffer. Use Extract/Insert functions in ItemBuffer instead.</remarks>
         [Min(0)] public int Amount;
-        public Dictionary<string, string> data;
-
+        public Dictionary<string, string> Data; // TODO replace data
 
         public ItemStack(Item item, int amount, Dictionary<string, string> data = null)
         {
@@ -23,15 +22,15 @@ namespace Scavenger
 
             if (data != null)
             {
-                this.data = data;
+                Data = data;
             }
             else
             {
-                this.data = new Dictionary<string, string>();
+                Data = new Dictionary<string, string>();
             }
         }
 
-        public ItemStack(ItemStack otherStack, int newAmount) : this(otherStack.Item, newAmount, new Dictionary<string, string>(otherStack.data)) { }
+        public ItemStack(ItemStack otherStack, int newAmount) : this(otherStack.Item, newAmount, new Dictionary<string, string>(otherStack.Data)) { }
         public ItemStack(ItemStack otherStack) : this(otherStack.Item, otherStack.Amount) { }
 
         public ItemStack() => Clear();
@@ -43,7 +42,7 @@ namespace Scavenger
         {
             Item = null;
             Amount = 0;
-            data = new Dictionary<string, string>();
+            Data = new Dictionary<string, string>();
         }
 
         /// <summary>
@@ -86,14 +85,14 @@ namespace Scavenger
             }
 
             // If the stacks' data are different, it is unstackable
-            if (data.Count != other.data.Count)
+            if (Data.Count != other.Data.Count)
             {
                 return false;
             }
 
-            foreach (string key in data.Keys)
+            foreach (string key in Data.Keys)
             {
-                if (!other.data.ContainsKey(key) || other.data[key] != data[key])
+                if (!other.Data.ContainsKey(key) || other.Data[key] != Data[key])
                 {
                     return false;
                 }

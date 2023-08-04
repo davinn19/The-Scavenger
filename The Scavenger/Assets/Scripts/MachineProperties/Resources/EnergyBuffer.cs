@@ -7,8 +7,9 @@ namespace Scavenger
     /// </summary>
     public class EnergyBuffer : Buffer
     {
-        [field: SerializeField] public int Capacity { get; private set; }
-        [field: SerializeField] public int Energy { get; private set; }
+        [field: SerializeField] public int Capacity { get; set; }
+        [field: SerializeField] public int Energy { get; set; }
+
 
         /// <summary>
         /// Inserts energy into buffer, respecting the buffer's capacity.

@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e2fcf77f644fae4f8d4066577f961eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotDisplay: {fileID: 3260485861669940229}
+  slotDisplay: {fileID: 1829717192125616451}
   lockButton: {fileID: 3241799631444307199}
   lockButtonText: {fileID: 5869943996753760262}
 --- !u!1 &602344931550428125
@@ -464,9 +464,9 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cfc04d38aff1c2a44baeffdd5f754276, type: 3}
---- !u!114 &3260485861669940229 stripped
+--- !u!114 &1829717192125616451 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9132960907075208484, guid: cfc04d38aff1c2a44baeffdd5f754276, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5396771423600048226, guid: cfc04d38aff1c2a44baeffdd5f754276, type: 3}
   m_PrefabInstance: {fileID: 6017188518398945569}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}

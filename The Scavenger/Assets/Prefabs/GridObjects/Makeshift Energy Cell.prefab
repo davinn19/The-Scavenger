@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6546ea9d9b357204d97e64fcd54f3de6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefab: {fileID: 6742962036973104751}
   <UIContent>k__BackingField: {fileID: 0}
 --- !u!114 &6310263074720075457
 MonoBehaviour:

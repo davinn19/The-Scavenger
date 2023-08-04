@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using Scavenger.UI.UIContent;
+using System.Collections.Generic;
 
 namespace Scavenger
 {
@@ -10,14 +11,19 @@ namespace Scavenger
     [DisallowMultipleComponent]
     public class GridObject : MonoBehaviour
     {
+        [SerializeField] private GameObject prefab;
+
         public const int DefaultHP = 100;
 
         public Vector2Int GridPos { get; set; }
         private GridMap map;
         private GridChunk chunk;
 
+        public Dictionary<string, string> PersistentData = new();
+
         public HP HP { get; private set; }
 
+        public event Action<Dictionary<string, string>> DataLoadRequested;
         public event Action Placed;
         public event Action Removed;
         public event Action<Vector2Int> NeighborPlaced;
@@ -30,7 +36,6 @@ namespace Scavenger
 
         [field: SerializeField] public GridObjectUIContent UIContent { get; private set; }
 
-
         private void Awake()
         {
             chunk = GetComponentInParent<GridChunk>();
@@ -42,6 +47,18 @@ namespace Scavenger
                 HP = gameObject.AddComponent<HP>();
                 HP.SetMaxHealth(DefaultHP);
             }
+        }
+
+        // TODO add docs
+        public void LoadData(Dictionary<string, string> data)
+        {
+            DataLoadRequested?.Invoke(data);
+        }
+
+        // TODO implement, add docs
+        public string SaveData()
+        {
+            return "";
         }
 
         /// <summary>

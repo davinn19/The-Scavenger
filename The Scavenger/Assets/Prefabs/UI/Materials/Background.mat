@@ -55,7 +55,7 @@ Material:
     - _Strength: 0.2
     - _UseUIAlphaClip: 0
     m_Colors:
-    - _Color: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 1}
+    - _Color: {r: 0.2196078, g: 0.2196078, b: 0.2196078, a: 0.74509805}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Scavenger
@@ -16,7 +17,8 @@ namespace Scavenger
         /// </summary>
         /// <param name="gridObject">Prefab of new gridObject.</param>
         /// <param name="gridPos">Absolute position to set the new gridObject.</param>
-        public void SetObjectAtPos(GridObject gridObject, Vector2Int gridPos)
+        /// <returns>The created gridObject.</returns>
+        public GridObject SetObjectAtPos(GridObject gridObject, Vector2Int gridPos)
         {
             ClearPos(gridPos);
 
@@ -28,6 +30,8 @@ namespace Scavenger
             objects[chunkPos.x, chunkPos.y] = newGridObject;
 
             newGridObject.transform.position = GridMap.GetCenterOfTile(gridPos);
+
+            return newGridObject;
         }
 
         /// <summary>

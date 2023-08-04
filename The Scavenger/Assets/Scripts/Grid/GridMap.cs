@@ -127,6 +127,23 @@ namespace Scavenger
         {
             GridChunk chunk = GetChunkAtPos(gridPos);
             chunk.SetObjectAtPos(gridObject, gridPos);
+
+            GridObjectSet.Invoke(gridPos);
+        }
+
+        /// <summary>
+        /// Sets a grid object at a position and loads it with item data.
+        /// </summary>
+        /// <param name="gridObject">Prefab of the new gridObject.</param>
+        /// <param name="gridPos">Position to set the new gridObject at.</param>
+        /// <param name="data">Data stored in the item to load into the placed object.</param>
+        private void SetObjectAtPos(GridObject gridObject, Vector2Int gridPos, Dictionary<string, string> data)
+        {
+            GridChunk chunk = GetChunkAtPos(gridPos);
+            GridObject newGridObject = chunk.SetObjectAtPos(gridObject, gridPos);
+
+            newGridObject.LoadData(data);
+
             GridObjectSet.Invoke(gridPos);
         }
 
@@ -185,10 +202,10 @@ namespace Scavenger
         /// <summary>
         /// Attempts to place the item at a position.
         /// </summary>
-        /// <param name="itemSelection">The item selection manager.</param>
+        /// <param name="heldItemHandler">The item selection manager.</param>
         /// <param name="gridPos">Position to place the item at.</param>
         /// <returns>True if placement was successful.</returns>
-        public bool TryPlaceItem(HeldItemHandler itemSelection, Vector2Int gridPos)// TODO add supported constraint
+        public bool TryPlaceItem(HeldItemHandler heldItemHandler, Vector2Int gridPos)// TODO add supported constraint
         {
             // Space must be empty to place new object
             GridObject existingObject = GetObjectAtPos(gridPos);
@@ -198,22 +215,23 @@ namespace Scavenger
             }
 
             // Must be holding an item
-            if (itemSelection.IsEmpty())
+            if (heldItemHandler.IsEmpty())
             {
                 return false;
             }
 
-            Item heldItem = itemSelection.GetHeldItem().Item;
+            ItemStack heldItemStack = heldItemHandler.GetHeldItem();
 
             // Item must have PlacedObject property
-            if (!heldItem.TryGetProperty(out PlacedObject placedObject))
+            if (!heldItemStack.Item.TryGetProperty(out PlacedObject placedObject))
             {
                 return false;
             }
 
-            SetObjectAtPos(placedObject.Object, gridPos);
+            SetObjectAtPos(placedObject.Object, gridPos, heldItemStack.Data);
+
             updatePropagation.HandlePlaceUpdate(gridPos);
-            itemSelection.Use();
+            heldItemHandler.Use();
             return true;
         }
 

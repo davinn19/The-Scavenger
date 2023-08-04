@@ -2905,7 +2905,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.052198283, g: 0.06941441, b: 0.21698111, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -4951,7 +4951,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <MaxCapacity>k__BackingField: 100
   <NumSlots>k__BackingField: 28
-  <Slots>k__BackingField: []
+  <Slots>k__BackingField:
+  - <Item>k__BackingField: {fileID: 11400000, guid: ce3fa1b47de008c4684aec2d458bc816, type: 2}
+    Amount: 100
+  - <Item>k__BackingField: {fileID: 11400000, guid: 0880e46e43f0c7844a42e0ae2912a6cb, type: 2}
+    Amount: 100
+  - <Item>k__BackingField: {fileID: 11400000, guid: 436c4ea4ba6c7fd4a9749b7c32c1baa9, type: 2}
+    Amount: 100
+  - <Item>k__BackingField: {fileID: 11400000, guid: 4749a09cc431f8643a80898f7b07c16f, type: 2}
+    Amount: 100
+  - <Item>k__BackingField: {fileID: 11400000, guid: 764ee4002e80a554fa1e2a1cb14df28a, type: 2}
+    Amount: 100
 --- !u!1 &752054973
 GameObject:
   m_ObjectHideFlags: 0
