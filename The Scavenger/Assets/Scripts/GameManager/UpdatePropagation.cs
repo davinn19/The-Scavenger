@@ -1,17 +1,14 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Scavenger.GridObjectBehaviors;
 
 namespace Scavenger
 {
     // TODO add docs
     public class UpdatePropagation : MonoBehaviour
     {
-        public List<Action> TickUpdate = new();
-
-        private Queue<Vector2Int> queuedUpdates = new();
-
-
+        private readonly Queue<Vector2Int> queuedUpdates = new();
         private GridMap map;
 
         private void Awake()
@@ -35,14 +32,14 @@ namespace Scavenger
         // Handles updates when an object is placed
         public void HandlePlaceUpdate(Vector2Int placedPos)
         {
-            map.GetObjectAtPos(placedPos).OnPlace();
+            map.GetBehaviorAtPos(placedPos).OnPlace();
             HandleNeighborPlacedUpdates(placedPos);
         }
 
         // Handles updates when an object is removed
         public void HandleRemoveUpdate(Vector2Int removedPos)
         {
-            map.GetObjectAtPos(removedPos).OnRemove();
+            map.GetBehaviorAtPos(removedPos).OnRemove();
             HandleNeighborPlacedUpdates(removedPos);
         }
 
@@ -52,12 +49,12 @@ namespace Scavenger
             foreach (Vector2Int side in GridMap.adjacentDirections)
             {
                 Vector2Int neighborPos = placedPos + side;
-                GridObject adjObject = map.GetObjectAtPos(neighborPos);
+                GridObjectBehavior adjBehavior = map.GetBehaviorAtPos(neighborPos);
 
-                if (adjObject)
+                if (adjBehavior)
                 {
                     Vector2Int oppositeSide = side * -1;
-                    adjObject.OnNeighborPlaced(oppositeSide);
+                    adjBehavior.OnNeighborPlaced(oppositeSide);
                 }
             }
         }
@@ -68,11 +65,11 @@ namespace Scavenger
             while (queuedUpdates.Count > 0)
             {
                 Vector2Int pos = queuedUpdates.Dequeue();
-                GridObject gridObject = map.GetObjectAtPos(pos);
+                GridObjectBehavior behavior = map.GetBehaviorAtPos(pos);
 
-                if (gridObject)
+                if (behavior)
                 {
-                    gridObject.OnNeighborChanged();
+                    behavior.OnNeighborChanged();
                 }
             }
         }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Scavenger.GridObjectBehaviors;
 
 namespace Scavenger
 {
@@ -132,17 +133,17 @@ namespace Scavenger
         }
 
         /// <summary>
-        /// Sets a grid object at a position and loads it with item data.
+        /// Sets a grid object at a position and loads it with SAVE DATA.
         /// </summary>
         /// <param name="gridObject">Prefab of the new gridObject.</param>
         /// <param name="gridPos">Position to set the new gridObject at.</param>
-        /// <param name="data">Data stored in the item to load into the placed object.</param>
-        private void SetObjectAtPos(GridObject gridObject, Vector2Int gridPos, Dictionary<string, string> data)
+        /// <param name="saveData">Save data to load into the placed object.</param>
+        private void SetObjectAtPos(GridObject gridObject, Vector2Int gridPos, string saveData)
         {
             GridChunk chunk = GetChunkAtPos(gridPos);
             GridObject newGridObject = chunk.SetObjectAtPos(gridObject, gridPos);
 
-            newGridObject.LoadData(data);
+            JsonUtility.FromJsonOverwrite(saveData, newGridObject);
 
             GridObjectSet.Invoke(gridPos);
         }
@@ -158,13 +159,19 @@ namespace Scavenger
             return chunk.GetObject(gridPos);
         }
 
-        /// <summary>
-        /// Gets the object at the relative grid position.
-        /// </summary>
-        /// <param name="origin">Base grid position.</param>
-        /// <param name="relativePos">Offset from the base position.</param>
-        /// <returns></returns>
-        public GridObject GetObjectAtPos(Vector2Int origin, Vector2Int relativePos) => GetObjectAtPos(relativePos + origin);
+        // TODO add docs
+        public T GetObjectAtPos<T>(Vector2Int gridPos) where T : Component
+        {
+            GridObject gridObject = GetObjectAtPos(gridPos);
+            if (!gridObject)
+            {
+                return null;
+            }
+            return gridObject.GetComponent<T>();
+        }
+
+        // TODO add docs
+        public GridObjectBehavior GetBehaviorAtPos(Vector2Int gridPos) => GetObjectAtPos<GridObjectBehavior>(gridPos);
 
         /// <summary>
         /// Attempts to interact with the gridObject at a position using an item.
@@ -176,26 +183,25 @@ namespace Scavenger
         /// <returns>True if an interaction happened.</returns>
         public bool TryObjectInteract(ItemBuffer inventory, HeldItemHandler itemSelection, Vector2Int gridPos, Vector2Int sidePressed)
         {
-            GridObject existingObject = GetObjectAtPos(gridPos);
-            if (existingObject && existingObject.TryInteract != null)
+            GridObjectBehavior behavior = GetBehaviorAtPos(gridPos);
+            if (!behavior)
             {
-                return existingObject.TryInteract(inventory, itemSelection, sidePressed);
+                return false;
             }
-            // TODO remove side pressed parameter
 
-            return false;
+            return behavior.TryInteract(inventory, itemSelection, sidePressed); // TODO remove side pressed parameter
         }
 
         // TODO add docs
         public bool TryEdit(Vector2Int gridPos, Vector2Int sidePressed)
         {
-            GridObject existingObject = GetObjectAtPos(gridPos);
-            if (existingObject && existingObject.TryEdit != null)
+            GridObjectBehavior behavior = GetBehaviorAtPos(gridPos);
+            if (!behavior)
             {
-                return existingObject.TryEdit(sidePressed);
+                return false;
             }
 
-            return false;
+            return behavior.TryEdit(sidePressed);
         }
 
 
@@ -228,8 +234,8 @@ namespace Scavenger
                 return false;
             }
 
-            SetObjectAtPos(placedObject.Object, gridPos, heldItemStack.Data);
-
+            SetObjectAtPos(placedObject.Object, gridPos);
+            // TODO implement loading ITEM DATA into object
             updatePropagation.HandlePlaceUpdate(gridPos);
             heldItemHandler.Use();
             return true;

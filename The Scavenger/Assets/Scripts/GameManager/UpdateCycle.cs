@@ -33,6 +33,7 @@ namespace Scavenger
             }
         }
 
+        // TODO remove queue system and scan the gridmap instead
         private void ExecuteCallbacks()
         {
             int queueSize = callbackQueue.Count;

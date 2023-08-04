@@ -86,14 +86,15 @@ namespace Scavenger.UI
                 Destroy(content.gameObject);
             }
 
+            GridObjectUI UI = viewedObject.GetComponent<GridObjectUI>();
 
-            if (viewedObject.UIContent == null)
+            if (!UI)
             {
                 content = null;
             }
             else
             {
-                content = Instantiate(viewedObject.UIContent, transform);
+                content = Instantiate(UI.Content, transform);
                 content.Init(viewedObject, inventory);
             }
         }

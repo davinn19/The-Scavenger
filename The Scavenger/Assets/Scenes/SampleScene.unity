@@ -4949,6 +4949,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02f98d24cdd54ff4799d20eefb735af4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  persistent: 1
   <MaxCapacity>k__BackingField: 100
   <NumSlots>k__BackingField: 28
   <Slots>k__BackingField:
@@ -8776,6 +8777,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02f98d24cdd54ff4799d20eefb735af4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  persistent: 1
   <MaxCapacity>k__BackingField: 100
   <NumSlots>k__BackingField: 1
   <Slots>k__BackingField: []
@@ -14002,7 +14004,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5034698222293940787, guid: aa382782e59f81147bd210fba2c8224f, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5034698222293940787, guid: aa382782e59f81147bd210fba2c8224f, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -14026,7 +14028,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7003361151321913816, guid: aa382782e59f81147bd210fba2c8224f, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7003361151321913816, guid: aa382782e59f81147bd210fba2c8224f, type: 3}
       propertyPath: m_AnchoredPosition.y
