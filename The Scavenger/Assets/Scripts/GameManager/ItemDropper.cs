@@ -14,7 +14,7 @@ namespace Scavenger
         /// <summary>
         /// Creates a new floating item.
         /// </summary>
-        /// <param name="itemStack">The itemStack stored in the floating item. USE A COPY.</param>
+        /// <param name="itemStack">The itemStack stored in the floating item.</param>
         /// <param name="worldPos">The position to initialize the floating item at.</param>
         /// <returns>The new floating item.</returns>
         public FloatingItem CreateFloatingItem(ItemStack itemStack, Vector2 worldPos)

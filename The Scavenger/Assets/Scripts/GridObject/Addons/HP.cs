@@ -1,3 +1,4 @@
+using Leguar.TotalJSON;
 using UnityEngine;
 
 namespace Scavenger
@@ -26,7 +27,7 @@ namespace Scavenger
         }
 
         // TODO add docs
-        void IHasPersistentData.ReadPersistentData(PersistentData data)
+        public void Read(JSON data)
         {
             if (data.ContainsKey("HP"))
             {
@@ -35,10 +36,9 @@ namespace Scavenger
         }
 
         // TODO add docs
-        PersistentData IHasPersistentData.WritePersistentData(PersistentData data)
+        public void Write(JSON data)
         {
             data.Add("HP", Health);
-            return data;
         }
     }
 

@@ -1,3 +1,4 @@
+using Leguar.TotalJSON;
 using UnityEngine;
 
 namespace Scavenger.GridObjectBehaviors
@@ -15,35 +16,34 @@ namespace Scavenger.GridObjectBehaviors
         protected virtual void Init()
         {
             gridObject = GetComponent<GridObject>();
+            gridObject.SubscribeTickUpdate(TickUpdate);
         }
 
         // TODO add docs
-        public virtual void ReadPersistentData(PersistentData data)
+        public void ReadPersistentData(JSON data)
         {
-            foreach (IHasPersistentData dataWriter in GetComponentsInChildren<IHasPersistentData>())
+            if (data == null)
             {
-                dataWriter.ReadPersistentData(data);
+                data = new JSON();
+            }
+
+            foreach (IHasPersistentData dataReader in GetComponents<IHasPersistentData>())
+            {
+                dataReader.Read(data);
             }
         }
 
         // TODO add docs
-        public PersistentData WritePersistentData()
+        public JSON WritePersistentData()
         {
-            PersistentData data = new PersistentData();
-
+            JSON data = new();
             // Allow addons to write their data first
-            foreach (IHasPersistentData dataWriter in GetComponentsInChildren<IHasPersistentData>())
+            foreach (IHasPersistentData dataWriter in GetComponents<IHasPersistentData>())
             {
-                dataWriter.WritePersistentData(data);
+                dataWriter.Write(data);
             }
-            WritePersistentData(data);
-
             return data;
         }
-
-        // TODO add docs
-        protected virtual PersistentData WritePersistentData(PersistentData data) => data;
-
 
         public virtual void OnPlace() { }
         public virtual void OnRemove() { }

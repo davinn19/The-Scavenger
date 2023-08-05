@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using Leguar.TotalJSON;
 using UnityEngine;
 
 namespace Scavenger
@@ -7,63 +7,49 @@ namespace Scavenger
     /// Populates an item buffer.
     /// </summary>
     [System.Serializable]
-    public class ItemStack
+    public struct ItemStack
     {
         [field: SerializeField] public Item Item { get; private set; }
 
         /// <remarks>DO NOT edit the amount directly unless you are in ItemBuffer. Use Extract/Insert functions in ItemBuffer instead.</remarks>
         [Min(0)] public int Amount;
-        public PersistentData Data; // TODO replace data
+        public JSON PersistentData;
 
-        public ItemStack(Item item, int amount, PersistentData data = null)
+        // TODO add docs
+        public ItemStack(Item item, int amount, JSON persistentData = null)
         {
-            SetItem(item);
+            Item = item;
             Amount = amount;
+            PersistentData = persistentData;
+        }
 
-            if (data != null)
+        /// <summary>
+        /// Creates a copy of another itemStack with a different amount.
+        /// </summary>
+        /// <param name="otherStack">The itemStack to copy.</param>
+        /// <param name="newAmount">The amount the new itemStack should have.</param>
+        public ItemStack(ItemStack otherStack, int newAmount)
+        {
+            Item = otherStack.Item;
+            Amount = newAmount;
+
+            if (otherStack.PersistentData != null)
             {
-                Data = data;
+                PersistentData = new JSON(otherStack.PersistentData.AsDictionary());
             }
             else
             {
-                Data = new PersistentData();
+                PersistentData = null;
             }
         }
 
-        public ItemStack(ItemStack otherStack, int newAmount) : this(otherStack.Item, newAmount, new PersistentData(otherStack.Data)) { }
+        /// <summary>
+        /// Creates a copy of another itemStack.
+        /// </summary>
+        /// <param name="otherStack">The itemStack to copy.</param>
         public ItemStack(ItemStack otherStack) : this(otherStack.Item, otherStack.Amount) { }
 
-        public ItemStack() => Clear();
-
-        /// <summary>
-        /// Resets the itemStack's information.
-        /// </summary>
-        public void Clear()
-        {
-            Item = null;
-            Amount = 0;
-            Data = new PersistentData();
-        }
-
-        /// <summary>
-        /// Assigns an itemStack an item. Fails if the itemStack is already assigned an item.
-        /// </summary>
-        /// <param name="newItem">The item to assign the itemStack with.</param>
-        public void SetItem(Item newItem)
-        {
-            if (Item != null)
-            {
-                Debug.LogWarning("ItemStack is already assigned an item");
-                return;
-            }
-
-            Item = newItem;
-
-            if (Item == null)
-            {
-                Clear();
-            }
-        }
+        public static readonly ItemStack Empty = new(null, 0);
 
         /// <summary>
         /// Checks if another stack is allowed to insert items into it.
@@ -84,13 +70,28 @@ namespace Scavenger
                 return false;
             }
 
+            // Stacks need to both have/not have persistent data
+            if (HasPersistentData() != other.HasPersistentData())
+            {
+                return false;
+            }
+
             // If the stacks' data are different, it is unstackable
-            if (!Data.Compare(other.Data))
+            if (HasPersistentData() && !PersistentData.Equals(other.PersistentData))
             {
                 return false;
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Chekcs if the itemStack contains persistent data.
+        /// </summary>
+        /// <returns>True if the itemStack contains persistent data.</returns>
+        public bool HasPersistentData()
+        {
+            return PersistentData != null && PersistentData.Count > 0;
         }
 
         /// <summary>
@@ -103,11 +104,11 @@ namespace Scavenger
         }
 
         /// <summary>
-        /// An itemStack without an item is considered null. All itemStacks must be assigned an item.
+        /// An itemStack without an item is considered null.
         /// </summary>
         public static implicit operator bool(ItemStack itemStack)
         {
-            return itemStack != null && itemStack.Item != null;
+            return itemStack.Item != null;
         }
     }
 }

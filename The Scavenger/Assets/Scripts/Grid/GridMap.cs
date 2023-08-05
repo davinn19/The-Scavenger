@@ -240,7 +240,7 @@ namespace Scavenger
 
             if (gridObject.TryGetComponent(out GridObjectBehavior behavior))
             {
-                behavior.ReadPersistentData(heldItemStack.Data);
+                behavior.ReadPersistentData(heldItemStack.PersistentData);
             }
             // TODO implement loading ITEM DATA into object
             

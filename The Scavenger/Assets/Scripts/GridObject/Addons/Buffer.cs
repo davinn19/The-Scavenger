@@ -1,3 +1,4 @@
+using Leguar.TotalJSON;
 using UnityEngine;
 
 namespace Scavenger
@@ -10,7 +11,7 @@ namespace Scavenger
         [SerializeField] protected bool persistent = true;
         // TODO add docs
 
-        public void ReadPersistentData(PersistentData data)
+        public void Read(JSON data)
         {
             if (persistent)
             {
@@ -19,16 +20,15 @@ namespace Scavenger
         }
 
 
-        public PersistentData WritePersistentData(PersistentData data)
+        public void Write(JSON data)
         {
             if (persistent)
             {
                 WriteData(data);
             }
-            return data;
         }
 
-        protected abstract void ReadData(PersistentData data);
-        protected abstract void WriteData(PersistentData data);
+        protected abstract void ReadData(JSON data);
+        protected abstract void WriteData(JSON data);
     }
 }

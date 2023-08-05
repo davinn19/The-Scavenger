@@ -6,7 +6,7 @@ namespace Scavenger
     // TODO add docs, filter inputs and outputs using slots instead
     public class ItemInterface : ConduitInterface<ItemBuffer>
     {
-        // returns items moved
+        // returns amount of items moved
         public int MoveTo(int amount, ItemInterface destination)
         {
             int totalAmountMoved = 0;

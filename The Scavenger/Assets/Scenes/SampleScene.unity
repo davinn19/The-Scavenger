@@ -4983,34 +4983,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02f98d24cdd54ff4799d20eefb735af4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  persistent: 1
+  persistent: 0
   <MaxCapacity>k__BackingField: 100
   <NumSlots>k__BackingField: 28
   <Slots>k__BackingField:
   - <Item>k__BackingField: {fileID: 11400000, guid: ce3fa1b47de008c4684aec2d458bc816, type: 2}
     Amount: 100
-    Data:
-      serializedData: 
   - <Item>k__BackingField: {fileID: 11400000, guid: 0880e46e43f0c7844a42e0ae2912a6cb, type: 2}
     Amount: 100
-    Data:
-      serializedData: 
   - <Item>k__BackingField: {fileID: 11400000, guid: 436c4ea4ba6c7fd4a9749b7c32c1baa9, type: 2}
     Amount: 100
-    Data:
-      serializedData: 
   - <Item>k__BackingField: {fileID: 11400000, guid: 4749a09cc431f8643a80898f7b07c16f, type: 2}
     Amount: 100
-    Data:
-      serializedData: 
   - <Item>k__BackingField: {fileID: 11400000, guid: 764ee4002e80a554fa1e2a1cb14df28a, type: 2}
     Amount: 100
-    Data:
-      serializedData: 
   - <Item>k__BackingField: {fileID: 11400000, guid: 18d46571aa3e4154c8ac6b9da101109c, type: 2}
     Amount: 100
-    Data:
-      serializedData: 
+  - <Item>k__BackingField: {fileID: 11400000, guid: dca9a5f9d69630742a722801d2ccaff0, type: 2}
+    Amount: 100
+  slotsLocked: 
 --- !u!1 &752054973
 GameObject:
   m_ObjectHideFlags: 0
@@ -8565,10 +8556,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02f98d24cdd54ff4799d20eefb735af4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  persistent: 1
+  persistent: 0
   <MaxCapacity>k__BackingField: 100
   <NumSlots>k__BackingField: 1
   <Slots>k__BackingField: []
+  slotsLocked: 
 --- !u!1001 &1279060831
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13716,7 +13708,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5034698222293940787, guid: aa382782e59f81147bd210fba2c8224f, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5034698222293940787, guid: aa382782e59f81147bd210fba2c8224f, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -13740,7 +13732,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7003361151321913816, guid: aa382782e59f81147bd210fba2c8224f, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7003361151321913816, guid: aa382782e59f81147bd210fba2c8224f, type: 3}
       propertyPath: m_AnchoredPosition.y

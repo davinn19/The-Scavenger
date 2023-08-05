@@ -1,3 +1,4 @@
+using Leguar.TotalJSON;
 using UnityEngine;
 
 namespace Scavenger.GridObjectBehaviors
@@ -6,17 +7,18 @@ namespace Scavenger.GridObjectBehaviors
     /// Energy cell that starts with some amount of energy.
     /// </summary>
     [RequireComponent(typeof(EnergyBuffer))]
-    public class MakeshiftEnergyCell : EnergyCell
+    public class MakeshiftEnergyCell : EnergyCell, IHasPersistentData
     {
         // TODO add docs
-        public override void ReadPersistentData(PersistentData data)
+        public void Read(JSON data)
         {
-            base.ReadPersistentData(data);
             if (!data.ContainsKey("Energy"))
             {
                 InitEnergy();
             }
         }
+
+        public void Write(JSON _) { }
 
         /// <summary>
         /// Sets the energy cell's initial amount after being placed for the first time.

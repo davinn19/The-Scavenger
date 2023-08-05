@@ -1,3 +1,4 @@
+using Leguar.TotalJSON;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,7 +16,7 @@ namespace Scavenger
         public Func<ItemStack, int, bool> AcceptsItemStack = (_,_) => { return true; };
 
         [field: SerializeField] public ItemStack[] Slots { get; private set; }
-        private bool[] slotsLocked;
+        [SerializeField, HideInInspector] private bool[] slotsLocked;
 
         public event Action<int> SlotChanged;
 
@@ -26,15 +27,17 @@ namespace Scavenger
         }
 
         // TODO implement, add docs
-        protected override void ReadData(PersistentData data)
+        protected override void ReadData(JSON data)
         {
-            throw new NotImplementedException();
+            data.Add("SlotsLocked", slotsLocked);
+            data.Add("Items", JArray.Serialize(Slots));
         }
 
         // TODO implement, add docs
-        protected override void WriteData(PersistentData data)
+        protected override void WriteData(JSON data)
         {
-            throw new NotImplementedException();
+            slotsLocked = data.GetJArray("SlotsLocked").AsBoolArray();
+            Slots = data.GetJArray("Items").Deserialize<ItemStack[]>();
         }
 
         /// <summary>
@@ -53,11 +56,6 @@ namespace Scavenger
                 }
                 itemStack.Amount = Mathf.Min(itemStack.Amount, MaxCapacity);
                 resizedSlots[i] = itemStack;
-            }
-
-            for (int i = Slots.Length; i < resizedSlots.Length; i++)
-            {
-                resizedSlots[i] = new ItemStack();
             }
 
             Slots = resizedSlots;
@@ -89,6 +87,12 @@ namespace Scavenger
             SlotChanged?.Invoke(slot);
         }
 
+        // TODO add docs
+        private void ClearSlot(int slot)
+        {
+            Slots[slot] = ItemStack.Empty;
+        }
+
         /// <summary>
         /// Checks if a slot is locked.
         /// </summary>
@@ -112,7 +116,7 @@ namespace Scavenger
                 ItemStack itemStack = GetItemInSlot(slot);
                 if (itemStack.IsEmpty())
                 {
-                    itemStack.Clear();
+                    ClearSlot(slot);
                 }
             }
             SlotChanged?.Invoke(slot);
@@ -152,10 +156,10 @@ namespace Scavenger
                 extractedStack.Amount -= amountExtracted;
                 if (extractedStack.IsEmpty() && !IsLocked(slot))
                 {
-                    extractedStack.Clear();
+                    extractedStack = default;
                 }
 
-                SlotChanged?.Invoke(slot);
+                SetItemInSlot(extractedStack, slot);
             }
 
             return amountExtracted;
@@ -200,12 +204,12 @@ namespace Scavenger
                 // In case insertedStack is empty (values are uninitialized), set its item and data equal to otherStack
                 if (!insertedStack)
                 {
-                    insertedStack.SetItem(otherStack.Item);
-                    insertedStack.Data = new PersistentData(otherStack.Data);
+                    insertedStack = new ItemStack(otherStack, 0);
                 }
 
                 insertedStack.Amount += amountInserted;
-                SlotChanged?.Invoke(slot);
+
+                SetItemInSlot(insertedStack, slot);
             }
             
             return otherStack.Amount - amountInserted;
@@ -220,9 +224,6 @@ namespace Scavenger
         /// <returns>The amount remaining in itemStack after insertion.</returns>
         public int Insert(ItemStack itemStack, int amount = int.MaxValue, bool simulate = false)
         {
-            // Create copy stack to prevent modifying parameter
-            itemStack = new ItemStack(itemStack);
-
             int insertsRemaining = amount;
 
             // Fill up existing stacks first

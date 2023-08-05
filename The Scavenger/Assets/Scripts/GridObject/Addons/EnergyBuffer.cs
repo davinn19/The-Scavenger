@@ -1,3 +1,4 @@
+using Leguar.TotalJSON;
 using UnityEngine;
 
 namespace Scavenger
@@ -12,7 +13,7 @@ namespace Scavenger
 
 
         // TODO add docs
-        protected override void ReadData(PersistentData data)
+        protected override void ReadData(JSON data)
         {
             if (data.ContainsKey("Energy"))
             {
@@ -21,7 +22,7 @@ namespace Scavenger
         }
 
         // TODO add docs
-        protected override void WriteData(PersistentData data)
+        protected override void WriteData(JSON data)
         {
             data.Add("Energy", Energy);
         }
