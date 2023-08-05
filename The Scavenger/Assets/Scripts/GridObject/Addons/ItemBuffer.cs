@@ -332,6 +332,12 @@ namespace Scavenger
         /// <param name="slot2">Slot to get the second itemStack from.</param>
         public static void Swap(ItemBuffer buffer1, int slot1, ItemBuffer buffer2, int slot2)
         {
+            // Ignore if swapping the same itemStack
+            if (buffer1 == buffer2 && slot1 == slot2)
+            {
+                return;
+            }
+
             if (buffer1.IsLocked(slot1) || buffer2.IsLocked(slot2))
             {
                 return;
@@ -341,7 +347,7 @@ namespace Scavenger
             ItemStack itemStack2 = buffer2.GetItemInSlot(slot2);
 
             // TODO check for max capacity
-            if (itemStack1 == itemStack2 || !buffer1.AcceptsItemStack(itemStack2, slot1) || !buffer2.AcceptsItemStack(itemStack1, slot2))
+            if (!buffer1.AcceptsItemStack(itemStack2, slot1) || !buffer2.AcceptsItemStack(itemStack1, slot2))
             {
                 return;
             }
