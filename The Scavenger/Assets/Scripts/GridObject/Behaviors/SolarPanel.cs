@@ -12,8 +12,9 @@ namespace Scavenger.GridObjectBehaviors
 
         private EnergyBuffer energyBuffer;
 
-        private void Awake()
+        public override void OnPlace()
         {
+            base.OnPlace();
             energyBuffer = GetComponent<EnergyBuffer>();
         }
 

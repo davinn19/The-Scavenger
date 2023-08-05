@@ -9,9 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5728859271981971089}
+  - component: {fileID: 1980017920208034579}
   - component: {fileID: 7883373069504411858}
   - component: {fileID: 6889050377942025394}
   - component: {fileID: 3956336025683893682}
+  - component: {fileID: -2723331405380502855}
   m_Layer: 0
   m_Name: Makeshift Work Surface
   m_TagString: Untagged
@@ -34,6 +36,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1980017920208034579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4610538499388480633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5166a3145b911e54eabae126fbe68066, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Health>k__BackingField: 0
+  MaxHP: 50
 --- !u!114 &7883373069504411858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,3 +127,16 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-2723331405380502855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4610538499388480633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc87fe466642db8418f3e9a9ff87f6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Content: {fileID: 980379012617032584, guid: 5f597a0f43683814384e0324699e34e9, type: 3}

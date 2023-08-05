@@ -13,9 +13,9 @@ namespace Scavenger
 
         /// <remarks>DO NOT edit the amount directly unless you are in ItemBuffer. Use Extract/Insert functions in ItemBuffer instead.</remarks>
         [Min(0)] public int Amount;
-        public Dictionary<string, string> Data; // TODO replace data
+        public PersistentData Data; // TODO replace data
 
-        public ItemStack(Item item, int amount, Dictionary<string, string> data = null)
+        public ItemStack(Item item, int amount, PersistentData data = null)
         {
             SetItem(item);
             Amount = amount;
@@ -26,11 +26,11 @@ namespace Scavenger
             }
             else
             {
-                Data = new Dictionary<string, string>();
+                Data = new PersistentData();
             }
         }
 
-        public ItemStack(ItemStack otherStack, int newAmount) : this(otherStack.Item, newAmount, new Dictionary<string, string>(otherStack.Data)) { }
+        public ItemStack(ItemStack otherStack, int newAmount) : this(otherStack.Item, newAmount, new PersistentData(otherStack.Data)) { }
         public ItemStack(ItemStack otherStack) : this(otherStack.Item, otherStack.Amount) { }
 
         public ItemStack() => Clear();
@@ -42,7 +42,7 @@ namespace Scavenger
         {
             Item = null;
             Amount = 0;
-            Data = new Dictionary<string, string>();
+            Data = new PersistentData();
         }
 
         /// <summary>
@@ -85,17 +85,9 @@ namespace Scavenger
             }
 
             // If the stacks' data are different, it is unstackable
-            if (Data.Count != other.Data.Count)
+            if (!Data.Compare(other.Data))
             {
                 return false;
-            }
-
-            foreach (string key in Data.Keys)
-            {
-                if (!other.Data.ContainsKey(key) || other.Data[key] != Data[key])
-                {
-                    return false;
-                }
             }
 
             return true;

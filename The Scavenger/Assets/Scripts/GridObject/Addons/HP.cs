@@ -7,25 +7,22 @@ namespace Scavenger
     /// </summary>
     public class HP : MonoBehaviour, IHasPersistentData
     {
-        [field: SerializeField] public int MaxHealth { get; private set; }
-        [field: SerializeField] public int Health { get; private set; }
+        [field: SerializeField, HideInInspector] public int Health { get; private set; }
+        [SerializeField] private HPPreset MaxHP;
 
-        public void Init(int maxHealth)
+        // TODO add docs
+        public int GetMaxHP()
         {
-            // TODO implement
+            if (MaxHP == HPPreset.Normal)
+            {
+                return 100;
+            }
+            return (int)MaxHP;
         }
 
-        /// <summary>
-        /// Sets the max health if it hasn't been set in inspector already.
-        /// </summary>
-        /// <param name="maxHealth"></param>
-        public void SetMaxHealth(int maxHealth)
+        private void Awake()
         {
-            if (MaxHealth <= 0)
-            {
-                MaxHealth = maxHealth;
-                Health = maxHealth;
-            }
+            Health = GetMaxHP();
         }
 
         // TODO add docs
@@ -43,6 +40,16 @@ namespace Scavenger
             data.Add("HP", Health);
             return data;
         }
+    }
+
+    public enum HPPreset
+    {
+        Normal, // = 100
+        Puny = 10,
+        Weak = 50,
+        Strong = 200,
+        SuperStrong = 500,
+        Invincible = 1000
     }
 
 }

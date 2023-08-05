@@ -26,13 +26,13 @@ namespace Scavenger
         }
 
         // TODO implement, add docs
-        public override void ReadPersistentData(PersistentData data)
+        protected override void ReadData(PersistentData data)
         {
             throw new NotImplementedException();
         }
 
         // TODO implement, add docs
-        public override PersistentData WritePersistentData(PersistentData data)
+        protected override void WriteData(PersistentData data)
         {
             throw new NotImplementedException();
         }
@@ -201,7 +201,7 @@ namespace Scavenger
                 if (!insertedStack)
                 {
                     insertedStack.SetItem(otherStack.Item);
-                    insertedStack.Data = new Dictionary<string, string>(otherStack.Data);
+                    insertedStack.Data = new PersistentData(otherStack.Data);
                 }
 
                 insertedStack.Amount += amountInserted;

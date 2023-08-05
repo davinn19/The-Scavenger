@@ -8,7 +8,7 @@ namespace Scavenger
     /// <summary>
     /// Represents an object that exists on a gridMap.
     /// </summary>
-    [DisallowMultipleComponent]
+    [RequireComponent(typeof(HP)), DisallowMultipleComponent]
     public class GridObject : MonoBehaviour
     {
         public const int DefaultHP = 100;

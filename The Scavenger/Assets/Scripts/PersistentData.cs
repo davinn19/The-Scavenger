@@ -12,12 +12,19 @@ namespace Scavenger
         [SerializeField] private string serializedData;
 
         private readonly Dictionary<string, string> data = new();
+        public int Count { get => data.Count; }
 
 
-        public void Add<T>(string key, T value)
+        public PersistentData(PersistentData other)
         {
-            data.Add(key, value.ToString());
+            foreach(KeyValuePair<string, string> pair in other.data)
+            {
+                data[pair.Key] = pair.Value;
+            }
         }
+
+        public PersistentData() { }
+
 
         public string GetValue(string key) => data[key];
         public int GetInt(string key) => int.Parse(GetValue(key));
@@ -28,6 +35,11 @@ namespace Scavenger
         public bool ContainsKey(string key)
         {
             return data.ContainsKey(key);
+        }
+        public void Add<T>(string key, T value)
+        {
+            data.Add(key, value.ToString());
+
         }
 
         public void Clear()
@@ -58,6 +70,24 @@ namespace Scavenger
                 string value = parts[1];
                 data.Add(key, value);
             }
+        }
+
+        public bool Compare(PersistentData other)
+        {
+            if (other.Count != Count)
+            {
+                return false;
+            }
+
+            foreach(string key in data.Keys)
+            {
+                if (!other.ContainsKey(key) || other.GetValue(key) != GetValue(key))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 

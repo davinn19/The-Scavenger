@@ -9,7 +9,26 @@ namespace Scavenger
     {
         [SerializeField] protected bool persistent = true;
         // TODO add docs
-        public abstract void ReadPersistentData(PersistentData data);
-        public abstract PersistentData WritePersistentData(PersistentData data);
+
+        public void ReadPersistentData(PersistentData data)
+        {
+            if (persistent)
+            {
+                ReadData(data);
+            }
+        }
+
+
+        public PersistentData WritePersistentData(PersistentData data)
+        {
+            if (persistent)
+            {
+                WriteData(data);
+            }
+            return data;
+        }
+
+        protected abstract void ReadData(PersistentData data);
+        protected abstract void WriteData(PersistentData data);
     }
 }

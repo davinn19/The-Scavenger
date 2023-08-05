@@ -9,11 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 57933402183418659}
+  - component: {fileID: 9143178819013756390}
+  - component: {fileID: 3372188304090494505}
+  - component: {fileID: 1861733364313229858}
   - component: {fileID: 7447148526547841207}
   - component: {fileID: 7052346108508962674}
-  - component: {fileID: 3372188304090494505}
   - component: {fileID: 7944459871896213953}
-  - component: {fileID: 1861733364313229858}
   m_Layer: 0
   m_Name: Solar Panel
   m_TagString: Untagged
@@ -36,6 +37,45 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9143178819013756390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 469526264196311149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5166a3145b911e54eabae126fbe68066, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Health>k__BackingField: 0
+  MaxHP: 0
+--- !u!114 &3372188304090494505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 469526264196311149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6546ea9d9b357204d97e64fcd54f3de6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1861733364313229858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 469526264196311149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0742e7c55cca12f4585f0f63508861b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  energyPerTick: 10
 --- !u!114 &7447148526547841207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48,6 +88,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a854dc0ec229134a90018277a04c963, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  persistent: 1
   <Capacity>k__BackingField: 0
   <Energy>k__BackingField: 0
 --- !u!114 &7052346108508962674
@@ -64,20 +105,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   insertRateLimit: 0
   extractRateLimit: 0
---- !u!114 &3372188304090494505
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 469526264196311149}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6546ea9d9b357204d97e64fcd54f3de6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefab: {fileID: 469526264196311149}
-  <UIContent>k__BackingField: {fileID: 0}
 --- !u!212 &7944459871896213953
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -130,16 +157,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1861733364313229858
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 469526264196311149}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0742e7c55cca12f4585f0f63508861b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  energyPerTick: 10

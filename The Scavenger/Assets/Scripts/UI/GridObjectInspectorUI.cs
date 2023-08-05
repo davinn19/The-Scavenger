@@ -55,7 +55,7 @@ namespace Scavenger.UI
 
             gridObjectIcon.sprite = gridObject.GetComponent<SpriteRenderer>().sprite;
             gridObjectName.text = gridObject.name;
-            healthBar.UpdateAppearance(gridObject.HP.Health, gridObject.HP.MaxHealth);
+            healthBar.UpdateAppearance(gridObject.HP.Health, gridObject.HP.Health);
 
             SetContent(gridObject);
 

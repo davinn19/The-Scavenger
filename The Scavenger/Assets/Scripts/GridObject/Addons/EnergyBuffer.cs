@@ -12,7 +12,7 @@ namespace Scavenger
 
 
         // TODO add docs
-        public override void ReadPersistentData(PersistentData data)
+        protected override void ReadData(PersistentData data)
         {
             if (data.ContainsKey("Energy"))
             {
@@ -21,10 +21,9 @@ namespace Scavenger
         }
 
         // TODO add docs
-        public override PersistentData WritePersistentData(PersistentData data)
+        protected override void WriteData(PersistentData data)
         {
             data.Add("Energy", Energy);
-            return data;
         }
 
         /// <summary>

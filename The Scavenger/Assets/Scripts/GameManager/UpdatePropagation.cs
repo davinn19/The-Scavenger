@@ -8,7 +8,7 @@ namespace Scavenger
     // TODO add docs
     public class UpdatePropagation : MonoBehaviour
     {
-        private readonly Queue<Vector2Int> queuedUpdates = new();
+        private readonly Queue<Vector2Int> queuedNeighborUpdates = new();
         private GridMap map;
 
         private void Awake()
@@ -25,7 +25,7 @@ namespace Scavenger
         {
             foreach (Vector2Int side in GridMap.adjacentDirections)
             {
-                queuedUpdates.Enqueue(side + startPos);
+                queuedNeighborUpdates.Enqueue(side + startPos);
             }
         }
 
@@ -62,9 +62,9 @@ namespace Scavenger
         // Updates neighbors when an object changes state
         private void HandleNeighborChangedUpdates()
         {
-            while (queuedUpdates.Count > 0)
+            while (queuedNeighborUpdates.Count > 0)
             {
-                Vector2Int pos = queuedUpdates.Dequeue();
+                Vector2Int pos = queuedNeighborUpdates.Dequeue();
                 GridObjectBehavior behavior = map.GetBehaviorAtPos(pos);
 
                 if (behavior)

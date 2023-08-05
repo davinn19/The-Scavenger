@@ -11,27 +11,18 @@ namespace Scavenger.GridObjectBehaviors
     {
         private readonly Dictionary<Vector2Int, (TransportMode, DistributeMode)> sideConfigs = new();   // TODO serialize
 
-        private void Awake()
-        {
-            InitSideConfigs();
-        }
-
-        /// <summary>
-        /// Initializes the conduit's side configs to default values.
-        /// </summary>
-        private void InitSideConfigs()
-        {
-            foreach (Vector2Int side in GridMap.adjacentDirections)
-            {
-                sideConfigs.Add(side, (TransportMode.DISCONNECT, DistributeMode.CLOSEST_FIRST));
-            }
-        }
-
         /// <summary>
         /// Sets side configs to default values based on the adjacent GridObject.
         /// </summary>
         public override void OnPlace()
         {
+            base.OnPlace();
+
+            foreach (Vector2Int side in GridMap.adjacentDirections)
+            {
+                sideConfigs.Add(side, (TransportMode.DISCONNECT, DistributeMode.CLOSEST_FIRST));
+            }
+
             foreach (Vector2Int side in GridMap.adjacentDirections)
             {
                 Conduit adjConduit = gridObject.GetAdjacentObject<Conduit>(side);
@@ -45,7 +36,7 @@ namespace Scavenger.GridObjectBehaviors
                 {
                     SetTransportMode(side, TransportMode.EXTRACT);
                 }
-                else                        //Otherwise, disconnect.
+                else                        // Otherwise, disconnect.
                 {
                     SetTransportMode(side, TransportMode.DISCONNECT);
                 }

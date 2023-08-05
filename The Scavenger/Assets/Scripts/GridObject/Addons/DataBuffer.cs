@@ -1,16 +1,19 @@
+using System;
+
 namespace Scavenger
 {
     public class DataBuffer : Buffer
     {
         // TODO implement, add docs
-        public override void ReadPersistentData(PersistentData data)
+        protected override void ReadData(PersistentData data)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
-        public override PersistentData WritePersistentData(PersistentData data)
+        // TODO implement, add docs
+        protected override void WriteData(PersistentData data)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

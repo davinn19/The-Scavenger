@@ -10,12 +10,6 @@ namespace Scavenger.GridObjectBehaviors
     {
         public ItemBuffer Buffer { get; private set; }
 
-        // TODO implement
-        public override void ReadPersistentData(PersistentData data)
-        {
-            base.ReadPersistentData(data);
-        }
-
         // TODO add docs
         public override void OnPlace()
         {

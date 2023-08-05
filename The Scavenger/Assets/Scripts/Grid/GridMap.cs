@@ -124,12 +124,14 @@ namespace Scavenger
         /// </summary>
         /// <param name="gridObject">Prefab of the new gridObject.</param>
         /// <param name="gridPos">Position to set the new gridObject at.</param>
-        private void SetObjectAtPos(GridObject gridObject, Vector2Int gridPos)
+        /// <returns>Newly created gridObject.</returns>
+        private GridObject SetObjectAtPos(GridObject gridObject, Vector2Int gridPos)
         {
             GridChunk chunk = GetChunkAtPos(gridPos);
-            chunk.SetObjectAtPos(gridObject, gridPos);
+            GridObject newGridObject = chunk.SetObjectAtPos(gridObject, gridPos);
 
             GridObjectSet.Invoke(gridPos);
+            return newGridObject;
         }
 
         /// <summary>
