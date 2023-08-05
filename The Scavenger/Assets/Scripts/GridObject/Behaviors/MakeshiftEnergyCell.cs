@@ -8,10 +8,7 @@ namespace Scavenger.GridObjectBehaviors
     [RequireComponent(typeof(EnergyBuffer))]
     public class MakeshiftEnergyCell : EnergyCell
     {
-        /// <summary>
-        /// Checks if the energy cell has been placed down before.
-        /// </summary>
-        /// <param name="data"></param>
+        // TODO add docs
         public override void ReadPersistentData(PersistentData data)
         {
             base.ReadPersistentData(data);
@@ -26,7 +23,7 @@ namespace Scavenger.GridObjectBehaviors
         /// </summary>
         private void InitEnergy()
         {
-            energyBuffer.Energy = (int)(Random.Range(0.5f, 0.75f) * energyBuffer.Capacity);
+            energyBuffer.Energy = (int)(Random.Range(0.3f, 0.6f) * energyBuffer.Capacity);
         }
     }
 }

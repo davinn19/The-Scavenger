@@ -11,9 +11,9 @@ namespace Scavenger.GridObjectBehaviors
         public ItemBuffer Buffer { get; private set; }
 
         // TODO add docs
-        public override void OnPlace()
+        protected override void Init()
         {
-            base.OnPlace();
+            base.Init();
             Buffer = GetComponent<ItemBuffer>();
         }
 

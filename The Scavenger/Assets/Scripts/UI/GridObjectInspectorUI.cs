@@ -16,14 +16,13 @@ namespace Scavenger.UI
 
         [SerializeField] private TextMeshProUGUI gridObjectName;
         [SerializeField] private Image gridObjectIcon;
-        private ProgressBar healthBar;
+        private HPGauge hpBar;
 
         private GridObjectUIContent content = null;
 
         private void Awake()
         {
-            healthBar = GetComponentInChildren<ProgressBar>();
-            healthBar.Prefix = "HP: ";
+            hpBar = GetComponentInChildren<HPGauge>();
 
             gridObjectInspector = gameManager.GridObjectInspector;
             gridObjectInspector.InspectedObjectChanged += UpdateAppearance;
@@ -55,7 +54,7 @@ namespace Scavenger.UI
 
             gridObjectIcon.sprite = gridObject.GetComponent<SpriteRenderer>().sprite;
             gridObjectName.text = gridObject.name;
-            healthBar.UpdateAppearance(gridObject.HP.Health, gridObject.HP.Health);
+            hpBar.HP = gridObject.HP;
 
             SetContent(gridObject);
 

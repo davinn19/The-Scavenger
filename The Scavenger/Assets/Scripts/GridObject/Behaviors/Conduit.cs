@@ -11,18 +11,22 @@ namespace Scavenger.GridObjectBehaviors
     {
         private readonly Dictionary<Vector2Int, (TransportMode, DistributeMode)> sideConfigs = new();   // TODO serialize
 
+        // TODO add docs
+        protected override void Init()
+        {
+            base.Init();
+            foreach (Vector2Int side in GridMap.adjacentDirections)
+            {
+                sideConfigs.Add(side, (TransportMode.DISCONNECT, DistributeMode.CLOSEST_FIRST));
+            }
+        }
+
         /// <summary>
         /// Sets side configs to default values based on the adjacent GridObject.
         /// </summary>
         public override void OnPlace()
         {
             base.OnPlace();
-
-            foreach (Vector2Int side in GridMap.adjacentDirections)
-            {
-                sideConfigs.Add(side, (TransportMode.DISCONNECT, DistributeMode.CLOSEST_FIRST));
-            }
-
             foreach (Vector2Int side in GridMap.adjacentDirections)
             {
                 Conduit adjConduit = gridObject.GetAdjacentObject<Conduit>(side);

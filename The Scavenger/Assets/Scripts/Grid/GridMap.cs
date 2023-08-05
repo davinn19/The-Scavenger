@@ -236,8 +236,14 @@ namespace Scavenger
                 return false;
             }
 
-            SetObjectAtPos(placedObject.Object, gridPos);
+            GridObject gridObject = SetObjectAtPos(placedObject.Object, gridPos);
+
+            if (gridObject.TryGetComponent(out GridObjectBehavior behavior))
+            {
+                behavior.ReadPersistentData(heldItemStack.Data);
+            }
             // TODO implement loading ITEM DATA into object
+            
             updatePropagation.HandlePlaceUpdate(gridPos);
             heldItemHandler.Use();
             return true;

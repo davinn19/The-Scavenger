@@ -9,6 +9,11 @@ namespace Scavenger.GridObjectBehaviors
 
         private void Awake()
         {
+            Init();
+        }
+
+        protected virtual void Init()
+        {
             gridObject = GetComponent<GridObject>();
         }
 

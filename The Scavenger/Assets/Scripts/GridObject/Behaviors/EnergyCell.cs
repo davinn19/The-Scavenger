@@ -16,5 +16,12 @@ namespace Scavenger.GridObjectBehaviors
 
         [SerializeField] public int insertLimit;
         [SerializeField] public int extractLimit;
+
+        // TODO add docs
+        protected override void Init()
+        {
+            base.Init();
+            energyBuffer = GetComponent<EnergyBuffer>();
+        }
     }
 }
