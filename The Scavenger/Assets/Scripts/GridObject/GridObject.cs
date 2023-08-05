@@ -78,5 +78,17 @@ namespace Scavenger
             map.updatePropagation.QueueNeighborUpdates(GridPos);
         }
 
+        // TODO add docs
+        public void SubscribeTickUpdate(Action callback)
+        {
+            map.updateCycle.TickUpdate += callback;
+        }
+
+        public void UnsubscribeTickUpdate(Action callback)
+        {
+            map.updateCycle.TickUpdate -= callback;
+        }
+
+
     }
 }

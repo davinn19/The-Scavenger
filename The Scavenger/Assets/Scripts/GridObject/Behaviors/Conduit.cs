@@ -19,6 +19,7 @@ namespace Scavenger.GridObjectBehaviors
             {
                 sideConfigs.Add(side, (TransportMode.DISCONNECT, DistributeMode.CLOSEST_FIRST));
             }
+            gridObject.SubscribeTickUpdate(TickUpdate);    // TODO figure out how to eliminate useless calls
         }
 
         /// <summary>
@@ -54,6 +55,8 @@ namespace Scavenger.GridObjectBehaviors
         /// </summary>
         public override void OnRemove()
         {
+            gridObject.UnsubscribeTickUpdate(TickUpdate);
+
             foreach (Vector2Int side in GridMap.adjacentDirections)
             {
                 SetTransportMode(side, TransportMode.DISCONNECT);
@@ -199,6 +202,7 @@ namespace Scavenger.GridObjectBehaviors
             {
                 cable.TransportResource();
             }
+            gridObject.SubscribeTickUpdate(TickUpdate);
         }
 
         /// <summary>
@@ -281,7 +285,6 @@ namespace Scavenger.GridObjectBehaviors
                 return new() { TransportMode.DISCONNECT };
             }
         }
-
     }
 
     /// <summary>

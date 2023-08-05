@@ -14,7 +14,10 @@ namespace Scavenger
 
         private float secondsSinceUpdate;
 
-        private Queue<Action> callbackQueue = new();
+        private readonly Queue<Action> callbackQueue = new();
+        private readonly LinkedList<Action> callbacks = new();
+
+        public event Action TickUpdate;
 
 
         private void Awake()
@@ -33,9 +36,26 @@ namespace Scavenger
             }
         }
 
-        // TODO remove queue system and scan the gridmap instead
         private void ExecuteCallbacks()
         {
+            LinkedListNode<Action> node = callbacks.First;
+
+
+            for (; node != null; node = node.Next)
+            {
+                //TODO implement, add docs
+            }
+
+
+            while (node != null)
+            {
+                if (node.Value == null)
+                {
+
+                }
+            }
+
+
             int queueSize = callbackQueue.Count;
             for (int _ = 0; _ < queueSize; _++)
             {
