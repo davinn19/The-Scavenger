@@ -12,13 +12,16 @@ namespace Scavenger.GridObjectBehaviors
         // TODO add docs
         public void Read(JSON data)
         {
-            if (!data.ContainsKey("Energy"))
+            if (!data.ContainsKey("InitialEnergySet"))
             {
                 InitEnergy();
             }
         }
 
-        public void Write(JSON _) { }
+        public void Write(JSON data)
+        { 
+            data.AddOrReplace("InitialEnergySet", true);
+        }
 
         /// <summary>
         /// Sets the energy cell's initial amount after being placed for the first time.

@@ -1,7 +1,6 @@
 using System;
-using UnityEngine;
-using Scavenger.UI.UIContent;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Scavenger
 {
@@ -17,8 +16,6 @@ namespace Scavenger
         private GridChunk chunk;
 
         public HP HP { get; private set; }
-        
-        public Func<ItemStack> GetRemoveDrops;  // TODO implement
 
         public event Action SelfChanged;
 
@@ -67,6 +64,16 @@ namespace Scavenger
             }
 
             return null;
+        }
+
+        // TODO add docs
+        public List<ItemStack> GetDrops()
+        {
+            if (TryGetComponent(out LootTable lootTable))
+            {
+                return lootTable.GetDrops();
+            }
+            return new();
         }
 
         /// <summary>

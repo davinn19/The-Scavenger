@@ -12,7 +12,6 @@ namespace Scavenger.CustomEditor
         private Rect buttonRect;
         private ItemPropertiesSearchProvider searchProvider;
 
-
         private SerializedProperty displayName;
         private SerializedProperty icon;
         private SerializedProperty description;

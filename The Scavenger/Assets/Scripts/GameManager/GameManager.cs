@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -34,14 +35,16 @@ namespace Scavenger
             Vector2Int gridPos = InputHandler.HoveredGridPos;
             Vector2Int sidePressed = InputHandler.GetHoveredSide();
 
+            // Try interacting clickable first
+            if (TryInteractClickable())
+            {
+                return;
+            }
+
             switch (inputMode)
             {
                 case InputMode.Interact:
-                    // Try interacting clickable first
-                    if (TryInteractClickable())
-                    {
-                        return;
-                    }
+                    
 
                     // Try placing object next
                     if (Map.TryPlaceItem(HeldItemHandler, gridPos))
@@ -68,10 +71,11 @@ namespace Scavenger
                     break;
 
                 case InputMode.Remove:
-                    // TODO implement
-                    break;
-                case InputMode.Target:
-                    TryInteractClickable();
+                    List<ItemStack> droppedItems = Map.RemoveAtPos(gridPos);
+                    foreach (ItemStack droppedItem in droppedItems)
+                    {
+                        ItemDropper.CreateFloatingItem(droppedItem, GridMap.GetCenterOfTile(gridPos));
+                    }
                     break;
             }
         }

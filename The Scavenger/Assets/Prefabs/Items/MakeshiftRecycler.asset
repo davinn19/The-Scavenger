@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <DisplayName>k__BackingField: Makeshift Recycler
   <Icon>k__BackingField: {fileID: 21300000, guid: fc4461844c7cf0d4aa1c604014dc598c, type: 3}
+  <Description>k__BackingField: 
   properties:
   - {fileID: 4885432563435953701}
+  ID: 8
 --- !u!114 &4885432563435953701
 MonoBehaviour:
   m_ObjectHideFlags: 0

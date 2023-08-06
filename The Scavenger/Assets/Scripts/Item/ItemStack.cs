@@ -7,9 +7,10 @@ namespace Scavenger
     /// Populates an item buffer.
     /// </summary>
     [System.Serializable]
-    public struct ItemStack
+    public struct ItemStack : ISerializationCallbackReceiver
     {
         [field: SerializeField] public Item Item { get; private set; }
+        [SerializeField, HideInInspector] private int itemID;
 
         /// <remarks>DO NOT edit the amount directly unless you are in ItemBuffer. Use Extract/Insert functions in ItemBuffer instead.</remarks>
         [Min(0)] public int Amount;
@@ -21,6 +22,8 @@ namespace Scavenger
             Item = item;
             Amount = amount;
             PersistentData = persistentData;
+
+            itemID = 0;
         }
 
         /// <summary>
@@ -41,15 +44,18 @@ namespace Scavenger
             {
                 PersistentData = null;
             }
+
+            itemID = 0;
         }
 
         /// <summary>
         /// Creates a copy of another itemStack.
         /// </summary>
         /// <param name="otherStack">The itemStack to copy.</param>
-        public ItemStack(ItemStack otherStack) : this(otherStack.Item, otherStack.Amount) { }
+        public ItemStack(ItemStack otherStack) : this(otherStack, otherStack.Amount) { }
 
-        public static readonly ItemStack Empty = new(null, 0);
+
+        public static readonly ItemStack Empty = new(default(ItemStack), 0);
 
         /// <summary>
         /// Checks if another stack is allowed to insert items into it.
@@ -59,7 +65,7 @@ namespace Scavenger
         public bool IsStackable(ItemStack other)
         {
             // If current stack is empty, it is stackable
-            if (Item == null)
+            if (!this)
             {
                 return true;
             }
@@ -101,6 +107,25 @@ namespace Scavenger
         public bool IsEmpty()
         {
             return Amount <= 0;
+        }
+
+        // TODO add docs
+        public void OnBeforeSerialize()
+        {
+            if (!Item)
+            {
+                itemID = 0;
+            }
+            else
+            {
+                itemID = Item.ID;
+            }
+        }
+
+        // TODO add docs
+        public void OnAfterDeserialize()
+    {
+            Item = Resources.Load<ItemDatabase>("ItemDatabase").GetItem(itemID);
         }
 
         /// <summary>

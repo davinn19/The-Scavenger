@@ -38,7 +38,10 @@ namespace Scavenger
         // TODO add docs
         public void Write(JSON data)
         {
-            data.Add("HP", Health);
+            if (Health < GetMaxHP())
+            {
+                data.Add("HP", Health);
+            }
         }
     }
 

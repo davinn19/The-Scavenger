@@ -22,7 +22,7 @@ namespace Scavenger.GridObjectBehaviors
         /// <summary>
         /// Generates some amount of energy per tick.
         /// </summary>
-        public override void TickUpdate()
+        protected override void TickUpdate()
         {
             int energyAdded = energyBuffer.Insert(energyPerTick, false);
             if (energyAdded > 0)

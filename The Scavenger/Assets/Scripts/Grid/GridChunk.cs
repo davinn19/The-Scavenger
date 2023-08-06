@@ -22,6 +22,11 @@ namespace Scavenger
         {
             ClearPos(gridPos);
 
+            if (!gridObject)
+            {
+                return null;
+            }
+
             Vector2Int chunkPos = GetChunkPos(gridPos);
             GridObject newGridObject = Instantiate(gridObject, transform);
             newGridObject.name = gridObject.name;

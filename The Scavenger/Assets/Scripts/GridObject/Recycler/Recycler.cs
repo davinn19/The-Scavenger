@@ -7,9 +7,8 @@ namespace Scavenger.GridObjectBehaviors
     {
         [SerializeField] private RecyclerRecipes recipes;
 
-        [SerializeField] private ItemBuffer input;
-        [SerializeField] private ItemBuffer output;
-        [SerializeField] private EnergyBuffer energy;
+        private ItemBuffer itemBuffer;
+        private EnergyBuffer energyBuffer;
 
         [SerializeField] private float recycleProgress = 0;
 
@@ -17,9 +16,16 @@ namespace Scavenger.GridObjectBehaviors
         [Min(0)]
         private float ticksPerRecycle;
 
+        // TODO add docs
+        protected override void Init()
+        {
+            base.Init();
+            itemBuffer = GetComponent<ItemBuffer>();
+            energyBuffer = GetComponent<EnergyBuffer>();
+        }
 
         // TODO implement
-        public override void TickUpdate()
+        protected override void TickUpdate()
         {
             recycleProgress++;
             if (recycleProgress >= ticksPerRecycle)

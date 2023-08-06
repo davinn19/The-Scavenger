@@ -24,7 +24,10 @@ namespace Scavenger
         // TODO add docs
         protected override void WriteData(JSON data)
         {
-            data.Add("Energy", Energy);
+            if (Energy > 0)
+            {
+                data.Add("Energy", Energy);
+            }
         }
 
         /// <summary>

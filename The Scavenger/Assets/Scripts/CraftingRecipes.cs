@@ -17,7 +17,6 @@ namespace Scavenger
         }
     }
 
-
     [System.Serializable]
     public class CraftingRecipe
     {

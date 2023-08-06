@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Default Local Group
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 4a2f8831314df674b9cc1d93afbbe677
+  m_SerializeEntries:
+  - m_GUID: 9f7fb03e54a0abc468a716182ba6a393
+    m_Address: Assets/Prefabs/ItemDatabase.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ce3fa1b47de008c4684aec2d458bc816
+    m_Address: Assets/Prefabs/Items/MakeshiftConduit.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6e9d5b9e754da7247a07c6339de525be
+    m_Address: Assets/Prefabs/Items/ScrapMetal.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5540fd200c50bb24682223f08b3fcbac
+    m_Address: Assets/Prefabs/Items/MakeshiftRecycler.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 18d46571aa3e4154c8ac6b9da101109c
+    m_Address: Assets/Prefabs/Items/MangledWires.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ca00fa6b515b3f3478d5800ee2483d41
+    m_Address: Assets/Prefabs/Items/EthernetCable.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 436c4ea4ba6c7fd4a9749b7c32c1baa9
+    m_Address: Assets/Prefabs/Items/ConveyorChute.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0880e46e43f0c7844a42e0ae2912a6cb
+    m_Address: Assets/Prefabs/Items/CopperEnergyCable.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 96a34f6fc5088c5419518cecc54db470
+    m_Address: Assets/Prefabs/Items/CoaxCable.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8be0e1af319d4f249ad306127adde586
+    m_Address: Assets/Prefabs/Items/SolarPanel.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4749a09cc431f8643a80898f7b07c16f
+    m_Address: Assets/Prefabs/Items/Silo.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bb9d0c6617e6fe64f9094b818026390b
+    m_Address: Assets/Prefabs/Items/FiberCable.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dca9a5f9d69630742a722801d2ccaff0
+    m_Address: Assets/Prefabs/Items/MakeshiftEnergyCell.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e9983f9720fb1484a975da3831142444
+    m_Address: Assets/Prefabs/Items/SpaceDebris.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 764ee4002e80a554fa1e2a1cb14df28a
+    m_Address: Assets/Prefabs/Items/UsedBattery.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 0954d70bd3583ac47893482d8f644666, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: efcbcf0976d17204aababa0744147865, type: 2}
+    - {fileID: 11400000, guid: 9e6d106980882da4abb0b304a6443329, type: 2}

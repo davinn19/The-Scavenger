@@ -10,9 +10,9 @@ namespace Scavenger
         [SerializeField] private List<RecyclerRecipe> recipes;
 
 
-        public bool IsRecyclable(ItemStack item)
+        public bool IsRecyclable(ItemStack itemStack)
         {
-            return GetRecipe(item.Item) != null;
+            return GetRecipe(itemStack.Item) != null;
         }
 
 

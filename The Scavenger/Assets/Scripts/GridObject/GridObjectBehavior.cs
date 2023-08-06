@@ -1,4 +1,5 @@
 using Leguar.TotalJSON;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Scavenger.GridObjectBehaviors
@@ -45,6 +46,11 @@ namespace Scavenger.GridObjectBehaviors
             return data;
         }
 
+        public virtual List<ItemStack> GetRemoveDrops()
+        {
+            return new List<ItemStack>();
+        }
+
         public virtual void OnPlace() { }
         public virtual void OnRemove() { }
         public virtual void OnNeighborPlaced(Vector2Int side) { }
@@ -53,6 +59,6 @@ namespace Scavenger.GridObjectBehaviors
         public virtual bool TryInteract(ItemBuffer inventory, HeldItemHandler heldItemHandler, Vector2Int sidePressed) => false;
         public virtual bool TryEdit(Vector2Int sidePressed) => false;
 
-        public virtual void TickUpdate() { }
+        protected virtual void TickUpdate() { }
     }
 }

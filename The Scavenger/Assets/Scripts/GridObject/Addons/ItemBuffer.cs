@@ -29,15 +29,30 @@ namespace Scavenger
         // TODO implement, add docs
         protected override void ReadData(JSON data)
         {
-            data.Add("SlotsLocked", slotsLocked);
-            data.Add("Items", JArray.Serialize(Slots));
+            if (data.ContainsKey("SlotsLocked"))
+            {
+                slotsLocked = data.GetJArray("SlotsLocked").AsBoolArray();
+            }
+            if (data.ContainsKey("Items"))
+            {
+                Slots = data.GetJArray("Items").Deserialize<ItemStack[]>();
+            }
+            
         }
 
         // TODO implement, add docs
         protected override void WriteData(JSON data)
         {
-            slotsLocked = data.GetJArray("SlotsLocked").AsBoolArray();
-            Slots = data.GetJArray("Items").Deserialize<ItemStack[]>();
+            if (HasLockedSlot())
+            {
+                data.Add("SlotsLocked", slotsLocked);
+            }
+
+            if (HasItem())
+            {
+                data.Add("Items", JArray.Serialize(Slots));
+            }
+            Debug.Log(data.CreatePrettyString());
         }
 
         /// <summary>
@@ -93,6 +108,19 @@ namespace Scavenger
             Slots[slot] = ItemStack.Empty;
         }
 
+        // TODO add docs
+        private bool HasItem()
+        {
+            foreach (ItemStack itemStack in Slots)
+            {
+                if (itemStack)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         /// <summary>
         /// Checks if a slot is locked.
         /// </summary>
@@ -129,6 +157,19 @@ namespace Scavenger
         public void ToggleLocked(int slot)
         {
             SetLocked(slot, !IsLocked(slot));
+        }
+
+        // TODO add docs
+        private bool HasLockedSlot()
+        {
+            foreach (bool lockedStatus in slotsLocked)
+            {
+                if (lockedStatus)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         /// <summary>

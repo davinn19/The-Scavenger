@@ -13,8 +13,9 @@ namespace Scavenger
         [field: SerializeField] public string DisplayName { get; private set; }
         [field: SerializeField] public Sprite Icon { get; private set; }
         [field: SerializeField, Multiline] public string Description { get; private set; }
-
         [SerializeField] private List<ItemProperty> properties = new() { };
+
+        [SerializeField] public int ID = 0;
 
         /// <summary>
         /// Attempts to lead an interation with the gridMap. Will fail if the item does not contain the Interactible property.

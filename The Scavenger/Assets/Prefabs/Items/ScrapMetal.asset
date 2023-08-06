@@ -17,6 +17,7 @@ MonoBehaviour:
   <Description>k__BackingField: Can be placed on the asteroid to make a working surface.
   properties:
   - {fileID: 9005365952238828024}
+  ID: 10
 --- !u!114 &9005365952238828024
 MonoBehaviour:
   m_ObjectHideFlags: 0

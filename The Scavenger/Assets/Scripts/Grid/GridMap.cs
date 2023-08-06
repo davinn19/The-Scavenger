@@ -140,12 +140,12 @@ namespace Scavenger
         /// <param name="gridObject">Prefab of the new gridObject.</param>
         /// <param name="gridPos">Position to set the new gridObject at.</param>
         /// <param name="saveData">Save data to load into the placed object.</param>
-        private void SetObjectAtPos(GridObject gridObject, Vector2Int gridPos, string saveData)
+        private void SetObjectAtPos(GridObject gridObject, Vector2Int gridPos, string saveData) // TODO redo
         {
             GridChunk chunk = GetChunkAtPos(gridPos);
             GridObject newGridObject = chunk.SetObjectAtPos(gridObject, gridPos);
 
-            JsonUtility.FromJsonOverwrite(saveData, newGridObject);
+            JsonUtility.FromJsonOverwrite(saveData, newGridObject); // TODO switch to other JSON format
 
             GridObjectSet.Invoke(gridPos);
         }
@@ -247,6 +247,22 @@ namespace Scavenger
             updatePropagation.HandlePlaceUpdate(gridPos);
             heldItemHandler.Use();
             return true;
+        }
+
+        // TODO add docs, implement
+        public List<ItemStack> RemoveAtPos(Vector2Int gridPos)
+        {
+            GridObject gridObject = GetObjectAtPos(gridPos);
+            if (!gridObject)
+            {
+                return new();
+            }
+
+            List<ItemStack> drops = gridObject.GetDrops();
+
+            SetObjectAtPos(null, gridPos);
+            return drops;
+            
         }
 
         /// <summary>

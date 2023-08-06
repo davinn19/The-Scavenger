@@ -17,6 +17,7 @@ MonoBehaviour:
   <Description>k__BackingField: Use on an empty space on the asteroid to salvage.
   properties:
   - {fileID: 7267624586482457709}
+  ID: 13
 --- !u!114 &7267624586482457709
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 using UnityEditor;
 using UnityEditor.UIElements;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Scavenger.CustomEditor
@@ -8,17 +9,15 @@ namespace Scavenger.CustomEditor
     [CustomPropertyDrawer(typeof(ItemStack))]
     public class ItemStackDrawer : PropertyDrawer
     {
-        public override VisualElement CreatePropertyGUI(SerializedProperty property)
+        // TODO implement
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            VisualElement container = new();
+            EditorGUI.BeginProperty(position, label, property);
 
-            PropertyField itemField = new PropertyField(property.FindPropertyRelative("<Item>k__BackingField"));
-            container.Add(itemField);
+            EditorGUILayout.PropertyField(property.FindPropertyRelative("<Item>k__BackingField"));
+            EditorGUILayout.PropertyField(property.FindPropertyRelative("Amount"));
 
-            PropertyField amountField = new PropertyField(property.FindPropertyRelative("Amount"));
-            container.Add(amountField);
-
-            return container;
+            EditorGUI.EndProperty();
         }
     }
 }

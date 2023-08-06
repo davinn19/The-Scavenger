@@ -28,5 +28,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <DisplayName>k__BackingField: Ethernet Cable
   <Icon>k__BackingField: {fileID: 21300000, guid: 8c59794993988d94cb37d5efcf4d06a9, type: 3}
+  <Description>k__BackingField: 
   properties:
   - {fileID: -5788765805084756122}
+  ID: 4

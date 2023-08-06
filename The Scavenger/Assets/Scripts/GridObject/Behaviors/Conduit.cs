@@ -192,8 +192,8 @@ namespace Scavenger.GridObjectBehaviors
             return true;
         }
 
-        // TODO add docs, make more efficient???
-        public override void TickUpdate()
+        // TODO add docs
+        protected override void TickUpdate()
         {
             foreach (Cable cable in GetComponents<Cable>())
             {

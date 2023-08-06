@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <DisplayName>k__BackingField: Coaxical Cable
   <Icon>k__BackingField: {fileID: 21300000, guid: 4c77067f1c5be0544a26bd6960c560ae, type: 3}
+  <Description>k__BackingField: 
   properties:
   - {fileID: 4240812587172145644}
+  ID: 1
 --- !u!114 &4240812587172145644
 MonoBehaviour:
   m_ObjectHideFlags: 0
