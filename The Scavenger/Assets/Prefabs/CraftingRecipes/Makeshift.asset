@@ -14,24 +14,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipes:
   - Ingredients:
-    - <Item>k__BackingField: {fileID: 11400000, guid: 764ee4002e80a554fa1e2a1cb14df28a, type: 2}
+    - itemID: UsedBattery
       Amount: 5
-    - <Item>k__BackingField: {fileID: 11400000, guid: 18d46571aa3e4154c8ac6b9da101109c, type: 2}
+    - itemID: MangledWires
       Amount: 5
     Result:
-      <Item>k__BackingField: {fileID: 11400000, guid: dca9a5f9d69630742a722801d2ccaff0, type: 2}
+      itemID: MakeshiftEnergyCell
       Amount: 1
   - Ingredients:
-    - <Item>k__BackingField: {fileID: 11400000, guid: 764ee4002e80a554fa1e2a1cb14df28a, type: 2}
-      Amount: 3
-    - <Item>k__BackingField: {fileID: 11400000, guid: 6e9d5b9e754da7247a07c6339de525be, type: 2}
-      Amount: 8
+    - itemID: UsedBattery
+      Amount: 7
+    - itemID: MangledWires
+      Amount: 7
+    - itemID: ScrapMetal
+      Amount: 7
     Result:
-      <Item>k__BackingField: {fileID: 11400000, guid: 5540fd200c50bb24682223f08b3fcbac, type: 2}
+      itemID: MakeshiftRecycler
       Amount: 1
   - Ingredients:
-    - <Item>k__BackingField: {fileID: 11400000, guid: 6e9d5b9e754da7247a07c6339de525be, type: 2}
+    - itemID: ScrapMetal
       Amount: 5
     Result:
-      <Item>k__BackingField: {fileID: 11400000, guid: ce3fa1b47de008c4684aec2d458bc816, type: 2}
+      itemID: MakeshiftConduit
       Amount: 10

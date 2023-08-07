@@ -5033,8 +5033,12 @@ MonoBehaviour:
   <MaxCapacity>k__BackingField: 100
   <NumSlots>k__BackingField: 28
   <Slots>k__BackingField:
-  - itemID: 
-    Amount: 0
+  - itemID: MakeshiftEnergyCell
+    Amount: 100
+  - itemID: Silo
+    Amount: 100
+  - itemID: UsedBattery
+    Amount: 100
   slotsLocked: 
 --- !u!1 &752054973
 GameObject:
@@ -13742,7 +13746,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5034698222293940787, guid: aa382782e59f81147bd210fba2c8224f, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5034698222293940787, guid: aa382782e59f81147bd210fba2c8224f, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -13766,7 +13770,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7003361151321913816, guid: aa382782e59f81147bd210fba2c8224f, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7003361151321913816, guid: aa382782e59f81147bd210fba2c8224f, type: 3}
       propertyPath: m_AnchoredPosition.y

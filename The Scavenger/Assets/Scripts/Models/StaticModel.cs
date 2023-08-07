@@ -8,18 +8,8 @@ namespace Scavenger
     // TODO add docs
     public class StaticModel : Model
     {
-        [SerializeField] private Sprite sprite;
-        private SpriteRenderer spriteRenderer;
+        public override void Load(GridObjectBehavior behavior) { }
 
-        public override void Load(GridObjectBehavior behavior)
-        {
-            spriteRenderer = GetComponent<SpriteRenderer>();
-
-        }
-
-        public override void UpdateAppearance()
-        {
-            spriteRenderer.sprite = sprite;
-        }
+        public override void UpdateAppearance() { }
     }
 }

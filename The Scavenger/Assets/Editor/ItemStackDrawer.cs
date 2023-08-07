@@ -10,6 +10,8 @@ namespace Scavenger.CustomEditor
         // TODO implement, use objectpicker instead of object field, special sprite is targethover
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
+            EditorGUI.BeginProperty(position, label, property);
+
             EditorGUILayout.PropertyField(property.FindPropertyRelative("itemID"));
             EditorGUILayout.PropertyField(property.FindPropertyRelative("Amount"));
 
@@ -19,6 +21,8 @@ namespace Scavenger.CustomEditor
                 property.FindPropertyRelative("itemID").stringValue = selectedObject.name;
                 property.serializedObject.ApplyModifiedProperties();
             }
+
+            EditorGUI.EndProperty();
         }
     }
 }
