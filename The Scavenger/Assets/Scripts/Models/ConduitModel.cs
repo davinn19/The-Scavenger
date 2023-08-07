@@ -32,7 +32,7 @@ namespace Scavenger.Models
         public override void UpdateAppearance()
         {
             UpdateAllSides();
-            throw new System.NotImplementedException();
+            UpdateCenter();
         }
 
         /// <summary>

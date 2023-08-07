@@ -8,6 +8,23 @@ namespace Scavenger
     // TODO add docs
     public abstract class PrefabDatabase<T> : ScriptableObject where T : Object
     {
+        private Dictionary<string, T> cache = new();
+
+        public virtual T Get(string id)
+        {
+            if (cache.ContainsKey(id))
+            {
+                return cache[id];
+            }
+            return null;
+        }
+
+        protected void AddToCache(T asset)
+        {
+            cache.Add(asset.name, asset);
+        }
+
+
         protected List<T> FindAssets()
         {
             string[] guids = AssetDatabase.FindAssets("", new string[] { "Assets/Prefabs" });
@@ -43,8 +60,5 @@ namespace Scavenger
         }
 
         protected abstract void UpdateDatabase();
-
-
-        public abstract T Get(string id);
     }
 }

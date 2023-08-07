@@ -8,18 +8,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 795611558785565687, guid: dec16739443c4ed4c989e46b41531c5c, type: 3}
-      propertyPath: MaxHP
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 795611558785565687, guid: dec16739443c4ed4c989e46b41531c5c, type: 3}
-      propertyPath: <MaxHealth>k__BackingField
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1867988567640968477, guid: dec16739443c4ed4c989e46b41531c5c, type: 3}
-      propertyPath: <MaxHealth>k__BackingField
-      value: 10
-      objectReference: {fileID: 0}
+    - target: {fileID: 2369776635612263990, guid: dec16739443c4ed4c989e46b41531c5c, type: 3}
+      propertyPath: connectedSprite
+      value: 
+      objectReference: {fileID: -1799892826, guid: d9922c6d9e3a9d14f8fb66dbbc72dc58, type: 3}
+    - target: {fileID: 2369776635612263990, guid: dec16739443c4ed4c989e46b41531c5c, type: 3}
+      propertyPath: extractingSprite
+      value: 
+      objectReference: {fileID: -1515009879, guid: d9922c6d9e3a9d14f8fb66dbbc72dc58, type: 3}
     - target: {fileID: 6916587726685138629, guid: dec16739443c4ed4c989e46b41531c5c, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -64,22 +60,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6917111384690671639, guid: dec16739443c4ed4c989e46b41531c5c, type: 3}
-      propertyPath: m_Library.Array.data[0].m_CategoryList.Array.data[0].m_Sprite
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7117204706246225904, guid: dec16739443c4ed4c989e46b41531c5c, type: 3}
-      propertyPath: connectedSprite
-      value: 
-      objectReference: {fileID: -1799892826, guid: d9922c6d9e3a9d14f8fb66dbbc72dc58, type: 3}
-    - target: {fileID: 7117204706246225904, guid: dec16739443c4ed4c989e46b41531c5c, type: 3}
-      propertyPath: extractingSprite
-      value: 
-      objectReference: {fileID: -1515009879, guid: d9922c6d9e3a9d14f8fb66dbbc72dc58, type: 3}
-    - target: {fileID: 7117204706246225904, guid: dec16739443c4ed4c989e46b41531c5c, type: 3}
-      propertyPath: conduitSpriteLabel
-      value: Makeshift
-      objectReference: {fileID: 0}
     - target: {fileID: 7817440805018222608, guid: dec16739443c4ed4c989e46b41531c5c, type: 3}
       propertyPath: m_Name
       value: Makeshift Conduit
@@ -88,10 +68,6 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 1668796229, guid: d9922c6d9e3a9d14f8fb66dbbc72dc58, type: 3}
-    - target: {fileID: 9114675535773809074, guid: dec16739443c4ed4c989e46b41531c5c, type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

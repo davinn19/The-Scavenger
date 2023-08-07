@@ -11,6 +11,8 @@ namespace Scavenger
     public class GridObject : MonoBehaviour
     {
         public const int DefaultHP = 100;
+
+        [field: SerializeField] public string DisplayName { get; private set; }
         public Vector2Int GridPos { get; set; }
         private GridMap map;
         private GridChunk chunk;
@@ -24,6 +26,24 @@ namespace Scavenger
             chunk = GetComponentInParent<GridChunk>();
             map = chunk.GetComponentInParent<GridMap>();
             HP = GetComponent<HP>();
+
+            InitModel();
+        }
+
+        // TODO add docs
+        private void InitModel()
+        {
+            if (TryGetComponent(out GridObjectBehavior behavior))
+            {
+                Model model = GetModel();
+                model.Load(behavior);
+            }
+        }
+
+        // TODO add docs
+        public Model GetModel()
+        {
+            return GetComponentInChildren<Model>();
         }
 
         /// <summary>

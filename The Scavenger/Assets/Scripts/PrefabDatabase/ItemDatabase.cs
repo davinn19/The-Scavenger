@@ -19,23 +19,21 @@ namespace Scavenger
                 return null;
             }
 
+            Item cacheResult = base.Get(id);
+            if (cacheResult)
+            {
+                return cacheResult;
+            }
+
             foreach (Item item in items)
             {
                 if (item.name == id)
                 {
+                    AddToCache(item);
                     return item;
                 }
             }
             throw new ArgumentException(string.Format("No item with id {0} was found.", id));
-        }
-
-        // TODO add docs
-        private void Reset()
-        {
-            items = default;
-
-            EditorUtility.SetDirty(this);
-            AssetDatabase.SaveAssets();
         }
 
         // TODO add docs

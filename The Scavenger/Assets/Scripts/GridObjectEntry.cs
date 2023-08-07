@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace Scavenger
 {
-    public class GridObjectEntry : MonoBehaviour
+    // TODO add docs
+    public class GridObjectEntry : ScriptableObject
     {
-        public 
         // Start is called before the first frame update
         void Start()
         {

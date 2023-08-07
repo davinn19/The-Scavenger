@@ -9,15 +9,12 @@ namespace Scavenger.Models
     public class SiloModel : Model
     {
         [SerializeField] private SpriteRenderer icon;
+        [SerializeField] private SpriteRenderer lockIcon;
         private ItemBuffer buffer;
 
         public override void Load(GridObjectBehavior behavior)
         {
             buffer = behavior.GetComponent<ItemBuffer>();
-
-            // TODO figure out where self changed update should go
-            behavior.GetComponent<GridObject>().SelfChanged += UpdateAppearance;
-            buffer.SlotChanged += (_) => UpdateAppearance();
         }
 
         /// <summary>
@@ -30,10 +27,12 @@ namespace Scavenger.Models
             if (!itemStack)
             {
                 icon.sprite = null;
+                lockIcon.enabled = false;
             }
             else
             {
                 icon.sprite = itemStack.Item.Icon;
+                lockIcon.enabled = buffer.IsLocked(0);
             }
         }
     }

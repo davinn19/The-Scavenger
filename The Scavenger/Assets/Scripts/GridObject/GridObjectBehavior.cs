@@ -2,7 +2,7 @@ using Leguar.TotalJSON;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Scavenger.GridObjectBehaviors
+namespace Scavenger
 {
     [RequireComponent(typeof(GridObject))]
     public abstract class GridObjectBehavior : MonoBehaviour    // TODO add docs

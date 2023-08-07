@@ -10,5 +10,14 @@ namespace Scavenger
     {
         public abstract void Load(GridObjectBehavior behavior);
         public abstract void UpdateAppearance();
+        public virtual Sprite GetThumbnail()
+        {
+            return GetComponent<SpriteRenderer>().sprite;
+        }
+
+        private void Update()
+        {
+            UpdateAppearance();
+        }
     }
 }

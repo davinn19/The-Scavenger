@@ -52,8 +52,8 @@ namespace Scavenger.UI
 
             ShowUI(true);
 
-            gridObjectIcon.sprite = gridObject.GetComponent<SpriteRenderer>().sprite;
-            gridObjectName.text = gridObject.name;
+            gridObjectIcon.sprite = gridObject.GetModel().GetThumbnail();
+            gridObjectName.text = gridObject.DisplayName;
             hpBar.HP = gridObject.HP;
 
             SetContent(gridObject);

@@ -2382,6 +2382,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Item>k__BackingField: {fileID: 11400000, guid: 9f7fb03e54a0abc468a716182ba6a393, type: 2}
   <Model>k__BackingField: {fileID: 11400000, guid: 92c9c3a3572c60c4c8a9bcc4e429436f, type: 2}
+  <GridObjects>k__BackingField: {fileID: 0}
 --- !u!4 &425021373
 Transform:
   m_ObjectHideFlags: 0

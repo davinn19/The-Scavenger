@@ -11,6 +11,7 @@ namespace Scavenger
 
         [field: SerializeField] public ItemDatabase Item { get; private set; }
         [field: SerializeField] public ModelDatabase Model { get; private set; }
+        [field: SerializeField] public GridObjectDatabase GridObjects { get; private set; }
 
         private void Awake()
         {

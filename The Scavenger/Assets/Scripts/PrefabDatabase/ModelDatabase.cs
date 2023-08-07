@@ -14,10 +14,17 @@ namespace Scavenger
 
         public override Model Get(string id)
         {
+            Model cacheResult = base.Get(id);
+            if (cacheResult)
+            {
+                return cacheResult;
+            }
+
             foreach (Model model in models)
             {
                 if (model.name == id)
                 {
+                    AddToCache(model);
                     return model;
                 }
             }
