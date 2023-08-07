@@ -7,10 +7,11 @@ namespace Scavenger
     /// Populates an item buffer.
     /// </summary>
     [System.Serializable]
-    public struct ItemStack : ISerializationCallbackReceiver
+    public struct ItemStack
     {
-        [field: SerializeField] public Item Item { get; private set; }
-        [SerializeField, HideInInspector] private int itemID;
+        [SerializeField] private string itemID;
+
+        public Item Item => Database.Instance.Item.Get(itemID);
 
         /// <remarks>DO NOT edit the amount directly unless you are in ItemBuffer. Use Extract/Insert functions in ItemBuffer instead.</remarks>
         [Min(0)] public int Amount;
@@ -19,11 +20,10 @@ namespace Scavenger
         // TODO add docs
         public ItemStack(Item item, int amount, JSON persistentData = null)
         {
-            Item = item;
             Amount = amount;
             PersistentData = persistentData;
 
-            itemID = 0;
+            itemID = item.name;
         }
 
         /// <summary>
@@ -33,7 +33,8 @@ namespace Scavenger
         /// <param name="newAmount">The amount the new itemStack should have.</param>
         public ItemStack(ItemStack otherStack, int newAmount)
         {
-            Item = otherStack.Item;
+            itemID = otherStack.itemID;
+
             Amount = newAmount;
 
             if (otherStack.PersistentData != null)
@@ -44,8 +45,6 @@ namespace Scavenger
             {
                 PersistentData = null;
             }
-
-            itemID = 0;
         }
 
         /// <summary>
@@ -107,25 +106,6 @@ namespace Scavenger
         public bool IsEmpty()
         {
             return Amount <= 0;
-        }
-
-        // TODO add docs
-        public void OnBeforeSerialize()
-        {
-            if (!Item)
-            {
-                itemID = 0;
-            }
-            else
-            {
-                itemID = Item.ID;
-            }
-        }
-
-        // TODO add docs
-        public void OnAfterDeserialize()
-    {
-            Item = Resources.Load<ItemDatabase>("ItemDatabase").GetItem(itemID);
         }
 
         /// <summary>

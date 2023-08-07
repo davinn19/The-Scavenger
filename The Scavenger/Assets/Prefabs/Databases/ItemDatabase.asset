@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: ItemDatabase
   m_EditorClassIdentifier: 
   items:
-  - {fileID: 0}
   - {fileID: 11400000, guid: 96a34f6fc5088c5419518cecc54db470, type: 2}
   - {fileID: 11400000, guid: 436c4ea4ba6c7fd4a9749b7c32c1baa9, type: 2}
   - {fileID: 11400000, guid: 0880e46e43f0c7844a42e0ae2912a6cb, type: 2}
@@ -28,4 +27,3 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8be0e1af319d4f249ad306127adde586, type: 2}
   - {fileID: 11400000, guid: e9983f9720fb1484a975da3831142444, type: 2}
   - {fileID: 11400000, guid: 764ee4002e80a554fa1e2a1cb14df28a, type: 2}
-  outOfRangeItems: []

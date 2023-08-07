@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a3c5d64ac83548c09dd1678b9f6f1cd, type: 3}
-  m_Name: ItemDatabase
+  m_Script: {fileID: 11500000, guid: 2c71e7d3b6946cf4fabce67d197fd3b9, type: 3}
+  m_Name: ModelDatabase
   m_EditorClassIdentifier: 
-  m_SchemaObjects: []
-  m_Description: 
-  m_Settings: {fileID: 11400000, guid: 0954d70bd3583ac47893482d8f644666, type: 2}
+  models:
+  - {fileID: 2904082206566939136, guid: 365fea49fc7736442ae49c7036763d67, type: 3}
