@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 namespace Scavenger
@@ -117,5 +118,13 @@ namespace Scavenger
         }
 
 
+        // TODO add docs
+        [MenuItem("GameObject/Scavenger/Grid Object")]
+        private static void CreateGridObject()
+        {
+            GameObject newGameObject = new GameObject();
+            newGameObject.AddComponent<GridObject>();
+            newGameObject.name = "GridObject";
+        }
     }
 }

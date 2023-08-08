@@ -36,14 +36,14 @@ namespace Scavenger
             Vector2Int hoveredPos = inputHandler.HoveredGridPos;
             ItemStack heldItem = heldItemHandler.GetHeldItem();
 
-            if (inputHandler.OverGUI || map.GetObjectAtPos(hoveredPos) || !heldItem || !heldItem.Item.HasProperty<PlacedObject>())
+            if (inputHandler.OverGUI || map.GetObjectAtPos(hoveredPos) || !heldItem || !heldItem.Item.TryGetProperty(out PlacedObject placedObject))
             {
                 spriteRenderer.enabled = false;
                 return;
             }
 
             spriteRenderer.enabled = true;
-            spriteRenderer.sprite = heldItem.Item.Icon;
+            spriteRenderer.sprite = placedObject.Object.GetModel().GetThumbnail();
             transform.position = GridMap.GetCenterOfTile(hoveredPos);
         }
     }

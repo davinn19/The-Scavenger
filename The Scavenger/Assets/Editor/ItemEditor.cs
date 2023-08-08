@@ -18,9 +18,6 @@ namespace Scavenger.CustomEditor
 
         private SerializedProperty properties;
 
-        // private Texture2D thumbnail = null;
-
-
         private void OnEnable()
         {
             Item item = target as Item;
@@ -32,18 +29,33 @@ namespace Scavenger.CustomEditor
             description = serializedObject.FindProperty("<Description>k__BackingField");
 
             properties = serializedObject.FindProperty("properties");
-
-            //UpdateThumbnail();
         }
 
-
+        //// TODO add docs
         //public override Texture2D RenderStaticPreview(string assetPath, UnityEngine.Object[] subAssets, int width, int height)
         //{
-        //    if (thumbnail == null)
+        //    Texture2D thumbnail = GetThumbnail();
+        //    if (!thumbnail)
         //    {
         //        return base.RenderStaticPreview(assetPath, subAssets, width, height);
         //    }
         //    return thumbnail;
+        //}
+
+        //// TODO add docs
+        //private Texture2D GetThumbnail()
+        //{
+        //    if (icon == null)
+        //    {
+        //        return null;
+        //    }
+        //    Sprite sprite = icon.objectReferenceValue as Sprite;
+        //    if (!sprite)
+        //    {
+        //        return null;
+        //    }
+
+        //    return AssetPreview.GetAssetPreview(sprite);
         //}
 
         public override void OnInspectorGUI()
@@ -68,34 +80,9 @@ namespace Scavenger.CustomEditor
         private void DrawMainProperties()
         {
             EditorGUILayout.PropertyField(displayName);
-
-            //EditorGUI.BeginChangeCheck();
             EditorGUILayout.PropertyField(icon);
-            //if (EditorGUI.EndChangeCheck())
-            //{
-            //    UpdateThumbnail();
-            //}
             EditorGUILayout.PropertyField(description);
         }
-
-        //private void UpdateThumbnail()
-        //{
-        //    if (icon.objectReferenceValue == null)
-        //    {
-        //        thumbnail = null;
-        //        return;
-        //    }
-
-        //    Sprite sprite = icon.objectReferenceValue as Sprite;
-        //    if (sprite == null)
-        //    {
-        //        thumbnail = null;
-        //    }
-        //    else
-        //    {
-        //        thumbnail = AssetPreview.GetAssetPreview(sprite);
-        //    }
-        //}
 
         private void DrawAddedProperties()
         {

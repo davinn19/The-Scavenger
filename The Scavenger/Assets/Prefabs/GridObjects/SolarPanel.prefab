@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   persistent: 1
-  <Capacity>k__BackingField: 0
+  <Capacity>k__BackingField: 1000
   <Energy>k__BackingField: 0
 --- !u!114 &7052346108508962674
 MonoBehaviour:
@@ -105,8 +105,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d6dc2c3292119546810214c320179d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  insertRateLimit: 0
-  extractRateLimit: 0
+  insertRateLimit: 20
+  extractRateLimit: 20
 --- !u!114 &-8619191801680031085
 MonoBehaviour:
   m_ObjectHideFlags: 0

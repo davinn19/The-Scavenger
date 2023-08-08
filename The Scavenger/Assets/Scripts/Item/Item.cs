@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 namespace Scavenger
@@ -14,8 +16,6 @@ namespace Scavenger
         [field: SerializeField] public Sprite Icon { get; private set; }
         [field: SerializeField, Multiline] public string Description { get; private set; }
         [SerializeField] private List<ItemProperty> properties = new() { };
-
-        [SerializeField] public int ID = 0;
 
         /// <summary>
         /// Attempts to lead an interation with the gridMap. Will fail if the item does not contain the Interactible property.
@@ -99,6 +99,35 @@ namespace Scavenger
             T hey = GetProperty<T>();
             return hey != null;
         }
+
+        // TODO add docs
+        //private void OnValidate()
+        //{
+        //    SetThumbnail();
+        //}
+
+        //// TODO add docs
+        //IEnumerator SetThumbnail()
+        //{
+        //    if (!Icon)
+        //    {
+        //        Debug.Log(877);
+        //        EditorGUIUtility.SetIconForObject(this, null);
+        //    }
+        //    else
+        //    {
+        //        Texture2D thumbnail = null;
+        //        while (thumbnail == null)
+        //        {
+        //            thumbnail = AssetPreview.GetAssetPreview(Icon);
+        //            if (thumbnail == null)
+        //            {
+        //                yield return new WaitForSeconds(.5f);
+        //            }
+        //        }
+        //        EditorGUIUtility.SetIconForObject(this, thumbnail);
+        //    }
+        //}
     }
 
 }
