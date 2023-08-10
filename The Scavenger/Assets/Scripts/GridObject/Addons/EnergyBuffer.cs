@@ -6,29 +6,22 @@ namespace Scavenger
     /// <summary>
     /// Buffer that stores energy.
     /// </summary>
+    /// <remarks>If being used by a GridObjectBehavior, make sure to call ResetEnergyTransferCount every tick update.</remarks>
     public class EnergyBuffer : Buffer
     {
-        [field: SerializeField] public int Capacity { get; set; }
-        [field: SerializeField, HideInInspector] public int Energy { get; set; }
+        [field: SerializeField, Min(0)] public int Capacity { get; set; }
+        [field: SerializeField, Min(0), Readonly] public int Energy { get; set; }
 
+        [field: SerializeField, Min(0)]
+        [Tooltip("Setting this in the inspector will be ignored if controlled by an energy cell.")]
+        public int InsertLimit { get; set; }
 
-        // TODO add docs
-        protected override void ReadData(JSON data)
-        {
-            if (data.ContainsKey("Energy"))
-            {
-                Energy = data.GetInt("Energy");
-            }
-        }
+        [field: SerializeField, Min(0)]
+        [Tooltip("Setting this in the inspector will be ignored if controlled by an energy cell.")]
+        public int ExtractLimit { get; set; }
 
-        // TODO add docs
-        protected override void WriteData(JSON data)
-        {
-            if (Energy > 0)
-            {
-                data.Add("Energy", Energy);
-            }
-        }
+        private int extractedThisTick = 0;
+        private int insertedThisTick = 0;
 
         /// <summary>
         /// Inserts energy into buffer, respecting the buffer's capacity.
@@ -36,16 +29,16 @@ namespace Scavenger
         /// <param name="amount">Requested amount of energy to insert.</param>
         /// <param name="simulate">If true, will not changed the buffer's energy.</param>
         /// <returns>Amount of energy inserted into the buffer.</returns>
-        public int Insert(int amount, bool simulate)
+        public virtual int Insert(int amount, bool simulate)
         {
             int remainingCapacity = GetRemainingCapacity();
-            int amountToInsert = Mathf.Min(remainingCapacity, amount);
+            int amountToInsert = Mathf.Min(new int[] { remainingCapacity, amount, GetInsertableAmount() });
 
             if (!simulate)
             {
                 Energy += amountToInsert;
+                insertedThisTick += amountToInsert;
             }
-            
 
             return amountToInsert;
         }
@@ -56,21 +49,57 @@ namespace Scavenger
         /// <param name="amount">Requested amount of energy to extract.</param>
         /// /// <param name="simulate">If true, will not changed the buffer's energy.</param>
         /// <returns>Amount of energy extracted from the buffer.</returns>
-        public int Extract(int amount, bool simulate)
+        public virtual int Extract(int amount, bool simulate)
         {
-            int amountToExtract = Mathf.Min(Energy, amount);
+            int amountToExtract = Mathf.Min(new int[] { Energy, amount, GetExtractableAmount() });
 
             if (!simulate)
             {
                 Energy -= amountToExtract;
+                extractedThisTick += amountToExtract;
             }
 
             return amountToExtract;
+        }
+
+        public void ResetEnergyTransferCount()
+        {
+            extractedThisTick = 0;
+            insertedThisTick = 0;
         }
 
         public int GetRemainingCapacity()
         {
             return Capacity - Energy;
         }
+
+        // TODO add docs
+        private int GetInsertableAmount()
+        {
+            return Mathf.Max(0, InsertLimit - insertedThisTick);
+        }
+
+        private int GetExtractableAmount()
+        {
+            return Mathf.Max(0, ExtractLimit - extractedThisTick);
+        }
+
+        public override JSON WritePersistentData()
+        {
+            if (Energy > 0)
+            {
+                JSON data = new JSON();
+                data.Add("Energy", Energy);
+                return data;
+            }
+
+            return null;
+        }
+
+        public override void ReadPersistentData(JSON data)
+        {
+            Energy = data.GetInt("Energy");
+        }
+
     }
 }

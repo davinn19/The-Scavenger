@@ -27,7 +27,7 @@ namespace Scavenger
         }
 
         // TODO add docs
-        public void Read(JSON data)
+        public void ReadPersistentData(JSON data)
         {
             if (data.ContainsKey("HP"))
             {
@@ -36,12 +36,15 @@ namespace Scavenger
         }
 
         // TODO add docs
-        public void Write(JSON data)
+        public JSON WritePersistentData()
         {
             if (Health < GetMaxHP())
             {
+                JSON data = new JSON();
                 data.Add("HP", Health);
+                return data;
             }
+            return null;
         }
     }
 

@@ -8,27 +8,7 @@ namespace Scavenger
     /// </summary>
     public abstract class Buffer : MonoBehaviour, IHasPersistentData
     {
-        [SerializeField] protected bool persistent = true;
-        // TODO add docs
-
-        public void Read(JSON data)
-        {
-            if (persistent)
-            {
-                ReadData(data);
-            }
-        }
-
-
-        public void Write(JSON data)
-        {
-            if (persistent)
-            {
-                WriteData(data);
-            }
-        }
-
-        protected abstract void ReadData(JSON data);
-        protected abstract void WriteData(JSON data);
+        public abstract void ReadPersistentData(JSON data);
+        public abstract JSON WritePersistentData();
     }
 }

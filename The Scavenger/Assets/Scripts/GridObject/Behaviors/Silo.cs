@@ -5,16 +5,16 @@ namespace Scavenger.GridObjectBehaviors
     /// <summary>
     /// Stores a large amount of one type of item.
     /// </summary>
-    [RequireComponent(typeof(ItemBuffer))]
+    [RequireComponent(typeof(SiloItemBuffer))]
     public class Silo : GridObjectBehavior
     {
-        public ItemBuffer Buffer { get; private set; }
+        public SiloItemBuffer Buffer { get; private set; }
 
         // TODO add docs
         protected override void Init()
         {
             base.Init();
-            Buffer = GetComponent<ItemBuffer>();
+            Buffer = GetComponent<SiloItemBuffer>();
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace Scavenger.GridObjectBehaviors
         /// <returns>Always returns true.</returns>
         public override bool TryEdit(Vector2Int _)
         {
-            Buffer.ToggleLocked(0);
+            Buffer.ToggleLocked();
             gridObject.OnSelfChanged();
             return true;
         }

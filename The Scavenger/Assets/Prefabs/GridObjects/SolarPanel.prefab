@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 3372188304090494505}
   - component: {fileID: 1861733364313229858}
   - component: {fileID: 7447148526547841207}
-  - component: {fileID: 7052346108508962674}
   - component: {fileID: -8619191801680031085}
   m_Layer: 0
   m_Name: SolarPanel
@@ -77,7 +76,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0742e7c55cca12f4585f0f63508861b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  energyPerTick: 10
+  energyGainedPerTick: 10
 --- !u!114 &7447148526547841207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90,23 +89,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a854dc0ec229134a90018277a04c963, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  persistent: 1
   <Capacity>k__BackingField: 1000
   <Energy>k__BackingField: 0
---- !u!114 &7052346108508962674
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 469526264196311149}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d6dc2c3292119546810214c320179d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  insertRateLimit: 20
-  extractRateLimit: 20
+  <InsertLimit>k__BackingField: 50
+  <ExtractLimit>k__BackingField: 50
 --- !u!114 &-8619191801680031085
 MonoBehaviour:
   m_ObjectHideFlags: 0

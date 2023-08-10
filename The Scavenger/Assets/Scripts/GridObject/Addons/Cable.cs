@@ -44,7 +44,7 @@ namespace Scavenger.GridObjectBehaviors
     /// <summary>
     /// Base class for all resource transport, attaches to a conduit.
     /// </summary>
-    public abstract class Cable<T> : Cable where T : ConduitInterface
+    public abstract class Cable<T> : Cable where T : Buffer
     {
         /// <summary>
         /// Searches through connected cables for all connected output buffers.

@@ -45,16 +45,7 @@ namespace Scavenger
             return !heldItem || heldItem.IsEmpty();
         }
 
-        /// <summary>
-        /// Extracts from the held item buffer.
-        /// </summary>
-        /// <param name="amount">Amount of items to use.</param>
-        /// <returns>Amount of items actually used.</returns>
-        public int Use(int amount = 1)
-        {
-            Debug.Assert(!HeldItemBuffer.GetItemInSlot(0).IsEmpty());
-            return HeldItemBuffer.Extract(0, amount);
-        }
+        
 
         /// <summary>
         /// Moves items from held item buffer to another buffer.
@@ -64,7 +55,7 @@ namespace Scavenger
         /// <returns>Amount of items moved.</returns>
         public int MoveItemsTo(ItemBuffer otherBuffer, int slot)
         {
-            return ItemBuffer.MoveItems(HeldItemBuffer, 0, otherBuffer, slot);
+            return ItemBuffer.TransferItemInSlot(HeldItemBuffer, 0, otherBuffer, slot);
         }
 
         /// <summary>
@@ -75,7 +66,7 @@ namespace Scavenger
         /// <returns>Amount of items moved.</returns>
         public int TakeItemsFrom(ItemBuffer otherBuffer, int slot)
         {
-            return ItemBuffer.MoveItems(otherBuffer, slot, HeldItemBuffer, 0);
+            return ItemBuffer.TransferItemInSlot(otherBuffer, slot, HeldItemBuffer, 0);
         }
 
         /// <summary>

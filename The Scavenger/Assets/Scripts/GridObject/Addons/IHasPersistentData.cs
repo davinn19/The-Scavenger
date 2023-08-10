@@ -8,7 +8,7 @@ namespace Scavenger
     // TODO rename file & namespace, add docs
     public interface IHasPersistentData
     {
-        public abstract void Read(JSON data);
-        public abstract void Write(JSON data);
+        public abstract void ReadPersistentData(JSON data);
+        public abstract JSON WritePersistentData();
     }
 }

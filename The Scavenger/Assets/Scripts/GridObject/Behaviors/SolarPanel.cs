@@ -1,3 +1,4 @@
+using Leguar.TotalJSON;
 using UnityEngine;
 
 namespace Scavenger.GridObjectBehaviors
@@ -8,7 +9,7 @@ namespace Scavenger.GridObjectBehaviors
     [RequireComponent(typeof(EnergyBuffer))]
     public class SolarPanel : GridObjectBehavior
     {
-        [SerializeField] private int energyPerTick;
+        [SerializeField] private int energyGainedPerTick;
 
         private EnergyBuffer energyBuffer;
 
@@ -24,11 +25,29 @@ namespace Scavenger.GridObjectBehaviors
         /// </summary>
         protected override void TickUpdate()
         {
-            int energyAdded = energyBuffer.Insert(energyPerTick, false);
+            int energyAdded = energyBuffer.Insert(energyGainedPerTick, false);
             if (energyAdded > 0)
             {
                 gridObject.OnSelfChanged();
             }
+        }
+
+        public override void ReadPersistentData(JSON data)
+        {
+            base.ReadPersistentData(data);
+            if (data.ContainsKey("EnergyBuffer"))
+            {
+                energyBuffer.ReadPersistentData(data.GetJSON("EnergyBuffer"));
+            }
+        }
+
+        public override JSON WritePersistentData()
+        {
+            JSON data = base.WritePersistentData();
+
+            JSONHelper.TryAdd(data, "EnergyBuffer", energyBuffer.WritePersistentData());
+
+            return data;
         }
     }
 }

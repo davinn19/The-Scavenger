@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Scavenger.GridObjectBehaviors;
+using Leguar.TotalJSON;
 
 namespace Scavenger
 {
@@ -210,10 +211,10 @@ namespace Scavenger
         /// <summary>
         /// Attempts to place the item at a position.
         /// </summary>
-        /// <param name="heldItemHandler">The item selection manager.</param>
+        /// <param name="heldItem">The current held item.</param>
         /// <param name="gridPos">Position to place the item at.</param>
         /// <returns>True if placement was successful.</returns>
-        public bool TryPlaceItem(HeldItemHandler heldItemHandler, Vector2Int gridPos)// TODO add supported constraint
+        public bool TryPlaceItem(HeldItemBuffer heldItem, Vector2Int gridPos)// TODO add supported constraint
         {
             // Space must be empty to place new object
             GridObject existingObject = GetObjectAtPos(gridPos);
@@ -223,12 +224,12 @@ namespace Scavenger
             }
 
             // Must be holding an item
-            if (heldItemHandler.IsEmpty())
+            if (heldItem.IsEmpty())
             {
                 return false;
             }
 
-            ItemStack heldItemStack = heldItemHandler.GetHeldItem();
+            ItemStack heldItemStack = heldItem.GetHeldItem();
 
             // Item must have PlacedObject property
             if (!heldItemStack.Item.TryGetProperty(out PlacedObject placedObject))
@@ -240,12 +241,12 @@ namespace Scavenger
 
             if (gridObject.TryGetComponent(out GridObjectBehavior behavior))
             {
-                behavior.ReadPersistentData(heldItemStack.PersistentData);
+                behavior.ReadPersistentData(JSONHelper.GetJSONOrEmpty(heldItemStack.PersistentData));
             }
             // TODO implement loading ITEM DATA into object
             
             updatePropagation.HandlePlaceUpdate(gridPos);
-            heldItemHandler.Use();
+            heldItem.Use();
             return true;
         }
 

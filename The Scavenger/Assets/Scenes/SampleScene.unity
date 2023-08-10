@@ -2382,6 +2382,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Item>k__BackingField: {fileID: 11400000, guid: 9f7fb03e54a0abc468a716182ba6a393, type: 2}
   <GridObjects>k__BackingField: {fileID: 11400000, guid: 0bdb4e6b37da7b14eb144f0235191091, type: 2}
+  <RecyclerRecipeLists>k__BackingField: {fileID: 11400000, guid: 8047a4844b999eb4595e1d39b77f8f03, type: 2}
 --- !u!4 &425021373
 Transform:
   m_ObjectHideFlags: 0
@@ -4275,10 +4276,10 @@ MonoBehaviour:
   - {fileID: 8597298676368241431, guid: a758c3430c15d11468d7b9013ff6a146, type: 3}
   - {fileID: 1191683805767691429, guid: a2ddfcbde0c53ab448c0111e86161ab0, type: 3}
   - {fileID: 7611770913516356219, guid: eb8d063a034bb6f419c9208485cd80eb, type: 3}
-  debrisSpeed: 2
-  direction: 0
+  debrisSpeed: 4
+  direction: 302
   turbulence: 0.35
-  spawnRate: 0.25
+  spawnRate: 2
   simulationRange: {x: 0, y: 0}
 --- !u!4 &640480933
 Transform:
@@ -4288,7 +4289,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 640480931}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.96, y: 0.03, z: 0}
+  m_LocalPosition: {x: -9.67, y: 5.58, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5029,7 +5030,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02f98d24cdd54ff4799d20eefb735af4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  persistent: 0
   <MaxCapacity>k__BackingField: 100
   <NumSlots>k__BackingField: 28
   <Slots>k__BackingField:
@@ -5038,6 +5038,12 @@ MonoBehaviour:
   - itemID: Silo
     Amount: 100
   - itemID: UsedBattery
+    Amount: 100
+  - itemID: MakeshiftRecycler
+    Amount: 100
+  - itemID: MakeshiftConduit
+    Amount: 100
+  - itemID: CopperEnergyCable
     Amount: 100
   slotsLocked: 
 --- !u!1 &752054973
@@ -8594,7 +8600,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02f98d24cdd54ff4799d20eefb735af4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  persistent: 0
   <MaxCapacity>k__BackingField: 100
   <NumSlots>k__BackingField: 1
   <Slots>k__BackingField: []

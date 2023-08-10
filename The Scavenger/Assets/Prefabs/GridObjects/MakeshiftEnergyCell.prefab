@@ -12,10 +12,9 @@ GameObject:
   - component: {fileID: 326078249558043076}
   - component: {fileID: -5714932897500858749}
   - component: {fileID: -4656482351411025652}
-  - component: {fileID: 6310263074720075457}
-  - component: {fileID: 6667584979610272898}
   - component: {fileID: -139220793150789335}
   - component: {fileID: 3973830479537173918}
+  - component: {fileID: 1591281381607384329}
   m_Layer: 0
   m_Name: MakeshiftEnergyCell
   m_TagString: Untagged
@@ -79,38 +78,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxInsertLimit: 0
-  maxExtractLimit: 100
-  insertLimit: 0
-  extractLimit: 0
---- !u!114 &6310263074720075457
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6742962036973104751}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a854dc0ec229134a90018277a04c963, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  persistent: 1
-  <Capacity>k__BackingField: 500
-  <Energy>k__BackingField: 0
---- !u!114 &6667584979610272898
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6742962036973104751}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d6dc2c3292119546810214c320179d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  insertRateLimit: 0
-  extractRateLimit: 200
+  maxExtractLimit: 10
 --- !u!114 &-139220793150789335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,6 +105,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Content: {fileID: 2634421453509922301, guid: 3ccd5103a2c55794299d8540439d991d, type: 3}
+--- !u!114 &1591281381607384329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6742962036973104751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a854dc0ec229134a90018277a04c963, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Capacity>k__BackingField: 500
+  <Energy>k__BackingField: 0
+  <InsertLimit>k__BackingField: 0
+  <ExtractLimit>k__BackingField: 0
 --- !u!1001 &3352238694372133233
 PrefabInstance:
   m_ObjectHideFlags: 0

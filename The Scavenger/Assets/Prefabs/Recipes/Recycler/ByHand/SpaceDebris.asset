@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21e42e23fd6435b4e8cb2ca79fcb224c, type: 3}
+  m_Name: SpaceDebris
+  m_EditorClassIdentifier: 
+  input: {fileID: 11400000, guid: e9983f9720fb1484a975da3831142444, type: 2}
+  output:
+  - item: {fileID: 11400000, guid: 6e9d5b9e754da7247a07c6339de525be, type: 2}
+    amount: 1
+    chance: 0.2
+  - item: {fileID: 11400000, guid: 764ee4002e80a554fa1e2a1cb14df28a, type: 2}
+    amount: 1
+    chance: 0.2
+  - item: {fileID: 11400000, guid: 18d46571aa3e4154c8ac6b9da101109c, type: 2}
+    amount: 1
+    chance: 0.2

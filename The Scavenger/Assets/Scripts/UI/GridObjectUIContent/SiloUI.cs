@@ -32,7 +32,7 @@ namespace Scavenger.UI.UIContent
         /// </summary>
         public void OnLockButtonPressed()
         {
-            silo.Buffer.ToggleLocked(0);
+            silo.Buffer.ToggleLocked();
             UpdateLockButtonStatus();
         }
 
@@ -41,7 +41,7 @@ namespace Scavenger.UI.UIContent
         /// </summary>
         private void UpdateLockButtonStatus()
         {
-            bool locked = silo.Buffer.IsLocked(0);
+            bool locked = silo.Buffer.Locked;
             if (locked)
             {
                 lockButtonText.text = "Locked";

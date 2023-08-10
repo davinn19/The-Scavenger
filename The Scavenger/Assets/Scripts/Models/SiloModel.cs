@@ -10,11 +10,11 @@ namespace Scavenger.Models
     {
         [SerializeField] private SpriteRenderer icon;
         [SerializeField] private SpriteRenderer lockIcon;
-        private ItemBuffer buffer;
+        private SiloItemBuffer buffer;
 
         public override void Load(GridObjectBehavior behavior)
         {
-            buffer = behavior.GetComponent<ItemBuffer>();
+            buffer = behavior.GetComponent<SiloItemBuffer>();
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace Scavenger.Models
             else
             {
                 icon.sprite = itemStack.Item.Icon;
-                lockIcon.enabled = buffer.IsLocked(0);
+                lockIcon.enabled = buffer.Locked;
             }
         }
     }

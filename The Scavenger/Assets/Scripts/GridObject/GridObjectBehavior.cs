@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace Scavenger
 {
-    [RequireComponent(typeof(GridObject))]
-    public abstract class GridObjectBehavior : MonoBehaviour    // TODO add docs
+    [RequireComponent(typeof(GridObject)), DisallowMultipleComponent]
+    public abstract class GridObjectBehavior : MonoBehaviour, IHasPersistentData    // TODO add docs
     {
         protected GridObject gridObject;
 
@@ -21,28 +21,22 @@ namespace Scavenger
         }
 
         // TODO add docs
-        public void ReadPersistentData(JSON data)
-        {
-            if (data == null)
+        public virtual void ReadPersistentData(JSON data) 
+        { 
+            if (data.ContainsKey("HP"))
             {
-                data = new JSON();
-            }
-
-            foreach (IHasPersistentData dataReader in GetComponents<IHasPersistentData>())
-            {
-                dataReader.Read(data);
+                gridObject.HP.ReadPersistentData(data.GetJSON("HP"));
             }
         }
 
         // TODO add docs
-        public JSON WritePersistentData()
+        public virtual JSON WritePersistentData()
         {
-            JSON data = new();
-            // Allow addons to write their data first
-            foreach (IHasPersistentData dataWriter in GetComponents<IHasPersistentData>())
-            {
-                dataWriter.Write(data);
-            }
+            JSON data = new JSON();
+
+            JSON hpData = gridObject.HP.WritePersistentData();
+            JSONHelper.TryAdd(data, "HP", hpData);
+
             return data;
         }
 

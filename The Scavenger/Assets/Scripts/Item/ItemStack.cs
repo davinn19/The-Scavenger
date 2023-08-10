@@ -15,14 +15,14 @@ namespace Scavenger
 
         /// <remarks>DO NOT edit the amount directly unless you are in ItemBuffer. Use Extract/Insert functions in ItemBuffer instead.</remarks>
         [Min(0)] public int Amount;
+
         public JSON PersistentData;
 
         // TODO add docs
         public ItemStack(Item item, int amount, JSON persistentData = null)
         {
             Amount = amount;
-            PersistentData = persistentData;
-
+            PersistentData = JSONHelper.GetJSONOrEmpty(persistentData);
             itemID = item.name;
         }
 
@@ -37,14 +37,7 @@ namespace Scavenger
 
             Amount = newAmount;
 
-            if (otherStack.PersistentData != null)
-            {
-                PersistentData = new JSON(otherStack.PersistentData.AsDictionary());
-            }
-            else
-            {
-                PersistentData = null;
-            }
+            PersistentData = JSONHelper.Copy(JSONHelper.GetJSONOrEmpty(otherStack.PersistentData));
         }
 
         /// <summary>
@@ -91,7 +84,7 @@ namespace Scavenger
         }
 
         /// <summary>
-        /// Chekcs if the itemStack contains persistent data.
+        /// Checks if the itemStack contains persistent data.
         /// </summary>
         /// <returns>True if the itemStack contains persistent data.</returns>
         public bool HasPersistentData()

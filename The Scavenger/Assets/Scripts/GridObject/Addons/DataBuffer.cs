@@ -6,13 +6,12 @@ namespace Scavenger
     public class DataBuffer : Buffer
     {
         // TODO implement, add docs
-        protected override void ReadData(JSON data)
+        public override void ReadPersistentData(JSON data)
         {
             throw new NotImplementedException();
         }
 
-        // TODO implement, add docs
-        protected override void WriteData(JSON data)
+        public override JSON WritePersistentData()
         {
             throw new NotImplementedException();
         }

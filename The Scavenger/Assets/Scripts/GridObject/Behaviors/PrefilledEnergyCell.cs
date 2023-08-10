@@ -7,20 +7,24 @@ namespace Scavenger.GridObjectBehaviors
     /// Energy cell that starts with some amount of energy.
     /// </summary>
     [RequireComponent(typeof(EnergyBuffer))]
-    public class MakeshiftEnergyCell : EnergyCell, IHasPersistentData
+    public class PrefilledEnergyCell : EnergyCell
     {
-        // TODO add docs
-        public void Read(JSON data)
+        public override void ReadPersistentData(JSON data)
         {
+            base.ReadPersistentData(data);
+
             if (!data.ContainsKey("InitialEnergySet"))
             {
                 InitEnergy();
             }
         }
 
-        public void Write(JSON data)
-        { 
-            data.AddOrReplace("InitialEnergySet", true);
+        public override JSON WritePersistentData()
+        {
+            JSON data =  base.WritePersistentData();
+            data.Add("InitialEnergySet", true);
+
+            return data;
         }
 
         /// <summary>
