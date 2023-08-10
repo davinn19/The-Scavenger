@@ -50,7 +50,7 @@ namespace Scavenger
         public virtual void OnNeighborPlaced(Vector2Int side) { }
         public virtual void OnNeighborChanged() { }
 
-        public virtual bool TryInteract(ItemBuffer inventory, HeldItemHandler heldItemHandler, Vector2Int sidePressed) => false;
+        public virtual bool TryInteract(ItemBuffer inventory, HeldItemBuffer heldItemBuffer, Vector2Int sidePressed) => false;
         public virtual bool TryEdit(Vector2Int sidePressed) => false;
 
         protected virtual void TickUpdate() { }

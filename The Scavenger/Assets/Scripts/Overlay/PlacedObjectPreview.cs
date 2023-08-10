@@ -11,7 +11,7 @@ namespace Scavenger
     {
         [SerializeField] private GameManager gameManager;
         private InputHandler inputHandler;
-        private HeldItemHandler heldItemHandler;
+        private HeldItemBuffer heldItemBuffer;
         private GridMap map;
 
         private SpriteRenderer spriteRenderer;
@@ -19,11 +19,11 @@ namespace Scavenger
         private void Awake()
         {
             inputHandler = gameManager.InputHandler;
-            heldItemHandler = gameManager.HeldItemHandler;
+            heldItemBuffer = gameManager.HeldItemBuffer;
             map = gameManager.Map;
 
             inputHandler.PointerMoved += UpdateAppearance;
-            heldItemHandler.HeldItemChanged += UpdateAppearance;
+            heldItemBuffer.HeldItemChanged += UpdateAppearance;
 
             spriteRenderer = GetComponent<SpriteRenderer>();
         }
@@ -34,7 +34,7 @@ namespace Scavenger
         private void UpdateAppearance()
         {
             Vector2Int hoveredPos = inputHandler.HoveredGridPos;
-            ItemStack heldItem = heldItemHandler.GetHeldItem();
+            ItemStack heldItem = heldItemBuffer.GetHeldItem();
 
             if (inputHandler.OverGUI || map.GetObjectAtPos(hoveredPos) || !heldItem || !heldItem.Item.TryGetProperty(out PlacedObject placedObject))
             {

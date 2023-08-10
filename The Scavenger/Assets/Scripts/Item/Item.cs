@@ -21,10 +21,10 @@ namespace Scavenger
         /// Attempts to lead an interation with the gridMap. Will fail if the item does not contain the Interactible property.
         /// </summary>
         /// <param name="gameManager">The current game manager.</param>
-        /// <param name="heldItem">the current held item handler.</param>
+        /// <param name="heldItem">the current held item buffer.</param>
         /// <param name="pressedPos">The grid position pressed.</param>
         /// <returns></returns>
-        public bool Interact(GameManager gameManager, HeldItemHandler heldItem, Vector2Int pressedPos)
+        public bool Interact(GameManager gameManager, HeldItemBuffer heldItem, Vector2Int pressedPos)
         {
             if (TryGetProperty(out Interactibe interactProperty))
             {

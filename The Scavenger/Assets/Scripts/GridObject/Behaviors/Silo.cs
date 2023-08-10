@@ -23,7 +23,7 @@ namespace Scavenger.GridObjectBehaviors
         /// <param name="inventory">The player's inventory</param>
         /// <param name="heldItem">The current held item.</param>
         /// <returns>Always returns true.</returns>
-        public override bool TryInteract(ItemBuffer inventory, HeldItemHandler heldItem, Vector2Int _) // TODO implement
+        public override bool TryInteract(ItemBuffer inventory, HeldItemBuffer heldItem, Vector2Int _) // TODO implement
         {
             // If not holding anything, take from silo
             if (heldItem.IsEmpty())

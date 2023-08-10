@@ -1,3 +1,4 @@
+using Leguar.TotalJSON;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,7 @@ namespace Scavenger
     /// <summary>
     /// Allows an item to be salvaged from the inventory for few materials.
     /// </summary>
-    public class SimpleSalvage : Interactibe
+    public class SimpleSalvage : Interactibe    // TODO use recycle recipes
     {
         public override string Name => "Simple Salvage";
 
@@ -48,7 +49,7 @@ namespace Scavenger
             {
                 if (Random.value < dropChance)
                 {
-                    drops.Add(new ItemStack(drop, 1));
+                    drops.Add(new ItemStack(drop, 1, new JSON()));
                 }
             }
 

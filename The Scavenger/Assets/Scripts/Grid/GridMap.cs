@@ -180,11 +180,11 @@ namespace Scavenger
         /// Attempts to interact with the gridObject at a position using an item.
         /// </summary>
         /// <param name="inventory">The player's inventory.</param>
-        /// <param name="itemSelection">The item selection manager.</param>
+        /// <param name="heldItem">The current held item buffer.</param>
         /// <param name="gridPos">Position of gridObject to interact with.</param>
         /// <param name="sidePressed">Side of gridObject that was pressed.</param>
         /// <returns>True if an interaction happened.</returns>
-        public bool TryObjectInteract(ItemBuffer inventory, HeldItemHandler itemSelection, Vector2Int gridPos, Vector2Int sidePressed)
+        public bool TryObjectInteract(ItemBuffer inventory, HeldItemBuffer heldItem, Vector2Int gridPos, Vector2Int sidePressed)
         {
             GridObjectBehavior behavior = GetBehaviorAtPos(gridPos);
             if (!behavior)
@@ -192,7 +192,7 @@ namespace Scavenger
                 return false;
             }
 
-            return behavior.TryInteract(inventory, itemSelection, sidePressed); // TODO remove side pressed parameter
+            return behavior.TryInteract(inventory, heldItem, sidePressed); // TODO remove side pressed parameter
         }
 
         // TODO add docs

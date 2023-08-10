@@ -1,3 +1,4 @@
+using Leguar.TotalJSON;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -80,7 +81,7 @@ namespace Scavenger
                 }
 
                 int amount = Random.Range(1, drop.amount + 1);
-                ItemStack dropStack = new ItemStack(drop.item, drop.amount);
+                ItemStack dropStack = new ItemStack(drop.item, drop.amount, new JSON());
                 drops.Add(dropStack);
             }
 

@@ -12,7 +12,7 @@ namespace Scavenger
         [field: SerializeField] public GameObject Player;
         [field: SerializeField] public ItemBuffer Inventory { get; private set; }
         [field: SerializeField] public GridMap Map { get; private set; }
-        public HeldItemHandler HeldItemHandler { get; private set; }
+        public HeldItemBuffer HeldItemBuffer { get; private set; }
         public InputHandler InputHandler { get; private set; }
         public ItemDropper ItemDropper { get; private set; }
         public GridObjectInspector GridObjectInspector { get; private set; }
@@ -21,7 +21,7 @@ namespace Scavenger
         private void Awake()
         {
             ItemDropper = GetComponent<ItemDropper>();
-            HeldItemHandler = GetComponentInChildren<HeldItemHandler>();
+            HeldItemBuffer = GetComponentInChildren<HeldItemBuffer>();
             GridObjectInspector = GetComponent<GridObjectInspector>();
 
             InputHandler = GetComponent<InputHandler>();
@@ -47,22 +47,22 @@ namespace Scavenger
                     
 
                     // Try placing object next
-                    if (Map.TryPlaceItem(HeldItemHandler, gridPos))
+                    if (Map.TryPlaceItem(HeldItemBuffer, gridPos))
                     {
                         return;
                     }
 
                     // Try having grid object handle interaction next
-                    if (Map.TryObjectInteract(Inventory, HeldItemHandler, gridPos, sidePressed))
+                    if (Map.TryObjectInteract(Inventory, HeldItemBuffer, gridPos, sidePressed))
                     {
                         return;
                     }
 
                     // Try having item handle interaction
-                    ItemStack selectedItemStack = HeldItemHandler.GetHeldItem();
+                    ItemStack selectedItemStack = HeldItemBuffer.GetHeldItem();
                     if (selectedItemStack)
                     {
-                        selectedItemStack.Item.Interact(this, HeldItemHandler, gridPos);
+                        selectedItemStack.Item.Interact(this, HeldItemBuffer, gridPos);
                     }
                     break;
 

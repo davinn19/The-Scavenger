@@ -2,26 +2,21 @@ using Leguar.TotalJSON;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Scavenger.ItemTransfer;
 
 namespace Scavenger
 {
     // TODO add docs
     public class SiloItemBuffer : ItemBuffer
     {
-        private ItemStack[] item = new ItemStack[1];
-        public override int MaxStackSize => base.MaxStackSize;
+        private ItemStack storedItem = new ItemStack();
+        // TODO override maxstacksize
         [field: SerializeField] public bool Locked { get; private set; }
 
-        public override ItemStack[] GetItems() => item;
-        public override ItemStack[] GetItemsPartial(SlotType slotType)
-        {
+        public override List<int> GetInteractibleSlots(ItemInteractionType interactionType) => new List<int> { 1 };
 
-        }
+        public override List<ItemStack> GetItems(ItemInteractionType interactionType = ItemInteractionType.All) => new List<ItemStack>() { storedItem };
 
-        public override void SetItems(ItemStack[] items) => item = items;
-        public override void Clear() => item = new ItemStack[1];
-        public override bool CanExtract(int slot) => true;
-        public override bool CanInsert(int slot) => true;
         public override bool AcceptsItemStack(int slot, ItemStack itemStack) => true;
 
         /// <summary>
@@ -41,24 +36,13 @@ namespace Scavenger
         /// <returns>Actual amount of items extracted.</returns>
         public override int ExtractSlot(int slot, int amount)
         {
-            ItemStack extractedStack = GetItemInSlot(slot);
+            ItemStack emptyReserve = GetItemInSlot(slot).Clone(amount: 0);
+            int amountExtracted = base.ExtractSlot(slot, amount);
 
-            // Ignore if extracted stack is empty
-            if (!extractedStack)
+            if (!GetItemInSlot(slot))
             {
-                return 0;
+                SetItemInSlot(slot, emptyReserve);
             }
-
-            int amountExtracted = Mathf.Min(extractedStack.Amount, amount);
-
-            extractedStack.Amount -= amountExtracted;
-            if (extractedStack.IsEmpty() || !Locked)
-            {
-                extractedStack = default;
-            }
-
-            SetItemInSlot(slot, extractedStack);
-            InvokeSlotChanged(slot);
 
             return amountExtracted;
         }
@@ -69,10 +53,13 @@ namespace Scavenger
         /// <param name="data">The buffer's persistent data.</param>
         public override void ReadPersistentData(JSON data)
         {
-            base.ReadPersistentData(data);
             if (data.ContainsKey("Locked"))
             {
                 Locked = true;
+            }
+            if (data.ContainsKey("Item"))
+            {
+                storedItem = data.GetJSON("Item").Deserialize<ItemStack>();
             }
         }
 
@@ -82,10 +69,14 @@ namespace Scavenger
         /// <returns>The buffer's persistent data.</returns>
         public override JSON WritePersistentData()
         {
-            JSON data = base.WritePersistentData();
+            JSON data = new JSON();
             if (Locked)
             {
                 data.Add("Locked", true);
+            }
+            if (storedItem)
+            {
+                data.Add("Item", storedItem);
             }
 
             return data;

@@ -1,3 +1,5 @@
+using Leguar.TotalJSON;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,9 +10,13 @@ namespace Scavenger
 {
     public class HeldItemBuffer : ItemBuffer
     {
-        private ItemStack[] item = new ItemStack[1];
+        private ItemStack heldItem = new ItemStack();
 
-        public ItemStack GetHeldItem() => item[0];
+        private ItemDropper itemDropper;
+        private InputHandler inputHandler;
+        public event Action HeldItemChanged;
+
+        public ItemStack GetHeldItem() => heldItem;
 
         /// <summary>
         /// Decrements held itemStack.
@@ -24,10 +30,31 @@ namespace Scavenger
         }
 
         public override bool AcceptsItemStack(int slot, ItemStack itemStack) => true;
-        public override bool CanExtract(int slot) => false;
-        public override bool CanInsert(int slot) => false;
-        public override void Clear() => item = new ItemStack[1];
-        public override ItemStack[] GetItems() => item;
-        public override void SetItems(ItemStack[] items) => item = items;
+        public override List<int> GetInteractibleSlots(ItemInteractionType interactionType) => new List<int> { 1 };
+
+        public override List<ItemStack> GetItems(ItemInteractionType interactionType = ItemInteractionType.All) => new List<ItemStack>() { heldItem };
+
+        public void Swap(ItemBuffer other)// TODO implement
+        {
+
+        }
+
+        public override void ReadPersistentData(JSON data)
+        {
+            if (data.ContainsKey("HeldItem"))
+            {
+                heldItem = data.GetJSON("HeldItem").Deserialize<ItemStack>();
+            }
+        }
+
+        public override JSON WritePersistentData()
+        {
+            JSON data = new JSON();
+            if (heldItem)
+            {
+                data.Add("HeldItem", heldItem);
+            }
+            return data;
+        }
     }
 }

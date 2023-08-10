@@ -15,33 +15,35 @@ namespace Scavenger.GridObjectBehaviors
             {
                 return 0;
             }
+            // TODO fix
+            //requestedYield = Mathf.Min(requestedYield, GetRecipeMaxYield(recipe, inventory));
 
-            requestedYield = Mathf.Min(requestedYield, GetRecipeMaxYield(recipe, inventory));
+            //ItemStack resultProduced = recipe.Result.Clone();
+            //int actualYield = 0;
 
-            ItemStack resultProduced = new ItemStack(recipe.Result);
-            int actualYield = 0;
+            //// Inserts as much result as possible without overfilling
+            //while (actualYield < requestedYield)
+            //{
+            //    int uninsertedResult = inventory.Insert(resultProduced, simulate: true);
 
-            // Inserts as much result as possible without overfilling
-            while (actualYield < requestedYield)
-            {
-                int uninsertedResult = inventory.Insert(resultProduced, simulate: true);
+            //    if (uninsertedResult > 0)
+            //    {
+            //        break;
+            //    }
 
-                if (uninsertedResult > 0)
-                {
-                    break;
-                }
+            //    inventory.Insert(resultProduced);
+            //    actualYield++;
+            //}
 
-                inventory.Insert(resultProduced);
-                actualYield++;
-            }
+            //// Extract actual amount used
+            //foreach (ItemStack ingredient in recipe.Ingredients)
+            //{
+            //    ItemTransfer.ExtractItem(ingredient.Item)
+            //    inventory.Extract(ingredient.Item, actualYield * ingredient.Amount);
+            //}
 
-            // Extract actual amount used
-            foreach (ItemStack ingredient in recipe.Ingredients)
-            {
-                inventory.Extract(ingredient.Item, actualYield * ingredient.Amount);
-            }
-
-            return actualYield;
+            //return actualYield;
+            return 0;
         }
 
 
@@ -114,7 +116,7 @@ namespace Scavenger.GridObjectBehaviors
             foreach (ItemStack ingredient in recipe.Ingredients)
             {
                 int requiredAmount = ingredient.Amount;
-                int availableAmount = inventory.Extract(ingredient.Item, simulate: true);
+                int availableAmount = ItemTransfer.ExtractFromBuffer(inventory.GetItems(), ingredient.SharesItem, int.MaxValue, true);
 
                 int yield = availableAmount / requiredAmount;
 

@@ -67,7 +67,7 @@ namespace Scavenger.UI
         {
             if (Buffer == null)
             {
-                itemStackDisplay.ItemStack = ItemStack.Empty;
+                itemStackDisplay.ItemStack = new ItemStack();
                 return;
             }
 
