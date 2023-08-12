@@ -180,11 +180,10 @@ namespace Scavenger
         /// Attempts to interact with the gridObject at a position using an item.
         /// </summary>
         /// <param name="inventory">The player's inventory.</param>
-        /// <param name="heldItem">The current held item buffer.</param>
         /// <param name="gridPos">Position of gridObject to interact with.</param>
         /// <param name="sidePressed">Side of gridObject that was pressed.</param>
         /// <returns>True if an interaction happened.</returns>
-        public bool TryObjectInteract(ItemBuffer inventory, HeldItemBuffer heldItem, Vector2Int gridPos, Vector2Int sidePressed)
+        public bool TryObjectInteract(PlayerInventory inventory, Vector2Int gridPos, Vector2Int sidePressed)
         {
             GridObjectBehavior behavior = GetBehaviorAtPos(gridPos);
             if (!behavior)
@@ -192,7 +191,7 @@ namespace Scavenger
                 return false;
             }
 
-            return behavior.TryInteract(inventory, heldItem, sidePressed); // TODO remove side pressed parameter
+            return behavior.TryInteract(inventory, sidePressed); // TODO remove side pressed parameter
         }
 
         // TODO add docs
@@ -211,10 +210,10 @@ namespace Scavenger
         /// <summary>
         /// Attempts to place the item at a position.
         /// </summary>
-        /// <param name="heldItem">The current held item.</param>
+        /// <param name="inventory">The player's inventory.</param>
         /// <param name="gridPos">Position to place the item at.</param>
         /// <returns>True if placement was successful.</returns>
-        public bool TryPlaceItem(HeldItemBuffer heldItem, Vector2Int gridPos)// TODO add supported constraint
+        public bool TryPlaceItem(PlayerInventory inventory, Vector2Int gridPos)// TODO add supported constraint
         {
             // Space must be empty to place new object
             GridObject existingObject = GetObjectAtPos(gridPos);
@@ -223,16 +222,15 @@ namespace Scavenger
                 return false;
             }
 
+            ItemStack heldItem = inventory.GetHeldItem();
             // Must be holding an item
-            if (heldItem.IsEmpty())
+            if (!heldItem)
             {
                 return false;
             }
 
-            ItemStack heldItemStack = heldItem.GetHeldItem();
-
             // Item must have PlacedObject property
-            if (!heldItemStack.Item.TryGetProperty(out PlacedObject placedObject))
+            if (!heldItem.Item.TryGetProperty(out PlacedObject placedObject))
             {
                 return false;
             }
@@ -241,12 +239,12 @@ namespace Scavenger
 
             if (gridObject.TryGetComponent(out GridObjectBehavior behavior))
             {
-                behavior.ReadPersistentData(JSONHelper.GetJSONOrEmpty(heldItemStack.PersistentData));
+                behavior.ReadPersistentData(heldItem.PersistentData);
             }
             // TODO implement loading ITEM DATA into object
             
             updatePropagation.HandlePlaceUpdate(gridPos);
-            heldItem.Use();
+            inventory.UseHeldItem();
             return true;
         }
 

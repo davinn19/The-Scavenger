@@ -45,7 +45,7 @@ namespace Scavenger.UI.UIContent
             currentRecipe = null;
         }
 
-        public override void Init(GridObject target, ItemBuffer inventory)
+        public override void Init(GridObject target, PlayerInventory inventory)
         {
             base.Init(target, inventory);
             crafter = target.GetComponent<Crafter>();

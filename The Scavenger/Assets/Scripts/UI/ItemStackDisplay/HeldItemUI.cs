@@ -10,7 +10,7 @@ namespace Scavenger.UI
     [RequireComponent(typeof(SlotDisplay))]
     public class HeldItemUI : MonoBehaviour
     {
-        [SerializeField] private HeldItemBuffer heldItem;
+        [SerializeField] private PlayerInventory inventory;
         private GameUI gameUI;
 
         private RectTransform rectTransform;
@@ -22,7 +22,7 @@ namespace Scavenger.UI
             rectTransform = transform as RectTransform;
             heldItemDisplay = GetComponent<SlotDisplay>();
 
-            heldItemDisplay.SetWatchedBuffer(heldItem, 0);
+            heldItemDisplay.SetWatchedBuffer(inventory, inventory.GetHeldItem());
         }
 
         private void Update()

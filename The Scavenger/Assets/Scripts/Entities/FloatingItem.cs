@@ -41,11 +41,13 @@ namespace Scavenger
         /// <param name="gameManager">The current gameManager.</param>
         private void TryGiveItems(GameManager gameManager)
         {
-            // Fails if it cannot give all of its contents at once. TODO add interaction with held item handler
-            int remainder = gameManager.Inventory.Insert(itemStack, itemStack.Amount, true);
-            if (remainder == 0)
+            List<ItemStack> inventorySlots = gameManager.Inventory.GetInventory();
+            int amountInserted = ItemTransfer.MoveStackToBuffer(itemStack, inventorySlots, itemStack.Amount, gameManager.Inventory.AcceptsItemStack, true);
+
+            // Only works if it can give all of its contents at once.
+            if (amountInserted == itemStack.Amount)
             {
-                gameManager.Inventory.Insert(itemStack);
+                ItemTransfer.MoveStackToBuffer(itemStack, inventorySlots, itemStack.Amount, gameManager.Inventory.AcceptsItemStack, false);
                 Destroy(gameObject);
             }
         }

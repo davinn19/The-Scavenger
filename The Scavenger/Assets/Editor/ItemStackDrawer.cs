@@ -29,7 +29,7 @@ namespace Scavenger.CustomEditor
 
             // Draw fields - pass GUIContent.none to each so they are drawn without labels
             EditorGUI.PropertyField(itemRect, property.FindPropertyRelative("itemID"), GUIContent.none);
-            EditorGUI.PropertyField(amountRect, property.FindPropertyRelative("Amount"), GUIContent.none);
+            EditorGUI.PropertyField(amountRect, property.FindPropertyRelative("amount"), GUIContent.none);
 
             Object selectedObject = EditorGUI.ObjectField(buttonRect, GUIContent.none, default(Object), typeof(Item), true);
             if (selectedObject != null)

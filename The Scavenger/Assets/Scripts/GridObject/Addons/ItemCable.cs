@@ -53,19 +53,20 @@ namespace Scavenger.GridObjectBehaviors
         /// <param name="destinations">List of buffers to distribute items to.</param>
         private void ClosestFirst(ItemBuffer source, List<ItemBuffer> destinations)
         {
-            int itemsToTake = Spec.TransferRate;
+            int itemsTaken = 0;
+            List<ItemStack> sourceSlots = source.GetOutputSlots();
 
             foreach (ItemBuffer destination in destinations)    // Destinations list is ordered by proximity already
             {
-                itemsToTake -= source.MoveTo(itemsToTake, destination);
+                List<ItemStack> destinationSlots = destination.GetInputSlots();
+                itemsTaken += ItemTransfer.MoveBufferToBuffer(sourceSlots, destinationSlots, Spec.TransferRate - itemsTaken, destination.AcceptsItemStack);
 
-                if (itemsToTake == 0)
+                if (itemsTaken == Spec.TransferRate)
                 {
                     return;
                 }
             }
         }
-
 
         /// <summary>
         /// Distributes items from an input item buffer to all output item buffers, distributed evenly.
@@ -75,6 +76,8 @@ namespace Scavenger.GridObjectBehaviors
         private void RoundRobin(ItemBuffer source, List<ItemBuffer> destinations)
         {
             // TODO test
+            List<ItemStack> sourceSlots = source.GetOutputSlots();
+
             // Create a copy list so destinations that cannot be inserted can be removed to prevent unnecessary looping
             destinations = new List<ItemBuffer>(destinations);
             int itemsToTake = Spec.TransferRate;
@@ -88,9 +91,10 @@ namespace Scavenger.GridObjectBehaviors
                 }
 
                 ItemBuffer destination = destinations[roundRobinIndex];
+                List<ItemStack> destinationSlots = destination.GetInputSlots();
 
                 // Try inserting 1 item
-                bool itemTaken = source.MoveTo(1, destination) == 1;
+                bool itemTaken = ItemTransfer.MoveBufferToBuffer(sourceSlots, destinationSlots, 1, destination.AcceptsItemStack) == 1;     // TODO Consider making a more efficient function for moving just 1 item
 
                 if (itemTaken)  // Continue looping if item was taken
                 {

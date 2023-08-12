@@ -2076,6 +2076,7 @@ GameObject:
   - component: {fileID: 354866616}
   - component: {fileID: 354866617}
   - component: {fileID: 354866618}
+  - component: {fileID: 354866619}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2096,7 +2097,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 795974108}
-  <Inventory>k__BackingField: {fileID: 745894434}
   <Map>k__BackingField: {fileID: 1203047189}
 --- !u!4 &354866611
 Transform:
@@ -2109,9 +2109,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 745894433}
-  - {fileID: 1266588974}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2152,6 +2150,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatingItemPrefab: {fileID: 5678896932206538554, guid: 015a51acf7d52b2409b69ad49f6b803b, type: 3}
+--- !u!114 &354866619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 354866609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79adc71575373da4d92e7e091ea01713, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventory: []
 --- !u!224 &357049332 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4536121950852370804, guid: cfc04d38aff1c2a44baeffdd5f754276, type: 3}
@@ -4986,66 +4997,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cfc04d38aff1c2a44baeffdd5f754276, type: 3}
---- !u!1 &745894432
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 745894433}
-  - component: {fileID: 745894434}
-  m_Layer: 0
-  m_Name: Inventory
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &745894433
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 745894432}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 354866611}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &745894434
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 745894432}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02f98d24cdd54ff4799d20eefb735af4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <MaxCapacity>k__BackingField: 100
-  <NumSlots>k__BackingField: 28
-  <Slots>k__BackingField:
-  - itemID: MakeshiftEnergyCell
-    Amount: 100
-  - itemID: Silo
-    Amount: 100
-  - itemID: UsedBattery
-    Amount: 100
-  - itemID: MakeshiftRecycler
-    Amount: 100
-  - itemID: MakeshiftConduit
-    Amount: 100
-  - itemID: CopperEnergyCable
-    Amount: 100
-  slotsLocked: 
 --- !u!1 &752054973
 GameObject:
   m_ObjectHideFlags: 0
@@ -8543,67 +8494,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &1266588973
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1266588974}
-  - component: {fileID: 1266588975}
-  - component: {fileID: 1266588976}
-  m_Layer: 0
-  m_Name: HeldItemHandler
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1266588974
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1266588973}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 354866611}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1266588975
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1266588973}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ce60afa392bc0248838784f5b761db5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1266588976
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1266588973}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02f98d24cdd54ff4799d20eefb735af4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <MaxCapacity>k__BackingField: 100
-  <NumSlots>k__BackingField: 1
-  <Slots>k__BackingField: []
-  slotsLocked: 
 --- !u!1001 &1279060831
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13801,7 +13691,11 @@ PrefabInstance:
     - target: {fileID: 2332268909007986127, guid: 4f84edc5cefec15489dadb661392228a, type: 3}
       propertyPath: heldItem
       value: 
-      objectReference: {fileID: 1266588975}
+      objectReference: {fileID: 0}
+    - target: {fileID: 2332268909007986127, guid: 4f84edc5cefec15489dadb661392228a, type: 3}
+      propertyPath: inventory
+      value: 
+      objectReference: {fileID: 354866619}
     - target: {fileID: 7168879129259453907, guid: 4f84edc5cefec15489dadb661392228a, type: 3}
       propertyPath: m_Pivot.x
       value: 0

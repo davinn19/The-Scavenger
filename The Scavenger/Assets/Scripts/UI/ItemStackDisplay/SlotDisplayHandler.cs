@@ -7,14 +7,12 @@ namespace Scavenger.UI
     {
         [SerializeField] private GameManager gameManager;
 
-        private HeldItemBuffer heldItemBuffer;
-        private ItemBuffer inventory;
+        private PlayerInventory inventory;
         private InputHandler inputHandler;
 
 
         private void Awake()
         {
-            heldItemBuffer = gameManager.HeldItemBuffer;
             inventory = gameManager.Inventory;
 
             inputHandler = gameManager.InputHandler;
@@ -23,16 +21,18 @@ namespace Scavenger.UI
 
         public void OnTrashPressed()
         {
-            heldItemBuffer.Use(int.MaxValue);
+            inventory.UseHeldItem(int.MaxValue);
         }
 
         public void OnSlotDisplayPressed(SlotDisplay slotDisplay)
         {
-            bool noItemHeld = heldItemBuffer.IsEmpty();
-            ItemStack displayStack = slotDisplay.GetItemInSlot();
+            bool quickPressed = false; // TODO add shift input
+
+            ItemStack heldItem = inventory.GetHeldItem();
+            ItemStack displayStack = slotDisplay.GetDisplayedItemStack();
 
             // Immediately end interaction if slot is empty and no item is held
-            if (noItemHeld && !displayStack)  
+            if (!heldItem && !displayStack)  
             {
                 return;
             }
@@ -41,26 +41,26 @@ namespace Scavenger.UI
             inputHandler.InputMode = InputMode.Interact;
 
             // Try inserting held item first
-            int itemsInserted = heldItemBuffer.MoveItemsTo(slotDisplay.Buffer, slotDisplay.Slot);
+            int itemsInserted = ItemTransfer.MoveStackToStack(heldItem, displayStack, heldItem.Amount, slotDisplay.Buffer.AcceptsItemStack, false);
             if (itemsInserted > 0)
             {
                 return;
             }
 
             // If no items were inserted, try extracting
-            int itemsExtracted = heldItemBuffer.TakeItemsFrom(slotDisplay.Buffer, slotDisplay.Slot);
+            int itemsExtracted = ItemTransfer.MoveStackToStack(displayStack, heldItem, displayStack.Amount, inventory.AcceptsItemStack, false);
             if (itemsExtracted > 0)
             {
                 return;
             }
 
             // If no items were extracted, swap stacks
-            heldItemBuffer.Swap(slotDisplay.Buffer, slotDisplay.Slot);
+            ItemTransfer.Swap(heldItem, displayStack, inventory.AcceptsItemStack, slotDisplay.Buffer.AcceptsItemStack);
         }
 
         private void OnInputModeChanged(InputMode _)
         {
-            heldItemBuffer.Dump(inventory);
+            inventory.MoveHeldItemToInventory();
         }
     }
 }

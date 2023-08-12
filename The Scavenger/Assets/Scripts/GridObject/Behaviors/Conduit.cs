@@ -138,26 +138,26 @@ namespace Scavenger.GridObjectBehaviors
         /// Tries to add the held item as a cable to the conduit.
         /// </summary>
         /// <param name="inventory">The player's inventory.</param>
-        /// <param name="heldItem">The current held item.</param>
         /// <param name="sidePressed">The side pressed when interacting.</param>
+        /// 
         /// <returns>True if the cable was successfully added.</returns>
-        public override bool TryInteract(ItemBuffer inventory, HeldItemBuffer heldItem, Vector2Int sidePressed)
+        public override bool TryInteract(PlayerInventory inventory, Vector2Int sidePressed)
         {
             // Ignore if no item is held
-            if (heldItem.IsEmpty())
+            ItemStack heldItem = inventory.GetHeldItem();
+            if (!heldItem)
             {
                 return false;
             }
 
-            ItemStack currentHeldItem = heldItem.GetHeldItem();
-            CableSpec cableSpec = currentHeldItem.Item.GetProperty<CableSpec>();
+            CableSpec cableSpec = heldItem.Item.GetProperty<CableSpec>();   // TODO add an internal item buffer to store the cables
 
             if (cableSpec && CanAddCable(cableSpec))
             {
                 cableSpec.AddCable(this);
 
                 gridObject.OnSelfChanged();
-                heldItem.Use();
+                inventory.UseHeldItem();
                 return true;
             }
 

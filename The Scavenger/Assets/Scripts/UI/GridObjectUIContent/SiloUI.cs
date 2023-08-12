@@ -16,7 +16,7 @@ namespace Scavenger.UI.UIContent
         [SerializeField] private Button lockButton;
         [SerializeField] private TextMeshProUGUI lockButtonText;
 
-        public override void Init(GridObject gridObject, ItemBuffer inventory)
+        public override void Init(GridObject gridObject, PlayerInventory inventory)
         {
             base.Init(gridObject, inventory);
 
@@ -41,8 +41,7 @@ namespace Scavenger.UI.UIContent
         /// </summary>
         private void UpdateLockButtonStatus()
         {
-            bool locked = silo.Buffer.Locked;
-            if (locked)
+            if (silo.IsLocked())
             {
                 lockButtonText.text = "Locked";
             }

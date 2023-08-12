@@ -3,54 +3,56 @@ using UnityEngine;
 
 namespace Scavenger.GridObjectBehaviors
 {
-    // TODO add docs
+    // TODO add docs, make more efficient
     public class Crafter : GridObjectBehavior
     {
         [field: SerializeField] public CraftingRecipes RecipeList { get; private set; }
 
-        // TODO implement, add docs
-        public int Craft(CraftingRecipe recipe, int requestedYield, ItemBuffer inventory)
+        // TODO add docs, make more efficient
+        public int Craft(CraftingRecipe recipe, int requestedYield, PlayerInventory inventory)
         {
             if (!recipe)
             {
                 return 0;
             }
-            // TODO fix
-            //requestedYield = Mathf.Min(requestedYield, GetRecipeMaxYield(recipe, inventory));
 
-            //ItemStack resultProduced = recipe.Result.Clone();
-            //int actualYield = 0;
+            requestedYield = Mathf.Min(requestedYield, GetRecipeMaxYield(recipe, inventory));
 
-            //// Inserts as much result as possible without overfilling
-            //while (actualYield < requestedYield)
-            //{
-            //    int uninsertedResult = inventory.Insert(resultProduced, simulate: true);
+            List<ItemStack> inventorySlots = inventory.GetInventory();
+            int actualYield = 0;
 
-            //    if (uninsertedResult > 0)
-            //    {
-            //        break;
-            //    }
+            // Inserts as much result as possible without overfilling
+            while (actualYield < requestedYield)
+            {
+                ItemStack resultProduced = recipe.Result.Clone();
+                int insertedResult = ItemTransfer.MoveStackToBuffer(resultProduced, inventorySlots, resultProduced.Amount, inventory.AcceptsItemStack, true);
 
-            //    inventory.Insert(resultProduced);
-            //    actualYield++;
-            //}
+                // Has to be able to insert everything to craft, TODO change somehow??? dropping excess maybe
+                if (insertedResult != resultProduced.Amount)
+                {
+                    break;
+                }
 
-            //// Extract actual amount used
-            //foreach (ItemStack ingredient in recipe.Ingredients)
-            //{
-            //    ItemTransfer.ExtractItem(ingredient.Item)
-            //    inventory.Extract(ingredient.Item, actualYield * ingredient.Amount);
-            //}
+                ItemTransfer.MoveStackToBuffer(resultProduced, inventory.GetInventory(), resultProduced.Amount, inventory.AcceptsItemStack, false);
+                actualYield++;
+            }
 
-            //return actualYield;
-            return 0;
+            // Extract actual amount used
+            foreach (ItemStack ingredient in recipe.Ingredients)
+            {
+                ItemTransfer.ExtractFromBuffer(inventorySlots, (itemStack) => itemStack.SharesItem(ingredient), actualYield * ingredient.Amount, false);
+            }
+
+            return actualYield;
         }
 
 
         // TODO implement, add docs
-        public List<CraftingRecipe> GetRecipes(string searchInput, FilterMode filterMode, ItemBuffer inventory)
+        public List<CraftingRecipe> GetRecipes(string searchInput, FilterMode filterMode, PlayerInventory inventory)
         {
             List<CraftingRecipe> results = new();
+            List<ItemStack> inventorySlots = inventory.GetInventory();
+
 
             foreach (CraftingRecipe recipe in RecipeList.GetRecipes())
             {
@@ -74,7 +76,7 @@ namespace Scavenger.GridObjectBehaviors
                         }
                         break;
                     case FilterMode.HaveIngredient:
-                        if (InventoryHasIngredient(recipe, inventory))
+                        if (ItemTransfer.BufferContainsAnyItem(inventorySlots, recipe.Ingredients))
                         {
                             results.Add(recipe);
                         }
@@ -83,25 +85,6 @@ namespace Scavenger.GridObjectBehaviors
             }
 
             return results;
-        }
-
-        /// <summary>
-        /// Checks if the player's inventory contains at least 1 ingredient in the recipe.
-        /// </summary>
-        /// <param name="recipe">The recipe to check.</param>
-        /// <param name="inventory">The player's inventory.</param>
-        /// <returns>True if the inventory contains at least 1 ingredient.</returns>
-        private bool InventoryHasIngredient(CraftingRecipe recipe, ItemBuffer inventory)
-        {
-            foreach (ItemStack ingredient in recipe.Ingredients)
-            {
-                int availableAmount = inventory.Extract(ingredient.Item, simulate: true);
-                if (availableAmount > 0)
-                {
-                    return true;
-                }
-            }
-            return false;
         }
 
         /// <summary>
@@ -116,7 +99,7 @@ namespace Scavenger.GridObjectBehaviors
             foreach (ItemStack ingredient in recipe.Ingredients)
             {
                 int requiredAmount = ingredient.Amount;
-                int availableAmount = ItemTransfer.ExtractFromBuffer(inventory.GetItems(), ingredient.SharesItem, int.MaxValue, true);
+                int availableAmount = ItemTransfer.ExtractFromBuffer(inventory.GetAllSlots(), ingredient.SharesItem, int.MaxValue, true);
 
                 int yield = availableAmount / requiredAmount;
 

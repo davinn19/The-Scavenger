@@ -9,6 +9,7 @@ namespace Scavenger.GridObjectBehaviors
     public class Silo : GridObjectBehavior
     {
         public SiloItemBuffer Buffer { get; private set; }
+        
 
         // TODO add docs
         protected override void Init()
@@ -17,24 +18,30 @@ namespace Scavenger.GridObjectBehaviors
             Buffer = GetComponent<SiloItemBuffer>();
         }
 
+        // TODO add docs
+        public bool IsLocked() => Buffer.IsLocked();
+
         /// <summary>
         /// Attempts to insert the current held item into the silo, or extract the silo's contents.
         /// </summary>
-        /// <param name="inventory">The player's inventory</param>
-        /// <param name="heldItem">The current held item.</param>
+        /// <param name="inventory">The player's inventory.</param>
         /// <returns>Always returns true.</returns>
-        public override bool TryInteract(ItemBuffer inventory, HeldItemBuffer heldItem, Vector2Int _) // TODO implement
+        public override bool TryInteract(PlayerInventory inventory, Vector2Int _) // TODO implement
         {
-            // If not holding anything, take from silo
-            if (heldItem.IsEmpty())
+            // TODO redo
+
+            ItemStack heldItem = inventory.GetHeldItem();
+            ItemStack storedItem = Buffer.StoredItem;
+
+            if (heldItem)
             {
-                heldItem.TakeItemsFrom(Buffer, 0);
-                // TODO implement filling inventory once itemSelection is full
+                ItemTransfer.MoveStackToStack(heldItem, storedItem, heldItem.Amount, Buffer.AcceptsItemStack, false);
             }
-            else // Otherwise, try inserting held item into silo
+            else
             {
-                heldItem.MoveItemsTo(Buffer, 0);
+                ItemTransfer.MoveStackToBuffer(storedItem, inventory.GetInventory(), storedItem.Amount, inventory.AcceptsItemStack, false);
             }
+
             gridObject.OnSelfChanged();
             return true;
         }

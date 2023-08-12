@@ -10,8 +10,10 @@ namespace Scavenger.UI
     [RequireComponent(typeof(ItemStackDisplay))]
     public class SlotDisplay : MonoBehaviour
     {
-        [field: SerializeField] public ItemBuffer Buffer { get; private set; }
-        [field: SerializeField] public int Slot { get; private set; }
+        public ItemBuffer Buffer { get; private set; }
+
+        public bool Insertable = true;// TODO factor these in
+        public bool Extractable = true;
 
         private ItemStackDisplay itemStackDisplay;
         private SlotDisplayHandler handler;
@@ -27,31 +29,13 @@ namespace Scavenger.UI
         /// </summary>
         /// <param name="buffer">The item buffer to display.</param>
         /// <param name="slot">The slot to display.</param>
-        public void SetWatchedBuffer(ItemBuffer buffer, int slot)
-        {
-            if (Buffer)
-            {
-                buffer.SlotChanged -= OnSlotChanged;
-            }
+        public void SetWatchedBuffer(ItemBuffer buffer, int slot) => SetWatchedBuffer(buffer, buffer.GetItemInSlot(slot));
 
+        public void SetWatchedBuffer(ItemBuffer buffer, ItemStack itemStack)
+        {
+            Debug.Assert(buffer.ItemStackIsInBuffer(itemStack));
             Buffer = buffer;
-            Slot = slot;
-
-            if (Buffer)
-            {
-                buffer.SlotChanged -= OnSlotChanged;
-            }
-        }
-
-        // TODO add docs
-        private void OnSlotChanged(int slotChanged)
-        {
-            if (slotChanged != Slot)
-            {
-                return;
-            }
-
-            itemStackDisplay.ItemStack = GetItemInSlot();
+            itemStackDisplay.ItemStack = itemStack;
         }
 
         // TODO add docs
@@ -61,26 +45,12 @@ namespace Scavenger.UI
         }
 
         /// <summary>
-        /// Constantly update which itemStack the display should be watching
-        /// </summary>
-        private void Update()
-        {
-            if (Buffer == null)
-            {
-                itemStackDisplay.ItemStack = new ItemStack();
-                return;
-            }
-
-            itemStackDisplay.ItemStack = Buffer.GetItemInSlot(Slot);
-        }
-
-        /// <summary>
         /// Gets the itemStack in the displayed item buffer and slot.
         /// </summary>
         /// <returns></returns>
-        public ItemStack GetItemInSlot()
+        public ItemStack GetDisplayedItemStack()
         {
-            return Buffer.GetItemInSlot(Slot);
+            return itemStackDisplay.ItemStack;
         }
 
     }

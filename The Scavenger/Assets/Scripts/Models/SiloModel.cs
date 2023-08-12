@@ -32,7 +32,7 @@ namespace Scavenger.Models
             else
             {
                 icon.sprite = itemStack.Item.Icon;
-                lockIcon.enabled = buffer.Locked;
+                lockIcon.enabled = buffer.IsLocked();
             }
         }
     }

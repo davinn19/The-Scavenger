@@ -11,8 +11,8 @@ namespace Scavenger
     {
         private ItemStack input = new ItemStack();
         private ItemStack[] output;
-
         private const int outputSlots = 15;
+        public override int NumSlots => outputSlots + 1;
 
         protected override void Init()
         {
@@ -24,50 +24,29 @@ namespace Scavenger
             }
         }
 
-        public override List<int> GetInteractibleSlots(ItemInteractionType interactionType)
+        public override ItemStack GetItemInSlot(int slot)
         {
-            if (interactionType == ItemInteractionType.Insert)
+            if (slot == 0)
             {
-                return new List<int> { 0 };
+                return input;
             }
-            else
-            {
-                List<int> slots = new();
-                for (int slot = 1; slot <= outputSlots; slot++)
-                {
-                    slots.Add(slot);
-                }
-                return slots;
-
-            }
+            return output[slot - 1];
         }
 
-        public override List<ItemStack> GetItems(ItemInteractionType interactionType = ItemInteractionType.All)
+        public override List<ItemStack> GetAllSlots()
         {
-            List<ItemStack> items = new List<ItemStack>() { input };
-            if (interactionType == ItemInteractionType.Insert)
-            {
-                return items;
-            }
-            else if (interactionType == ItemInteractionType.Extract)
-            {
-                return new List<ItemStack>(output);
-            }
-            else
-            {
-                items.AddRange(output);
-                return items;
-            }
+            List<ItemStack> items = new List<ItemStack> { input };
+            items.AddRange(output);
+            return items;
         }
+        public override List<ItemStack> GetInputSlots() => new List<ItemStack>() { input };
+        public override List<ItemStack> GetOutputSlots() => new List<ItemStack>(output);  // TODO see if you can get away with not creating a copy
 
-        public override bool AcceptsItemStack(int slot, ItemStack itemStack)
-        {
-            if (slot != 0)
-            {
-                return true;
-            }
-            return GetComponent<Recycler>().RecipeList.IsRecyclable(itemStack.Item);
-        }
+        /// <remarks>
+        /// Recycler buffers allow any item to be stored, but it's impossible to insert to an output, and the recycler only runs when the input is valid.
+        /// </remarks>
+        /// <returns>Always returns true.</returns>
+        public override bool AcceptsItemStack(int slot, ItemStack itemStack) => true;
 
         public ItemStack GetInput()
         {

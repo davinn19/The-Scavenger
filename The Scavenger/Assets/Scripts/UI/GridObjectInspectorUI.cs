@@ -12,7 +12,7 @@ namespace Scavenger.UI
     {
         [SerializeField] private GameManager gameManager;
         private GridObjectInspector gridObjectInspector;
-        private ItemBuffer inventory;
+        private PlayerInventory inventory;
 
         [SerializeField] private TextMeshProUGUI gridObjectName;
         [SerializeField] private Image gridObjectIcon;

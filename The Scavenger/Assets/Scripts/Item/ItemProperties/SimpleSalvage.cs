@@ -19,9 +19,9 @@ namespace Scavenger
         /// Salvages one of the items in the stack.
         /// </summary>
         /// <param name="gameManager">The current game manager.</param>
-        /// <param name="heldItem">The current held item buffer.</param>
         /// <param name="pressedPos">The grid position pressed.</param>
-        public override void Interact(GameManager gameManager, HeldItemBuffer heldItem, Vector2Int pressedPos)
+        /// 
+        public override void Interact(GameManager gameManager, Vector2Int pressedPos)
         {
             GridMap map = gameManager.Map;
 
@@ -33,7 +33,7 @@ namespace Scavenger
                     gameManager.ItemDropper.CreateFloatingItem(drop, worldPos);
                 }
 
-                heldItem.Use();
+                gameManager.Inventory.UseHeldItem();
             }
         }
 

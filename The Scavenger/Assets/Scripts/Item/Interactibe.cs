@@ -13,8 +13,7 @@ namespace Scavenger
         /// Leads the interaction with the gridMap.
         /// </summary>
         /// <param name="gameManager">The current game manager.</param>
-        /// <param name="heldItem">The current held item buffer.</param>
         /// <param name="pressedPos">The grid position pressed.</param>
-        public abstract void Interact(GameManager gameManager, HeldItemBuffer heldItem, Vector2Int pressedPos);
+        public abstract void Interact(GameManager gameManager, Vector2Int pressedPos);
     }
 }

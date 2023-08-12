@@ -1,50 +1,69 @@
 using Leguar.TotalJSON;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Scavenger.ItemTransfer;
 
 namespace Scavenger
 {
     // TODO add docs
     public class SiloItemBuffer : ItemBuffer
     {
+        [SerializeField] private int MaxStackAmount = 100;
+
         private ItemStack storedItem = new ItemStack();
+        public ItemStack StoredItem => storedItem;
+
         // TODO override maxstacksize
-        [field: SerializeField] public bool Locked { get; private set; }
+        public ItemStack lockFilter = new ItemStack();
+        public override int NumSlots => 1;
 
-        public override List<int> GetInteractibleSlots(ItemInteractionType interactionType) => new List<int> { 1 };
-
-        public override List<ItemStack> GetItems(ItemInteractionType interactionType = ItemInteractionType.All) => new List<ItemStack>() { storedItem };
-
-        public override bool AcceptsItemStack(int slot, ItemStack itemStack) => true;
-
-        /// <summary>
-        /// Switches a slot's locked status.
-        /// </summary>
-        /// <param name="slot">The slot to toggle.</param>
-        public void ToggleLocked()
+        protected override void Init()
         {
-            Locked = !Locked;
+            base.Init();
+            storedItem.SetMaxAmount(MaxStackAmount);
         }
 
-        /// <summary>
-        /// Similar to base extract, but accounts for locked status before clearing an empty itemStack.
-        /// </summary>
-        /// <param name="slot">Slot to extract items from.</param>
-        /// <param name="amount">Amount of items to extract.</param>
-        /// <returns>Actual amount of items extracted.</returns>
-        public override int ExtractSlot(int slot, int amount)
+
+        public override ItemStack GetItemInSlot(int slot)
         {
-            ItemStack emptyReserve = GetItemInSlot(slot).Clone(amount: 0);
-            int amountExtracted = base.ExtractSlot(slot, amount);
-
-            if (!GetItemInSlot(slot))
+            if (slot != 0)
             {
-                SetItemInSlot(slot, emptyReserve);
+                throw new ArgumentOutOfRangeException("A silo only has one slot, so the only valid slot is 0.");
             }
+            return storedItem;
+        }
+        // Always returns stored item because conduit interaction is unrestricted.
+        public override List<ItemStack> GetAllSlots() => new List<ItemStack>() { storedItem };
+        public override List<ItemStack> GetInputSlots() => GetAllSlots();
+        public override List<ItemStack> GetOutputSlots() => GetAllSlots();
 
-            return amountExtracted;
+        /// <summary>
+        /// Checks if the inserting itemStack matches the filter.
+        /// </summary>
+        /// <param name="itemStack">The itemStack to be inserted.</param>
+        /// <returns>True if the itemStack matches the silo's filter.</returns>
+        public override bool AcceptsItemStack(int _, ItemStack itemStack)
+        {
+            return lockFilter.IsStackable(itemStack);
+        }
+
+        // TODO add docs
+        public bool IsLocked() => lockFilter;
+
+        /// <summary>
+        /// Switches the silo's locked status.
+        /// </summary>=
+        public void ToggleLocked()
+        {
+            if (lockFilter)
+            {
+                lockFilter.Clear();
+            }
+            else
+            {
+                lockFilter.Copy(storedItem, false);
+            }
         }
 
         /// <summary>
@@ -53,9 +72,9 @@ namespace Scavenger
         /// <param name="data">The buffer's persistent data.</param>
         public override void ReadPersistentData(JSON data)
         {
-            if (data.ContainsKey("Locked"))
+            if (data.ContainsKey("LockFilter"))
             {
-                Locked = true;
+                lockFilter = data.GetJSON("LockFilter").Deserialize<ItemStack>();
             }
             if (data.ContainsKey("Item"))
             {
@@ -70,9 +89,9 @@ namespace Scavenger
         public override JSON WritePersistentData()
         {
             JSON data = new JSON();
-            if (Locked)
+            if (lockFilter)
             {
-                data.Add("Locked", true);
+                data.Add("LockFilter", lockFilter);
             }
             if (storedItem)
             {

@@ -22,7 +22,13 @@ namespace Scavenger.UI
             get { return m_itemStack; }
             set
             {
+                if (m_itemStack != null)
+                {
+                    m_itemStack.Changed -= ItemStackChanged;
+                }
+
                 m_itemStack = value;
+                m_itemStack.Changed += ItemStackChanged;
                 ItemStackChanged?.Invoke();
             }
         }
@@ -32,16 +38,18 @@ namespace Scavenger.UI
         private void Awake()
         {
             stackAmountDisplay = GetComponentInChildren<TextMeshProUGUI>();
+            UpdateAppearance();
+            ItemStackChanged += UpdateAppearance;
         }
 
         /// <summary>
         /// Constantly update the display.
         /// </summary>
-        private void Update()
+        private void UpdateAppearance()
         {
             stackAmountDisplay.enabled = ShowAmount;
 
-            if (!ItemStack)
+            if (ItemStack == null || !ItemStack)
             {
                 itemImage.color = Color.clear;
                 stackAmountDisplay.text = "";

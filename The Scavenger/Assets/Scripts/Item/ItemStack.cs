@@ -1,4 +1,5 @@
 using Leguar.TotalJSON;
+using System;
 using UnityEngine;
 
 namespace Scavenger
@@ -9,32 +10,72 @@ namespace Scavenger
     [System.Serializable]
     public class ItemStack
     {
-        [SerializeField] private string itemID;
+        public event Action Changed;
 
+        // Item things
+        [SerializeField] private string itemID = "";
         public Item Item => Database.Instance.Item.Get(itemID);
 
-        /// <remarks>DO NOT edit the amount directly unless you are in ItemBuffer. Use Extract/Insert functions in ItemBuffer instead.</remarks>
-        [Min(0)] public int Amount = 0;
+        // Max amount things
+        private int maxAmount = 100;
+        public int MaxAmount => maxAmount;
+        public void SetMaxAmount(int maxAmount)
+        {
+            Debug.Assert(maxAmount > 0);
+            Debug.Assert(maxAmount == 100); // Can only be set once
+            this.maxAmount = maxAmount;
+            SetAmount(amount);
+        }
 
-        public JSON PersistentData = new JSON();
+        // Amount things
+        [SerializeField, Min(0)] private int amount = 0;
+        public int Amount => amount;
+        public void AddAmount(int addBy) => SetAmount(amount + addBy);
+        public void RemoveAmount(int removeBy) => SetAmount(amount - removeBy);
+        public void SetAmount(int amount)
+        {
+            this.amount = Mathf.Clamp(amount, 0, maxAmount);
+            if (IsEmpty())
+            {
+                Clear();
+            }
+            else
+            {
+                Changed?.Invoke();
+            }
+        }
+
+        public int GetAmountBeforeFull() => MaxAmount - Amount;
+        
+
+        [SerializeField] private JSON persistentData = new JSON();
+        public JSON PersistentData => persistentData;
+        public void SetPersistentData(JSON data)
+        {
+            persistentData = JSONHelper.Copy(data);
+            persistentData.SetProtected();
+            Changed?.Invoke();
+        }
 
         public ItemStack()
         {
             itemID = "";
-            Amount = 0;
-            PersistentData = new JSON();
+            amount = 0;
+            persistentData = new JSON();
+            persistentData.SetProtected();
         }
 
         // TODO add docs
         public ItemStack(Item item, int amount, JSON persistentData)
         {
-            Amount = amount;
-            PersistentData = JSONHelper.GetJSONOrEmpty(persistentData); // TODO convert to normal???
+            this.amount = amount;
+            this.persistentData = JSONHelper.GetJSONOrEmpty(persistentData); // TODO convert to normal???
+            persistentData.SetProtected();
             itemID = item.name;
         }
 
         /// <summary>
-        /// Copies the information of another itemStack.
+        /// Copies the information of another itemStack. Will not copy max amount.
         /// </summary>
         /// <param name="copyAmount">If true, copy the itemStack's amount.</param>
         /// <param name="copyPersistentData">If true, copy the persistent data.</param>
@@ -43,16 +84,18 @@ namespace Scavenger
             itemID = itemStackToCopy.itemID;
             if (copyAmount)
             {
-                Amount = itemStackToCopy.Amount;
+                amount = Mathf.Clamp(itemStackToCopy.amount, 0, maxAmount);
             }
             if (copyPersistentData)
             {
-                PersistentData = JSONHelper.Copy(itemStackToCopy.PersistentData);
+                persistentData = JSONHelper.Copy(itemStackToCopy.persistentData);
+                persistentData.SetProtected();
             }
+            Changed?.Invoke();
         }
 
         /// <summary>
-        /// Creates a copy of another itemStack.
+        /// Creates a copy of another itemStack. Max amount is copies as well.
         /// </summary>
         /// <param name="amount">Set the copy's amount to something different.</param>
         /// <param name="keepPersistentData">If true, copy the persistent data.</param>
@@ -61,16 +104,17 @@ namespace Scavenger
         {
             if (amount < 0)
             {
-                amount = Amount;
+                amount = this.amount;
             }
 
             JSON persistentData = new JSON();
             if (keepPersistentData)
             {
-                JSONHelper.Copy(JSONHelper.GetJSONOrEmpty(PersistentData));
+                JSONHelper.Copy(JSONHelper.GetJSONOrEmpty(this.persistentData));
             }
 
             ItemStack copy = new ItemStack(Item, amount, persistentData);
+            copy.maxAmount = amount;
             return copy;
         }
 
@@ -78,8 +122,10 @@ namespace Scavenger
         public void Clear()
         {
             itemID = "";
-            Amount = 0;
-            PersistentData = new JSON();
+            amount = 0;
+            persistentData = new JSON();
+            persistentData.SetProtected();
+            Changed?.Invoke();
         }
 
         /// <summary>
@@ -96,7 +142,7 @@ namespace Scavenger
             }
 
             // If stacks do not have the same item, it is unstackable
-            if (Item != other.Item)
+            if (!SharesItem(other))
             {
                 return false;
             }
@@ -108,7 +154,7 @@ namespace Scavenger
             }
 
             // If the stacks' data are different, it is unstackable
-            if (HasPersistentData() && !PersistentData.Equals(other.PersistentData))
+            if (HasPersistentData() && !persistentData.Equals(other.persistentData))
             {
                 return false;
             }
@@ -122,7 +168,7 @@ namespace Scavenger
         /// <returns>True if the itemStack contains persistent data.</returns>
         public bool HasPersistentData()
         {
-            return PersistentData != null && PersistentData.Count > 0;
+            return persistentData != null && persistentData.Count > 0;
         }
 
         /// <summary>
@@ -141,7 +187,16 @@ namespace Scavenger
         /// <returns>True if the itemStack is empty.</returns>
         public bool IsEmpty()
         {
-            return Amount <= 0;
+            return amount == 0;
+        }
+
+        /// <summary>
+        /// Checks if the itemStack is full.
+        /// </summary>
+        /// <returns>True if the itemStack is full.</returns>
+        public bool IsFull()
+        {
+            return amount == MaxAmount;
         }
 
         /// <summary>

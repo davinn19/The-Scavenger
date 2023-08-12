@@ -42,9 +42,10 @@ namespace Scavenger.GridObjectBehaviors
             if (!input || !RecipeList.IsRecyclable(input.Item))
             {
                 recycleProgress = 0;
+                return;
             }
 
-            // Pauses if output is full
+            // Pauses if output is full (keep progress)
             if (itemBuffer.IsOutputFull())
             {
                 return;
@@ -52,23 +53,20 @@ namespace Scavenger.GridObjectBehaviors
 
             // Do recycle progress
             recycleProgress++;
-            if (recycleProgress >= ticksPerRecycle)
+            if (recycleProgress < ticksPerRecycle)
             {
-                RecyclerRecipe recipe = RecipeList.GetRecipeWithInput(input.Item);
-                List<ItemStack> output = RecipeList.GenerateDrops(recipe);
-
-                foreach (ItemStack itemStack in output)
-                {
-                    ItemBuffer.InsertAvailableSlots(itemBuffer, itemStack);
-                }
-
-                recycleProgress = 0;
-                itemBuffer.ExtractSlot(0, 1);
+                return;
             }
+
+            RecyclerRecipe recipe = RecipeList.GetRecipeWithInput(input.Item);
+            List<ItemStack> recipeDrops = RecipeList.GenerateDrops(recipe);
+
+            List<ItemStack> outputSlots = itemBuffer.GetOutputSlots();
+
+            ItemTransfer.MoveBufferToBuffer(recipeDrops, outputSlots, int.MaxValue, itemBuffer.AcceptsItemStack);
+
+            recycleProgress = 0;
+            itemBuffer.ExtractSlot(0, 1);
         }
-
-        
-
-        
     }
 }
