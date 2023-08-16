@@ -15,25 +15,25 @@ MonoBehaviour:
   recipes:
   - Ingredients:
     - itemID: UsedBattery
-      Amount: 5
+      amount: 5
     - itemID: MangledWires
-      Amount: 5
+      amount: 5
     Result:
       itemID: MakeshiftEnergyCell
-      Amount: 1
+      amount: 1
   - Ingredients:
     - itemID: UsedBattery
-      Amount: 7
+      amount: 4
     - itemID: MangledWires
-      Amount: 7
+      amount: 4
     - itemID: ScrapMetal
-      Amount: 7
+      amount: 4
     Result:
       itemID: MakeshiftRecycler
-      Amount: 1
+      amount: 1
   - Ingredients:
     - itemID: ScrapMetal
-      Amount: 5
+      amount: 5
     Result:
       itemID: MakeshiftConduit
-      Amount: 10
+      amount: 10

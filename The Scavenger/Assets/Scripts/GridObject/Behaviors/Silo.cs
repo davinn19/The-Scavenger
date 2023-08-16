@@ -1,3 +1,4 @@
+using Leguar.TotalJSON;
 using UnityEngine;
 
 namespace Scavenger.GridObjectBehaviors
@@ -55,6 +56,24 @@ namespace Scavenger.GridObjectBehaviors
             Buffer.ToggleLocked();
             gridObject.OnSelfChanged();
             return true;
+        }
+
+        // TODO add docs
+        public override void ReadPersistentData(JSON data)
+        {
+            base.ReadPersistentData(data);
+            if (data.ContainsKey("ItemBuffer"))
+            {
+                Buffer.ReadPersistentData(data.GetJSON("ItemBuffer"));
+            }
+        }
+
+        // TODO add docs
+        public override JSON WritePersistentData()
+        {
+            JSON data = base.WritePersistentData();
+            JSONHelper.TryAdd(data, "ItemBuffer", Buffer.WritePersistentData());
+            return data;
         }
     }
 }

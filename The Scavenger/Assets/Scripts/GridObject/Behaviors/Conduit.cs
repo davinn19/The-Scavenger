@@ -30,13 +30,13 @@ namespace Scavenger.GridObjectBehaviors
             foreach (Vector2Int side in GridMap.adjacentDirections)
             {
                 Conduit adjConduit = gridObject.GetAdjacentObject<Conduit>(side);
-                ConduitInterface adjInterface = gridObject.GetAdjacentObject<ConduitInterface>(side);
+                Buffer adjBuffer = gridObject.GetAdjacentObject<Buffer>(side);
 
                 if (adjConduit)             // If next to conduit, connect.
                 {
                     SetTransportMode(side, TransportMode.CONNECT);
                 }
-                else if (adjInterface)      // If next to interface, extract.
+                else if (adjBuffer)      // If next to buffer, extract.
                 {
                     SetTransportMode(side, TransportMode.EXTRACT);
                 }
@@ -50,32 +50,13 @@ namespace Scavenger.GridObjectBehaviors
         }
 
         /// <summary>
-        /// Disconnects all adjacent conduits before removing.
-        /// </summary>
-        public override void OnRemove()
-        {
-            foreach (Vector2Int side in GridMap.adjacentDirections)
-            {
-                SetTransportMode(side, TransportMode.DISCONNECT);
-
-                Vector2Int oppositeSide = side * -1;
-                Conduit adjConduit = gridObject.GetAdjacentObject<Conduit>(side);
-
-                if (adjConduit)
-                {
-                    adjConduit.SetTransportMode(oppositeSide, TransportMode.DISCONNECT);
-                }
-            }
-        }
-
-        /// <summary>
         /// If the adjacent object is removed or does not accept conduits, set to disconnect.
         /// </summary>
         /// <param name="sideUpdated">Side which the neighbor was placed on.</param>
         public override void OnNeighborPlaced(Vector2Int sideUpdated)
         {
             Conduit adjConduit = gridObject.GetAdjacentObject<Conduit>(sideUpdated);
-            ConduitInterface adjInterface = gridObject.GetAdjacentObject<ConduitInterface>(sideUpdated);
+            Buffer adjBuffer = gridObject.GetAdjacentObject<Buffer>(sideUpdated);
 
             TransportMode oldTransportMode = GetTransportMode(sideUpdated);
             TransportMode transportMode;
@@ -84,7 +65,7 @@ namespace Scavenger.GridObjectBehaviors
             {
                 transportMode = TransportMode.CONNECT;
             }
-            else if (adjInterface)
+            else if (adjBuffer)
             {
                 transportMode = TransportMode.EXTRACT;
             }
@@ -106,7 +87,7 @@ namespace Scavenger.GridObjectBehaviors
         public override void OnNeighborChanged()
         {
             bool changed = false;
-
+            
             foreach (Vector2Int side in GridMap.adjacentDirections)
             {
                 TransportMode oldTransportMode = GetTransportMode(side);
@@ -268,7 +249,7 @@ namespace Scavenger.GridObjectBehaviors
         /// <returns>A list of possible transport modes.</returns>
         private List<TransportMode> GetTransportModeRotation(Vector2Int side)
         {
-            if (gridObject.GetAdjacentObject<ConduitInterface>(side))
+            if (gridObject.GetAdjacentObject<Buffer>(side))
             {
                 return new() { TransportMode.CONNECT, TransportMode.DISCONNECT, TransportMode.EXTRACT };
             }

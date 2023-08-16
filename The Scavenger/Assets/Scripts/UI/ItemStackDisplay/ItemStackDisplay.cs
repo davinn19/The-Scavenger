@@ -13,7 +13,7 @@ namespace Scavenger.UI
     public class ItemStackDisplay : MonoBehaviour
     {
         [SerializeField] private Image itemImage;
-        private TextMeshProUGUI stackAmountDisplay;
+        [SerializeField] private TextMeshProUGUI stackAmountDisplay;
 
         public event Action ItemStackChanged;
         private ItemStack m_itemStack;
@@ -37,9 +37,16 @@ namespace Scavenger.UI
 
         private void Awake()
         {
-            stackAmountDisplay = GetComponentInChildren<TextMeshProUGUI>();
             UpdateAppearance();
             ItemStackChanged += UpdateAppearance;
+        }
+
+        private void OnDestroy()
+        {
+            if (ItemStack != null)
+            {
+                ItemStack.Changed -= ItemStackChanged;
+            }
         }
 
         /// <summary>

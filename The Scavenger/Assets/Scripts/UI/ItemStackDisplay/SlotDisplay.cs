@@ -14,6 +14,7 @@ namespace Scavenger.UI
 
         public bool Insertable = true;// TODO factor these in
         public bool Extractable = true;
+        public bool Swappable => Insertable && Extractable;
 
         private ItemStackDisplay itemStackDisplay;
         private SlotDisplayHandler handler;

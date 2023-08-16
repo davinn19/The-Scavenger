@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 3208930652215430749}
   - component: {fileID: 5152907530282061247}
   - component: {fileID: 1296748062073017628}
-  - component: {fileID: 8411136929169605812}
   - component: {fileID: 4873725703957258132}
+  - component: {fileID: 5737681213160091184}
+  - component: {fileID: 1897272982742094190}
   m_Layer: 0
   m_Name: MakeshiftRecycler
   m_TagString: Untagged
@@ -77,9 +78,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 492e8b18a9cd32842b2acff35f12f3c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recipeList: {fileID: 11400000, guid: 46850882ed5e8cc45b0f1b7c0aed4c8c, type: 2}
-  recycleProgress: 0
-  ticksPerRecycle: 20
+  <RecipeList>k__BackingField: {fileID: 11400000, guid: 46850882ed5e8cc45b0f1b7c0aed4c8c, type: 2}
+  <TicksPerRecycle>k__BackingField: 40
   energyPerTick: 5
 --- !u!114 &1296748062073017628
 MonoBehaviour:
@@ -93,26 +93,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a854dc0ec229134a90018277a04c963, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Capacity>k__BackingField: 100
+  <Capacity>k__BackingField: 1000
   <Energy>k__BackingField: 0
-  <InsertLimit>k__BackingField: 10
+  <InsertLimit>k__BackingField: 100
   <ExtractLimit>k__BackingField: 0
---- !u!114 &8411136929169605812
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3384336018222738273}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02f98d24cdd54ff4799d20eefb735af4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <MaxCapacity>k__BackingField: 100
-  <NumSlots>k__BackingField: 9
-  <Slots>k__BackingField: []
-  slotsLocked: 
 --- !u!114 &4873725703957258132
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,6 +110,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   droppedItem: {fileID: 11400000, guid: 5540fd200c50bb24682223f08b3fcbac, type: 2}
+--- !u!114 &5737681213160091184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3384336018222738273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a18a5a2cab0b724a8c6dbc89b4e4cdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1897272982742094190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3384336018222738273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc87fe466642db8418f3e9a9ff87f6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Content: {fileID: 8620365617579307443, guid: bf6b35438f7e2ec4cbe1ebb5e0d93632, type: 3}
 --- !u!1001 &8915201013977915910
 PrefabInstance:
   m_ObjectHideFlags: 0

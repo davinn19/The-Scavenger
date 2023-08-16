@@ -275,6 +275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemImage: {fileID: 5411255475517850663}
+  stackAmountDisplay: {fileID: 2942027354379320391}
   <ShowAmount>k__BackingField: 1
 --- !u!114 &4015829222900712336
 MonoBehaviour:

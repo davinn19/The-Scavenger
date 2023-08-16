@@ -260,6 +260,7 @@ namespace Scavenger
             List<ItemStack> drops = gridObject.GetDrops();
 
             SetObjectAtPos(null, gridPos);
+            updatePropagation.HandleRemoveUpdate(gridPos);
             return drops;
             
         }

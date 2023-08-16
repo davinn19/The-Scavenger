@@ -2162,7 +2162,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79adc71575373da4d92e7e091ea01713, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventory: []
+  inventory:
+  - itemID: SpaceDebris
+    amount: 1000
 --- !u!224 &357049332 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4536121950852370804, guid: cfc04d38aff1c2a44baeffdd5f754276, type: 3}

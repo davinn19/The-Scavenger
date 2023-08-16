@@ -62,6 +62,16 @@ namespace Scavenger
             return amountToExtract;
         }
 
+        /// <summary>
+        /// Removes energy from buffer, ignoring current energy amount and not counting towards transfer limits.
+        /// </summary>
+        /// <remarks>Intended to be used by machines spending energy internally.</remarks>
+        /// <param name="amount">Amount of energy to spend.</param>
+        public void Spend(int amount)
+        {
+            Energy -= Mathf.Min(Energy, amount);
+        }
+
         public void ResetEnergyTransferCount()
         {
             extractedThisTick = 0;

@@ -19,7 +19,7 @@ namespace Scavenger.UI
 
         private void Update()
         {
-            progressBar.UpdateAppearance(HP.Health, HP.GetMaxHP(), textFormat);
+            progressBar.UpdateRatio(HP.Health, HP.GetMaxHP(), textFormat);
         }
     }
 }

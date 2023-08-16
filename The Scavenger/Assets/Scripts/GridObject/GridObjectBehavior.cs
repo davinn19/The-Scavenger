@@ -14,6 +14,11 @@ namespace Scavenger
             Init();
         }
 
+        private void OnDestroy()
+        {
+            gridObject.UnsubscribeTickUpdate(TickUpdate);
+        }
+
         protected virtual void Init()
         {
             gridObject = GetComponent<GridObject>();

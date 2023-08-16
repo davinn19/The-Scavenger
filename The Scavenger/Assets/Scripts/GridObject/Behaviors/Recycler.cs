@@ -14,11 +14,10 @@ namespace Scavenger.GridObjectBehaviors
         private RecyclerItemBuffer itemBuffer;
         private EnergyBuffer energyBuffer;
 
-        [SerializeField, HideInInspector]
-        private float recycleProgress = 0;
+        public int RecycleProgress { get; private set; }
 
-        [SerializeField, Min(0)]
-        private int ticksPerRecycle;
+        [field: SerializeField, Min(0)]
+        public int TicksPerRecycle { get; private set; }
 
         [SerializeField, Min(0)]
         private int energyPerTick;
@@ -41,19 +40,20 @@ namespace Scavenger.GridObjectBehaviors
             // Resets if input is missing/invalid
             if (!input || !RecipeList.IsRecyclable(input.Item))
             {
-                recycleProgress = 0;
+                RecycleProgress = 0;
                 return;
             }
 
-            // Pauses if output is full (keep progress)
-            if (itemBuffer.IsOutputFull())
+            // Pauses if output is full (keep progress) or there is not enough energy
+            if (energyBuffer.Energy < energyPerTick || itemBuffer.IsOutputFull())
             {
                 return;
             }
 
             // Do recycle progress
-            recycleProgress++;
-            if (recycleProgress < ticksPerRecycle)
+            RecycleProgress++;
+            energyBuffer.Spend(energyPerTick);
+            if (RecycleProgress < TicksPerRecycle)
             {
                 return;
             }
@@ -65,8 +65,31 @@ namespace Scavenger.GridObjectBehaviors
 
             ItemTransfer.MoveBufferToBuffer(recipeDrops, outputSlots, int.MaxValue, itemBuffer.AcceptsItemStack);
 
-            recycleProgress = 0;
+            RecycleProgress = 0;
             itemBuffer.ExtractSlot(0, 1);
+        }
+
+        // TODO add docs
+        public override void ReadPersistentData(JSON data)
+        {
+            base.ReadPersistentData(data);
+            if (data.ContainsKey("EnergyBuffer"))
+            {
+                energyBuffer.ReadPersistentData(data.GetJSON("EnergyBuffer"));
+            }
+            if (data.ContainsKey("ItemBuffer"))
+            {
+                itemBuffer.ReadPersistentData(data.GetJSON("ItemBuffer"));
+            }
+        }
+
+        // TODO add docs
+        public override JSON WritePersistentData()
+        {
+            JSON data = base.WritePersistentData();
+            JSONHelper.TryAdd(data, "EnergyBuffer", energyBuffer.WritePersistentData());
+            JSONHelper.TryAdd(data, "ItemBuffer", itemBuffer.WritePersistentData());
+            return data;
         }
     }
 }

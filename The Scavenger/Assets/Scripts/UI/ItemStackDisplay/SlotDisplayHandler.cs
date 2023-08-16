@@ -41,21 +41,22 @@ namespace Scavenger.UI
             inputHandler.InputMode = InputMode.Interact;
 
             // Try inserting held item first
-            int itemsInserted = ItemTransfer.MoveStackToStack(heldItem, displayStack, heldItem.Amount, slotDisplay.Buffer.AcceptsItemStack, false);
-            if (itemsInserted > 0)
+            if (slotDisplay.Insertable && ItemTransfer.MoveStackToStack(heldItem, displayStack, heldItem.Amount, slotDisplay.Buffer.AcceptsItemStack, false) > 0)
             {
                 return;
             }
 
             // If no items were inserted, try extracting
-            int itemsExtracted = ItemTransfer.MoveStackToStack(displayStack, heldItem, displayStack.Amount, inventory.AcceptsItemStack, false);
-            if (itemsExtracted > 0)
+            if (slotDisplay.Extractable && ItemTransfer.MoveStackToStack(displayStack, heldItem, displayStack.Amount, inventory.AcceptsItemStack, false) > 0)
             {
                 return;
             }
 
             // If no items were extracted, swap stacks
-            ItemTransfer.Swap(heldItem, displayStack, inventory.AcceptsItemStack, slotDisplay.Buffer.AcceptsItemStack);
+            if (slotDisplay.Swappable)
+            {
+                ItemTransfer.Swap(heldItem, displayStack, inventory.AcceptsItemStack, slotDisplay.Buffer.AcceptsItemStack);
+            }
         }
 
         private void OnInputModeChanged(InputMode _)

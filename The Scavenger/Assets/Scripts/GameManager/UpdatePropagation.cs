@@ -39,7 +39,7 @@ namespace Scavenger
         // Handles updates when an object is removed
         public void HandleRemoveUpdate(Vector2Int removedPos)
         {
-            map.GetBehaviorAtPos(removedPos).OnRemove();
+            //map.GetBehaviorAtPos(removedPos).OnRemove(); TODO remove
             HandleNeighborPlacedUpdates(removedPos);
         }
 
