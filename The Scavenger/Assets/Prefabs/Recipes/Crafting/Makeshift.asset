@@ -37,3 +37,9 @@ MonoBehaviour:
     Result:
       itemID: MakeshiftConduit
       amount: 10
+  - Ingredients:
+    - itemID: AluminumScrap
+      amount: 1
+    Result:
+      itemID: 
+      amount: 10

@@ -10,19 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 21e42e23fd6435b4e8cb2ca79fcb224c, type: 3}
-  m_Name: SpaceDebris
+  m_Name: BrokenSolarPanel
   m_EditorClassIdentifier: 
-  input: {fileID: 11400000, guid: e9983f9720fb1484a975da3831142444, type: 2}
+  input: {fileID: 11400000, guid: d13f402f50deb324992ccbaeff7d235a, type: 2}
   output:
-  - item: {fileID: 11400000, guid: f7c36d9b3391f784c8274b95d1557642, type: 2}
-    amount: 1
-    chance: 0.3
   - item: {fileID: 11400000, guid: 5ea95bf3d8769024ab9b0010edc4210f, type: 2}
     amount: 1
-    chance: 0.25
-  - item: {fileID: 11400000, guid: fe7795c62a3c7be45837d519322ebc36, type: 2}
-    amount: 1
-    chance: 0.15
-  - item: {fileID: 11400000, guid: 0bef2f7f68e500347818244d519d3c5e, type: 2}
-    amount: 1
-    chance: 0.1
+    chance: 1

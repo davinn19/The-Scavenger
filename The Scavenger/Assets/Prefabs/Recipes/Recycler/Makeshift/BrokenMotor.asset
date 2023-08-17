@@ -9,8 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3578082ecafb1d84fabc999d98b37048, type: 3}
-  m_Name: Basic
+  m_Script: {fileID: 11500000, guid: 21e42e23fd6435b4e8cb2ca79fcb224c, type: 3}
+  m_Name: BrokenMotor
   m_EditorClassIdentifier: 
-  recipes:
-  - {fileID: 11400000, guid: 75a207547f70bb94884a33004b9e91b3, type: 2}
+  input: {fileID: 11400000, guid: 0f9f567a58f09584bb969c833a6b240d, type: 2}
+  output:
+  - item: {fileID: 11400000, guid: f7c36d9b3391f784c8274b95d1557642, type: 2}
+    amount: 1
+    chance: 1

@@ -2165,6 +2165,14 @@ MonoBehaviour:
   inventory:
   - itemID: SpaceDebris
     amount: 1000
+  - itemID: MakeshiftEnergyCell
+    amount: 1000
+  - itemID: MakeshiftRecycler
+    amount: 1000
+  - itemID: MakeshiftConduit
+    amount: 1000
+  - itemID: MangledWires
+    amount: 1000
 --- !u!224 &357049332 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4536121950852370804, guid: cfc04d38aff1c2a44baeffdd5f754276, type: 3}

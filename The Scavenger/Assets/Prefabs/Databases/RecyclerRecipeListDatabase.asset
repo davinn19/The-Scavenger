@@ -13,6 +13,5 @@ MonoBehaviour:
   m_Name: RecyclerRecipeListDatabase
   m_EditorClassIdentifier: 
   recipeLists:
-  - {fileID: 11400000, guid: f11ce4393294bf244a1d82241b8bb117, type: 2}
   - {fileID: 11400000, guid: 24a3d85ce3ffc9949a5e34fdca3139da, type: 2}
   - {fileID: 11400000, guid: 46850882ed5e8cc45b0f1b7c0aed4c8c, type: 2}

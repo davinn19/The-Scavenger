@@ -9,11 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21e42e23fd6435b4e8cb2ca79fcb224c, type: 3}
-  m_Name: MangledWires
+  m_Script: {fileID: 11500000, guid: aa5e1f35d9ced9745b14e7005ed06126, type: 3}
+  m_Name: CrudeWorkstation
   m_EditorClassIdentifier: 
-  input: {fileID: 11400000, guid: 18d46571aa3e4154c8ac6b9da101109c, type: 2}
-  output:
-  - item: {fileID: 11400000, guid: f7c36d9b3391f784c8274b95d1557642, type: 2}
-    amount: 1
-    chance: 1
+  recipes: []

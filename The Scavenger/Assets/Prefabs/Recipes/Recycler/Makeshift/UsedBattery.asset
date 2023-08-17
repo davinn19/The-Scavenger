@@ -16,4 +16,4 @@ MonoBehaviour:
   output:
   - item: {fileID: 11400000, guid: f7c36d9b3391f784c8274b95d1557642, type: 2}
     amount: 1
-    chance: 0.75
+    chance: 1

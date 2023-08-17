@@ -16,11 +16,17 @@ MonoBehaviour:
   output:
   - item: {fileID: 11400000, guid: 6e9d5b9e754da7247a07c6339de525be, type: 2}
     amount: 1
-    chance: 0.3
+    chance: 0.2
   - item: {fileID: 11400000, guid: 764ee4002e80a554fa1e2a1cb14df28a, type: 2}
     amount: 1
-    chance: 0.3
+    chance: 0.2
   - item: {fileID: 11400000, guid: 18d46571aa3e4154c8ac6b9da101109c, type: 2}
+    amount: 1
+    chance: 0.2
+  - item: {fileID: 11400000, guid: d13f402f50deb324992ccbaeff7d235a, type: 2}
+    amount: 1
+    chance: 0.3
+  - item: {fileID: 11400000, guid: 0f9f567a58f09584bb969c833a6b240d, type: 2}
     amount: 1
     chance: 0.3
   - item: {fileID: 11400000, guid: f7c36d9b3391f784c8274b95d1557642, type: 2}
