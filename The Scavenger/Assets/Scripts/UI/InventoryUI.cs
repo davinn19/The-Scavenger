@@ -13,7 +13,7 @@ namespace Scavenger.UI
 
         [SerializeField] private GameManager gameManager;
 
-        private void Awake()
+        private void Start()
         {
             InitSlotDisplays();
         }

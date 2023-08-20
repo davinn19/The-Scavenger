@@ -8,58 +8,26 @@ namespace Scavenger
     /// Populates an item buffer.
     /// </summary>
     [System.Serializable]
-    public class ItemStack
+    public class ItemStack : ResourceStack, RecipeComponent<ItemStack>
     {
-        public event Action Changed;
-
         // Item things
-        [SerializeField] private string itemID = "";
-        public Item Item => Database.Instance.Item.Get(itemID);
-
-        // Max amount things
-        private int maxAmount = 100;
-        public int MaxAmount => maxAmount;
-        public void SetMaxAmount(int maxAmount)
-        {
-            Debug.Assert(maxAmount > 0);
-            Debug.Assert(maxAmount == 100); // Can only be set once
-            this.maxAmount = maxAmount;
-            SetAmount(amount);
-        }
-
-        // Amount things
-        [SerializeField, Min(0)] private int amount = 0;
-        public int Amount => amount;
-        public void AddAmount(int addBy) => SetAmount(amount + addBy);
-        public void RemoveAmount(int removeBy) => SetAmount(amount - removeBy);
-        public void SetAmount(int amount)
-        {
-            this.amount = Mathf.Clamp(amount, 0, maxAmount);
-            if (IsEmpty())
-            {
-                Clear();
-            }
-            else
-            {
-                Changed?.Invoke();
-            }
-        }
-
-        public int GetAmountBeforeFull() => MaxAmount - Amount;
+        public virtual Item Item => ItemDatabase.GetItem(ID);
+        public override int DefaultMaxAmount => 100;
         
 
         [SerializeField] private JSON persistentData = new JSON();
         public JSON PersistentData => persistentData;
+
         public void SetPersistentData(JSON data)
         {
             persistentData = JSONHelper.Copy(data);
             persistentData.SetProtected();
-            Changed?.Invoke();
+            OnChange();
         }
 
         public ItemStack()
         {
-            itemID = "";
+            ID = "";
             amount = 0;
             persistentData = new JSON();
             persistentData.SetProtected();
@@ -71,8 +39,14 @@ namespace Scavenger
             this.amount = amount;
             this.persistentData = JSONHelper.GetJSONOrEmpty(persistentData); // TODO convert to normal???
             persistentData.SetProtected();
-            itemID = item.name;
+            ID = item.name;
         }
+
+        public ItemStack(Item item, int amount) : this(item, amount, new JSON()) { }
+
+
+        public ItemStack(string itemID, int amount = 1) : this(ItemDatabase.GetItem(itemID), amount) { }
+
 
         /// <summary>
         /// Copies the information of another itemStack. Will not copy max amount.
@@ -81,21 +55,21 @@ namespace Scavenger
         /// <param name="copyPersistentData">If true, copy the persistent data.</param>
         public void Copy(ItemStack itemStackToCopy, bool copyAmount = true, bool copyPersistentData = true)
         {
-            itemID = itemStackToCopy.itemID;
+            ID = itemStackToCopy.ID;
             if (copyAmount)
             {
-                amount = Mathf.Clamp(itemStackToCopy.amount, 0, maxAmount);
+                amount = Mathf.Clamp(itemStackToCopy.amount, 0, MaxAmount);
             }
             if (copyPersistentData)
             {
                 persistentData = JSONHelper.Copy(itemStackToCopy.persistentData);
                 persistentData.SetProtected();
             }
-            Changed?.Invoke();
+            OnChange();
         }
 
         /// <summary>
-        /// Creates a copy of another itemStack. Max amount is copies as well.
+        /// Creates a copy of another itemStack. Max amount is NOT copied.
         /// </summary>
         /// <param name="amount">Set the copy's amount to something different.</param>
         /// <param name="keepPersistentData">If true, copy the persistent data.</param>
@@ -114,18 +88,19 @@ namespace Scavenger
             }
 
             ItemStack copy = new ItemStack(Item, amount, persistentData);
-            copy.maxAmount = amount;
             return copy;
         }
 
         // TODO add docs
-        public void Clear()
+        public override void Clear()
         {
-            itemID = "";
-            amount = 0;
             persistentData = new JSON();
             persistentData.SetProtected();
-            Changed?.Invoke();
+            base.Clear();
+            ID = "";
+            amount = 0;
+            
+            OnChange();
         }
 
         /// <summary>
@@ -142,7 +117,7 @@ namespace Scavenger
             }
 
             // If stacks do not have the same item, it is unstackable
-            if (!SharesItem(other))
+            if (other.Item != Item)
             {
                 return false;
             }
@@ -176,35 +151,31 @@ namespace Scavenger
         /// </summary>
         /// <param name="other">ItemStack to compare to.</param>
         /// <returns>True if the itemStacks share the same item.</returns>
+        [Obsolete]
         public bool SharesItem(ItemStack other)
         {
             return other.Item == Item;
         }
 
         /// <summary>
-        /// Checks if the itemStack contains any items.
+        /// Checks if another itemStack can substitute this in a recipe.
         /// </summary>
-        /// <returns>True if the itemStack is empty.</returns>
-        public bool IsEmpty()
+        /// <param name="other">ItemStack to substitute with.</param>
+        /// <returns>True if the itemStack can be substituted.</returns>
+        public override bool CanSubstituteWith(RecipeComponent other)
         {
-            return amount == 0;
+            if (other is not ItemStack)
+            {
+                return false;
+            }
+
+            return base.CanSubstituteWith(other);
         }
 
-        /// <summary>
-        /// Checks if the itemStack is full.
-        /// </summary>
-        /// <returns>True if the itemStack is full.</returns>
-        public bool IsFull()
+        // TODO add docs
+        public virtual ItemStack GetRecipeComponent()
         {
-            return amount == MaxAmount;
-        }
-
-        /// <summary>
-        /// An itemStack without an item is considered null.
-        /// </summary>
-        public static implicit operator bool(ItemStack itemStack)
-        {
-            return itemStack.Item != null;
+            return Clone();
         }
     }
 }

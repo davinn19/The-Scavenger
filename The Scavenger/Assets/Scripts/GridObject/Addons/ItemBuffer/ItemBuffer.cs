@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,12 +17,15 @@ namespace Scavenger
         private void Awake()
         {
             Init();
+        }
+
+        protected virtual void Init()
+        {
             foreach (ItemStack slot in GetAllSlots())
             {
                 slot.Changed += () => { SlotChanged?.Invoke(slot); };
             }
         }
-        protected virtual void Init() { }
 
         /// <summary>
         /// Returns references to the item buffer's itemStacks.

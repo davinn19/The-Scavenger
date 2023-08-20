@@ -1,5 +1,4 @@
 using Leguar.TotalJSON;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +8,7 @@ namespace Scavenger.GridObjectBehaviors
     [RequireComponent(typeof(RecyclerItemBuffer), typeof(EnergyBuffer))]
     public class Recycler : GridObjectBehavior
     {
-        [field: SerializeField] public RecyclerRecipeList RecipeList { get; private set; }
+        [SerializeField] private RecycleTier recycleTier;
 
         private RecyclerItemBuffer itemBuffer;
         private EnergyBuffer energyBuffer;
@@ -35,10 +34,17 @@ namespace Scavenger.GridObjectBehaviors
         {
             energyBuffer.ResetEnergyTransferCount();
 
+            // Resets if input is missing
             ItemStack input = itemBuffer.GetInput();
+            if (!input)
+            {
+                RecycleProgress = 0;
+                return;
+            }
 
-            // Resets if input is missing/invalid
-            if (!input || !RecipeList.IsRecyclable(input.Item))
+            // Resets if input is not recyclable
+            RecyclerRecipe recipe = RecyclerRecipes.Instance.GetRecipeWithInput(input, recycleTier);
+            if (recipe == null)
             {
                 RecycleProgress = 0;
                 return;
@@ -57,17 +63,28 @@ namespace Scavenger.GridObjectBehaviors
             {
                 return;
             }
-
-            RecyclerRecipe recipe = RecipeList.GetRecipeWithInput(input.Item);
-            List<ItemStack> recipeDrops = RecipeList.GenerateDrops(recipe);
-
+            
+            List<ItemStack> outputs = GenerateOutputs(recipe);
             List<ItemStack> outputSlots = itemBuffer.GetOutputSlots();
-
-            ItemTransfer.MoveBufferToBuffer(recipeDrops, outputSlots, int.MaxValue, itemBuffer.AcceptsItemStack);
+            ItemTransfer.MoveBufferToBuffer(outputs, outputSlots, int.MaxValue, itemBuffer.AcceptsItemStack);
 
             RecycleProgress = 0;
             itemBuffer.ExtractSlot(0, 1);
         }
+
+        private List<ItemStack> GenerateOutputs(RecyclerRecipe recipe)
+        {
+            List<ItemStack> outputs = new();
+            foreach (ChanceItemStack chanceItemStack in recipe.Outputs)
+            {
+                if (Random.Range(0, 1f) < chanceItemStack.GetChance())
+                {
+                    outputs.Add(chanceItemStack.GetRecipeComponent());
+                }
+            }
+            return outputs;
+        }
+
 
         // TODO add docs
         public override void ReadPersistentData(JSON data)

@@ -2,21 +2,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// TODO add docs
 namespace Scavenger
 {
-    // TODO add docs
-    [CreateAssetMenu(fileName = "RecyclerRecipe", menuName = "Scavenger/Recipe/Recycler")]
-    public class RecyclerRecipe : ScriptableObject
+    public class RecyclerRecipe : Recipe
     {
-        public Item input;
-        public List<RecyclerDrop> output;
-    }
+        public readonly RecipeComponent<ItemStack> Input;
+        public readonly ChanceItemStack[] Outputs;
+        public readonly int Duration;
+        public readonly RecycleTier RecycleTier;
 
-    [System.Serializable]
-    public class RecyclerDrop
-    {
-        public Item item;
-        [Min(1)] public int amount = 1;
-        [Range(0, 1)] public float chance;
+        public RecyclerRecipe(RecipeComponent<ItemStack> input, RecycleTier recycleTier, int duration, ChanceItemStack[] outputs)
+        {
+            Input = input;
+            Outputs = outputs;
+            Duration = duration;
+            RecycleTier = recycleTier;
+        }
+
+        public bool IsInput(RecipeComponent component)
+        {
+            return Input.CanSubstituteWith(component);
+        }
+
+        public bool IsOutput(RecipeComponent component)
+        {
+            foreach (ChanceItemStack output in Outputs)
+            {
+                if (output.CanSubstituteWith(component))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 }

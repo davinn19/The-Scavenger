@@ -37,8 +37,12 @@ namespace Scavenger.UI
 
         private void Awake()
         {
-            UpdateAppearance();
             ItemStackChanged += UpdateAppearance;
+        }
+
+        private void Start()
+        {
+            UpdateAppearance();
         }
 
         private void OnDestroy()

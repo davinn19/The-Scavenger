@@ -6,12 +6,12 @@ namespace Scavenger.GridObjectBehaviors
     // TODO add docs, make more efficient
     public class Crafter : GridObjectBehavior
     {
-        [field: SerializeField] public CraftingRecipes RecipeList { get; private set; }
+        [field: SerializeField] public bool MakeshiftOnly { get; private set; }
 
         // TODO add docs, make more efficient
         public int Craft(CraftingRecipe recipe, int requestedYield, PlayerInventory inventory)
         {
-            if (!recipe)
+            if (recipe == null)
             {
                 return 0;
             }
@@ -24,7 +24,7 @@ namespace Scavenger.GridObjectBehaviors
             // Inserts as much result as possible without overfilling
             while (actualYield < requestedYield)
             {
-                ItemStack resultProduced = recipe.Result.Clone();
+                ItemStack resultProduced = recipe.Output.Clone();
                 int insertedResult = ItemTransfer.MoveStackToBuffer(resultProduced, inventorySlots, resultProduced.Amount, inventory.AcceptsItemStack, true);
 
                 // Has to be able to insert everything to craft, TODO change somehow??? dropping excess maybe
@@ -38,9 +38,9 @@ namespace Scavenger.GridObjectBehaviors
             }
 
             // Extract actual amount used
-            foreach (ItemStack ingredient in recipe.Ingredients)
+            foreach (RecipeComponent<ItemStack> ingredient in recipe.Inputs)
             {
-                ItemTransfer.ExtractFromBuffer(inventorySlots, (itemStack) => itemStack.SharesItem(ingredient), actualYield * ingredient.Amount, false);
+                ItemTransfer.ExtractFromBuffer(inventorySlots, ingredient.CanSubstituteWith, actualYield * ingredient.Amount, false);
             }
 
             return actualYield;
@@ -51,14 +51,12 @@ namespace Scavenger.GridObjectBehaviors
         public List<CraftingRecipe> GetRecipes(string searchInput, FilterMode filterMode, PlayerInventory inventory)
         {
             List<CraftingRecipe> results = new();
-            List<ItemStack> inventorySlots = inventory.GetInventory();
 
-
-            foreach (CraftingRecipe recipe in RecipeList.GetRecipes())
+            foreach (CraftingRecipe recipe in GetRecipes())
             {
                 // Check if recipe result name matches search
-                string resultName = recipe.Result.Item.DisplayName.ToLower();
-                if (!resultName.Contains(searchInput.ToLower()))
+                string resultName = recipe.Output.Item.DisplayName;
+                if (!resultName.Contains(searchInput, System.StringComparison.OrdinalIgnoreCase))
                 {
                     continue;
                 }
@@ -76,7 +74,7 @@ namespace Scavenger.GridObjectBehaviors
                         }
                         break;
                     case FilterMode.HaveIngredient:
-                        if (ItemTransfer.BufferContainsAnyItem(inventorySlots, recipe.Ingredients))
+                        if (InventoryContainsIngredient(recipe, inventory))
                         {
                             results.Add(recipe);
                         }
@@ -87,19 +85,32 @@ namespace Scavenger.GridObjectBehaviors
             return results;
         }
 
+        // TODO add docs
+        private List<CraftingRecipe> GetRecipes()
+        {
+            if (MakeshiftOnly)
+            {
+                return CraftingRecipes.Instance.GetMakeshiftRecipes();
+            }
+            else
+            {
+                return CraftingRecipes.Instance.GetAllRecipes();
+            }
+        }
+
         /// <summary>
         /// Gets the most times a recipe can be used with the available items in the inventory.
         /// </summary>
         /// <param name="recipe">The recipe to calculate yield for.</param>
         /// <param name="inventory">The player's inventory.</param>
         /// <returns>The recipe's maximum yield.</returns>
-        public int GetRecipeMaxYield(CraftingRecipe recipe, ItemBuffer inventory)
+        public int GetRecipeMaxYield(CraftingRecipe recipe, PlayerInventory inventory)
         {
             int smallestMaxYield = int.MaxValue;
-            foreach (ItemStack ingredient in recipe.Ingredients)
+            foreach (RecipeComponent<ItemStack> ingredient in recipe.Inputs)
             {
                 int requiredAmount = ingredient.Amount;
-                int availableAmount = ItemTransfer.ExtractFromBuffer(inventory.GetAllSlots(), ingredient.SharesItem, int.MaxValue, true);
+                int availableAmount = ItemTransfer.ExtractFromBuffer(inventory.GetInventory(), ingredient.CanSubstituteWith, int.MaxValue, true);
 
                 int yield = availableAmount / requiredAmount;
 
@@ -112,6 +123,23 @@ namespace Scavenger.GridObjectBehaviors
             }
 
             return smallestMaxYield;
+        }
+
+        // TODO add docs
+        public bool InventoryContainsIngredient(CraftingRecipe recipe, PlayerInventory inventory)
+        {
+            foreach (ItemStack inventorySlot in inventory.GetInventory())
+            {
+                foreach (RecipeComponent<ItemStack> ingredient in recipe.Inputs)
+                {
+                    if (ingredient.CanSubstituteWith(inventorySlot))
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
 
 

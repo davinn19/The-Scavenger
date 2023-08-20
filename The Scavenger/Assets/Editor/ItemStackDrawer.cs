@@ -28,13 +28,13 @@ namespace Scavenger.CustomEditor
             Rect itemRect = Rect.MinMaxRect(position.x, position.y, amountRect.x - padding, position.yMax);
 
             // Draw fields - pass GUIContent.none to each so they are drawn without labels
-            EditorGUI.PropertyField(itemRect, property.FindPropertyRelative("itemID"), GUIContent.none);
+            EditorGUI.PropertyField(itemRect, property.FindPropertyRelative("ID"), GUIContent.none);
             EditorGUI.PropertyField(amountRect, property.FindPropertyRelative("amount"), GUIContent.none);
 
             Object selectedObject = EditorGUI.ObjectField(buttonRect, GUIContent.none, default(Object), typeof(Item), true);
             if (selectedObject != null)
             {
-                property.FindPropertyRelative("itemID").stringValue = selectedObject.name;
+                property.FindPropertyRelative("ID").stringValue = selectedObject.name;
                 property.serializedObject.ApplyModifiedProperties();
             }
 

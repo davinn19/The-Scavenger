@@ -34,6 +34,29 @@ namespace Scavenger
         }
 
         /// <summary>
+        /// Checks if the item is in a category.
+        /// </summary>
+        /// <param name="category">The category to check for.</param>
+        /// <returns>True if the item is in the category.</returns>
+        public bool IsInCategory(string category)
+        {
+            if (TryGetProperty(out Categories categories))
+            {
+                return categories.IsInCategory(category);
+            }
+            return false;
+        }
+
+        public string[] GetCategories()
+        {
+            if (TryGetProperty(out Categories categories))
+            {
+                return categories.GetCategories();
+            }
+            return new string[] { };
+        }
+
+        /// <summary>
         /// Gets the item's property.
         /// </summary>
         /// <param name="propertyType">The property to get.</param>

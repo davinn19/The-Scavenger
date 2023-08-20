@@ -16,12 +16,15 @@ namespace Scavenger.UI
         private RectTransform rectTransform;
         private SlotDisplay heldItemDisplay;
 
-        private void Start()
+        private void Awake()
         {
             gameUI = GetComponentInParent<GameUI>();
             rectTransform = transform as RectTransform;
             heldItemDisplay = GetComponent<SlotDisplay>();
+        }
 
+        private void Start()
+        {
             heldItemDisplay.SetWatchedBuffer(inventory, inventory.GetHeldItem());
         }
 

@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemStack:
-    itemID: SpaceDebris
+    ID: SpaceDebris
     amount: 1
 --- !u!114 &6811772501846155964
 MonoBehaviour:

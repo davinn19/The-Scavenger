@@ -1,8 +1,5 @@
 using Leguar.TotalJSON;
-using Scavenger.GridObjectBehaviors;
 using System.Collections.Generic;
-using UnityEngine;
-using static Scavenger.ItemTransfer;
 
 namespace Scavenger
 {
@@ -16,12 +13,13 @@ namespace Scavenger
 
         protected override void Init()
         {
-            base.Init();
             output = new ItemStack[outputSlots];
             for (int slot = 0; slot < outputSlots; slot++)
             {
                 output[slot] = new ItemStack();
             }
+
+            base.Init();
         }
 
         public override ItemStack GetItemInSlot(int slot)

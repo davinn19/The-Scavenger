@@ -119,19 +119,19 @@ namespace Scavenger.UI.UIContent
 
 
             // If there is no recipe selected, finish here
-            if (!currentRecipe)
+            if (currentRecipe == null)
             {
                 return;
             }
 
             // Fill in display with the new recipe
-            for (int i = 0; i < currentRecipe.Ingredients.Count; i++)
+            for (int i = 0; i < currentRecipe.Inputs.Length; i++)
             {
-                ItemStack ingredient = currentRecipe.Ingredients[i];
+                ItemStack ingredient = currentRecipe.Inputs[i].GetRecipeComponent();    // TODO add rotating slot
                 ItemStackDisplay ingredientDisplay = ingredientDisplays[i];
                 ingredientDisplay.ItemStack = ingredient;
             }
-            resultDisplay.ItemStack = currentRecipe.Result;
+            resultDisplay.ItemStack = currentRecipe.Output;
         }
 
         // TODO add docs

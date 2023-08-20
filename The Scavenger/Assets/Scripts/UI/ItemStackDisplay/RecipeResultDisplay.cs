@@ -25,13 +25,13 @@ namespace Scavenger.UI
             {
                 m_recipe = value;
 
-                if (!Recipe)
+                if (Recipe == null)
                 {
                     itemStackDisplay.ItemStack = new ItemStack();
                 }
                 else
                 {
-                    itemStackDisplay.ItemStack = Recipe.Result;
+                    itemStackDisplay.ItemStack = Recipe.Output;
                 }
             }
         }

@@ -14,9 +14,13 @@ namespace Scavenger
         private void Awake()
         {
             inspector.InspectedObjectChanged += UpdateAppearance;
+        }
+
+        private void Start()
+        {
             UpdateAppearance();
         }
-        
+
         /// <summary>
         /// Updates the indicator's visibility and position based on the inspector's new values.
         /// </summary>

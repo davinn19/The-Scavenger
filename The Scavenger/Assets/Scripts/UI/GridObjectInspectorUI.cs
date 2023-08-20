@@ -28,7 +28,10 @@ namespace Scavenger.UI
             gridObjectInspector.InspectedObjectChanged += UpdateAppearance;
 
             inventory = gameManager.Inventory;
+        }
 
+        private void Start()
+        {
             ShowUI(false);
         }
 

@@ -2,7 +2,6 @@ using Leguar.TotalJSON;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace Scavenger
@@ -12,14 +11,13 @@ namespace Scavenger
     {
         public event Action HeldItemChanged;
         [SerializeField] ItemStack[] inventory;
-        ItemStack heldItem;
+        private ItemStack heldItem = new ItemStack();
 
         private const int numInventorySlots = 28;
         public override int NumSlots => numInventorySlots + 1;
 
         protected override void Init()
         {
-            
             Array.Resize(ref inventory, numInventorySlots); // Resize inventory to proper size
             for (int slot = 0; slot < numInventorySlots; slot++)
             {
@@ -34,9 +32,9 @@ namespace Scavenger
                 }
                     
             }
-            heldItem = new ItemStack();
-
             heldItem.Changed += HeldItemChanged;
+
+            base.Init();
         }
 
         public ItemStack GetHeldItem() => heldItem;
