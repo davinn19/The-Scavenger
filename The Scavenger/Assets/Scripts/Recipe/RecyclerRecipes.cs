@@ -105,12 +105,26 @@ namespace Scavenger
                 10,
                 new ChanceItemStack[]
                 {
+                    new ChanceItemStack("ScrapMetal", 0.25f),
                     new ChanceItemStack("UsedBattery", 0.25f),
                     new ChanceItemStack("MangledWires", 0.25f),
                     new ChanceItemStack("BrokenSolarPanel", 0.25f),
                     new ChanceItemStack("BurnedOutMotor", 0.25f),
-                    new ChanceItemStack("PuncturedFuelTank", 0.25f),
+                    new ChanceItemStack("TornSpacecraftPanel", 0.25f),
                     new ChanceItemStack("SpaceRock", 0.25f),
+                }
+                );
+
+            AddRecipe(
+                new ItemStack("ScrapMetal"),
+                RecycleTier.Makeshift,
+                7,
+                new ChanceItemStack[]
+                {
+                    new ChanceItemStack("AluminumScrap", 0.4f),
+                    new ChanceItemStack("CopperScrap", 0.4f),
+                    new ChanceItemStack("SteelScrap", 0.4f),
+                    new ChanceItemStack("TitaniumScrap", 0.4f),
                 }
                 );
 
@@ -128,24 +142,16 @@ namespace Scavenger
             //    }
             //    );
 
-            //AddRecipe(
-            //    new ItemStack(ItemDatabase.GetItem("BrokenSolarPanel"), 1),
-            //    RecycleTier.Makeshift,
-            //    7,
-            //    new ChanceItemStack[]
-            //    {
-            //        new ChanceItemStack(
-            //            ItemDatabase.GetItem("AluminumScrap"),
-            //            1,
-            //            0.3f
-            //            ),
-            //        new ChanceItemStack(
-            //            ItemDatabase.GetItem("GlassShards"),
-            //            1,
-            //            0.25f
-            //            ),
-            //    }
-            //    );
+            AddRecipe(
+                new ItemStack("BrokenSolarPanel"),
+                RecycleTier.Makeshift,
+                7,
+                new ChanceItemStack[]
+                {
+                    new ChanceItemStack("AluminumScrap", 0.5f),
+                    new ChanceItemStack("ShatteredGlass", 0.5f),
+                }
+                );
 
             //AddRecipe(
             //    new ItemStack(ItemDatabase.GetItem("BrokenMotor"), 1),
@@ -171,24 +177,16 @@ namespace Scavenger
             //    }
             //    );
 
-            //AddRecipe(
-            //    new ItemStack(ItemDatabase.GetItem("BrokenFuelTank"), 1),
-            //    RecycleTier.Makeshift,
-            //    7,
-            //    new ChanceItemStack[]
-            //    {
-            //        new ChanceItemStack(
-            //            ItemDatabase.GetItem("SteelScrap"),
-            //            1,
-            //            0.25f
-            //            ),
-            //        new ChanceItemStack(
-            //            ItemDatabase.GetItem("TitaniumScrap"),
-            //            1,
-            //            0.2f
-            //            ),
-            //    }
-            //    );
+            AddRecipe(
+                new ItemStack("TornSpacecraftPanel"),
+                RecycleTier.Makeshift,
+                7,
+                new ChanceItemStack[]
+                {
+                    new ChanceItemStack("SteelScrap", 0.4f),
+                    new ChanceItemStack("TitaniumScrap", 0.35f),
+                }
+                );
 
             //AddRecipe(
             //    new ItemStack(ItemDatabase.GetItem("SteelScrap"), 1),
@@ -228,6 +226,8 @@ namespace Scavenger
             //            ),
             //    }
             //    );
+
+            // TODO continue adding recipes
         }
 
     }

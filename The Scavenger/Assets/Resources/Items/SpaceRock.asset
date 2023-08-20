@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 108606e407689c8488b72818cc9bdaf2, type: 3}
-  m_Name: BurnedOutMotor
+  m_Name: SpaceRock
   m_EditorClassIdentifier: 
-  <DisplayName>k__BackingField: Burned-Out Motor
-  <Icon>k__BackingField: {fileID: 21300000, guid: d9e61cc456fa1fb45966ccfb24dbe594, type: 3}
-  <Description>k__BackingField: An old component that can be recycled for materials.
+  <DisplayName>k__BackingField: Space Rock
+  <Icon>k__BackingField: {fileID: 21300000, guid: a89ab720f8606424caa2515abf8fd99a, type: 3}
+  <Description>k__BackingField: 
   properties: []
