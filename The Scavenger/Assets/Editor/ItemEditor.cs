@@ -15,6 +15,7 @@ namespace Scavenger.CustomEditor
         private SerializedProperty displayName;
         private SerializedProperty icon;
         private SerializedProperty description;
+        private SerializedProperty categories;
 
         private SerializedProperty properties;
 
@@ -27,6 +28,7 @@ namespace Scavenger.CustomEditor
             displayName = serializedObject.FindProperty("<DisplayName>k__BackingField");
             icon = serializedObject.FindProperty("<Icon>k__BackingField");
             description = serializedObject.FindProperty("<Description>k__BackingField");
+            categories = serializedObject.FindProperty("categories");
 
             properties = serializedObject.FindProperty("properties");
         }
@@ -82,6 +84,7 @@ namespace Scavenger.CustomEditor
             EditorGUILayout.PropertyField(displayName);
             EditorGUILayout.PropertyField(icon);
             EditorGUILayout.PropertyField(description);
+            EditorGUILayout.PropertyField(categories);
         }
 
         private void DrawAddedProperties()

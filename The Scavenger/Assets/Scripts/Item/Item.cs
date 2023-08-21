@@ -16,6 +16,7 @@ namespace Scavenger
         [field: SerializeField] public Sprite Icon { get; private set; }
         [field: SerializeField, Multiline] public string Description { get; private set; }
         [SerializeField] private List<ItemProperty> properties = new() { };
+        [SerializeField] private string[] categories;
 
         /// <summary>
         /// Attempts to lead an interation with the gridMap. Will fail if the item does not contain the Interactible property.
@@ -40,20 +41,18 @@ namespace Scavenger
         /// <returns>True if the item is in the category.</returns>
         public bool IsInCategory(string category)
         {
-            if (TryGetProperty(out Categories categories))
-            {
-                return categories.IsInCategory(category);
-            }
-            return false;
+            return categories != null && Array.Exists(categories, (itemCategory) => category == itemCategory);
         }
 
+        // TODO add docs
         public string[] GetCategories()
         {
-            if (TryGetProperty(out Categories categories))
+            if (categories == null)
             {
-                return categories.GetCategories();
+                categories = new string[0];
             }
-            return new string[] { };
+
+            return categories;
         }
 
         /// <summary>

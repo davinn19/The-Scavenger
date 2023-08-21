@@ -9,19 +9,14 @@ namespace Scavenger
     {
         public readonly RecipeComponent<ItemStack> input;
         public readonly ItemStack output;
+        public readonly ChanceItemStack byproduct;
         public readonly int requiredTemperature;
 
-        public FurnaceRecipe(RecipeComponent<ItemStack> input, ItemStack output, int requiredTemperature)
+        public FurnaceRecipe(RecipeComponent<ItemStack> input, ItemStack output, ChanceItemStack byproduct, int requiredTemperature)
         {
             this.input = input;
             this.output = output;
-            this.requiredTemperature = requiredTemperature;
-        }
-
-        public FurnaceRecipe(Item input, Item output, int requiredTemperature)
-        {
-            this.input = new ItemStack(input, 1);
-            this.output = new ItemStack(output, 1);
+            this.byproduct = byproduct;
             this.requiredTemperature = requiredTemperature;
         }
 
@@ -32,7 +27,13 @@ namespace Scavenger
 
         public bool IsOutput(RecipeComponent component)
         {
-            return output.CanSubstituteWith(component);
+            bool isOutput = output.CanSubstituteWith(component);
+
+            if (byproduct != null)
+            {
+                isOutput = isOutput || byproduct.CanSubstituteWith(component);
+            }
+            return isOutput;
         }
 
     }

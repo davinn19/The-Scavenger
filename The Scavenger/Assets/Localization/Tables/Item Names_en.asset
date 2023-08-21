@@ -1,0 +1,215 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Item Names_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 5f2f9f1d05f7c3b43b72832618fd8b27, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 5064240463872
+    m_Localized: Aluminum Bloom
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064244658176
+    m_Localized: Aluminum Scrap
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064244658177
+    m_Localized: Arc Magnet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064244658178
+    m_Localized: Beam Rolling Pass
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064248852480
+    m_Localized: Broken Solar Panel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064248852481
+    m_Localized: Burned Out Motor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064248852482
+    m_Localized: Coax Cable
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064248852483
+    m_Localized: Conveyor Chute
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064248852484
+    m_Localized: Copper Bloom
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064248852485
+    m_Localized: Copper Energy Cable
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064248852486
+    m_Localized: Copper Scrap
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064248852487
+    m_Localized: Copper Wire
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064248852488
+    m_Localized: Ethernet Cable
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064248852489
+    m_Localized: Fiber Cable
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064248852490
+    m_Localized: Flat Rolling Pass
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064248852491
+    m_Localized: Glass Pane
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064248852492
+    m_Localized: Graphite
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064248852493
+    m_Localized: Graphite Electrode
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064248852494
+    m_Localized: Lithium
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064248852495
+    m_Localized: Makeshift Arc Furnace
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064248852496
+    m_Localized: Makeshift Assembler
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064248852497
+    m_Localized: Makeshift Conduit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064248852498
+    m_Localized: Makeshift Energy Cell
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064248852499
+    m_Localized: Makeshift Recycler
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064248852500
+    m_Localized: Makeshift Refractory
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064248852501
+    m_Localized: Makeshift Rolling Mill
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064248852502
+    m_Localized: Mangled Wires
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064248852503
+    m_Localized: Pipe Rolling Pass
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064248852504
+    m_Localized: Polycrystalline Silicon Wafer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064248852505
+    m_Localized: Rechargable Battery
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064248852506
+    m_Localized: Round Rolling Pass
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064248852507
+    m_Localized: Scrap Metal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064248852508
+    m_Localized: Shattered Glass
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064248852509
+    m_Localized: Silicon Block
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064248852510
+    m_Localized: Silicon Shard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064248852511
+    m_Localized: Silo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064248852512
+    m_Localized: Slag
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064248852513
+    m_Localized: Solar Panel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064248852514
+    m_Localized: Space Debris
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064248852515
+    m_Localized: Space Rock
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064248852516
+    m_Localized: Square Rolling Pass
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064248852517
+    m_Localized: Steel Bloom
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064248852518
+    m_Localized: Steel Scrap
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064248852519
+    m_Localized: Titanium Bloom
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064248852520
+    m_Localized: Titanium Scrap
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064248852521
+    m_Localized: Torn Spacecraft Panel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064248852522
+    m_Localized: Used Battery
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064248852523
+    m_Localized: Workbench
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

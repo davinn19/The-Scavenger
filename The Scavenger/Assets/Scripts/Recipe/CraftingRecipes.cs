@@ -95,6 +95,71 @@ namespace Scavenger
                 new ItemStack("MakeshiftRecycler")
                 );
 
+            AddRecipe(
+                new RecipeComponent<ItemStack>[]
+                {
+                    new ItemStack("Lithium", 6),
+                },
+                new ItemStack("RechargableBattery")
+                );
+
+            AddRecipe(
+                new RecipeComponent<ItemStack>[]
+                {
+                    new ItemStack("AluminumScrap", 2),
+                    new ItemStack("SteelScrap", 2),
+                },
+                new ItemStack("Workbench")
+                );
+
+            AddRecipe(
+                new RecipeComponent<ItemStack>[]
+                {
+                    new ItemStack("ShatteredGlass", 5),
+                    new ItemStack("SpaceRock", 5),
+                },
+                new ItemStack("MakeshiftRefractory")
+                );
+
+            AddRecipe(
+                new RecipeComponent<ItemStack>[]
+                {
+                    new ItemStack("Graphite", 6),
+                },
+                new ItemStack("GraphiteElectrode")
+                );
+
+            AddRecipe(
+                new RecipeComponent<ItemStack>[]
+                {
+                    new ItemStack("AluminumScrap", 3),
+                    new ItemStack("SteelScrap", 3),
+                    new ItemStack("CopperScrap", 5),
+                    new ItemStack("Workbench"),
+                },
+                new ItemStack("MakeshiftAssembler")
+                );
+
+            AddRecipe(
+                new RecipeComponent<ItemStack>[]
+                {
+                    new ItemStack("AluminumScrap", 3),
+                    new ItemStack("SteelScrap", 3),
+                    new ItemStack("CopperScrap", 5),
+                    new CategoryItemStack("RollingPass", 2),
+                },
+                new ItemStack("MakeshiftRollingMill")
+                );
+
+            AddRecipe(
+                new RecipeComponent<ItemStack>[]
+                {
+                    new ItemStack("TitaniumScrap", 5),
+                    new ItemStack("MakeshiftRefractory", 3),
+                    new ItemStack("GraphiteElectrode", 3)
+                },
+                new ItemStack("MakeshiftArcFurnace")
+                );
             // TODO continue
         }
     }

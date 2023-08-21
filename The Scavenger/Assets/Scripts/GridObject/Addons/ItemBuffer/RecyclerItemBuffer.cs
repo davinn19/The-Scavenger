@@ -70,6 +70,6 @@ namespace Scavenger
         // TODO include inventory in drops/loot table
         public override void ReadPersistentData(JSON data) { }
 
-        public override JSON WritePersistentData() => new JSON();
+        public override JSON WritePersistentData() => new();
     }
 }

@@ -128,19 +128,16 @@ namespace Scavenger
                 }
                 );
 
-            //AddRecipe(
-            //    new ItemStack(ItemDatabase.GetItem("UsedBattery"), 1),
-            //    RecycleTier.Makeshift,
-            //    7,
-            //    new ChanceItemStack[]
-            //    {
-            //        new ChanceItemStack(
-            //            ItemDatabase.GetItem("Lithium"),
-            //            1,
-            //            0.5f
-            //            ),
-            //    }
-            //    );
+            AddRecipe(
+                new ItemStack("UsedBattery"),
+                RecycleTier.Makeshift,
+                7,
+                new ChanceItemStack[]
+                {
+                    new ChanceItemStack("CopperScrap", 0.5f),
+                    new ChanceItemStack("Lithium", 0.5f),
+                }
+                );
 
             AddRecipe(
                 new ItemStack("BrokenSolarPanel"),
@@ -153,29 +150,16 @@ namespace Scavenger
                 }
                 );
 
-            //AddRecipe(
-            //    new ItemStack(ItemDatabase.GetItem("BrokenMotor"), 1),
-            //    RecycleTier.Makeshift,
-            //    7,
-            //    new ChanceItemStack[]
-            //    {
-            //        new ChanceItemStack(
-            //            ItemDatabase.GetItem("CopperScrap"),
-            //            1,
-            //            0.3f
-            //            ),
-            //        new ChanceItemStack(
-            //            ItemDatabase.GetItem("Graphite"),
-            //            1,
-            //            0.25f
-            //            ),
-            //        new ChanceItemStack(
-            //            ItemDatabase.GetItem("ArcMagnet"),
-            //            1,
-            //            0.25f
-            //            ),
-            //    }
-            //    );
+            AddRecipe(
+                new ItemStack("BurnedOutMotor"),
+                RecycleTier.Makeshift,
+                7,
+                new ChanceItemStack[]
+                {
+                    new ChanceItemStack("Graphite", 0.5f),
+                    new ChanceItemStack("ArcMagnet", 0.5f),
+                }
+                );
 
             AddRecipe(
                 new ItemStack("TornSpacecraftPanel"),
@@ -188,44 +172,19 @@ namespace Scavenger
                 }
                 );
 
-            //AddRecipe(
-            //    new ItemStack(ItemDatabase.GetItem("SteelScrap"), 1),
-            //    RecycleTier.Makeshift,
-            //    10,
-            //    new ChanceItemStack[]
-            //    {
-            //        new ChanceItemStack(
-            //            ItemDatabase.GetItem("FlatRollerPass"),
-            //            1,
-            //            0.1f
-            //            ),
-            //        new ChanceItemStack(
-            //            ItemDatabase.GetItem("SquareRollerPass"),
-            //            1,
-            //            0.1f
-            //            ),
-            //        new ChanceItemStack(
-            //            ItemDatabase.GetItem("RoundRollerPass"),
-            //            1,
-            //            0.1f
-            //            ),
-            //        new ChanceItemStack(
-            //            ItemDatabase.GetItem("TSlotRollerPass"),
-            //            1,
-            //            0.1f
-            //            ),
-            //        new ChanceItemStack(
-            //            ItemDatabase.GetItem("PipeRollerPass"),
-            //            1,
-            //            0.1f
-            //            ),
-            //        new ChanceItemStack(
-            //            ItemDatabase.GetItem("RollerCutter"),
-            //            1,
-            //            0.1f
-            //            ),
-            //    }
-            //    );
+            AddRecipe(
+                new ItemStack("SteelScrap"),
+                RecycleTier.Makeshift,
+                10,
+                new ChanceItemStack[]
+                {
+                    new ChanceItemStack("FlatRollingPass", 0.1f),
+                    new ChanceItemStack("SquareRollingPass", 0.1f),
+                    new ChanceItemStack("RoundRollingPass", 0.1f),
+                    new ChanceItemStack("BeamRollingPass", 0.1f),
+                    new ChanceItemStack("PipeRollingPass", 0.1f),
+                }
+                );
 
             // TODO continue adding recipes
         }
