@@ -81,23 +81,25 @@ namespace Scavenger.UI
         /// <param name="viewedObject"></param>
         private void SetContent(GridObject viewedObject)
         {
-            // Removes old content
-            if (content)
-            {
-                content.gameObject.SetActive(false);
-                Destroy(content.gameObject);
-            }
+            ClearContent();
 
             GridObjectUI UI = viewedObject.GetComponent<GridObjectUI>();
-
-            if (!UI)
-            {
-                content = null;
-            }
-            else
+            if (UI)
             {
                 content = Instantiate(UI.Content, transform);
                 content.Init(viewedObject, inventory);
+                LayoutRebuilder.ForceRebuildLayoutImmediate(transform as RectTransform);
+            }
+        }
+
+        // TODO add docs
+        private void ClearContent()
+        {
+            // Removes old content
+            if (content)
+            {
+                Destroy(content.gameObject);
+                content = null;
             }
         }
     }
