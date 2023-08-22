@@ -10,11 +10,9 @@ namespace Scavenger.CustomEditor
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            EditorGUI.BeginProperty(position, label, property);
             GUI.enabled = false;
             EditorGUILayout.PropertyField(property);
             GUI.enabled = true;
-            EditorGUI.EndProperty();
         }
     }
 }

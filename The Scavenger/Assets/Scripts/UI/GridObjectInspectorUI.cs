@@ -60,7 +60,6 @@ namespace Scavenger.UI
             hpBar.HP = gridObject.HP;
 
             SetContent(gridObject);
-
         }
 
         /// <summary>
@@ -85,6 +84,7 @@ namespace Scavenger.UI
             // Removes old content
             if (content)
             {
+                content.gameObject.SetActive(false);
                 Destroy(content.gameObject);
             }
 

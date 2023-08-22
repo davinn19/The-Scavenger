@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 108606e407689c8488b72818cc9bdaf2, type: 3}
   m_Name: MakeshiftArcFurnace
   m_EditorClassIdentifier: 
-  <DisplayName>k__BackingField: MakeshiftArcFurnace
+  <DisplayName>k__BackingField: Makeshift Arc Furnace
   <Icon>k__BackingField: {fileID: 21300000, guid: d4cca4caa7911b6438234e3516a0ec8e, type: 3}
   <Description>k__BackingField: 
   properties:

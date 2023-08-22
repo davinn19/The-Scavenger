@@ -107,7 +107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   temperature: 0
   maxTemperature: 1500
-  energyPerTick: 0
+  energyPerTick: 5
   temperaturePerEnergy: 100
 --- !u!114 &-710228400586259464
 MonoBehaviour:
