@@ -210,6 +210,130 @@ MonoBehaviour:
     m_Localized: Workbench
     m_Metadata:
       m_Items: []
+  - m_Id: 256841753886720
+    m_Localized: Aluminum Beam
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246848
+    m_Localized: Aluminum Billet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246849
+    m_Localized: Aluminum Frame
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246850
+    m_Localized: Aluminum Plate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246851
+    m_Localized: Aluminum Rod
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246852
+    m_Localized: Aluminum Slab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246853
+    m_Localized: Aluminum Truss
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246854
+    m_Localized: Aluminum Wire
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246855
+    m_Localized: Copper Beam
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246856
+    m_Localized: Copper Billet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246857
+    m_Localized: Copper Frame
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246858
+    m_Localized: Copper Plate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246859
+    m_Localized: Copper Rod
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246860
+    m_Localized: Copper Slab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246861
+    m_Localized: Copper Truss
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246862
+    m_Localized: Steel Beam
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246863
+    m_Localized: Steel Billet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246864
+    m_Localized: Steel Frame
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246865
+    m_Localized: Steel Plate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246866
+    m_Localized: Steel Rod
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246867
+    m_Localized: Steel Slab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246868
+    m_Localized: Steel Truss
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246869
+    m_Localized: Steel Wire
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246870
+    m_Localized: Titanium Beam
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246871
+    m_Localized: Titanium Billet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246872
+    m_Localized: Titanium Frame
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246873
+    m_Localized: Titanium Plate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246874
+    m_Localized: Titanium Rod
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246875
+    m_Localized: Titanium Slab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246876
+    m_Localized: Titanium Truss
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246877
+    m_Localized: Titanium Wire
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

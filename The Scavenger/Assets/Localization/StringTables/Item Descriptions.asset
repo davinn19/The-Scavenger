@@ -9,15 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
-  m_Name: Grid Object Names_en
+  m_Script: {fileID: 11500000, guid: 5be51871efa6c3e4eae1703925c8f5ac, type: 3}
+  m_Name: Item Descriptions
   m_EditorClassIdentifier: 
-  m_LocaleId:
-    m_Code: en
-  m_SharedData: {fileID: 11400000, guid: fc64fa2fc03897d42885dccac069b5df, type: 2}
-  m_Metadata:
-    m_Items: []
-  m_TableData: []
+  m_SharedTableData: {fileID: 11400000, guid: efc4e97ff9ddd784dbe6a72db2b56808, type: 2}
+  m_Tables:
+  - {fileID: 11400000, guid: c5b751e0efc11a74a8e1e5a1887b1ff7, type: 2}
+  m_Extensions: []
+  m_Group: String Table
   references:
     version: 2
     RefIds: []

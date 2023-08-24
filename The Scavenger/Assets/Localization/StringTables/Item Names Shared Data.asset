@@ -15,12 +15,44 @@ MonoBehaviour:
   m_TableCollectionName: Item Names
   m_TableCollectionNameGuidString: bed6ab9f00ef4ba48956d892f9ebdbe2
   m_Entries:
+  - m_Id: 256841753886720
+    m_Key: AluminumBeam
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246848
+    m_Key: AluminumBillet
+    m_Metadata:
+      m_Items: []
   - m_Id: 1495835672576
     m_Key: AluminumBloom
     m_Metadata:
       m_Items: []
+  - m_Id: 256841783246849
+    m_Key: AluminumFrame
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246850
+    m_Key: AluminumPlate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246851
+    m_Key: AluminumRod
+    m_Metadata:
+      m_Items: []
   - m_Id: 1495839866880
     m_Key: AluminumScrap
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246852
+    m_Key: AluminumSlab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246853
+    m_Key: AluminumTruss
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246854
+    m_Key: AluminumWire
     m_Metadata:
       m_Items: []
   - m_Id: 1495839866881
@@ -47,6 +79,14 @@ MonoBehaviour:
     m_Key: ConveyorChute
     m_Metadata:
       m_Items: []
+  - m_Id: 256841783246855
+    m_Key: CopperBeam
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246856
+    m_Key: CopperBillet
+    m_Metadata:
+      m_Items: []
   - m_Id: 1495839866887
     m_Key: CopperBloom
     m_Metadata:
@@ -55,8 +95,28 @@ MonoBehaviour:
     m_Key: CopperEnergyCable
     m_Metadata:
       m_Items: []
+  - m_Id: 256841783246857
+    m_Key: CopperFrame
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246858
+    m_Key: CopperPlate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246859
+    m_Key: CopperRod
+    m_Metadata:
+      m_Items: []
   - m_Id: 1495839866889
     m_Key: CopperScrap
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246860
+    m_Key: CopperSlab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246861
+    m_Key: CopperTruss
     m_Metadata:
       m_Items: []
   - m_Id: 1495839866890
@@ -179,20 +239,84 @@ MonoBehaviour:
     m_Key: SquareRollingPass
     m_Metadata:
       m_Items: []
+  - m_Id: 256841783246862
+    m_Key: SteelBeam
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246863
+    m_Key: SteelBillet
+    m_Metadata:
+      m_Items: []
   - m_Id: 1495839866920
     m_Key: SteelBloom
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246864
+    m_Key: SteelFrame
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246865
+    m_Key: SteelPlate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246866
+    m_Key: SteelRod
     m_Metadata:
       m_Items: []
   - m_Id: 1495839866921
     m_Key: SteelScrap
     m_Metadata:
       m_Items: []
+  - m_Id: 256841783246867
+    m_Key: SteelSlab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246868
+    m_Key: SteelTruss
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246869
+    m_Key: SteelWire
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246870
+    m_Key: TitaniumBeam
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246871
+    m_Key: TitaniumBillet
+    m_Metadata:
+      m_Items: []
   - m_Id: 1495839866922
     m_Key: TitaniumBloom
     m_Metadata:
       m_Items: []
+  - m_Id: 256841783246872
+    m_Key: TitaniumFrame
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246873
+    m_Key: TitaniumPlate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246874
+    m_Key: TitaniumRod
+    m_Metadata:
+      m_Items: []
   - m_Id: 1495839866923
     m_Key: TitaniumScrap
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246875
+    m_Key: TitaniumSlab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246876
+    m_Key: TitaniumTruss
+    m_Metadata:
+      m_Items: []
+  - m_Id: 256841783246877
+    m_Key: TitaniumWire
     m_Metadata:
       m_Items: []
   - m_Id: 1495839866924
