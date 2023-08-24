@@ -1,4 +1,4 @@
-namespace Scavenger.UI.UIContent
+namespace Scavenger.UI.InspectorContent
 {
     // TODO add docs
     public class ItemUIContent : UIContent<Item>

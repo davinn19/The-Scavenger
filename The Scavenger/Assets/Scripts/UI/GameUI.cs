@@ -23,7 +23,6 @@ namespace Scavenger.UI
 
         public event Action<GameObject> HoveredElementChanged;
 
-
         private void Awake()
         {
             controls = new Controls();

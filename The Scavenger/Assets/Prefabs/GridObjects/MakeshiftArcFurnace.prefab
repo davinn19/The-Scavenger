@@ -92,7 +92,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6546ea9d9b357204d97e64fcd54f3de6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DisplayName>k__BackingField: Makeshift Arc Furnace
+  <DisplayName>k__BackingField:
+    m_TableReference:
+      m_TableCollectionName: GUID:fc64fa2fc03897d42885dccac069b5df
+    m_TableEntryReference:
+      m_KeyId: 4634771456
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  <InspectorContent>k__BackingField: {fileID: 7398793343562841730, guid: 10edc2a5fc6de38469835043fe5737f0, type: 3}
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &4557892090217941667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,7 +120,7 @@ MonoBehaviour:
   temperature: 0
   maxTemperature: 1500
   energyPerTick: 5
-  temperaturePerEnergy: 100
+  temperaturePerEnergy: 2
 --- !u!114 &-710228400586259464
 MonoBehaviour:
   m_ObjectHideFlags: 0

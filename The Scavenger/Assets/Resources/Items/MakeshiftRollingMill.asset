@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 108606e407689c8488b72818cc9bdaf2, type: 3}
   m_Name: MakeshiftRollingMill
   m_EditorClassIdentifier: 
-  <DisplayName>k__BackingField: MakeshiftRollingMill
+  <DisplayName>k__BackingField: Makeshift Rolling Mill
   <Icon>k__BackingField: {fileID: 21300000, guid: f6fae9b9a31b54541aa231470b29198e, type: 3}
   <Description>k__BackingField: 
   properties: []

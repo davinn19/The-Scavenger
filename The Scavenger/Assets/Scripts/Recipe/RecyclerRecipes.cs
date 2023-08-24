@@ -110,7 +110,7 @@ namespace Scavenger
                     new ChanceItemStack("MangledWires", 0.25f),
                     new ChanceItemStack("BrokenSolarPanel", 0.25f),
                     new ChanceItemStack("BurnedOutMotor", 0.25f),
-                    new ChanceItemStack("TornSpacecraftPanel", 0.25f),
+                    new ChanceItemStack("TornPanel", 0.25f),
                     new ChanceItemStack("SpaceRock", 0.25f),
                 }
                 );
@@ -162,7 +162,7 @@ namespace Scavenger
                 );
 
             AddRecipe(
-                new ItemStack("TornSpacecraftPanel"),
+                new ItemStack("TornPanel"),
                 RecycleTier.Makeshift,
                 7,
                 new ChanceItemStack[]

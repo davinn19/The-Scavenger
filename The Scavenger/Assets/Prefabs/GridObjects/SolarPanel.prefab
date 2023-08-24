@@ -63,7 +63,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6546ea9d9b357204d97e64fcd54f3de6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DisplayName>k__BackingField: Solar Panel
+  <DisplayName>k__BackingField:
+    m_TableReference:
+      m_TableCollectionName: GUID:fc64fa2fc03897d42885dccac069b5df
+    m_TableEntryReference:
+      m_KeyId: 8996069113856
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  <InspectorContent>k__BackingField: {fileID: 0}
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &1861733364313229858
 MonoBehaviour:
   m_ObjectHideFlags: 0

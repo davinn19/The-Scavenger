@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Scavenger.UI
@@ -9,7 +10,6 @@ namespace Scavenger.UI
 
         private PlayerInventory inventory;
         private InputHandler inputHandler;
-
 
         private void Awake()
         {

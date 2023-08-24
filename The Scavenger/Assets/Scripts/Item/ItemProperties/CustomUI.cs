@@ -1,7 +1,7 @@
 using Scavenger.UI;
 using UnityEngine;
 using UnityEngine.Search;
-using Scavenger.UI.UIContent;
+using Scavenger.UI.InspectorContent;
 
 namespace Scavenger
 {

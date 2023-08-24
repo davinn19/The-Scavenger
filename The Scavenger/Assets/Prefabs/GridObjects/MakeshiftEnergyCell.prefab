@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: -5714932897500858749}
   - component: {fileID: -4656482351411025652}
   - component: {fileID: -139220793150789335}
-  - component: {fileID: 3973830479537173918}
   - component: {fileID: 1591281381607384329}
   m_Layer: 0
   m_Name: MakeshiftEnergyCell
@@ -64,7 +63,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6546ea9d9b357204d97e64fcd54f3de6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DisplayName>k__BackingField: Makeshift Energy Cell
+  <DisplayName>k__BackingField:
+    m_TableReference:
+      m_TableCollectionName: GUID:fc64fa2fc03897d42885dccac069b5df
+    m_TableEntryReference:
+      m_KeyId: 11031085056
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  <InspectorContent>k__BackingField: {fileID: 2634421453509922301, guid: 3ccd5103a2c55794299d8540439d991d, type: 3}
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &-4656482351411025652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,19 +103,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   droppedItem: {fileID: 11400000, guid: dca9a5f9d69630742a722801d2ccaff0, type: 2}
---- !u!114 &3973830479537173918
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6742962036973104751}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc87fe466642db8418f3e9a9ff87f6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Content: {fileID: 2634421453509922301, guid: 3ccd5103a2c55794299d8540439d991d, type: 3}
 --- !u!114 &1591281381607384329
 MonoBehaviour:
   m_ObjectHideFlags: 0

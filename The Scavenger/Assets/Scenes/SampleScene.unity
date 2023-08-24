@@ -377,9 +377,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7457185285edc5c4baa0ddc6582405f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  header: Trash
-  description: Place items here to discard.
-  customContent: {fileID: 0}
+  header:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  description:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &49363011
 GameObject:
   m_ObjectHideFlags: 0
@@ -1992,9 +2010,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7457185285edc5c4baa0ddc6582405f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  header: Target Mode
-  description: Only interact with entiites.
-  customContent: {fileID: 0}
+  header:
+    m_TableReference:
+      m_TableCollectionName: GUID:354b0ca1e45918547893265d09e91f0a
+    m_TableEntryReference:
+      m_KeyId: 316183478272
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  description:
+    m_TableReference:
+      m_TableCollectionName: GUID:354b0ca1e45918547893265d09e91f0a
+    m_TableEntryReference:
+      m_KeyId: 531275776000
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!1001 &349477391
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2214,7 +2250,7 @@ MonoBehaviour:
     amount: 1000
   - ID: MangledWires
     amount: 1000
-  - ID: MakeshiftRecycler
+  - ID: Workbench
     amount: 1000
   - ID: MakeshiftRecycler
     amount: 1000
@@ -5546,7 +5582,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 354866610}
-  gridObjectName: {fileID: 1298333605}
+  gridObjectName: {fileID: 1298333608}
   gridObjectIcon: {fileID: 1013669925}
 --- !u!222 &846922021
 CanvasRenderer:
@@ -8495,9 +8531,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7457185285edc5c4baa0ddc6582405f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  header: Edit Mode
-  description: Configure placed objects.
-  customContent: {fileID: 0}
+  header:
+    m_TableReference:
+      m_TableCollectionName: GUID:354b0ca1e45918547893265d09e91f0a
+    m_TableEntryReference:
+      m_KeyId: 198214483968
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  description:
+    m_TableReference:
+      m_TableCollectionName: GUID:354b0ca1e45918547893265d09e91f0a
+    m_TableEntryReference:
+      m_KeyId: 399142617088
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &1263736041
 GameObject:
   m_ObjectHideFlags: 0
@@ -8882,6 +8936,7 @@ GameObject:
   - component: {fileID: 1298333606}
   - component: {fileID: 1298333605}
   - component: {fileID: 1298333607}
+  - component: {fileID: 1298333608}
   m_Layer: 5
   m_Name: GridObjectName
   m_TagString: Untagged
@@ -9026,6 +9081,46 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: 1
   m_LayoutPriority: 1
+--- !u!114 &1298333608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1298333603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1298333605}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &1310239411
 GameObject:
   m_ObjectHideFlags: 0
@@ -9872,6 +9967,7 @@ GameObject:
   - component: {fileID: 1402450375}
   - component: {fileID: 1402450379}
   - component: {fileID: 1402450380}
+  - component: {fileID: 1402450381}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -9990,6 +10086,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 471acc2f4d9180a49a4eee8404ee05ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1402450381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1402450374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 171779a6ad93e8f4da54266612514633, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1412090694
@@ -13040,9 +13148,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7457185285edc5c4baa0ddc6582405f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  header: Remove Mode
-  description: Pick up placed objects.
-  customContent: {fileID: 0}
+  header:
+    m_TableReference:
+      m_TableCollectionName: GUID:354b0ca1e45918547893265d09e91f0a
+    m_TableEntryReference:
+      m_KeyId: 285149822976
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  description:
+    m_TableReference:
+      m_TableCollectionName: GUID:354b0ca1e45918547893265d09e91f0a
+    m_TableEntryReference:
+      m_KeyId: 435662422016
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &2040541853
 GameObject:
   m_ObjectHideFlags: 0
@@ -14024,6 +14150,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7457185285edc5c4baa0ddc6582405f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  header: Interact Mode
-  description: Use items on the map and interact with entities.
-  customContent: {fileID: 0}
+  header:
+    m_TableReference:
+      m_TableCollectionName: GUID:354b0ca1e45918547893265d09e91f0a
+    m_TableEntryReference:
+      m_KeyId: 7147159552
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  description:
+    m_TableReference:
+      m_TableCollectionName: GUID:354b0ca1e45918547893265d09e91f0a
+    m_TableEntryReference:
+      m_KeyId: 340913094656
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  references:
+    version: 2
+    RefIds: []

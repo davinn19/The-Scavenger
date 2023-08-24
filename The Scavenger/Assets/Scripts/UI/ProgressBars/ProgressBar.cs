@@ -41,11 +41,10 @@ namespace Scavenger.UI
 
             int percentage = value * 100 / maxValue;
             text.text = string.Format(textFormat, percentage);
-
         }
 
         // TODO add docs
-        private void SetValues(int value, int maxValue)
+        public void SetValues(int value, int maxValue)
         {
             if (maxValue <= 0)
             {
@@ -54,6 +53,12 @@ namespace Scavenger.UI
 
             slider.maxValue = maxValue;
             slider.value = value;
+        }
+
+        // TODO add docs
+        public void SetText(string text)
+        {
+            this.text.text = text;
         }
     }
 }

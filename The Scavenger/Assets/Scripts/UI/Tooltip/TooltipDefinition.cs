@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Scavenger.UI
@@ -9,14 +7,13 @@ namespace Scavenger.UI
     public abstract class TooltipDefinition : MonoBehaviour
     {
         public event Action TargetChanged;
-        public abstract string GetHeader();
-        public abstract string GetDescription();
-        public abstract GameObject GetCustomContent();
-        public abstract bool IsVisible();
 
         protected void OnTargetChanged()
         {
             TargetChanged?.Invoke();
         }
+
+        public abstract void RenderTooltip(Tooltip tooltip);
+        public virtual void ClearTooltip(Tooltip tooltip) => tooltip.Clear();
     }
 }

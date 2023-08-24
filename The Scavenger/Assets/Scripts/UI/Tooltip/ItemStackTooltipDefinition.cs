@@ -1,5 +1,7 @@
-using Scavenger.UI.UIContent;
+using Scavenger.UI.InspectorContent;
 using UnityEngine;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 
 namespace Scavenger.UI
 {
@@ -7,7 +9,7 @@ namespace Scavenger.UI
     [RequireComponent(typeof(ItemStackDisplay))]
     public class ItemStackTooltipDefinition : TooltipDefinition
     {
-        private ItemStackDisplay display;
+        private ItemStackDisplay display; 
 
         private void Awake()
         {
@@ -15,48 +17,15 @@ namespace Scavenger.UI
             display.ItemStackChanged += OnTargetChanged;
         }
 
-        public override bool IsVisible() => display.ItemStack;
-
-        // expected to create an activated copy
-        public override GameObject GetCustomContent()
+        public override void RenderTooltip(Tooltip tooltip)
         {
             if (!display.ItemStack)
             {
-                return null;
+                return;
             }
 
-            Item item = display.ItemStack.Item;
-
-            CustomUI customUI;
-            if (!item.TryGetProperty(out customUI))
-            {
-                return null;
-            }
-
-            ItemUIContent customTooltip = Instantiate(customUI.UI);
-            customTooltip.Init(item);
-
-            return customTooltip.gameObject;
-        }
-
-        public override string GetDescription()
-        {
-            if (!display.ItemStack)
-            {
-                return "";
-            }
-
-            return display.ItemStack.Item.Description;
-        }
-
-        public override string GetHeader()
-        {
-            if (!display.ItemStack)
-            {
-                return "";
-            }
-
-            return display.ItemStack.Item.DisplayName;
+            tooltip.AddHeader(new LocalizedString("Item Names", display.ItemStack.Item.name));
+            // TODO add descrpition
         }
     }
 }

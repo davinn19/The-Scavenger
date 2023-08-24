@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
 
 namespace Scavenger.GridObjectBehaviors
 {
@@ -47,15 +48,16 @@ namespace Scavenger.GridObjectBehaviors
         }
 
 
-        // TODO implement, add docs
+        // TODO optimize string table search, add docs
         public List<CraftingRecipe> GetRecipes(string searchInput, FilterMode filterMode, PlayerInventory inventory)
         {
             List<CraftingRecipe> results = new();
+            LocalizedStringTable itemNames = new LocalizedStringTable("Item Names");
 
             foreach (CraftingRecipe recipe in GetRecipes())
             {
                 // Check if recipe result name matches search
-                string resultName = recipe.Output.Item.DisplayName;
+                string resultName = itemNames.GetTable().GetEntry(recipe.Output.Item.name).ToString();    // TODO fix
                 if (!resultName.Contains(searchInput, System.StringComparison.OrdinalIgnoreCase))
                 {
                     continue;

@@ -1,31 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
 
 namespace Scavenger.UI
 {
     // TODO add docs
     public class BasicTooltipDefinition : TooltipDefinition
     {
-        [SerializeField] private string header;
-        [SerializeField, Multiline] private string description;
-        [SerializeField] private GameObject customContent;
+        [SerializeField] private LocalizedString header;
+        [SerializeField] private LocalizedString description;
 
-        public override bool IsVisible() => true;
-
-        public override GameObject GetCustomContent()
+        public override void RenderTooltip(Tooltip tooltip)
         {
-            return customContent;
-        }
+            tooltip.AddHeader(header);
 
-        public override string GetDescription()
-        {
-            return description;
-        }
-
-        public override string GetHeader()
-        {
-            return header;
+            if (description != null)
+            {
+                tooltip.AddText(description);
+            }
         }
     }
 }

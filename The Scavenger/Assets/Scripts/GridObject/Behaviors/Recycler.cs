@@ -13,6 +13,9 @@ namespace Scavenger.GridObjectBehaviors
         private RecyclerItemBuffer itemBuffer;
         private EnergyBuffer energyBuffer;
 
+        private RecyclerRecipe currentRecipe;
+        private ItemStack input;
+
         public int RecycleProgress { get; private set; }
 
         [field: SerializeField, Min(0)]
@@ -25,8 +28,11 @@ namespace Scavenger.GridObjectBehaviors
         protected override void Init()
         {
             base.Init();
-            itemBuffer = GetComponent<RecyclerItemBuffer>();
             energyBuffer = GetComponent<EnergyBuffer>();
+            itemBuffer = GetComponent<RecyclerItemBuffer>();
+
+            input = itemBuffer.GetInput();
+            input.Changed += UpdateCurrentRecipe;
         }
 
         // TODO implement
@@ -34,17 +40,8 @@ namespace Scavenger.GridObjectBehaviors
         {
             energyBuffer.ResetEnergyTransferCount();
 
-            // Resets if input is missing
-            ItemStack input = itemBuffer.GetInput();
-            if (!input)
-            {
-                RecycleProgress = 0;
-                return;
-            }
-
-            // Resets if input is not recyclable
-            RecyclerRecipe recipe = RecyclerRecipes.Instance.GetRecipeWithInput(input, recycleTier);
-            if (recipe == null)
+            // Resets if input is missing/no recipe
+            if (currentRecipe == null)
             {
                 RecycleProgress = 0;
                 return;
@@ -64,12 +61,28 @@ namespace Scavenger.GridObjectBehaviors
                 return;
             }
             
-            List<ItemStack> outputs = GenerateOutputs(recipe);
+            List<ItemStack> outputs = GenerateOutputs(currentRecipe);
             List<ItemStack> outputSlots = itemBuffer.GetOutputSlots();
             ItemTransfer.MoveBufferToBuffer(outputs, outputSlots, int.MaxValue, itemBuffer.AcceptsItemStack);
 
-            RecycleProgress = 0;
             itemBuffer.ExtractSlot(0, 1);
+            RecycleProgress = 0;
+        }
+
+        private void UpdateCurrentRecipe()
+        {
+            RecyclerRecipe newRecipe = null;
+
+            if (input)
+            {
+                newRecipe = RecyclerRecipes.Instance.GetRecipeWithInput(input, recycleTier);
+            }
+
+            if (newRecipe != currentRecipe)
+            {
+                currentRecipe = newRecipe;
+                RecycleProgress = 0;
+            }
         }
 
         private List<ItemStack> GenerateOutputs(RecyclerRecipe recipe)

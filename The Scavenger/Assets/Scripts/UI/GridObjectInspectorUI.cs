@@ -1,7 +1,8 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Scavenger.UI.UIContent;
+using Scavenger.UI.InspectorContent;
+using UnityEngine.Localization.Components;
 
 namespace Scavenger.UI
 {
@@ -14,11 +15,11 @@ namespace Scavenger.UI
         private GridObjectInspector gridObjectInspector;
         private PlayerInventory inventory;
 
-        [SerializeField] private TextMeshProUGUI gridObjectName;
+        [SerializeField] private LocalizeStringEvent gridObjectName;
         [SerializeField] private Image gridObjectIcon;
         private HPGauge hpBar;
 
-        private GridObjectUIContent content = null;
+        private GridObjectInspectorContent content = null;
 
         private void Awake()
         {
@@ -56,7 +57,7 @@ namespace Scavenger.UI
             ShowUI(true);
 
             gridObjectIcon.sprite = gridObject.GetModel().GetThumbnail();
-            gridObjectName.text = gridObject.DisplayName;
+            gridObjectName.StringReference = gridObject.DisplayName;
             hpBar.HP = gridObject.HP;
 
             SetContent(gridObject);
@@ -83,10 +84,10 @@ namespace Scavenger.UI
         {
             ClearContent();
 
-            GridObjectUI UI = viewedObject.GetComponent<GridObjectUI>();
-            if (UI)
+            GridObjectInspectorContent gridObjectContent = viewedObject.InspectorContent;
+            if (gridObjectContent)
             {
-                content = Instantiate(UI.Content, transform);
+                content = Instantiate(gridObjectContent, transform);
                 content.Init(viewedObject, inventory);
                 LayoutRebuilder.ForceRebuildLayoutImmediate(transform as RectTransform);
             }

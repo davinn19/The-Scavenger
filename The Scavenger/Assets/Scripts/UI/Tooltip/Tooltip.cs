@@ -2,14 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Components;
 
 namespace Scavenger.UI
 {
     // TODO implement, add docs
     public class Tooltip : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI header;
-        [SerializeField] private TextMeshProUGUI description;
+        [SerializeField] private LocalizeStringEvent headerPrefab;
+        [SerializeField] private LocalizeStringEvent textPrefab;
+
         private GameObject content;
         private RectTransform rectTransform;
         private GameUI gameUI;
@@ -28,16 +31,16 @@ namespace Scavenger.UI
                 if (m_tooltipDefinition != null)
                 {
                     m_tooltipDefinition.TargetChanged -= OnTargetChanged;
+                    m_tooltipDefinition.ClearTooltip(this);
                     m_tooltipDefinition = null;
                 }
 
                 if (value != null)
                 {
                     m_tooltipDefinition = value;
+                    m_tooltipDefinition.RenderTooltip(this);
                     m_tooltipDefinition.TargetChanged += OnTargetChanged;
                 }
-
-                UpdateAppearance();
             }
         }
 
@@ -51,7 +54,7 @@ namespace Scavenger.UI
 
         private void Start()
         {
-            gameObject.SetActive(false);
+            Clear();
         }
 
         /// <summary>
@@ -71,10 +74,11 @@ namespace Scavenger.UI
             if (hoveredElement == null || !hoveredElement.TryGetComponent(out TooltipDefinition tooltipDefinition))
             {
                 this.tooltipDefinition = null;
-                return;
             }
-
-            this.tooltipDefinition = tooltipDefinition;
+            else
+            {
+                this.tooltipDefinition = tooltipDefinition;
+            }
         }
 
         /// <summary>
@@ -83,72 +87,34 @@ namespace Scavenger.UI
         /// <param name="slot"></param>
         private void OnTargetChanged()
         {
-            if (tooltipDefinition)
+            if (tooltipDefinition != null)
             {
-                UpdateAppearance();
+                tooltipDefinition.ClearTooltip(this);
+                tooltipDefinition.RenderTooltip(this);
             }
         }
 
-        /// <summary>
-        /// Draws a new tooltip based on the tracked tooltip definition.
-        /// </summary>
-        private void UpdateAppearance()
+        public void AddHeader(LocalizedString header)
         {
-            // TODO implement, add comments
-            ClearCustomContent();
-
-            if (!tooltipDefinition || !tooltipDefinition.IsVisible())
-            {
-                gameObject.SetActive(false);
-                return;
-            }
             gameObject.SetActive(true);
-
-            SetHeader();
-            SetDescription();
-            SetCustomContent();
+            LocalizeStringEvent newHeader = Instantiate(headerPrefab, transform);
+            newHeader.StringReference = header;
         }
 
-        /// <summary>
-        /// Writes the header based on the tooltip definition.
-        /// </summary>
-        private void SetHeader()
+        public void AddText(LocalizedString text)
         {
-            header.text = tooltipDefinition.GetHeader();
-            description.gameObject.SetActive(header.text != "");
+            gameObject.SetActive(true);
+            LocalizeStringEvent newText = Instantiate(textPrefab, transform);
+            newText.StringReference = text;
         }
 
-        /// <summary>
-        /// Writes the description based on the tooltip definition.
-        /// </summary>
-        private void SetDescription()
+        public void Clear()
         {
-            description.text = tooltipDefinition.GetDescription();
-            description.gameObject.SetActive(description.text != "");
-        }
-
-        /// <summary>
-        /// Draws the custom tooltip content, if it has one.
-        /// </summary>
-        private void SetCustomContent()
-        {
-            content = tooltipDefinition.GetCustomContent();
-            if (content)
+            foreach (Transform child in transform)
             {
-                content.transform.SetParent(transform, false);
+                Destroy(child.gameObject);
             }
-        }
-
-        /// <summary>
-        /// Erases any existing custom tooltip content.
-        /// </summary>
-        private void ClearCustomContent()
-        {
-            if (content)
-            {
-                Destroy(content.gameObject);
-                content = null;
-            }
+            gameObject.SetActive(false);
         }
     }
 }

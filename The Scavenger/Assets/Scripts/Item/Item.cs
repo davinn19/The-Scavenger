@@ -12,9 +12,7 @@ namespace Scavenger
     [CreateAssetMenu(fileName = "Item", menuName = "Scavenger/Item")]
     public class Item : ScriptableObject
     {
-        [field: SerializeField] public string DisplayName { get; private set; }
         [field: SerializeField] public Sprite Icon { get; private set; }
-        [field: SerializeField, Multiline] public string Description { get; private set; }
         [SerializeField] private List<ItemProperty> properties = new() { };
         [SerializeField] private string[] categories;
 

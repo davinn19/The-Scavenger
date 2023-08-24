@@ -95,6 +95,15 @@ namespace Scavenger
                 new ItemStack("MakeshiftRecycler")
                 );
 
+            AddMakeshiftRecipe(
+                new RecipeComponent<ItemStack>[]
+                {
+                    new ItemStack("AluminumScrap", 2),
+                    new ItemStack("SteelScrap", 2),
+                },
+                new ItemStack("Workbench")
+                );
+
             AddRecipe(
                 new RecipeComponent<ItemStack>[]
                 {

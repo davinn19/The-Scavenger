@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: Grid Object Names Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: Grid Object Names
+  m_TableCollectionNameGuidString: fc64fa2fc03897d42885dccac069b5df
+  m_Entries:
+  - m_Id: 4634771456
+    m_Key: MakeshiftArcFurnace
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7855996928
+    m_Key: MakeshiftConduit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11031085056
+    m_Key: MakeshiftEnergyCell
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13224706048
+    m_Key: MakeshiftRecycler
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16265576448
+    m_Key: MakeshiftWorkbench
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8989819600896
+    m_Key: Silo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8996069113856
+    m_Key: SolarPanel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8998946406400
+    m_Key: Workbench
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 5129216807589380103
+  references:
+    version: 2
+    RefIds:
+    - rid: 5129216807589380103
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1692906592961

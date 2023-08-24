@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 1296748062073017628}
   - component: {fileID: 4873725703957258132}
   - component: {fileID: 5737681213160091184}
-  - component: {fileID: 1897272982742094190}
   m_Layer: 0
   m_Name: MakeshiftRecycler
   m_TagString: Untagged
@@ -65,7 +64,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6546ea9d9b357204d97e64fcd54f3de6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DisplayName>k__BackingField: Makeshift Recycler
+  <DisplayName>k__BackingField:
+    m_TableReference:
+      m_TableCollectionName: GUID:fc64fa2fc03897d42885dccac069b5df
+    m_TableEntryReference:
+      m_KeyId: 13224706048
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  <InspectorContent>k__BackingField: {fileID: 8620365617579307443, guid: bf6b35438f7e2ec4cbe1ebb5e0d93632, type: 3}
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &5152907530282061247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,19 +133,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a18a5a2cab0b724a8c6dbc89b4e4cdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1897272982742094190
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3384336018222738273}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc87fe466642db8418f3e9a9ff87f6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Content: {fileID: 8620365617579307443, guid: bf6b35438f7e2ec4cbe1ebb5e0d93632, type: 3}
 --- !u!1001 &8915201013977915910
 PrefabInstance:
   m_ObjectHideFlags: 0

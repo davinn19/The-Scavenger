@@ -1,0 +1,220 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: Item Names Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: Item Names
+  m_TableCollectionNameGuidString: bed6ab9f00ef4ba48956d892f9ebdbe2
+  m_Entries:
+  - m_Id: 1495835672576
+    m_Key: AluminumBloom
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866880
+    m_Key: AluminumScrap
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866881
+    m_Key: ArcMagnet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866882
+    m_Key: BeamRollingPass
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866883
+    m_Key: BrokenSolarPanel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866884
+    m_Key: BurnedOutMotor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866885
+    m_Key: CoaxCable
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866886
+    m_Key: ConveyorChute
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866887
+    m_Key: CopperBloom
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866888
+    m_Key: CopperEnergyCable
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866889
+    m_Key: CopperScrap
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866890
+    m_Key: CopperWire
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866891
+    m_Key: EthernetCable
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866892
+    m_Key: FiberCable
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866893
+    m_Key: FlatRollingPass
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866894
+    m_Key: GlassPane
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866895
+    m_Key: Graphite
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866896
+    m_Key: GraphiteElectrode
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866897
+    m_Key: Lithium
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866898
+    m_Key: MakeshiftArcFurnace
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866899
+    m_Key: MakeshiftAssembler
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866900
+    m_Key: MakeshiftConduit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866901
+    m_Key: MakeshiftEnergyCell
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866902
+    m_Key: MakeshiftRecycler
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866903
+    m_Key: MakeshiftRefractory
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866904
+    m_Key: MakeshiftRollingMill
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866905
+    m_Key: MangledWires
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866906
+    m_Key: PipeRollingPass
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866907
+    m_Key: PolySiliconWafer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866908
+    m_Key: RechargableBattery
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866909
+    m_Key: RoundRollingPass
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866910
+    m_Key: ScrapMetal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866911
+    m_Key: ShatteredGlass
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866912
+    m_Key: SiliconBlock
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866913
+    m_Key: SiliconShard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866914
+    m_Key: Silo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866915
+    m_Key: Slag
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866916
+    m_Key: SolarPanel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866917
+    m_Key: SpaceDebris
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866918
+    m_Key: SpaceRock
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866919
+    m_Key: SquareRollingPass
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866920
+    m_Key: SteelBloom
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866921
+    m_Key: SteelScrap
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866922
+    m_Key: TitaniumBloom
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866923
+    m_Key: TitaniumScrap
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866924
+    m_Key: TornPanel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866925
+    m_Key: UsedBattery
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495839866926
+    m_Key: Workbench
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 5129216793569919000
+  references:
+    version: 2
+    RefIds:
+    - rid: 5129216793569919000
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1692850435558

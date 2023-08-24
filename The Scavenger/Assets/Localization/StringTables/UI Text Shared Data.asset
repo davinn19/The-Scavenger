@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: UI Text Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: UI Text
+  m_TableCollectionNameGuidString: 354b0ca1e45918547893265d09e91f0a
+  m_Entries:
+  - m_Id: 7147159552
+    m_Key: InteractModeHeader
+    m_Metadata:
+      m_Items: []
+  - m_Id: 340913094656
+    m_Key: InteractModeDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 198214483968
+    m_Key: EditModeHeader
+    m_Metadata:
+      m_Items: []
+  - m_Id: 399142617088
+    m_Key: EditModeDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 285149822976
+    m_Key: RemoveModeHeader
+    m_Metadata:
+      m_Items: []
+  - m_Id: 435662422016
+    m_Key: RemoveModeDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 316183478272
+    m_Key: TargetModeHeader
+    m_Metadata:
+      m_Items: []
+  - m_Id: 531275776000
+    m_Key: TargetModeDescription
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 5129216807589380098
+  references:
+    version: 2
+    RefIds:
+    - rid: 5129216807589380098
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1692904018509

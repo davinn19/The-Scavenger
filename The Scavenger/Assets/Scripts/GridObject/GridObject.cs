@@ -1,7 +1,9 @@
+using Scavenger.UI.InspectorContent;
 using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Localization;
 
 namespace Scavenger
 {
@@ -12,8 +14,9 @@ namespace Scavenger
     public class GridObject : MonoBehaviour
     {
         public const int DefaultHP = 100;
+        [field: SerializeField] public LocalizedString DisplayName { get; private set; }
+        [field: SerializeField] public GridObjectInspectorContent InspectorContent { get; private set; }
 
-        [field: SerializeField] public string DisplayName { get; private set; }
         public Vector2Int GridPos { get; set; }
         private GridMap map;
         private GridChunk chunk;
