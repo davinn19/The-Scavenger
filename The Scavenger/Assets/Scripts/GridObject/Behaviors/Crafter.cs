@@ -1,3 +1,4 @@
+using Scavenger.Recipes;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization;
@@ -96,7 +97,7 @@ namespace Scavenger.GridObjectBehaviors
             }
             else
             {
-                return CraftingRecipes.Instance.GetAllRecipes();
+                return CraftingRecipes.Instance.GetRecipes();
             }
         }
 

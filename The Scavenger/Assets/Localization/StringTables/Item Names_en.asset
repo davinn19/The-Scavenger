@@ -334,6 +334,10 @@ MonoBehaviour:
     m_Localized: Titanium Wire
     m_Metadata:
       m_Items: []
+  - m_Id: 307679792791552
+    m_Localized: Electric Motor
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

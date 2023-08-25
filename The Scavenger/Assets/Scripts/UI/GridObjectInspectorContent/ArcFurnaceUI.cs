@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using Scavenger.Recipes;
 using UnityEngine;
 
 namespace Scavenger.UI.InspectorContent

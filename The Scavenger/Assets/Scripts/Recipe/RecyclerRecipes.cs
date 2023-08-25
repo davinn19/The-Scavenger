@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Scavenger
+namespace Scavenger.Recipes
 {
     // TODO add docs
     public class RecyclerRecipes : RecipeList<RecyclerRecipe>
@@ -15,54 +15,34 @@ namespace Scavenger
         private readonly List<RecyclerRecipe> recipes = new();
 
 
-        public List<RecyclerRecipe> GetRecipesWithInput(RecipeComponent input)
+        public override List<RecyclerRecipe> GetRecipesWithInput(RecipeComponent input)
         {
-            List<RecyclerRecipe> recipesWithInput = new();
-
             if (input is not RecipeComponent<ItemStack>)
             {
-                return recipesWithInput;
+                return new();
             }
-
-            foreach (RecyclerRecipe recipe in recipes)
-            {
-                if (recipe.IsInput(input))
-                {
-                    recipesWithInput.Add(recipe);
-                }
-            }
-
-            return recipesWithInput;
+            return base.GetRecipesWithInput(input);
         }
 
-        public List<RecyclerRecipe> GetRecipesWithOutput(RecipeComponent output)
+        public override List<RecyclerRecipe> GetRecipesWithOutput(RecipeComponent output)
         {
-            List<RecyclerRecipe> recipesWithOutput = new();
             if (output is not RecipeComponent<ItemStack>)
             {
-                return recipesWithOutput;
+                return new();
             }
-
-            foreach (RecyclerRecipe recipe in recipes)
-            {
-                if (recipe.IsOutput(output))
-                {
-                    recipesWithOutput.Add(recipe); 
-                }
-            }
-
-            return recipesWithOutput;
+            return base.GetRecipesWithOutput(output);
         }
 
-        public List<Recipe> GetRecipes()
+        public override List<RecyclerRecipe> GetRecipes() => recipes;
+
+        public override List<Recipe> GetGenericRecipes()
         {
             return recipes.ConvertAll<Recipe>((recyclerRecipe) => recyclerRecipe);
         }
 
         public RecyclerRecipe GetRecipeWithInput(RecipeComponent input, RecycleTier recycleTier)
         {
-            List<RecyclerRecipe> recipesWithInput = GetRecipesWithInput(input);
-            foreach (RecyclerRecipe recipe in recipesWithInput)
+            foreach (RecyclerRecipe recipe in GetRecipesWithInput(input))
             {
                 if (recipe.RecycleTier == recycleTier)
                 {
@@ -85,7 +65,7 @@ namespace Scavenger
             recipes.Add(new RecyclerRecipe(input, recycleTier, duration, outputs));
         }
 
-        public void LoadRecipes()
+        public override void LoadRecipes()
         {
             AddRecipe(
                 new ItemStack("SpaceDebris"),

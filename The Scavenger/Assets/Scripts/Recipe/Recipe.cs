@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // TODO add docs
-namespace Scavenger
+namespace Scavenger.Recipes
 {
     public interface Recipe
     {

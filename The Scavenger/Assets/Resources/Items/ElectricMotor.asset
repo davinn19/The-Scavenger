@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 108606e407689c8488b72818cc9bdaf2, type: 3}
-  m_Name: PolySiliconWafer
+  m_Name: ElectricMotor
   m_EditorClassIdentifier: 
-  <Icon>k__BackingField: {fileID: 21300000, guid: acd83d2d105043c449436c28a24e3a12, type: 3}
+  <Icon>k__BackingField: {fileID: 21300000, guid: 10a5a69320cb6664cb729de1221a9ace, type: 3}
   properties: []
   categories: []

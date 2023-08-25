@@ -331,6 +331,10 @@ MonoBehaviour:
     m_Key: Workbench
     m_Metadata:
       m_Items: []
+  - m_Id: 307679792791552
+    m_Key: ElectricMotor
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

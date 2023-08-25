@@ -17,7 +17,55 @@ MonoBehaviour:
   m_SharedData: {fileID: 11400000, guid: fc64fa2fc03897d42885dccac069b5df, type: 2}
   m_Metadata:
     m_Items: []
-  m_TableData: []
+  m_TableData:
+  - m_Id: 73210880131072
+    m_Localized: Makeshift Arc Furnace
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73210888519680
+    m_Localized: Makeshift Conduit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73210888519681
+    m_Localized: Makeshift EnergyCell
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73210888519682
+    m_Localized: Makeshift Recycler
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73210892713984
+    m_Localized: Makeshift Workbench
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73210892713985
+    m_Localized: Silo (change pls)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73210892713986
+    m_Localized: Solar Panel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73210892713987
+    m_Localized: Workbench
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73210892713988
+    m_Localized: Aluminum Truss
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73210892713989
+    m_Localized: Copper Truss
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73210892713990
+    m_Localized: Steel Truss
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73210892713991
+    m_Localized: Titanium Truss
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

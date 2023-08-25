@@ -2,18 +2,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Scavenger
+namespace Scavenger.Recipes
 {
-    public interface RecipeList
+    public abstract class RecipeList
     {
         public abstract void LoadRecipes();
-        public abstract List<Recipe> GetRecipes();
+        public abstract List<Recipe> GetGenericRecipes();
     }
 
     // TODO implement, add docs
-    public interface RecipeList<T> : RecipeList where T : Recipe
+    public abstract class RecipeList<T> : RecipeList where T : Recipe
     {
-        public abstract List<T> GetRecipesWithOutput(RecipeComponent output);
-        public abstract List<T> GetRecipesWithInput(RecipeComponent input);
+        public abstract List<T> GetRecipes();
+
+        public virtual List<T> GetRecipesWithOutput(RecipeComponent output)
+        {
+            List<T> recipes = new List<T>();
+            foreach (T recipe in GetRecipes())
+            {
+                if (recipe.IsOutput(output))
+                {
+                    recipes.Add(recipe);
+                }
+            }
+            return recipes;
+        }
+
+        public virtual List<T> GetRecipesWithInput(RecipeComponent input)
+        {
+            List<T> recipes = new List<T>();
+            foreach (T recipe in GetRecipes())
+            {
+                if (recipe.IsInput(input))
+                {
+                    recipes.Add(recipe);
+                }
+            }
+            return recipes;
+        }
     }
 }

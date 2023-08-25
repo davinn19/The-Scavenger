@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using Scavenger.GridObjectBehaviors;    
+using Scavenger.GridObjectBehaviors;
+using Scavenger.Recipes;
 
 namespace Scavenger.UI.InspectorContent
 {

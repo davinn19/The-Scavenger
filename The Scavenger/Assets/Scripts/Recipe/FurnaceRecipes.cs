@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Scavenger
+namespace Scavenger.Recipes
 {
     // TODO add docs
     public class FurnaceRecipes : RecipeList<FurnaceRecipe>
@@ -12,7 +12,7 @@ namespace Scavenger
 
         private readonly List<FurnaceRecipe> recipes = new();
 
-        public List<FurnaceRecipe> GetRecipesWithInput(RecipeComponent input)
+        public override List<FurnaceRecipe> GetRecipesWithInput(RecipeComponent input)
         {
             FurnaceRecipe recipe = GetRecipeWithInput(input);
             if (recipe == null)
@@ -24,6 +24,11 @@ namespace Scavenger
 
         public FurnaceRecipe GetRecipeWithInput(RecipeComponent input)
         {
+            if (input is not RecipeComponent<ItemStack>)
+            {
+                return null;
+            }
+
             foreach (FurnaceRecipe recipe in recipes)
             {
                 if (recipe.IsInput(input))
@@ -34,29 +39,34 @@ namespace Scavenger
             return null;
         }
 
-        public List<FurnaceRecipe> GetRecipesWithOutput(RecipeComponent output)
+        public override List<FurnaceRecipe> GetRecipesWithOutput(RecipeComponent output)
         {
-            List<FurnaceRecipe> recipesWithOutput = new();
-            foreach (FurnaceRecipe recipe in recipes)
+            if (output is not RecipeComponent<ItemStack>)
             {
-                if (recipe.IsOutput(output))
-                {
-                    recipesWithOutput.Add(recipe);
-                }
+                return new();
             }
-            return recipesWithOutput;
+            return base.GetRecipesWithOutput(output);
         }
 
-        public List<Recipe> GetRecipes()
+        public override List<FurnaceRecipe> GetRecipes() => recipes;
+        public override List<Recipe> GetGenericRecipes()
         {
             return recipes.ConvertAll<Recipe>((furnaceRecipe) => furnaceRecipe);
         }
+
 
         private void AddRecipe(RecipeComponent<ItemStack> input, ItemStack output, int requiredTemp)
         {
             Debug.Assert(input.Amount == 1);
             Debug.Assert(output.Amount == 1);
             Debug.Assert(requiredTemp > 0);
+
+            // One input cannot have multiple recipes
+            foreach (FurnaceRecipe recipe in recipes)
+            {
+                Debug.Assert(!recipe.input.CanSubstituteWith(input));
+            }
+
             recipes.Add(new FurnaceRecipe(input, output, null, requiredTemp));
         }
 
@@ -69,7 +79,7 @@ namespace Scavenger
             recipes.Add(new FurnaceRecipe(input, output, byproduct, requiredTemp));
         }
 
-        public void LoadRecipes()
+        public override void LoadRecipes()
         {
             AddRecipe(
                 new ItemStack("AluminumScrap"),

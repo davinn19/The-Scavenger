@@ -1,4 +1,5 @@
 using Leguar.TotalJSON;
+using Scavenger.Recipes;
 using System.Collections.Generic;
 using UnityEngine;
 

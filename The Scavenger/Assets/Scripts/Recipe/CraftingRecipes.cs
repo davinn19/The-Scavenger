@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Scavenger
+namespace Scavenger.Recipes
 {
     // TODO add docs
     public class CraftingRecipes : RecipeList<CraftingRecipe>
@@ -13,46 +13,33 @@ namespace Scavenger
         private readonly List<CraftingRecipe> allRecipes = new();
         private readonly List<CraftingRecipe> makeshiftRecipes = new();
 
-        public List<CraftingRecipe> GetRecipesWithInput(RecipeComponent input)
+        public override List<CraftingRecipe> GetRecipesWithInput(RecipeComponent input)
         {
-            List<CraftingRecipe> recipesWithInput = new();
-            foreach (CraftingRecipe recipe in allRecipes)
+            if (input is not RecipeComponent<ItemStack>)
             {
-                if (recipe.IsInput(input))
-                {
-                    recipesWithInput.Add(recipe);
-                }
+                return new();
             }
-            return recipesWithInput;
+            return base.GetRecipesWithInput(input);
         }
 
-        public List<CraftingRecipe> GetRecipesWithOutput(RecipeComponent output)
+        public override List<CraftingRecipe> GetRecipesWithOutput(RecipeComponent output)
         {
-            List<CraftingRecipe> recipesWithOutput = new();
-            foreach (CraftingRecipe recipe in allRecipes)
+            if (output is not RecipeComponent<ItemStack>)
             {
-                if (recipe.IsOutput(output))
-                {
-                    recipesWithOutput.Add(recipe);
-                }
+                return new();
             }
-            return recipesWithOutput;
+            return base.GetRecipesWithOutput(output);
         }
 
-        public List<Recipe> GetRecipes()
+        public override List<Recipe> GetGenericRecipes()
         {
             return allRecipes.ConvertAll<Recipe>((craftingRecipe) => craftingRecipe);
         }
+        public override List<CraftingRecipe> GetRecipes() => allRecipes;
+        public List<CraftingRecipe> GetMakeshiftRecipes() => makeshiftRecipes;
 
-        public List<CraftingRecipe> GetMakeshiftRecipes()
-        {
-            return makeshiftRecipes;
-        }
+        
 
-        public List<CraftingRecipe> GetAllRecipes()
-        {
-            return allRecipes;
-        }
 
         private void AddRecipe(RecipeComponent<ItemStack>[] inputs, ItemStack output)
         {
@@ -66,7 +53,7 @@ namespace Scavenger
             makeshiftRecipes.Add(newRecipe);
         }
 
-        public void LoadRecipes()
+        public override void LoadRecipes()
         {
             AddMakeshiftRecipe(
                 new RecipeComponent<ItemStack>[]
@@ -169,6 +156,18 @@ namespace Scavenger
                 },
                 new ItemStack("MakeshiftArcFurnace")
                 );
+
+            AddRecipe(
+                new RecipeComponent<ItemStack>[]
+                {
+                    new ItemStack("Graphite", 2),
+                    new ItemStack("ArcMagnet", 2),
+                    new ItemStack("CopperWire", 2)
+                },
+                new ItemStack("ElectricMotor")
+                );
+
+                
             // TODO continue
         }
     }
