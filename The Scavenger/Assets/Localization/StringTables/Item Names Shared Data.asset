@@ -215,16 +215,12 @@ MonoBehaviour:
     m_Key: SiliconShard
     m_Metadata:
       m_Items: []
-  - m_Id: 1495839866914
-    m_Key: Silo
-    m_Metadata:
-      m_Items: []
   - m_Id: 1495839866915
     m_Key: Slag
     m_Metadata:
       m_Items: []
   - m_Id: 1495839866916
-    m_Key: SolarPanel
+    m_Key: BasicSolarPanel
     m_Metadata:
       m_Items: []
   - m_Id: 1495839866917
@@ -333,6 +329,14 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 307679792791552
     m_Key: ElectricMotor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 628807660797952
+    m_Key: BasicSilo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 628807677575168
+    m_Key: BasicEnergyCell
     m_Metadata:
       m_Items: []
   m_Metadata:

@@ -54,13 +54,10 @@ namespace Scavenger.Recipes
 
         private void AddRecipe(RecipeComponent<ItemStack> input, RecycleTier recycleTier, int duration, ChanceItemStack[] outputs)
         {
-            foreach (RecyclerRecipe existingRecipe in recipes)
-            {
-                if (existingRecipe.RecycleTier == recycleTier && existingRecipe.Input.CanSubstituteWith(input))
-                {
-                    throw new ArgumentException(string.Format("There is already a recipe with the input {0} and recycle tier {1}", input.ToString(), recycleTier.ToString()));
-                }
-            }
+            Debug.Assert(input.Amount == 1);
+
+            // Check for recipe conflicts
+            Debug.Assert(GetRecipeWithInput(input, recycleTier) == null);
 
             recipes.Add(new RecyclerRecipe(input, recycleTier, duration, outputs));
         }

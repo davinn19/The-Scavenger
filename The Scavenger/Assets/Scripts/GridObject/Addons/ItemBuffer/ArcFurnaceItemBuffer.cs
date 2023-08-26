@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Scavenger
+namespace Scavenger.GridObjectBehaviors
 {
     // TODO add docs
     public class ArcFurnaceItemBuffer : ItemBuffer
@@ -15,7 +15,7 @@ namespace Scavenger
 
         public override int NumSlots => 3;
 
-        public override bool AcceptsItemStack(int slot, ItemStack itemStack) => true;
+        public override bool AcceptsItemStack(ItemStack slot, ItemStack itemStack) => true;
 
         public ItemStack GetInput() => input;
         public ItemStack GetOutput() => output;

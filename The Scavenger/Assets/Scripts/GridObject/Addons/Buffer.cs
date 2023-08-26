@@ -1,7 +1,7 @@
 using Leguar.TotalJSON;
 using UnityEngine;
 
-namespace Scavenger
+namespace Scavenger.GridObjectBehaviors
 {
     /// <summary>
     /// Base class for resource storage.

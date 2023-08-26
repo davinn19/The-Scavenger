@@ -15,6 +15,14 @@ MonoBehaviour:
   m_TableCollectionName: Grid Object Names
   m_TableCollectionNameGuidString: fc64fa2fc03897d42885dccac069b5df
   m_Entries:
+  - m_Id: 73210892713988
+    m_Key: AluminumTruss
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73210892713989
+    m_Key: CopperTruss
+    m_Metadata:
+      m_Items: []
   - m_Id: 73210880131072
     m_Key: MakeshiftArcFurnace
     m_Metadata:
@@ -35,24 +43,12 @@ MonoBehaviour:
     m_Key: MakeshiftWorkbench
     m_Metadata:
       m_Items: []
-  - m_Id: 73210892713985
-    m_Key: Silo
+  - m_Id: 395132834742272
+    m_Key: BasicSilo
     m_Metadata:
       m_Items: []
-  - m_Id: 73210892713986
-    m_Key: SolarPanel
-    m_Metadata:
-      m_Items: []
-  - m_Id: 73210892713987
-    m_Key: Workbench
-    m_Metadata:
-      m_Items: []
-  - m_Id: 73210892713988
-    m_Key: AluminumTruss
-    m_Metadata:
-      m_Items: []
-  - m_Id: 73210892713989
-    m_Key: CopperTruss
+  - m_Id: 393245217587200
+    m_Key: BasicSolarPanel
     m_Metadata:
       m_Items: []
   - m_Id: 73210892713990
@@ -61,6 +57,14 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 73210892713991
     m_Key: TitaniumTruss
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73210892713987
+    m_Key: Workbench
+    m_Metadata:
+      m_Items: []
+  - m_Id: 396961878441984
+    m_Key: MakeshiftAssembler
     m_Metadata:
       m_Items: []
   m_Metadata:

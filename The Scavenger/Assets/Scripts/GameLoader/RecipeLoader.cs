@@ -14,7 +14,9 @@ namespace Scavenger
             {
                 RecyclerRecipes.Instance,
                 CraftingRecipes.Instance,
-                FurnaceRecipes.Instance
+                FurnaceRecipes.Instance,
+                RollingRecipes.Instance,
+                AssemblerRecipes.Instance,
             };
 
             foreach (RecipeList recipeList in recipes)

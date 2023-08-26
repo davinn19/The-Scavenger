@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Scavenger
+namespace Scavenger.GridObjectBehaviors
 {
     /// <summary>
     /// Buffer that stores items.
@@ -69,8 +69,9 @@ namespace Scavenger
         /// <param name="slot">The slot to check.</param>
         /// <param name="itemStack">The itemStack to check.</param>
         /// <returns>True if the itemStack is allowed there.</returns>
-        public abstract bool AcceptsItemStack(int slot, ItemStack itemStack);
-        public bool AcceptsItemStack(ItemStack receivingStack, ItemStack sendingStack) => AcceptsItemStack(GetItemStackSlot(receivingStack), sendingStack);
+        public abstract bool AcceptsItemStack(ItemStack slot, ItemStack itemStack);
+        public bool AcceptsItemStack(int slot, ItemStack itemStack) => AcceptsItemStack(GetItemInSlot(slot), itemStack);
+        
 
         /// <summary>
         /// Checks if the buffer contains no items.
@@ -118,87 +119,5 @@ namespace Scavenger
             ItemStack extractedStack = GetItemInSlot(slot);
             return ItemTransfer.ExtractItem(extractedStack, (_) => true, amount, false);
         }
-
-        /// <summary>
-        /// Inserts an itemStack into the buffer's slot.
-        /// </summary>
-        /// <remarks>Intended to be used with newly created itemStacks. If you want to move an itemStack from one buffer to another, use ItemTransfer.Move().</remarks>
-        /// <param name="itemStack">The itemStack to insert. WILL NOT BE MODIFIED.</param>
-        /// <param name="slot">The slot to insert into.</param>
-        /// <param name="amount">The maximum amount of items to insert.</param>
-        /// <param name="simulate">If true, only calculates the result and does not modify the buffer.</param>
-        /// <returns>The actual amount of items inserted.</returns>
-        //public int InsertItemToSlot(ItemStack itemStack, int slot, int amount, bool simulate)
-        //{
-        //    if (!itemStack || itemStack.IsEmpty())
-        //    {
-        //        return 0;
-        //    }
-
-        //    ItemStack receivingStack = GetItemInSlot(slot);
-        //    if (!receivingStack.IsStackable(itemStack) || !AcceptsItemStack(slot, itemStack))
-        //    {
-        //        return 0;
-        //    }
-
-        //    int amountMoved = Mathf.Min(amount, itemStack.amount, MaxStackSize - receivingStack.amount);
-
-        //    if (!simulate)
-        //    {
-        //        receivingStack.amount += amountMoved;
-        //    }
-
-        //    return amountMoved;
-        //}
-
-        /// <summary>
-        /// Inserts an itemStack into the buffer's available slots.
-        /// </summary>
-        /// <remarks>Intended to be used with newly created itemStacks. If you want to move an itemStack from one buffer to another, use ItemTransfer.Move().</remarks>
-        /// <param name="itemStack">The itemStack to insert. WILL NOT BE MODIFIED.</param>
-        /// <param name="amount">The maximum amount of items to insert.</param>
-        /// <param name="simulate">If true, will only calculate the result and not modify the buffer.</param>
-        /// <param name="category">Determines which slots can be inserted into.</param>
-        /// <returns>The actual amount of items inserted.</returns>
-        //public int InsertItemToBuffer(ItemStack itemStack, int amount, bool simulate, SlotCategory category = SlotCategory.All)
-        //{
-        //    int amountMoved = 0;
-        //    itemStack = itemStack.Clone();    // Make copy to prevent modifying
-        //    List<int> receivingSlots = GetSlotsInCategory(category);
-
-        //    foreach (int receivingSlot in receivingSlots)
-        //    {
-        //        // Ignore empty slots first
-        //        if (!GetItemInSlot(receivingSlot))
-        //        {
-        //            continue;
-        //        }
-
-        //        if (itemStack.IsEmpty() || amountMoved == amount)
-        //        {
-        //            return amountMoved;
-        //        }
-
-        //        amountMoved += InsertItemToSlot(itemStack, receivingSlot, amount, simulate);
-        //    }
-
-        //    foreach (int receivingSlot in receivingSlots)
-        //    {
-        //        // Only fill empty slots the second loop
-        //        if (GetItemInSlot(receivingSlot))
-        //        {
-        //            continue;
-        //        }
-
-        //        if (itemStack.IsEmpty() || amountMoved == amount)
-        //        {
-        //            return amountMoved;
-        //        }
-
-        //        amountMoved += InsertItemToSlot(itemStack, receivingSlot, amount, simulate);
-        //    }
-
-        //    return amountMoved;
-        //}
     }
 }

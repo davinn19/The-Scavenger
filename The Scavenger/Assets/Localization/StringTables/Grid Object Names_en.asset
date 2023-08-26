@@ -38,12 +38,8 @@ MonoBehaviour:
     m_Localized: Makeshift Workbench
     m_Metadata:
       m_Items: []
-  - m_Id: 73210892713985
-    m_Localized: Silo (change pls)
-    m_Metadata:
-      m_Items: []
-  - m_Id: 73210892713986
-    m_Localized: Solar Panel
+  - m_Id: 395132834742272
+    m_Localized: Basic Silo
     m_Metadata:
       m_Items: []
   - m_Id: 73210892713987
@@ -64,6 +60,14 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 73210892713991
     m_Localized: Titanium Truss
+    m_Metadata:
+      m_Items: []
+  - m_Id: 393245217587200
+    m_Localized: Basic Solar Panel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 396961878441984
+    m_Localized: Makeshift Assembler
     m_Metadata:
       m_Items: []
   references:

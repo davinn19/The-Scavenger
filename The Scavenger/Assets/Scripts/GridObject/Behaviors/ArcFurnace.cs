@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Scavenger
+namespace Scavenger.GridObjectBehaviors
 {
     // TODO add docs
     [RequireComponent(typeof(EnergyBuffer), typeof(ArcFurnaceItemBuffer))]

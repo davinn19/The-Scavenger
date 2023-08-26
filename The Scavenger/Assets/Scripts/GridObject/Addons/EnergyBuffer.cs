@@ -1,7 +1,7 @@
 using Leguar.TotalJSON;
 using UnityEngine;
 
-namespace Scavenger
+namespace Scavenger.GridObjectBehaviors
 {
     /// <summary>
     /// Buffer that stores energy.

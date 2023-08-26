@@ -1,4 +1,5 @@
 using Leguar.TotalJSON;
+using Scavenger.GridObjectBehaviors;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -60,7 +61,7 @@ namespace Scavenger
 
 
         // Since these functions are primarily used by conduits, their implementation is irrelevant.
-        public override bool AcceptsItemStack(int slot, ItemStack itemStack) => true;
+        public override bool AcceptsItemStack(ItemStack slot, ItemStack itemStack) => true;
 
         public override List<ItemStack> GetAllSlots() => new List<ItemStack>(inventory) { heldItem };
         public override List<ItemStack> GetInputSlots() => GetAllSlots();

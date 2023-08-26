@@ -20,7 +20,7 @@ namespace Scavenger
         public void SetMaxAmount(int maxAmount)
         {
             Debug.Assert(maxAmount > 0);
-            Debug.Assert(maxAmount == -1); // Can only be set once
+            Debug.Assert(this.maxAmount == -1); // Can only be set once
             this.maxAmount = maxAmount;
             SetAmount(amount);
         }
@@ -81,7 +81,7 @@ namespace Scavenger
         public virtual bool CanSubstituteWith(RecipeComponent other)
         {
             ResourceStack otherResourceStack = other as ResourceStack;
-            if (otherResourceStack != null)
+            if (otherResourceStack != null && otherResourceStack)   // other resource stack must contain items
             {
                 return otherResourceStack.ID == ID;
             }

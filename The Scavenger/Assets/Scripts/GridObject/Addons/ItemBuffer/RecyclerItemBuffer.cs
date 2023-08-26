@@ -1,7 +1,7 @@
 using Leguar.TotalJSON;
 using System.Collections.Generic;
 
-namespace Scavenger
+namespace Scavenger.GridObjectBehaviors
 {
     // TODO add docs, implement
     public class RecyclerItemBuffer : ItemBuffer
@@ -44,7 +44,7 @@ namespace Scavenger
         /// Recycler buffers allow any item to be stored, but it's impossible to insert to an output, and the recycler only runs when the input is valid.
         /// </remarks>
         /// <returns>Always returns true.</returns>
-        public override bool AcceptsItemStack(int slot, ItemStack itemStack) => true;
+        public override bool AcceptsItemStack(ItemStack slot, ItemStack itemStack) => true;
 
         public ItemStack GetInput()
         {

@@ -1,3 +1,4 @@
+using Scavenger.GridObjectBehaviors;
 using Scavenger.Recipes;
 using UnityEngine;
 
@@ -9,15 +10,9 @@ namespace Scavenger.UI.InspectorContent
         [SerializeField] SlotDisplay inputSlot;
         [SerializeField] SlotDisplay outputSlot;
         [SerializeField] SlotDisplay byproductSlot;
-        private EnergyGauge energyGauge;
         [SerializeField] private ProgressBar progressBar;
 
         private ArcFurnace arcFurnace;
-
-        private void Awake()
-        {
-            energyGauge = GetComponentInChildren<EnergyGauge>();
-        }
 
         public override void Init(GridObject target, PlayerInventory inventory)
         {
@@ -29,7 +24,7 @@ namespace Scavenger.UI.InspectorContent
             outputSlot.SetWatchedBuffer(itemBuffer, itemBuffer.GetOutput());
             byproductSlot.SetWatchedBuffer(itemBuffer, itemBuffer.GetByproduct());
 
-            energyGauge.Buffer = arcFurnace.GetComponent<EnergyBuffer>();
+            GetComponentInChildren<EnergyGauge>().Buffer = arcFurnace.GetComponent<EnergyBuffer>();
         }
 
         private void Update()

@@ -1,4 +1,5 @@
 using UnityEngine;
+using Scavenger.GridObjectBehaviors;
 
 namespace Scavenger.UI.InspectorContent
 {

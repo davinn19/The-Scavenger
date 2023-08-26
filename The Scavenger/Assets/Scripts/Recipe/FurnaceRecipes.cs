@@ -62,10 +62,7 @@ namespace Scavenger.Recipes
             Debug.Assert(requiredTemp > 0);
 
             // One input cannot have multiple recipes
-            foreach (FurnaceRecipe recipe in recipes)
-            {
-                Debug.Assert(!recipe.input.CanSubstituteWith(input));
-            }
+            Debug.Assert(GetRecipeWithInput(input) == null);
 
             recipes.Add(new FurnaceRecipe(input, output, null, requiredTemp));
         }
@@ -76,6 +73,10 @@ namespace Scavenger.Recipes
             Debug.Assert(output.Amount == 1);
             Debug.Assert(byproduct.Amount == 1);
             Debug.Assert(requiredTemp > 0);
+
+            // One input cannot have multiple recipes
+            Debug.Assert(GetRecipeWithInput(input) == null);
+
             recipes.Add(new FurnaceRecipe(input, output, byproduct, requiredTemp));
         }
 

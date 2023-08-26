@@ -54,10 +54,7 @@ namespace Scavenger.Recipes
             Debug.Assert(rollingPass.Item.IsInCategory("RollingPass"));
 
             // One input cannot have multiple recipes
-            foreach (RollingRecipe recipe in recipes)
-            {
-                Debug.Assert(!recipe.input.CanSubstituteWith(input));
-            }
+            Debug.Assert(GetRecipeWithInput(input, rollingPass) == null);
 
             recipes.Add(new RollingRecipe(input, output, rollingPass));
         }

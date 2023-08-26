@@ -43,6 +43,7 @@ namespace Scavenger.Recipes
 
         private void AddRecipe(RecipeComponent<ItemStack>[] inputs, ItemStack output)
         {
+            // TODO check for recipe conflicts
             allRecipes.Add(new CraftingRecipe(inputs, output, false));
         }
 
@@ -131,6 +132,7 @@ namespace Scavenger.Recipes
                     new ItemStack("AluminumScrap", 3),
                     new ItemStack("SteelScrap", 3),
                     new ItemStack("CopperScrap", 5),
+                    new ItemStack("ElectricMotor", 2),
                     new ItemStack("Workbench"),
                 },
                 new ItemStack("MakeshiftAssembler")

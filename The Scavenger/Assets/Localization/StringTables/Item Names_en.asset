@@ -158,16 +158,12 @@ MonoBehaviour:
     m_Localized: Silicon Shard
     m_Metadata:
       m_Items: []
-  - m_Id: 1495839866914
-    m_Localized: Silo
-    m_Metadata:
-      m_Items: []
   - m_Id: 1495839866915
     m_Localized: Slag
     m_Metadata:
       m_Items: []
   - m_Id: 1495839866916
-    m_Localized: Solar Panel
+    m_Localized: Basic Solar Panel
     m_Metadata:
       m_Items: []
   - m_Id: 1495839866917
@@ -336,6 +332,14 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 307679792791552
     m_Localized: Electric Motor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 628807660797952
+    m_Localized: Basic Silo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 628807677575168
+    m_Localized: Basic Energy Cell
     m_Metadata:
       m_Items: []
   references:

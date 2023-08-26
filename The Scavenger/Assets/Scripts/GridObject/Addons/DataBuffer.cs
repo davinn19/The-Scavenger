@@ -1,7 +1,7 @@
 using Leguar.TotalJSON;
 using System;
 
-namespace Scavenger
+namespace Scavenger.GridObjectBehaviors
 {
     public class DataBuffer : Buffer
     {

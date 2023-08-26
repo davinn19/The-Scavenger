@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Scavenger
+namespace Scavenger.GridObjectBehaviors
 {
     // TODO add docs
     public class SiloItemBuffer : ItemBuffer
@@ -43,7 +43,7 @@ namespace Scavenger
         /// </summary>
         /// <param name="itemStack">The itemStack to be inserted.</param>
         /// <returns>True if the itemStack matches the silo's filter.</returns>
-        public override bool AcceptsItemStack(int _, ItemStack itemStack)
+        public override bool AcceptsItemStack(ItemStack _, ItemStack itemStack)
         {
             return lockFilter.IsStackable(itemStack);
         }
