@@ -22,12 +22,18 @@ namespace Scavenger.UI.InspectorContent
             itemBuffer = target.GetComponent<AssemblerItemBuffer>();
 
             addonItemDisplays = addonItemDisplayGroup.GetComponentsInChildren<SlotDisplay>();
+            ItemStack[] addons = itemBuffer.GetAddons();
+            ItemStack[] filters = itemBuffer.GetFilters();
 
-            baseItemDisplay.SetWatchedBuffer(itemBuffer, 0);
-            outputItemDisplay.SetWatchedBuffer(itemBuffer, itemBuffer.NumSlots - 1);
+            baseItemDisplay.SetWatchedBuffer(itemBuffer, itemBuffer.GetBase());
+            baseItemDisplay.GetComponent<FilteredDisplay>().SetFilter(filters[0]);
+
+            outputItemDisplay.SetWatchedBuffer(itemBuffer, itemBuffer.GetOutput());
+
             for (int i = 0; i < addonItemDisplays.Length; i++)
             {
-                addonItemDisplays[i].SetWatchedBuffer(itemBuffer, i + 1);
+                addonItemDisplays[i].SetWatchedBuffer(itemBuffer, addons[i]);
+                addonItemDisplays[i].GetComponent<FilteredDisplay>().SetFilter(filters[i + 1]);
             }
 
             GetComponentInChildren<EnergyGauge>().Buffer = target.GetComponent<EnergyBuffer>();

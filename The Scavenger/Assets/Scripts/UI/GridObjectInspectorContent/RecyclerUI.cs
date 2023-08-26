@@ -37,10 +37,11 @@ namespace Scavenger.UI.InspectorContent
         {
             inputSlot.SetWatchedBuffer(buffer, buffer.GetInput());
 
-            SlotDisplay[] outputSlots = outputSlotGroup.GetComponentsInChildren<SlotDisplay>();
-            for (int i = 0; i < outputSlots.Length; i++)
+            SlotDisplay[] outputSlotDisplays = outputSlotGroup.GetComponentsInChildren<SlotDisplay>();
+            List<ItemStack> outputSlots = buffer.GetOutputSlots();
+            for (int i = 0; i < outputSlotDisplays.Length; i++)
             {
-                outputSlots[i].SetWatchedBuffer(buffer, i + 1);
+                outputSlotDisplays[i].SetWatchedBuffer(buffer, outputSlots[i]);
             }
         }
 

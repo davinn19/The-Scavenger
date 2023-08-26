@@ -15,7 +15,7 @@ namespace Scavenger.UI
         private void Awake()
         {
             itemDisplay = GetComponent<ItemStackDisplay>();
-            itemDisplay.ItemStackChanged += OnTargetChanged;
+            itemDisplay.AppearanceChanged += OnTargetChanged;
 
             categoryDisplay = GetComponent<CategoryItemStackDisplay>();
 

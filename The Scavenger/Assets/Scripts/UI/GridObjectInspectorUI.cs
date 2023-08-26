@@ -74,6 +74,7 @@ namespace Scavenger.UI
                 GameObject child = transform.GetChild(i).gameObject;
                 child.SetActive(active);
             }
+            ClearContent();
         }
 
         /// <summary>

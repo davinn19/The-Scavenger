@@ -71,6 +71,7 @@ namespace Scavenger.GridObjectBehaviors
         public ItemStack GetBase() => baseItem;
         public ItemStack[] GetAddons() => addons;
         public ItemStack GetOutput() => output;
+        public ItemStack[] GetFilters() => filter;
 
         public void SpendInputs()
         {

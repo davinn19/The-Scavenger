@@ -12,17 +12,18 @@ namespace Scavenger.UI
     public class SlotDisplay : MonoBehaviour
     {
         public ItemBuffer Buffer { get; private set; }
+        public ItemStack ManagedItemStack { get; private set; }
 
         public bool Insertable = true;// TODO factor these in
         public bool Extractable = true;
         public bool Swappable => Insertable && Extractable;
 
-        private ItemStackDisplay itemStackDisplay;
+        public ItemStackDisplay ItemStackDisplay { get; private set; }
         private SlotDisplayHandler handler;
 
         private void Awake()
         {
-            itemStackDisplay = GetComponent<ItemStackDisplay>();
+            ItemStackDisplay = GetComponent<ItemStackDisplay>();
             handler = GetComponentInParent<SlotDisplayHandler>();
         }
 
@@ -30,14 +31,14 @@ namespace Scavenger.UI
         /// Changes which item buffer and slot to display.
         /// </summary>
         /// <param name="buffer">The item buffer to display.</param>
-        /// <param name="slot">The slot to display.</param>
-        public void SetWatchedBuffer(ItemBuffer buffer, int slot) => SetWatchedBuffer(buffer, buffer.GetItemInSlot(slot));
-
+        /// <param name="itemStack">The slot to display.</param>
         public void SetWatchedBuffer(ItemBuffer buffer, ItemStack itemStack)
         {
             Debug.Assert(buffer.ItemStackIsInBuffer(itemStack));
             Buffer = buffer;
-            itemStackDisplay.ItemStack = itemStack;
+            ManagedItemStack = itemStack;
+
+            ItemStackDisplay.ItemStack = ManagedItemStack;
         }
 
         // TODO add docs
@@ -45,15 +46,5 @@ namespace Scavenger.UI
         {
             handler.OnSlotDisplayPressed(this);
         }
-
-        /// <summary>
-        /// Gets the itemStack in the displayed item buffer and slot.
-        /// </summary>
-        /// <returns></returns>
-        public ItemStack GetDisplayedItemStack()
-        {
-            return itemStackDisplay.ItemStack;
-        }
-
     }
 }

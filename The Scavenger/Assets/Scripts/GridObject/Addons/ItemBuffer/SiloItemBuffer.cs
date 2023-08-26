@@ -63,6 +63,7 @@ namespace Scavenger.GridObjectBehaviors
             else
             {
                 lockFilter.Copy(storedItem, false);
+                lockFilter.SetAmount(1);
             }
         }
 

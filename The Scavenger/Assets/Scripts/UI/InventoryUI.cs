@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Scavenger.UI
@@ -24,11 +25,11 @@ namespace Scavenger.UI
         private void InitSlotDisplays()
         {
             SlotDisplay[] slotDisplays = GetComponentsInChildren<SlotDisplay>();
-
+            List<ItemStack> inventory = gameManager.Inventory.GetInventory();
             for (int slot = 0; slot < slotDisplays.Length; slot++)
             {
                 SlotDisplay slotDisplay = slotDisplays[slot];
-                slotDisplay.SetWatchedBuffer(gameManager.Inventory, slot);
+                slotDisplay.SetWatchedBuffer(gameManager.Inventory, inventory[slot]);
             }
         }
     }

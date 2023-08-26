@@ -14,7 +14,7 @@ namespace Scavenger.UI
         private void Awake()
         {
             display = GetComponent<ItemStackDisplay>();
-            display.ItemStackChanged += OnTargetChanged;
+            display.AppearanceChanged += OnTargetChanged;
         }
 
         public override void RenderTooltip(Tooltip tooltip)

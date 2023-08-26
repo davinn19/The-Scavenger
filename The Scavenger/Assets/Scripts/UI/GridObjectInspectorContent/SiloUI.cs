@@ -22,7 +22,8 @@ namespace Scavenger.UI.InspectorContent
 
             silo = gridObject.GetComponent<Silo>();
             silo.Buffer.SlotChanged += (_) => UpdateLockButtonStatus();
-            slotDisplay.SetWatchedBuffer(silo.Buffer, 0);
+            slotDisplay.SetWatchedBuffer(silo.Buffer, silo.Buffer.GetItemInSlot(0));
+            slotDisplay.GetComponent<FilteredDisplay>().SetFilter(silo.Buffer.lockFilter);
 
             UpdateLockButtonStatus();
         }

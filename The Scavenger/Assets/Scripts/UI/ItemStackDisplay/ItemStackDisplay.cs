@@ -13,31 +13,39 @@ namespace Scavenger.UI
     public class ItemStackDisplay : MonoBehaviour
     {
         [SerializeField] private Image itemImage;
-        [SerializeField] private TextMeshProUGUI stackAmountDisplay;
+        private TextMeshProUGUI stackAmountDisplay;
 
-        public event Action ItemStackChanged;
+        public event Action AppearanceChanged;
         private ItemStack m_itemStack;
         public ItemStack ItemStack
         {
             get { return m_itemStack; }
-            set
+            set // TODO add docs
             {
+                Debug.Assert(value != null);
+
+                if (m_itemStack != null && m_itemStack == value)
+                {
+                    return;
+                }
+
                 if (m_itemStack != null)
                 {
-                    m_itemStack.Changed -= ItemStackChanged;
+                    m_itemStack.Changed -= UpdateAppearance;
                 }
 
                 m_itemStack = value;
-                m_itemStack.Changed += ItemStackChanged;
-                ItemStackChanged?.Invoke();
+                m_itemStack.Changed += UpdateAppearance;
+                UpdateAppearance();
             }
         }
 
         [field: SerializeField] public bool ShowAmount { get; set; }
+        public bool IsTransparent { get; set; }
 
         private void Awake()
         {
-            ItemStackChanged += UpdateAppearance;
+            stackAmountDisplay = GetComponentInChildren<TextMeshProUGUI>();
         }
 
         private void Start()
@@ -45,11 +53,18 @@ namespace Scavenger.UI
             UpdateAppearance();
         }
 
+        private void OnEnable()
+        {
+            if (ItemStack != null)
+            {
+                ItemStack.Changed += UpdateAppearance;
+            }
+        }
         private void OnDestroy()
         {
             if (ItemStack != null)
             {
-                ItemStack.Changed -= ItemStackChanged;
+                ItemStack.Changed -= UpdateAppearance;
             }
         }
 
@@ -62,16 +77,18 @@ namespace Scavenger.UI
 
             if (ItemStack == null || !ItemStack)
             {
-                itemImage.color = Color.clear;
+                itemImage.enabled = false;
                 stackAmountDisplay.text = "";
             }
             else
             {
+                itemImage.enabled = true;
                 itemImage.sprite = ItemStack.Item.Icon;
-                itemImage.color = Color.white;
 
                 stackAmountDisplay.text = GetAmountString(ItemStack.Amount);
             }
+
+            AppearanceChanged?.Invoke();
         }
 
         /// <summary>

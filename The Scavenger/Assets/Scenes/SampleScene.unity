@@ -7531,6 +7531,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: SlotDisplay
       objectReference: {fileID: 0}
+    - target: {fileID: 7186941246550778303, guid: cfc04d38aff1c2a44baeffdd5f754276, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7186941246550778303, guid: cfc04d38aff1c2a44baeffdd5f754276, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7186941246550778303, guid: cfc04d38aff1c2a44baeffdd5f754276, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

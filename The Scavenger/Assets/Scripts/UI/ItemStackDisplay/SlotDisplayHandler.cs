@@ -29,7 +29,7 @@ namespace Scavenger.UI
             bool quickPressed = false; // TODO add shift input
 
             ItemStack heldItem = inventory.GetHeldItem();
-            ItemStack displayStack = slotDisplay.GetDisplayedItemStack();
+            ItemStack displayStack = slotDisplay.ManagedItemStack;
 
             // Immediately end interaction if slot is empty and no item is held
             if (!heldItem && !displayStack)  
