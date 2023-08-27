@@ -24,15 +24,19 @@ namespace Scavenger.Models
         {
             ItemStack itemStack = buffer.GetItemInSlot(0);
 
-            if (!itemStack)
+            lockIcon.enabled = buffer.IsLocked();
+
+            if (itemStack)
             {
-                icon.sprite = null;
-                lockIcon.enabled = false;
+                icon.sprite = itemStack.Item.Icon;
+            }
+            else if (buffer.lockFilter)
+            {
+                icon.sprite = buffer.lockFilter.Item.Icon;
             }
             else
             {
-                icon.sprite = itemStack.Item.Icon;
-                lockIcon.enabled = buffer.IsLocked();
+                icon.sprite = null;
             }
         }
     }
